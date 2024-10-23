@@ -1,3 +1,4 @@
+#include "PreCompile.h"
 #include "EngineFile.h"
 #include "EngineDebug.h"
 
@@ -83,6 +84,11 @@ bool UEngineFile::IsExits()
 }
 
 
+
+// 보통 파일 혹은 플랫폼 기능들은 언제나 한쌍이다.
+// 시작한다.
+// 사용한다.
+// 끝낸다
 void UEngineFile::Close()
 {
 	// 방어코드
