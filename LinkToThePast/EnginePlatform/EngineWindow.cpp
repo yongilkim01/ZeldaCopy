@@ -59,7 +59,7 @@ void UEngineWindow::EngineWindowInit(HINSTANCE _Instance)
 
 int UEngineWindow::WindowMessageLoop(EngineDelegate _StartFunction, EngineDelegate _FrameFunction)
 {
-    MSG msg;
+    MSG msg = MSG();
 
     // 기본 메시지 루프입니다:
     // 메세지 루프가 getMessage라면 게임의 루프를 돌릴수 없다.
@@ -74,9 +74,12 @@ int UEngineWindow::WindowMessageLoop(EngineDelegate _StartFunction, EngineDelega
     // 메세지가 없다 => 리턴
     // 메세지가 있다 => 처리하고 리턴
 
-    _StartFunction();
+    if (true == _StartFunction.IsBind())
+    {
+        _StartFunction();
+    }
 
-    while (WindowCount)
+    while (0 != WindowCount)
     {
         // if (!TranslateAccelerator(msg.hwnd, nullptr, &msg))  => 윈도우 단축키 자체를 사용하지
         // 않을 것이므로 그냥 무시
@@ -150,6 +153,8 @@ void UEngineWindow::Create(std::string_view _TitleName, std::string_view _ClassN
         MSGASSERT(std::string(_TitleName) + " 윈도우 생성에 실패했습니다.");
         return;
     }
+
+    BackBuffer = GetDC(WindowHandle);
 }
 
 void UEngineWindow::Open(std::string_view _TitleName /*= "Window"*/)

@@ -50,11 +50,12 @@ public:
 		return EngineMainWindow;
 	}
 
+	template<typename GameModeType, typename MainPawnType>
 	void CreateLevel(std::string_view _LevelName)
 	{
 		ULevel* NewLevel = new ULevel();
 
-		Levels.insert({ _LevelName.data(), NewLevel });
+		NewLevel->CreateGameMode<
 	}
 
 protected:

@@ -1,9 +1,12 @@
 #pragma once
+#include "GameMode.h"
 
 // Ό³Έν :
 class ULevel
 {
 public:
+	friend class UEngineAPICore;
+
 	// constrcuter destructer
 	ULevel();
 	~ULevel();
@@ -14,19 +17,44 @@ public:
 	ULevel& operator=(const ULevel& _Other) = delete;
 	ULevel& operator=(ULevel&& _Other) noexcept = delete;
 
-	void Tick()
+	void Tick();
+	void Render();
+
+	template<typename ActorType>
+	ActorType* SpawnActor()
 	{
+		ActorType* NewActor = new ActorType();
 
-	}
+		AActor* ActorPtr = dynamic_cast<AActor*>(NewActor);
 
-	void BeginPlay()
-	{
+		ActorPtr->World = this;
 
+		NewActor->BeginPlay();
+		AllActors.push_Back(NewActor);
+		return NewActor;
 	}
 
 protected:
 
 private:
+	template<typename GameModeType, typename MainPawnType>
+	void CreateGameMode()
+	{
+		GameMode = new GameModeType();
+		MainPawn = new MainPawnType();
+
+		MainPawn->World = this;
+		GameMode->World = this;
+
+		GameMode->BeginPlay();
+		MainPawn->BeginPlay();
+
+		AllActors.push_back(GameMode);
+		AllActors.push_back(MainPawn);
+	}
+
 	class AGameMode* GameMode = nullptr;
+	AActor* MainPawn = nullptr;
+	std::list<AActor*> AllActors;
 };
 

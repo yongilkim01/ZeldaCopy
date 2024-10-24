@@ -37,7 +37,6 @@ public:
 		Functions.push_back(_Function);
 	}
 
-
 	void operator()()
 	{
 		std::list<std::function<void()>>::iterator StartIter = Functions.begin();

@@ -1,7 +1,8 @@
 #pragma once
+#include "AActor.h"
 
 // Ό³Έν :
-class AGameMode
+class AGameMode : public AActor
 {
 public:
 	// constrcuter destructer
