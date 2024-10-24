@@ -20,7 +20,7 @@ public:
 	static void EngineWindowInit(HINSTANCE _Instance);
 	static void CreateWindowClass(const WNDCLASSEXA& _Class);
 
-	static int WindowMessageLoop(EngineDelegate _FrameFunction);
+	static int WindowMessageLoop(EngineDelegate _StartFunction, EngineDelegate _FrameFunction);
 	// constrcuter destructer
 	UEngineWindow();
 	~UEngineWindow();
@@ -38,7 +38,7 @@ protected:
 
 private:
 	static HINSTANCE hInstance;
-	static std::map<std::string, WNDCLASSEXA> WindowClasss;
+	static std::map<std::string, WNDCLASSEXA> WindowClasses;
 
 	// 리눅스에서는 컴파일이 안되거나 실행이 안되는 코드가 된다.
 	// hwnd => 위도우 창 1개

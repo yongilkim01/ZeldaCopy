@@ -27,6 +27,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PreCompile.h" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +43,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineAPICore.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
       <SubType>
       </SubType>
     </ClCompile>

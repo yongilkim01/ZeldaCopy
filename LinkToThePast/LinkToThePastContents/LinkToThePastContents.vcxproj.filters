@@ -1,20 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Player.h" />
     <ClInclude Include="PreCompile.h">
       <Filter>PCH</Filter>
     </ClInclude>
+    <ClInclude Include="ZeldaContentsCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ContentsObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <Filter>PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="ZeldaContentsCore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ContentsObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PCH">
       <UniqueIdentifier>{543d54fc-0611-47a0-a1eb-06ddcf671e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{49a813a7-0ed6-4cf5-a980-34dc816be368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject">
+      <UniqueIdentifier>{8bd85479-a95b-4b02-8c62-4bcc6bb531dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

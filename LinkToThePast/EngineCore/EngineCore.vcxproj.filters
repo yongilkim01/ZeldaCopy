@@ -10,6 +10,12 @@
     <ClInclude Include="EngineAPICore.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Object\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -21,6 +27,12 @@
     <ClCompile Include="EngineAPICore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Object\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode.cpp">
+      <Filter>Object\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PCH">
@@ -31,6 +43,12 @@
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{6eea677c-75ff-4b91-a048-d8102bceedbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Level">
+      <UniqueIdentifier>{2691de27-c31a-4e09-9ae2-428f541fdfc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor">
+      <UniqueIdentifier>{705d56b2-fa45-474c-8a45-46f9553b0417}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 // 여러분들이 여기에다가 이렇게 특정 헤더를 넣으면
 // F5를 누를때마다. #include <Windows.h>가 재빌드 된다.
 // 미리컴파일된 헤더를 사용하면
@@ -10,6 +11,18 @@
 
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
+
+#include "Level.h"
+
+// 함수포인터
+// 가상함수
+
+class UContentsCore
+{
+public:
+	virtual void BeginPlay() = 0;
+	virtual void Tick() = 0;
+};
 
 // 설명 :
 class UEngineAPICore
@@ -25,9 +38,9 @@ public:
 	UEngineAPICore& operator=(const UEngineAPICore& _Other) = delete;
 	UEngineAPICore& operator=(UEngineAPICore&& _Other) noexcept = delete;
 
-	static int EngineStart(HINSTANCE _Inst);
+	static int EngineStart(HINSTANCE _Inst, UContentsCore* _UserCore);
 
-	class UEngineAPICore* GetCore()
+	static class UEngineAPICore* GetCore()
 	{
 		return MainCore;
 	}
@@ -37,17 +50,28 @@ public:
 		return EngineMainWindow;
 	}
 
+	void CreateLevel(std::string_view _LevelName)
+	{
+		ULevel* NewLevel = new ULevel();
+
+		Levels.insert({ _LevelName.data(), NewLevel });
+	}
+
 protected:
 
 private:
-	static void EngineLoop();
+	static void EngineBeginPlay();
+	static void EngineTick();
 	static UEngineAPICore* MainCore;
+	static UContentsCore* UserCore;
 
 	UEngineWindow EngineMainWindow; // 엔진 메인 윈도우
 
+	std::map<std::string, class ULevel*> Levels;
+
+	class ULevel* CurLevel = nullptr;
+
 	// 이녀석들이 돌아가야 게임이 돌아간다.
 	void Tick();
-	void Render();
-
 };
 
