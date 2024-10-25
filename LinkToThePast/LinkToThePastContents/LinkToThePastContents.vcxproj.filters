@@ -10,6 +10,9 @@
     <ClInclude Include="Player.h">
       <Filter>ContentsObject</Filter>
     </ClInclude>
+    <ClInclude Include="PlayGameMode.h">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -21,6 +24,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>ContentsObject</Filter>
     </ClCompile>
+    <ClCompile Include="PlayGameMode.cpp">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PCH">
@@ -31,6 +37,9 @@
     </Filter>
     <Filter Include="ContentsObject">
       <UniqueIdentifier>{8bd85479-a95b-4b02-8c62-4bcc6bb531dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\GameMode">
+      <UniqueIdentifier>{1de941c8-03bd-4f01-b4e1-a182ed377bf9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

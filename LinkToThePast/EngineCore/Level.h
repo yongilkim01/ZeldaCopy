@@ -30,7 +30,7 @@ public:
 		ActorPtr->World = this;
 
 		NewActor->BeginPlay();
-		AllActors.push_Back(NewActor);
+		AllActors.push_back(NewActor);
 		return NewActor;
 	}
 

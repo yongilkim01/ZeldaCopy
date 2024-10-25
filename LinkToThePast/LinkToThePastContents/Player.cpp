@@ -1,11 +1,23 @@
 #include "PreCompile.h"
 #include "Player.h"
+#include <EngineCore/EngineAPICore.h>
 
-Player::Player()
+APlayer::APlayer()
+{
+	SetActorLocation({ 100, 100 });
+	SetActorScale({ 100, 100 });
+}
+
+APlayer::~APlayer()
 {
 }
 
-Player::~Player()
+void APlayer::BeginPlay()
 {
+}
+
+void APlayer::Tick()
+{
+	AddActorLocation(FVector2D::RIGHT * 0.0001f);
 }
 

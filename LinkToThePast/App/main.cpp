@@ -1,11 +1,5 @@
 #include "PreCompile.h"
 #include <LinkToThePastContents/ZeldaContentsCore.h>
-//#include <Windows.h>
-//#include <EnginePlatform/EngineWindow.h>
-//#include <EngineBase/EngineDelegate.h>
-//
-//#pragma comment (lib, "EngineBase.lib")
-//#pragma comment (lib, "EnginePlatform.lib")
 
 #include <EngineCore/EngineAPICore.h>
 
