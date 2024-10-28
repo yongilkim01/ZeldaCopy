@@ -1,5 +1,5 @@
 #pragma once
-#include "AActor.h"
+#include "Actor.h"
 
 // Ό³Έν :
 class AGameMode : public AActor

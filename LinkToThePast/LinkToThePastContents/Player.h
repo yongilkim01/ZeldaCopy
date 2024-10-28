@@ -1,5 +1,5 @@
 #pragma once
-#include <EngineCore/AActor.h>
+#include <EngineCore/Actor.h>
 
 // Ό³Έν :
 class APlayer : public AActor

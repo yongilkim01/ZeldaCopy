@@ -4,7 +4,7 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PCH</Filter>
     </ClInclude>
-    <ClInclude Include="AActor.h">
+    <ClInclude Include="Actor.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="EngineAPICore.h">
@@ -21,7 +21,7 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PCH</Filter>
     </ClCompile>
-    <ClCompile Include="AActor.cpp">
+    <ClCompile Include="Actor.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="EngineAPICore.cpp">

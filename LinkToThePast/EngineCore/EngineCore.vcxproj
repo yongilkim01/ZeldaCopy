@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AActor.h">
+    <ClInclude Include="Actor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -38,7 +38,7 @@
     <ClInclude Include="PreCompile.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AActor.cpp">
+    <ClCompile Include="Actor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

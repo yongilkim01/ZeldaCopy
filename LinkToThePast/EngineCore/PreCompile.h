@@ -2,5 +2,5 @@
 
 #include <EnginePlatform/PreCompile.h>
 
-#include "AActor.h"
+#include "Actor.h"
 #include "Level.h"
