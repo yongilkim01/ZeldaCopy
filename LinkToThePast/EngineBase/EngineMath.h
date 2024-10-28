@@ -1,5 +1,11 @@
 #pragma once
 
+// FVector로 통일하겠습니다.
+// FVector2D xy
+// FVector3D xyz
+// FVector4D xyzw
+// FVector4D == FVector;
+
 class FVector2D
 {
 public:

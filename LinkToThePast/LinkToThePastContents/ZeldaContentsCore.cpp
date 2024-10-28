@@ -16,6 +16,8 @@ ZeldaContentsCore::~ZeldaContentsCore()
 // 엔진이 실행되고 단 1번 실행된다.
 void ZeldaContentsCore::BeginPlay()
 {
+	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A Link to the past");
+
 	UEngineAPICore::GetCore()->CreateLevel<APlayGameMode, APlayer>("Play");
 
 	UEngineAPICore::GetCore()->OpenLevel("Play");

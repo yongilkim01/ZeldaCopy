@@ -61,19 +61,6 @@ int UEngineWindow::WindowMessageLoop(EngineDelegate _StartFunction, EngineDelega
 {
     MSG msg = MSG();
 
-    // 기본 메시지 루프입니다:
-    // 메세지 루프가 getMessage라면 게임의 루프를 돌릴수 없다.
-    // 동기 함수이기 때문이다.
-    // 동기 자신의 목적이 끝날때까지 정지하는 함수.
-
-    // GetMessage
-    // 메세지가 없다 => 영원히 기다림
-    // 메세지가 있다 => 처리하고 리턴
-
-    // 처리하고 리턴
-    // 메세지가 없다 => 리턴
-    // 메세지가 있다 => 처리하고 리턴
-
     if (true == _StartFunction.IsBind())
     {
         _StartFunction();
@@ -81,10 +68,6 @@ int UEngineWindow::WindowMessageLoop(EngineDelegate _StartFunction, EngineDelega
 
     while (0 != WindowCount)
     {
-        // if (!TranslateAccelerator(msg.hwnd, nullptr, &msg))  => 윈도우 단축키 자체를 사용하지
-        // 않을 것이므로 그냥 무시
-
-        // PM_REMOVE == 내가 처리할때 지금까지 쌓인 메세지 다지워.
         if (0 != PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             TranslateMessage(&msg);
@@ -95,8 +78,6 @@ int UEngineWindow::WindowMessageLoop(EngineDelegate _StartFunction, EngineDelega
         {
             _FrameFunction();
         }
-        // 메세지가 없는 시간에 내 게임을 돌리는거야.
-        // 메세지 처리하고 나서 내 게임엔진을 돌린다.
     }
 
     return (int)msg.wParam;
@@ -104,20 +85,11 @@ int UEngineWindow::WindowMessageLoop(EngineDelegate _StartFunction, EngineDelega
 
 void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _Class)
 {
-    // 일반적인 맵의 사용법
-
     std::map<std::string, WNDCLASSEXA>::iterator EndIter = WindowClasses.end();
     std::map<std::string, WNDCLASSEXA>::iterator FindIter = WindowClasses.find(std::string(_Class.lpszClassName));
 
-    // ckw
     if (EndIter != FindIter)
     {
-        // std::string ErrorText = "같은 이름의 윈도우 클래스를 2번 등록했습니다" + std::string(_Class.lpszClassName);
-
-        // std::string 내부에 들고 있는 맴버변수 => std::string => std::vector<char>
-        // std::vector<char> char* = new char[100];
-        // ErrorText const char* 리턴해주는 함수가 c_str()
-        // const char* Text = ErrorText.c_str();
         MSGASSERT(std::string(_Class.lpszClassName) + " 같은 이름의 윈도우 클래스를 2번 등록했습니다");
         return;
     }
@@ -163,7 +135,7 @@ void UEngineWindow::Open(std::string_view _TitleName /*= "Window"*/)
     if (nullptr == WindowHandle)
     {
         // 만들어
-        Create("Window");
+        Create(_TitleName);
     }
 
     if (0 == WindowHandle)
