@@ -7,14 +7,17 @@
     <ClInclude Include="ZeldaContentsCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ContentsObject</Filter>
-    </ClInclude>
     <ClInclude Include="PlayGameMode.h">
       <Filter>ContentsObject\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ContentsObject\Global</Filter>
+    </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>ContentsObject</Filter>
+      <Filter>ContentsObject\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayMap.h">
+      <Filter>ContentsObject\Play</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -24,14 +27,17 @@
     <ClCompile Include="ZeldaContentsCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ContentsObject</Filter>
-    </ClCompile>
     <ClCompile Include="PlayGameMode.cpp">
       <Filter>ContentsObject\GameMode</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ContentsObject\Global</Filter>
+    </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>ContentsObject</Filter>
+      <Filter>ContentsObject\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayMap.cpp">
+      <Filter>ContentsObject\Play</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +52,12 @@
     </Filter>
     <Filter Include="ContentsObject\GameMode">
       <UniqueIdentifier>{1de941c8-03bd-4f01-b4e1-a182ed377bf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Global">
+      <UniqueIdentifier>{8f4392f1-396e-4b8b-be29-b550be7e9d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Play">
+      <UniqueIdentifier>{12c26f1d-7b52-42b2-9dad-ce0bc259929e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
