@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include <EngineBase/EngineMath.h>
 
 // Ό³Έν :
 class UEngineWinImage

@@ -57,6 +57,8 @@ private:
 	AActor* MainPawn = nullptr;
 	std::list<AActor*> AllActors;
 
+	void ScreenClear();
+
 	void DoubleBuffering();
 };
 
