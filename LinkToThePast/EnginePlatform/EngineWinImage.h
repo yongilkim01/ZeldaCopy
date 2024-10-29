@@ -25,12 +25,14 @@ public:
 		ImageDC = _DC;
 	}
 
-	void Create(FVector2D _Scale);
+	void Create(UEngineWinImage* _TargetImage, FVector2D _Scale);
 
 protected:
 
 private:
 	HDC ImageDC = nullptr;
 	HBITMAP hBitMap = nullptr;
+
+	BITMAP Info;
 };
 

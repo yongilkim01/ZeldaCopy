@@ -10,15 +10,21 @@ UEngineWinImage::~UEngineWinImage()
 {
 }
 
-void UEngineWinImage::Create(FVector2D _Scale)
+void UEngineWinImage::Create(UEngineWinImage* _TargetImage, FVector2D _Scale)
 {
-	HBITMAP NewBitMap = static_cast<HBITMAP>(CreateCompatibleBitmap(nullptr, _Scale.iX(), _Scale.iY()));
-	
-	HDC NewImageDC = CreateCompatibleDC(nullptr);
+	if (nullptr == _TargetImage)
+	{
+		MSGASSERT("Main windowDC를 넣지않고 이미지를 생성하려고 했습니다");
+		return;
+	}
 
-	HBITMAP OldBitMap = static_cast<HBITMAP>(SelectObject(NewImageDC, NewBitMap));
+	HBITMAP NewBitmap = static_cast<HBITMAP>(CreateCompatibleBitmap(_TargetImage->GetDC(), _Scale.iX(), _Scale.iY()));
+	
+	HDC NewImageDC = CreateCompatibleDC(_TargetImage->GetDC());
+
+	HBITMAP OldBitMap = static_cast<HBITMAP>(SelectObject(NewImageDC, NewBitmap));
 	DeleteObject(OldBitMap);
 
-	hBitMap = NewBitMap;
+	hBitMap = NewBitmap;
 	ImageDC = NewImageDC;
 }

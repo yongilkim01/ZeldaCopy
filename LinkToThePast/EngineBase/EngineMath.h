@@ -33,12 +33,12 @@ public:
 
 	}
 
-	int iX()
+	int iX() const
 	{
 		return static_cast<int>(X);
 	}
 
-	int iY()
+	int iY() const
 	{
 		return static_cast<int>(Y);
 	}
@@ -87,6 +87,13 @@ public:
 	bool operator==(FVector2D _Other) const
 	{
 		return X == _Other.X && Y == _Other.Y;
+	}
+
+	bool EqualToInt(FVector2D _Other) const
+	{
+		// const FVector* const Ptr;
+		// this = nullptr;
+		return iX() == _Other.iX() && iY() == _Other.iY();
 	}
 
 	FVector2D& operator+=(FVector2D _Other)

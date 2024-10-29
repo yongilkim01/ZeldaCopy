@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Level.h"
+#include "EngineAPICore.h"
 
 ULevel::ULevel()
 {
@@ -44,5 +45,14 @@ void ULevel::Render()
 
 		CurActor->Render();
 	}
+}
+
+void ULevel::DoubleBuffering()
+{
+	UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
+
+	UEngineWinImage* WindowImage = MainWindow.GetWindowImage();
+	UEngineWinImage* BackBufferImage = MainWindow.GetBackBuffer();
+
 }
 

@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Actor.h"
 #include <EngineCore/EngineAPICore.h>
+#include <EnginePlatform/EngineWinImage.h>
 
 AActor::AActor()
 {
@@ -16,8 +17,10 @@ void AActor::Render()
 	FVector2D RightBot = Location + Scale.Half();
 
 	UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
-	HDC BackHDC = MainWindow.GetWindowMainDC();
+	UEngineWinImage* BackBufferImage = MainWindow.GetBackBuffer();
 
-	Rectangle(BackHDC, LeftTop.iX(), LeftTop.iY(), RightBot.iX(), RightBot.iY());
+	HDC BackBufferDC = BackBufferImage->GetDC();
+
+	Rectangle(BackBufferDC, LeftTop.iX(), LeftTop.iY(), RightBot.iX(), RightBot.iY());
 }
 

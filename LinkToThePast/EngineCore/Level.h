@@ -56,5 +56,7 @@ private:
 	class AGameMode* GameMode = nullptr;
 	AActor* MainPawn = nullptr;
 	std::list<AActor*> AllActors;
+
+	void DoubleBuffering();
 };
 

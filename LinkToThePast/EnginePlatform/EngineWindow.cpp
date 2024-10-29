@@ -112,6 +112,12 @@ UEngineWindow::~UEngineWindow()
         delete WindowImage;
         WindowImage = nullptr;
     }
+
+    if (nullptr != BackBufferImage)
+    {
+        delete BackBufferImage;
+        BackBufferImage = nullptr;
+    }
 }
 
 void UEngineWindow::Create(std::string_view _TitleName, std::string_view _ClassName)
@@ -161,9 +167,19 @@ void UEngineWindow::Open(std::string_view _TitleName /*= "Window"*/)
 
 void UEngineWindow::SetWindowPosAndScale(FVector2D _Pos, FVector2D _Scale)
 {
-    RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() };
+    if (false == WindowSize.EqualToInt(_Scale))
+    {
+        if (nullptr != BackBufferImage)
+        {
+            delete BackBufferImage;
+            BackBufferImage = nullptr;
+        }
 
-    AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
+        BackBufferImage = new UEngineWinImage();
+        BackBufferImage->Create(WindowImage, _Scale);
+    }
 
-    ::SetWindowPos(WindowHandle, nullptr, _Pos.iX(), _Pos.iY(), Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
+    WindowSize = _Scale;
+
+    RECT rc = { 0, 0, _Scale.iX(), _Scale.iY() };
 }
