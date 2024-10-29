@@ -18,6 +18,8 @@ void ZeldaContentsCore::BeginPlay()
 {
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A Link to the past");
 
+	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 1280, 720 });
+
 	UEngineAPICore::GetCore()->CreateLevel<APlayGameMode, APlayer>("Play");
 
 	UEngineAPICore::GetCore()->OpenLevel("Play");
