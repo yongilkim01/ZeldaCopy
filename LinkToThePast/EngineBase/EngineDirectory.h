@@ -9,7 +9,6 @@ public:
 	// constrcuter destructer
 	UEngineDirectory();
 	UEngineDirectory(std::string_view _Path);
-	UEngineDirectory(std::filesystem::path _Path);
 	~UEngineDirectory();
 
 	// delete Function
@@ -24,6 +23,5 @@ protected:
 
 private:
 	void GetAllFileRecursive(std::filesystem::path _Path, std::vector<class UEngineFile>& _Result);
-
 };
 
