@@ -53,13 +53,13 @@ void UEngineInput::UEngineKey::KeyCheck(float _DeltaTime)
 	}
 }
 
-void UEngineInput::UEngineKey::EventCheck(float _DeltaTime)
+void UEngineInput::UEngineKey::EventCheck()
 {
 	if (true == IsDown)
 	{
 		for (size_t i = 0; i < DownEvents.size(); i++)
 		{
-			DownEvents[i](_DeltaTime);
+			DownEvents[i]();
 		}
 	}
 
@@ -67,7 +67,7 @@ void UEngineInput::UEngineKey::EventCheck(float _DeltaTime)
 	{
 		for (size_t i = 0; i < PressEvents.size(); i++)
 		{
-			PressEvents[i](_DeltaTime);
+			PressEvents[i]();
 		}
 	}
 
@@ -75,7 +75,7 @@ void UEngineInput::UEngineKey::EventCheck(float _DeltaTime)
 	{
 		for (size_t i = 0; i < FreeEvents.size(); i++)
 		{
-			FreeEvents[i](_DeltaTime);
+			FreeEvents[i]();
 		}
 	}
 
@@ -83,7 +83,7 @@ void UEngineInput::UEngineKey::EventCheck(float _DeltaTime)
 	{
 		for (size_t i = 0; i < UpEvents.size(); i++)
 		{
-			UpEvents[i](_DeltaTime);
+			UpEvents[i]();
 		}
 	}
 }
@@ -208,7 +208,7 @@ void UEngineInput::EventCheck(float _DeltaTime)
 	{
 		// 명시적이기 잖고 디버깅이 힘들어서 별로 좋아하지 않게 되었다.
 		UEngineKey& CurKey = StartIter->second;
-		CurKey.EventCheck(_DeltaTime);
+		CurKey.EventCheck();
 	}
 }
 
@@ -229,7 +229,7 @@ UEngineInput::~UEngineInput()
 {
 }
 
-void UEngineInput::BindAction(int _KeyIndex, KeyEvent _EventType, std::function<void(float) > _Function)
+void UEngineInput::BindAction(int _KeyIndex, KeyEvent _EventType, std::function<void() > _Function)
 {
 	if (false == Keys.contains(_KeyIndex))
 	{
