@@ -13,8 +13,8 @@ AActor::~AActor()
 
 void AActor::Render()
 {
-	FVector2D LeftTop = Location - Scale.Half();
-	FVector2D RightBot = Location + Scale.Half();
+	FVector2D LeftTop = Transform.Location - Transform.Scale.Half();
+	FVector2D RightBot = Transform.Location + Transform.Scale.Half();
 
 	UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
 	UEngineWinImage* BackBufferImage = MainWindow.GetBackBuffer();

@@ -54,5 +54,11 @@ void ULevel::DoubleBuffering()
 	UEngineWinImage* WindowImage = MainWindow.GetWindowImage();
 	UEngineWinImage* BackBufferImage = MainWindow.GetBackBuffer();
 
+	FTransform Trans;
+	Trans.Location = MainWindow.GetWindowSize().Half();
+	Trans.Scale = MainWindow.GetWindowSize();
+
+	BackBufferImage->CopyToBit(WindowImage, Trans);
+
 }
 
