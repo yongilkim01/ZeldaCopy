@@ -8,30 +8,21 @@
 class EngineDelegate
 {
 public:
-	// constrcuter destructer
+	/** 일반 생성자 */
 	EngineDelegate();
-
 	/** 생성자 인자로 전달받은 _Function을 리스트에 추가. */
 	EngineDelegate(std::function<void()> _Function)
 	{
 		Functions.push_back(_Function);
 	}
-
+	/** 소멸자 */
 	~EngineDelegate();
-
-	// delete Function
-	//EngineDelegate(const EngineDelegate& _Other) = delete;
-	//EngineDelegate(EngineDelegate&& _Other) noexcept = delete;
-	//EngineDelegate& operator=(const EngineDelegate& _Other) = delete;
-	//EngineDelegate& operator=(EngineDelegate&& _Other) noexcept = delete;
-
 	/** 함수들의 리스트가 비어져 있는지 여부를 반환 */
 	bool IsBind()
 	{
 		return false == Functions.empty();
 	}
-
-	/** 할당 연산자 */
+	/** 연산자 */
 	void operator=(std::function<void()> _Function)
 	{
 		Functions.push_back(_Function);
@@ -48,7 +39,7 @@ public:
 			Function();
 		}
 	}
-
+	/** 리스트 삭제 */
 	void Clear()
 	{
 		Functions.clear();
