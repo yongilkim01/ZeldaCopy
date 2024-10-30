@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "ZeldaContentsCore.h"
+
 #include <EngineCore/EngineAPICore.h>
+#include <EngineCore/ImageManager.h>
 
 #include <EngineBase/EngineDirectory.h>
 #include <EngineBase/EngineDebug.h>
@@ -22,7 +24,7 @@ void ZeldaContentsCore::BeginPlay()
 {
 	UEngineDirectory Dir;
 
-	if (Dir.MoveParentToDirectory("Resources"))
+	if (Dir.MoveParentToDirectory("Resources") == false)
 	{
 		MSGASSERT("리소스 폴더를 찾지 못했습니다.");
 		return;
@@ -33,6 +35,7 @@ void ZeldaContentsCore::BeginPlay()
 	for (size_t i = 0; i < ImageFiles.size(); i++)
 	{
 		std::string FilePath = ImageFiles[i].GetPathToString();
+		UImageManager::GetInst().Load(FilePath);
 	}
 
 	//if(false == Dir.MoveParent)

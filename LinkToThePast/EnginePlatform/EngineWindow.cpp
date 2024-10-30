@@ -181,5 +181,16 @@ void UEngineWindow::SetWindowPosAndScale(FVector2D _Pos, FVector2D _Scale)
 
     WindowSize = _Scale;
 
-    RECT rc = { 0, 0, _Scale.iX(), _Scale.iY() };
+    RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() };
+
+    // 이게 그 계산해주는 함수이다.
+    // 타이틀바 크기까지 합쳐진 크기로 준다.
+    // 윈도우 입장
+    // 현재 윈도우의 스타일을 넣어줘야 한다.
+
+    // 그러면 또 이녀석은 
+    // 윈도우에서 가져야할 위치를 포함한 크기를 주게 된다.
+    AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
+
+    ::SetWindowPos(WindowHandle, nullptr, _Pos.iX(), _Pos.iY(), Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
 }
