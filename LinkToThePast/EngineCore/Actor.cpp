@@ -31,7 +31,6 @@ void AActor::Render()
 	UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
 	UEngineWinImage* BackBufferImage = MainWindow.GetBackBuffer();
 
-
 	UEngineSprite::USpriteData CurData = Sprite->GetSpriteData(CurIndex);
 	CurData.Image;
 	CurData.Transform;
