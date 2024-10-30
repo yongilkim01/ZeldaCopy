@@ -1,5 +1,8 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
+#include <EngineBase/EngineMath.h>
+
+#include "EngineSprite.h"
 
 // Ό³Έν :
 class AActor

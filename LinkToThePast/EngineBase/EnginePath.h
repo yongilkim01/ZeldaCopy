@@ -19,6 +19,10 @@ public:
 	bool MoveParentToDirectory(std::string_view _Path);
 	/** 경로를 String 객체로 반환하는 메소드 */
 	std::string GetPathToString();
+	/** 파일명 + 확장자 반환하는 메소드 */
+	std::string GetFileName();
+	/** 확장자 메소드 */
+	std::string GetExtension();
 
 	/** 경로상의 디렉토리 또는 파일이 유효한지 확인하는 메소드 */
 	bool IsExists();

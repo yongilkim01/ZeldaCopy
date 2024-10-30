@@ -46,6 +46,16 @@ std::string UEnginePath::GetPathToString()
 	return Path.string();
 }
 
+std::string UEnginePath::GetFileName()
+{
+	return Path.filename().string();
+}
+
+std::string UEnginePath::GetExtension()
+{
+	return Path.extension().string();
+}
+
 bool UEnginePath::MoveParentToDirectory(std::string_view _Path)
 {
 	UEnginePath DummyPath = UEnginePath(Path);

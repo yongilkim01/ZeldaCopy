@@ -19,6 +19,12 @@
     <Filter Include="Time">
       <UniqueIdentifier>{d04a7d8e-3555-4eb1-a8c1-2f34f8cc8347}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{fd4582b5-2fa6-41e1-bd35-ce327439eac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{903fe1c3-0a79-434f-9fdb-392a0c6b5876}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -45,6 +51,12 @@
     <ClCompile Include="EnginePath.cpp">
       <Filter>IO</Filter>
     </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineString.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h">
@@ -70,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="EnginePath.h">
       <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineString.h">
+      <Filter>String</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

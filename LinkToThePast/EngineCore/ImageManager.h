@@ -5,6 +5,7 @@
 #include <string>
 
 #include <EnginePlatform/EngineWinImage.h>
+#include "EngineSprite.h"
 
 // Ό³Έν :
 class UImageManager
@@ -26,6 +27,12 @@ public:
 	}
 
 	void Load(std::string_view Path);
+	void Load(std::string_view KeyName, std::string_view Path);
+
+	void CuttingSprite(std::string_view KeyName, FVector2D CuttingSize);
+
+	bool IsLoadSprite(std::string_view KeyName);
+	UEngineSprite* FindSprite(std::string_view KeyName);
 
 protected:
 
@@ -33,5 +40,6 @@ private:
 	UImageManager();
 
 	std::map<std::string, UEngineWinImage*> Images;
+	std::map<std::string, UEngineSprite*> Sprites;
 };
 
