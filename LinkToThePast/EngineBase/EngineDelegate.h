@@ -11,9 +11,9 @@ public:
 	/** 일반 생성자 */
 	EngineDelegate();
 	/** 생성자 인자로 전달받은 _Function을 리스트에 추가. */
-	EngineDelegate(std::function<void()> _Function)
+	EngineDelegate(std::function<void()> Function)
 	{
-		Functions.push_back(_Function);
+		Functions.push_back(Function);
 	}
 	/** 소멸자 */
 	~EngineDelegate();
@@ -23,9 +23,9 @@ public:
 		return false == Functions.empty();
 	}
 	/** 연산자 */
-	void operator=(std::function<void()> _Function)
+	void operator=(std::function<void()> Function)
 	{
-		Functions.push_back(_Function);
+		Functions.push_back(Function);
 	}
 
 	void operator()()

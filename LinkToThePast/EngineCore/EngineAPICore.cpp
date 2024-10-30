@@ -6,15 +6,15 @@
 #include <EngineBase/EngineDelegate.h>
 #include <EngineBase/EngineDebug.h>
 
-
 #include <Windows.h>
 
+/** 정적 변수를 nullptr로 초기화 */
 UEngineAPICore* UEngineAPICore::MainCore = nullptr;
 UContentsCore* UEngineAPICore::UserCore = nullptr;
 
 UEngineAPICore::UEngineAPICore()
 {
-	// 언리얼에서 GEngine
+	// == 언리얼 GEngine()
 	//MainCore = this;
 }
 

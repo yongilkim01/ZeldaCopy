@@ -6,6 +6,7 @@
 #include <functional>
 #include <map>
 
+/** 키 이벤트 */
 enum class KeyEvent
 {
 	Down,
@@ -36,6 +37,7 @@ public:
 protected:
 
 private:
+	/** 키 이벤트 */
 	class UEngineKey
 	{
 	public:

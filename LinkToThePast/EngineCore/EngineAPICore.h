@@ -1,11 +1,5 @@
 #pragma once
 #include <string>
-// 여러분들이 여기에다가 이렇게 특정 헤더를 넣으면
-// F5를 누를때마다. #include <Windows.h>가 재빌드 된다.
-// 미리컴파일된 헤더를 사용하면
-// 미리컴파일된 헤더에 넣어진 헤더는 빌드를하면 .pch파일에 빌드결과가 남고
-// 그후에는 빌드되지 않는다.
-// 컴파일 시간이 
 #include <Windows.h>
 #include <EnginePlatform/EngineWindow.h>
 #include <EngineBase/EngineTimer.h>
@@ -15,9 +9,18 @@
 
 #include "Level.h"
 
-// 함수포인터
-// 가상함수
+/** 엔진 시작 구조
+*
+*   엔진 시작
+*      |
+*      V
+*   레벨 생성
+*      |
+*      V
+*   게임모드, 메인 폰 생성
+*/
 
+/** 컨텐츠 코어 인터페이스 */
 class UContentsCore
 {
 public:
@@ -25,37 +28,24 @@ public:
 	virtual void Tick() = 0;
 };
 
-// 설명 :
+/** 메인 엔진 코어 클래스 */
 class UEngineAPICore
 {
 public:
-	// constrcuter destructer
+	/** 생성자, 소멸자 */
 	UEngineAPICore();
 	~UEngineAPICore();
 
-	// delete Function
+	/** 연산자 삭제 */
 	UEngineAPICore(const UEngineAPICore& _Other) = delete;
 	UEngineAPICore(UEngineAPICore&& _Other) noexcept = delete;
 	UEngineAPICore& operator=(const UEngineAPICore& _Other) = delete;
 	UEngineAPICore& operator=(UEngineAPICore&& _Other) noexcept = delete;
 
+	/** 엔진 시작 정적 메소드 */
 	static int EngineStart(HINSTANCE _Inst, UContentsCore* _UserCore);
-
-	static class UEngineAPICore* GetCore()
-	{
-		return MainCore;
-	}
-
-	UEngineWindow& GetMainWindow()
-	{
-		return EngineMainWindow;
-	}
-
-	float GetDeltaTime()
-	{
-		return DeltaTimer.GetDeltaTime();
-	}
-
+	/** 레벨 관련 메소드 */
+	void OpenLevel(std::string_view _LevelName);
 	template<typename GameModeType, typename MainPawnType>
 	ULevel* CreateLevel(std::string_view _LevelName)
 	{
@@ -68,24 +58,33 @@ public:
 		return NewLevel;
 	}
 
-	void OpenLevel(std::string_view _LevelName);
-
-protected:
+	/** 엔진 코어 반환 메소드 */
+	static class UEngineAPICore* GetCore() { return MainCore; }
+	/** 메인 윈도우 반환 메소드 */
+	UEngineWindow& GetMainWindow() { return EngineMainWindow; }
+	/** 델타 타임 반환 메소드 */
+	float GetDeltaTime() { return DeltaTimer.GetDeltaTime(); }
 
 private:
+	/** 엔진 초기화 정적 메소드 */
 	static void EngineBeginPlay();
+	/** 엔진 업데이트 정적 메소드 */
 	static void EngineTick();
-	static UEngineAPICore* MainCore;
-	static UContentsCore* UserCore;
-
-	UEngineTimer DeltaTimer = UEngineTimer();
-	UEngineWindow EngineMainWindow = UEngineWindow(); // 엔진 메인 윈도우
-
-	std::map<std::string, class ULevel*> Levels;
-
-	class ULevel* CurLevel = nullptr;
-
-	// 이녀석들이 돌아가야 게임이 돌아간다.
+	/** 게임 업데이트 메소드 */
 	void Tick();
+
+private:
+	/** 엔진 코어 정적 멤버 변수 */
+	static UEngineAPICore* MainCore;
+	/** 콘텐츠 코어 정적 멤버 변수 */
+	static UContentsCore* UserCore;
+	/** 델타 타이머 멤버 변수 */
+	UEngineTimer DeltaTimer = UEngineTimer();
+	/** 엔진 메인 윈도우 멤버 변수 */
+	UEngineWindow EngineMainWindow = UEngineWindow();
+	/** 레벨들을 맵 형태로 관리하는 멤버 변수 */
+	std::map<std::string, class ULevel*> Levels;
+	/** 현재 레벨멤버 변수 */
+	class ULevel* CurLevel = nullptr;
 };
 

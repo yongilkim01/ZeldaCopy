@@ -7,7 +7,7 @@
 class UEnginePath
 {
 public:
-	// 持失切, 社瑚切
+	/** 持失切 社瑚切 */
 	UEnginePath();
 	UEnginePath(std::string_view _Path);
 	UEnginePath(std::filesystem::path _Path);

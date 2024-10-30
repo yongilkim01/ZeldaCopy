@@ -118,7 +118,7 @@ UEngineWindow::~UEngineWindow()
         delete BackBufferImage;
         BackBufferImage = nullptr;
     }
-
+    
     // 릴리즈하는 순서는 왠만하면 만들어진 순서의 역순이 좋다.
     if (nullptr != WindowHandle)
     {

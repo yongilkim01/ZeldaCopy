@@ -23,17 +23,19 @@ UEnginePath::~UEnginePath()
 
 bool UEnginePath::IsExists()
 {
+	// 경로가 유효한지 확인
 	return std::filesystem::exists(Path);
 }
 
 bool UEnginePath::IsDirectory()
 {
+	// 경로가 유효한지 확인
 	return std::filesystem::is_directory(Path);
 }
 
 bool UEnginePath::IsFile()
 {
-	return false == IsDirectory();
+	return IsDirectory() == false;
 }
 
 void UEnginePath::MoveParent()
@@ -60,7 +62,7 @@ bool UEnginePath::MoveParentToDirectory(std::string_view _Path)
 {
 	UEnginePath DummyPath = UEnginePath(Path);
 
-	if (false == DummyPath.IsDirectory())
+	if (DummyPath.IsDirectory() == false)
 	{
 		MSGASSERT("디렉토리 경로일때만 MoveParentToDirectory 를 호출할수 있습니다");
 		return false;

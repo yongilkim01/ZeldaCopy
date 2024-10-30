@@ -8,8 +8,8 @@ UEngineDirectory::UEngineDirectory()
 
 }
 
-UEngineDirectory::UEngineDirectory(std::string_view _Path)
-	: UEnginePath(_Path)
+UEngineDirectory::UEngineDirectory(std::string_view Path)
+	: UEnginePath(Path)
 {
 }
 
@@ -18,7 +18,7 @@ UEngineDirectory::~UEngineDirectory()
 
 }
 
-std::vector<class UEngineFile> UEngineDirectory::GetAllFile(bool _IsRecursive /* = true */)
+std::vector<class UEngineFile> UEngineDirectory::GetAllFile(bool IsRecursive /* = true */)
 {
 	// 결과를 반환할 벡터 객체
 	std::vector<class UEngineFile> Result;
@@ -39,7 +39,7 @@ std::vector<class UEngineFile> UEngineDirectory::GetAllFile(bool _IsRecursive /*
 		if (Path.IsDirectory() == true)
 		{
 			// IsRecursive가 true일 경우
-			if (_IsRecursive == true)
+			if (IsRecursive == true)
 			{
 				GetAllFileRecursive(FilePath, Result);
 			}
@@ -57,7 +57,7 @@ std::vector<class UEngineFile> UEngineDirectory::GetAllFile(bool _IsRecursive /*
 	return Result;
 }
 
-void UEngineDirectory::GetAllFileRecursive(std::filesystem::path _Path, std::vector<class UEngineFile>& _Result)
+void UEngineDirectory::GetAllFileRecursive(std::filesystem::path _Path, std::vector<class UEngineFile>& Result)
 {
 	// 경로를 넣어주면 그 경로의 첫번째 파일을 포커스
 	std::filesystem::directory_iterator Diriter = std::filesystem::directory_iterator(_Path);
@@ -74,13 +74,13 @@ void UEngineDirectory::GetAllFileRecursive(std::filesystem::path _Path, std::vec
 		// 파일 경로의 디렉토리가 유효할 경우
 		if (Path.IsDirectory() == true)
 		{
-			GetAllFileRecursive(FilePath, _Result);
+			GetAllFileRecursive(FilePath, Result);
 			++Diriter;
 			continue;
 		}
 		
 		// 결과 배열의 추가
-		_Result.push_back(UEngineFile(FilePath));
+		Result.push_back(UEngineFile(FilePath));
 		++Diriter;
 	}
 }

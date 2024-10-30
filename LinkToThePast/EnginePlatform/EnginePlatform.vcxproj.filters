@@ -10,7 +10,9 @@
     <ClInclude Include="EngineInput.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="EngineWinImage.h" />
+    <ClInclude Include="EngineWinImage.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -22,7 +24,9 @@
     <ClCompile Include="EngineInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="EngineWinImage.cpp" />
+    <ClCompile Include="EngineWinImage.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PCH">
@@ -33,6 +37,9 @@
     </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{30b31b7b-8fe0-4464-88dc-974796035d1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{fb801a64-b8bd-4380-bbd1-70634651e803}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
