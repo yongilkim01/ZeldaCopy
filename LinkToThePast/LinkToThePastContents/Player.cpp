@@ -6,8 +6,11 @@
 
 APlayer::APlayer()
 {
+	// UEngineAPICore::GetCore()->CreateLevel("Title");
 	SetActorLocation({ 100, 100 });
-	SetActorScale({ 100, 100 });
+	SetActorScale({ 256, 256 });
+
+	SetSprite("PlayerRunDown.png");
 }
 
 APlayer::~APlayer()
@@ -49,6 +52,12 @@ void APlayer::Tick(float _DeltaTime)
 	if (UEngineInput::GetInst().IsPress('W'))
 	{
 		AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
+	}
+
+	if (true == UEngineInput::GetInst().IsDown('R'))
+	{
+		SetSprite("Player_Right.png", MySpriteIndex);
+		++MySpriteIndex;
 	}
 
 }

@@ -123,8 +123,10 @@ bool UImageManager::IsLoadSprite(std::string_view KeyName)
 
 UEngineSprite* UImageManager::FindSprite(std::string_view KeyName)
 {
+	// 파일 이름 또는 경로를 대문자로 변환
 	std::string UpperName = UEngineString::ToUpper(KeyName);
 
+	// 포
 	if (false == Sprites.contains(UpperName))
 	{
 		MSGASSERT("로드하지 않은 스프라이트를 사용하려고 했습니다" + std::string(KeyName));

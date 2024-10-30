@@ -38,6 +38,8 @@ void ZeldaContentsCore::BeginPlay()
 		UImageManager::GetInst().Load(FilePath);
 	}
 
+	UImageManager::GetInst().CuttingSprite("PlayerRunDown.png", { 64, 64 });
+
 	//if(false == Dir.MoveParent)
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A Link to the past");

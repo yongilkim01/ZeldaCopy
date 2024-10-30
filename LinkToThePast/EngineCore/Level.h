@@ -54,7 +54,7 @@ private:
 	}
 
 	class AGameMode* GameMode = nullptr;
-	AActor* MainPawn = nullptr;
+	class AActor* MainPawn = nullptr;
 	std::list<AActor*> AllActors;
 
 	void ScreenClear();
