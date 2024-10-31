@@ -16,8 +16,8 @@ public:
 	APlayMap& operator=(APlayMap&& _Other) noexcept = delete;
 
 protected:
+	// void BeginPlay() override;
 
 private:
 
 };
-

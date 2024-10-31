@@ -19,6 +19,9 @@
     <ClInclude Include="PlayMap.h">
       <Filter>ContentsObject\Play</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsEnum.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -39,6 +42,9 @@
     <ClCompile Include="PlayMap.cpp">
       <Filter>ContentsObject\Play</Filter>
     </ClCompile>
+    <ClCompile Include="ContentsEnum.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PCH">
@@ -58,6 +64,9 @@
     </Filter>
     <Filter Include="ContentsObject\Play">
       <UniqueIdentifier>{12c26f1d-7b52-42b2-9dad-ce0bc259929e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{da15f387-2619-4319-85c2-199836679ba5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -19,9 +19,9 @@ public:
 	~EngineDelegate();
 
 	/** ¿¬»êÀÚ */
-	void operator=(std::function<void()> Function)
+	void operator+=(std::function<void()> _Function)
 	{
-		Functions.push_back(Function);
+		Functions.push_back(_Function);
 	}
 
 	void operator()()

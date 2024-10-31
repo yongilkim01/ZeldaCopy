@@ -1,16 +1,34 @@
 #include "PreCompile.h"
 #include "Player.h"
+
 #include <EngineCore/EngineAPICore.h>
+#include <EngineCore/SpriteRenderer.h>
+
 #include <EnginePlatform/EngineInput.h>
 #include "Bullet.h"
+
+void APlayer::RunSoundPlay()
+{
+
+}
 
 APlayer::APlayer()
 {
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
 	SetActorLocation({ 100, 100 });
-	SetActorScale({ 256, 256 });
 
-	SetSprite("PlayerRunDown", MySpriteIndex);
+	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+	SpriteRenderer->SetSprite("Player_Right.png");
+	SpriteRenderer->SetComponentScale({ 300, 300 });
+
+	// SpriteRenderer->CreateAnimation("bomb", 0, 2, 0.1f);
+
+	SpriteRenderer->CreateAnimation("Run_Right", "Player_Right.png", 2, 4, 0.1f);
+	SpriteRenderer->CreateAnimation("Idle_Right", "Player_Right.png", 0, 0, 0.1f);
+	SpriteRenderer->ChangeAnimation("Idle_Right");
+
+	// SpriteRenderer->CreateAnimation("Test", "Player_Right.png", { 5,  4,  3}, 0.1f);
+	SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
 }
 
 APlayer::~APlayer()
@@ -20,44 +38,43 @@ APlayer::~APlayer()
 void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	//UEngineInput::GetInst().BindAction('A', KeyEvent::Press, std::bind(&APlayer::MoveFunction, this, FVector2D::LEFT));
-	//UEngineInput::GetInst().BindAction('D', KeyEvent::Press, std::bind(&APlayer::MoveFunction, this, FVector2D::RIGHT));
-	//UEngineInput::GetInst().BindAction('S', KeyEvent::Press, std::bind(&APlayer::MoveFunction, this, FVector2D::DOWN));
-	//UEngineInput::GetInst().BindAction('W', KeyEvent::Press, std::bind(&APlayer::MoveFunction, this, FVector2D::UP));
-}
 
-void APlayer::MoveFunction(FVector2D _Dir)
-{
-	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
-
-	AddActorLocation(_Dir * DeltaTime * Speed);
+	// 직접 카메라 피봇을 설정해줘야 한다.
+	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+	GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
 }
 
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (UEngineInput::GetInst().IsPress('D'))
+	if (true == UEngineInput::GetInst().IsPress('D'))
 	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
 	}
-	if (UEngineInput::GetInst().IsPress('A'))
+	if (true == UEngineInput::GetInst().IsPress('A'))
 	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::LEFT * _DeltaTime * Speed);
 	}
-	if (UEngineInput::GetInst().IsPress('S'))
+	if (true == UEngineInput::GetInst().IsPress('S'))
 	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::DOWN * _DeltaTime * Speed);
 	}
-	if (UEngineInput::GetInst().IsPress('W'))
+	if (true == UEngineInput::GetInst().IsPress('W'))
 	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
 	}
 
-	if (true == UEngineInput::GetInst().IsDown('R'))
+	if (false == UEngineInput::GetInst().IsPress('A') &&
+		false == UEngineInput::GetInst().IsPress('D') &&
+		false == UEngineInput::GetInst().IsPress('W') &&
+		false == UEngineInput::GetInst().IsPress('S'))
 	{
-		SetSprite("Player_Right.png", MySpriteIndex);
-		++MySpriteIndex;
+		SpriteRenderer->ChangeAnimation("Idle_Right");
 	}
 
 }

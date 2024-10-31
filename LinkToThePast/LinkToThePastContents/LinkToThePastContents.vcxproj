@@ -155,6 +155,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Player.h">
       <SubType>
       </SubType>
@@ -178,6 +179,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentsEnum.cpp" />
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>

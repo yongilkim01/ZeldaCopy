@@ -22,16 +22,27 @@ ZeldaContentsCore::~ZeldaContentsCore()
 // 엔진이 실행되고 단 1번 실행된다.
 void ZeldaContentsCore::BeginPlay()
 {
+	// UEngineDirectory Dir = "C:\\AAA";
+
 	UEngineDirectory Dir;
 
-	// 현재 디렉토리 Resources 디렉토리
-	if (Dir.MoveParentToDirectory("Resources") == false)
+	// 상대경로가 중요하다.
+	// 상대 경로의 핵심은 이것이다.
+	// 내가 어디서 실행됐는지는 중요하지 않아야 한다.
+	// 선생님은 게임이 없기 때문이고.
+	// 여려분들은 레벨에서 하는걸 권장합니다.
+	// Global / 레벨에 관련된 
+
+	// 상대경로 어디든 내 프로젝트의 폴더 안에 있는 Resources찾는 방식으로 처리했다.
+	// 
+	// if (false == Dir.MoveParentToDirectory("fasdjklfadsjklf"))
+	if (false == Dir.MoveParentToDirectory("Resources"))
 	{
 		MSGASSERT("리소스 폴더를 찾지 못했습니다.");
 		return;
 	}
 
-
+	// 모든 파일 다 얻어낸다음
 	std::vector<UEngineFile> ImageFiles = Dir.GetAllFile();
 
 	for (size_t i = 0; i < ImageFiles.size(); i++)
@@ -40,18 +51,35 @@ void ZeldaContentsCore::BeginPlay()
 		UImageManager::GetInst().Load(FilePath);
 	}
 
-	UImageManager::GetInst().CuttingSprite("PlayerRunDown.png", { 64, 64 });
+	// 일반 텍스처가 다 로딩되면
+	// 자르는 작업을 아래서 해주는게 좋다.
 
-	//if(false == Dir.MoveParent)
+	UImageManager::GetInst().CuttingSprite("Player_Right.png", { 128, 128 });
 
-	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A Link to the past");
 
+	{
+
+		UEngineDirectory BombDir;
+		BombDir.MoveParentToDirectory("Resources");
+		BombDir.Append("bomb");
+
+		UImageManager::GetInst().LoadFolder(BombDir.GetPathToString());
+
+	}
+
+
+
+
+
+	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("EduWindow");
+
+	// 이거 꼭 호출해줘야 합니다.
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 1280, 720 });
 
 	UEngineAPICore::GetCore()->CreateLevel<APlayGameMode, APlayer>("Play");
+	//UEngineAPICore::GetCore()->CreateLevel("End");
 
 	UEngineAPICore::GetCore()->OpenLevel("Play");
-	// CreateLevel();
 
 }
 
