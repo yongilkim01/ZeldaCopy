@@ -43,6 +43,7 @@ public:
 
 	bool IsLoadSprite(std::string_view KeyName);
 	UEngineSprite* FindSprite(std::string_view KeyName);
+	UEngineWinImage* FindImage(std::string_view KeyName);
 
 protected:
 

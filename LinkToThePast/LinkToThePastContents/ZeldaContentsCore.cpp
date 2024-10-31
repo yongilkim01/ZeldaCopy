@@ -32,9 +32,7 @@ void ZeldaContentsCore::BeginPlay()
 	}
 
 
-
 	std::vector<UEngineFile> ImageFiles = Dir.GetAllFile();
-
 
 	for (size_t i = 0; i < ImageFiles.size(); i++)
 	{

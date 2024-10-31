@@ -40,10 +40,10 @@ public:
 	void Open(std::string_view _TitleName = "Window");
 
 	void SetWindowPosAndScale(FVector2D _Pos, FVector2D _Scale);
+	void SetWindowTitle(std::string_view Text) { SetWindowTextA(WindowHandle, Text.data()); }
 	inline FVector2D GetWindowSize() const { return WindowSize; }
 	inline UEngineWinImage* GetWindowImage() const { return WindowImage; }
 	inline UEngineWinImage* GetBackBuffer() const { return BackBufferImage; }
-	inline void SetWindowTitle(std::string_view Text) { SetWindowTextA(WindowHandle, Text.data()); }
 
 protected:
 

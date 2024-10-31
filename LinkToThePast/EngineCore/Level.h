@@ -5,6 +5,7 @@
 class ULevel
 {
 public:
+	friend class USpriteRenderer;
 	friend class UEngineAPICore;
 
 	// constrcuter destructer
@@ -18,7 +19,7 @@ public:
 	ULevel& operator=(ULevel&& _Other) noexcept = delete;
 
 	void Tick(float _DeltaTime);
-	void Render();
+	void Render(float DeltaTime);
 
 	template<typename ActorType>
 	ActorType* SpawnActor()
@@ -29,10 +30,13 @@ public:
 
 		ActorPtr->World = this;
 
-		NewActor->BeginPlay();
-		AllActors.push_back(NewActor);
+		BeginPlayList.push_back(ActorPtr);
+
 		return NewActor;
 	}
+
+	void SetCameraToMainPawn(bool IsCameraToMainPawn) { this->IsCameraToMainPawn = IsCameraToMainPawn; }
+	void SetCameraPivot(FVector2D Pivot) { CameraPivot = Pivot; }
 
 protected:
 
@@ -49,16 +53,25 @@ private:
 		GameMode->BeginPlay();
 		MainPawn->BeginPlay();
 
-		AllActors.push_back(GameMode);
-		AllActors.push_back(MainPawn);
+		BeginPlayList.push_back(GameMode);
+		BeginPlayList.push_back(MainPawn);
 	}
+
+	void ScreenClear();
+	void DoubleBuffering();
+	void PushRenderer(class USpriteRenderer* Renderer);
+	void ChangeRenderOrder(class USpriteRenderer* Renderer, int PrevOrder);
 
 	class AGameMode* GameMode = nullptr;
 	class AActor* MainPawn = nullptr;
 	std::list<AActor*> AllActors;
+	std::list<AActor*> BeginPlayList;
 
-	void ScreenClear();
+	/** 카메라 관련 멤버 변수 */
+	bool IsCameraToMainPawn = true;
+	FVector2D CameraPos;
+	FVector2D CameraPivot;
 
-	void DoubleBuffering();
+	std::map<int, std::list<class USpriteRenderer*>> Renderers;
 };
 

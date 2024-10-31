@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Level.h"
 #include "EngineAPICore.h"
+#include "SpriteRenderer.h"
 
 #include <EngineBase/EngineMath.h>
 #include <EnginePlatform/EngineWindow.h>
@@ -28,28 +29,59 @@ ULevel::~ULevel()
 
 void ULevel::Tick(float _DeltaTime)
 {
-	std::list<AActor*>::iterator StartIter = AllActors.begin();
-	std::list<AActor*>::iterator EndIter = AllActors.end();
-
-	for (; StartIter != EndIter; ++StartIter)
 	{
-		AActor* CurActor = *StartIter;
-		CurActor->Tick(_DeltaTime);
+		std::list<AActor*>::iterator StartIter = BeginPlayList.begin();
+		std::list<AActor*>::iterator EndIter = BeginPlayList.end();
+
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			AActor* CurActor = *StartIter;
+			CurActor->BeginPlay();
+			AllActors.push_back(CurActor);
+		}
+
+		BeginPlayList.clear();
+
+		AActor::ComponentBeginPlay();
+	}
+
+	{
+		std::list<AActor*>::iterator StartIter = AllActors.begin();
+		std::list<AActor*>::iterator EndIter = AllActors.end();
+
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			AActor* CurActor = *StartIter;
+
+			CurActor->Tick(_DeltaTime);
+		}
 	}
 }
 
-void ULevel::Render()
+void ULevel::Render(float DeltaTime)
 {
 	ScreenClear();
 
-	std::list<AActor*>::iterator StartIter = AllActors.begin();
-	std::list<AActor*>::iterator EndIter = AllActors.end();
-
-	for (; StartIter != EndIter; ++StartIter)
+	if (IsCameraToMainPawn == true)
 	{
-		AActor* CurActor = *StartIter;
+		// CameraPivot = FVector2D(-1280, -720) * 0.5f;
+		CameraPos = MainPawn->GetTransform().Location + CameraPivot;
+	}
 
-		CurActor->Render();
+	std::map<int, std::list<class USpriteRenderer*>>::iterator StartOrderIter = Renderers.begin();
+	std::map<int, std::list<class USpriteRenderer*>>::iterator EndOrderIter = Renderers.end();
+
+	for (; StartOrderIter != EndOrderIter; ++StartOrderIter)
+	{
+		std::list<class USpriteRenderer*>& RendererList = StartOrderIter->second;
+
+		std::list<class USpriteRenderer*>::iterator RenderStartIter = RendererList.begin();
+		std::list<class USpriteRenderer*>::iterator RenderEndIter = RendererList.end();
+
+		for (; RenderStartIter != RenderEndIter; ++RenderStartIter)
+		{
+			(*RenderStartIter)->Render(DeltaTime);
+		}
 	}
 
 	DoubleBuffering();
@@ -61,7 +93,8 @@ void ULevel::ScreenClear()
 	UEngineWinImage* BackBufferImage = MainWindow.GetBackBuffer();
 	FVector2D Size = MainWindow.GetWindowSize();
 
-	Rectangle(BackBufferImage->GetDC(), 0, 0, Size.iX(), Size.iY());
+	//Rectangle(BackBufferImage->GetDC(), 0, 0, Size.iX(), Size.iY());
+	Rectangle(BackBufferImage->GetDC(), -1, -1, Size.iX() + 2, Size.iY() + 2);
 }
 
 void ULevel::DoubleBuffering()
@@ -76,6 +109,19 @@ void ULevel::DoubleBuffering()
 	Trans.Scale = MainWindow.GetWindowSize();
 
 	BackBufferImage->CopyToBit(WindowImage, Trans);
+}
 
+void ULevel::PushRenderer(USpriteRenderer* Renderer)
+{
+	int Order = Renderer->GetOrder();
+
+	Renderers[Order].push_back(Renderer);
+}
+
+void ULevel::ChangeRenderOrder(USpriteRenderer* Renderer, int PrevOrder)
+{
+	Renderers[PrevOrder].remove(Renderer);
+
+	Renderers[Renderer->GetOrder()].push_back(Renderer);
 }
 

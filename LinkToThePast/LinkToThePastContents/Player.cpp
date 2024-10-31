@@ -10,7 +10,7 @@ APlayer::APlayer()
 	SetActorLocation({ 100, 100 });
 	SetActorScale({ 256, 256 });
 
-	SetSprite("PlayerRunDown.png");
+	SetSprite("PlayerRunDown", MySpriteIndex);
 }
 
 APlayer::~APlayer()

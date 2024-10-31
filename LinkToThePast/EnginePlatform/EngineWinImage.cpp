@@ -21,6 +21,17 @@ UEngineWinImage::UEngineWinImage()
 
 UEngineWinImage::~UEngineWinImage()
 {
+	if (nullptr != hBitMap)
+	{
+		DeleteObject(hBitMap);
+		hBitMap = nullptr;
+	}
+
+	if (nullptr != ImageDC)
+	{
+		DeleteDC(ImageDC);
+		ImageDC = nullptr;
+	}
 }
 
 // 메인 윈도우 DC를 통해서 윈도우 창의 크기만큼 그려진 이미지를 초기화 될 때 호출

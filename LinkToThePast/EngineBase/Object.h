@@ -20,6 +20,9 @@ public:
 		Name = _Name.data();
 	}
 
+	inline std::string GetName() const { return Name; }
+	inline std::string_view GetNameView() const { return Name.c_str(); }
+
 protected:
 
 private:

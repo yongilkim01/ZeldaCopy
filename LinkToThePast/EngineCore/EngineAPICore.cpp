@@ -82,7 +82,7 @@ void UEngineAPICore::Tick()
 	// 키체크
 	UEngineInput::GetInst().KeyCheck(DeltaTime);
 
-	if (nullptr == CurLevel)
+	if (CurLevel == nullptr)
 	{
 		MSGASSERT("엔진 코어에 현재 레벨이 지정되지 않았습니다");
 		return;
@@ -90,7 +90,7 @@ void UEngineAPICore::Tick()
 
 	UEngineInput::GetInst().EventCheck(DeltaTime);
 	CurLevel->Tick(DeltaTime);
-	CurLevel->Render();
+	CurLevel->Render(DeltaTime);
 }
 
 void UEngineAPICore::OpenLevel(std::string_view _LevelName)
@@ -102,7 +102,7 @@ void UEngineAPICore::OpenLevel(std::string_view _LevelName)
 
 	if (EndIter == FindIter)
 	{
-		MSGASSERT(ChangeName + "라는 이름의 레벨은 존재하지 않습니다.");
+		MSGASSERT(ChangeName + " 라는 이름의 레벨은 존재하지 않습니다.");
 		return;
 	}
 

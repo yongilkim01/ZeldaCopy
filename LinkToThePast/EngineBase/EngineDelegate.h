@@ -17,11 +17,7 @@ public:
 	}
 	/** 소멸자 */
 	~EngineDelegate();
-	/** 함수들의 리스트가 비어져 있는지 여부를 반환 */
-	bool IsBind()
-	{
-		return false == Functions.empty();
-	}
+
 	/** 연산자 */
 	void operator=(std::function<void()> Function)
 	{
@@ -39,12 +35,11 @@ public:
 			Function();
 		}
 	}
-	/** 리스트 삭제 */
-	void Clear()
-	{
-		Functions.clear();
-	}
 
+	/** 리스트 삭제 */
+	void Clear() { Functions.clear(); }
+	/** 함수들의 리스트가 비어져 있는지 여부를 반환 */
+	bool IsBind() { return Functions.empty() == false; }
 protected:
 
 private:

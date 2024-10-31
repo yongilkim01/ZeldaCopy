@@ -1,5 +1,9 @@
 #pragma once
+/** Engine Header */
 #include <EnginePlatform/EngineWinImage.h>
+#include <EngineBase/EngineDebug.h>
+
+/** Std Header */
 #include <vector>
 
 // 설명 :
@@ -29,6 +33,10 @@ public:
 
 	USpriteData GetSpriteData(int Index = 0)
 	{
+		if (Index >= Data.size())
+		{
+			MSGASSERT("스프라이트의 인덱스를 오버하여 사용하려고 했습니다. " + GetName());
+		}
 		return Data[Index];
 	}
 

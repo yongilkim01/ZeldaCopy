@@ -14,6 +14,35 @@ UImageManager::UImageManager()
 
 UImageManager::~UImageManager()
 {
+	{
+		std::map<std::string, UEngineWinImage*>::iterator StartIter = Images.begin();
+		std::map<std::string, UEngineWinImage*>::iterator EndIter = Images.end();
+
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			UEngineWinImage* CurRes = StartIter->second;
+			if (nullptr != CurRes)
+			{
+				delete CurRes;
+				CurRes = nullptr;
+			}
+		}
+	}
+
+	{
+		std::map<std::string, UEngineSprite*>::iterator StartIter = Sprites.begin();
+		std::map<std::string, UEngineSprite*>::iterator EndIter = Sprites.end();
+
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			UEngineSprite* CurRes = StartIter->second;
+			if (nullptr != CurRes)
+			{
+				delete CurRes;
+				CurRes = nullptr;
+			}
+		}
+	}
 }
 
 void UImageManager::Load(std::string_view Path)
@@ -65,6 +94,7 @@ void UImageManager::Load(std::string_view KeyName, std::string_view Path)
 	UEngineWinImage* NewImage = new UEngineWinImage();
 	NewImage->Load(WindowImage, Path);
 
+	NewImage->SetName(UpperName);
 	Images.insert({ UpperName , NewImage });
 
 	UEngineSprite* NewSprite = new UEngineSprite();
@@ -75,7 +105,7 @@ void UImageManager::Load(std::string_view KeyName, std::string_view Path)
 	Trans.Scale = NewImage->GetImageScale();
 
 	NewSprite->PushData(NewImage, Trans);
-
+	NewSprite->SetName(UpperName);
 	Sprites.insert({ UpperName , NewSprite });
 }
 
@@ -127,12 +157,17 @@ void UImageManager::LoadFolder(std::string_view KeyName, std::string_view Path)
 		std::string FilePath = ImageFiles[i].GetPathToString();
 
 		// 이미지 파일의 이름을 저장
-		std::string FileName = UEngineString::ToUpper(ImageFiles[i].GetFileName());
+		std::string UpperFileName = UEngineString::ToUpper(ImageFiles[i].GetFileName());
 
 		// 윈도우 메인 HDC에 해당 이미지를 로드
-		UEngineWinImage* NewImage = new UEngineWinImage();
-		NewImage->Load(WindowImage, FilePath);
-		Images.insert({ FileName, NewImage });
+		UEngineWinImage* NewImage = FindImage(UpperFileName);
+		if (NewImage == nullptr)
+		{
+			NewImage = new UEngineWinImage();
+			NewImage->SetName(UpperFileName);
+			NewImage->Load(WindowImage, FilePath);
+		}
+		Images.insert({ UpperFileName, NewImage });
 
 		FTransform Transform;
 		Transform.Location = { 0, 0 };
@@ -199,10 +234,6 @@ void UImageManager::CuttingSprite(std::string_view KeyName, FVector2D CuttingSiz
 	}
 }
 
-void UImageManager::CreateCutSprite(std::string_view _SearchKeyName, std::string_view _NewSpriteKeyName, FVector2D _StartPos, FVector2D _CuttingSize, FVector2D _XYOffSet, UINT _Xcount, UINT _ImageCount)
-{
-}
-
 bool UImageManager::IsLoadSprite(std::string_view KeyName)
 {
 	std::string UpperName = UEngineString::ToUpper(KeyName);
@@ -218,7 +249,7 @@ UEngineSprite* UImageManager::FindSprite(std::string_view KeyName)
 	// 포
 	if (false == Sprites.contains(UpperName))
 	{
-		MSGASSERT("로드하지 않은 스프라이트를 사용하려고 했습니다" + std::string(KeyName));
+		MSGASSERT("로드하지 않은 스프라이트를 사용하려고 했습니다 " + std::string(KeyName));
 		return nullptr;
 	}
 
@@ -226,4 +257,107 @@ UEngineSprite* UImageManager::FindSprite(std::string_view KeyName)
 
 	// 이걸로 
 	return Sprites[UpperName];
+}
+
+UEngineWinImage* UImageManager::FindImage(std::string_view KeyName)
+{
+	std::string UpperName = UEngineString::ToUpper(KeyName);
+
+	if (Images.contains(UpperName) == false)
+	{
+		MSGASSERT("로드하지 않은 스프라이트를 사용하려고 했습니다 " + std::string(KeyName));
+		return nullptr;
+	}
+
+	return Images[UpperName];
+}
+
+void UImageManager::CreateCutSprite(std::string_view _SearchKeyName, std::string_view _NewSpriteKeyName, FVector2D _StartPos, FVector2D _CuttingSize, FVector2D _XYOffSet, UINT _Xcount, UINT _ImageCount)
+{
+	std::string SearchName = UEngineString::ToUpper(_SearchKeyName);
+	std::string NewSpriteName = UEngineString::ToUpper(_NewSpriteKeyName);
+
+	if (_Xcount <= 0)
+	{
+		MSGASSERT("이미지의 가로 갯수가 0 이하입니다.");
+		return;
+	}
+	if (_ImageCount <= 0)
+	{
+		MSGASSERT("총 이미지 갯수가 0 이하입니다.");
+		return;
+	}
+	if (Sprites.contains(SearchName) == false)
+	{
+		MSGASSERT(std::string(_SearchKeyName) + "라는 이름의 Sprite는 로드할 수 없습니다.");
+		return;
+	}
+	if (Images.contains(SearchName) == false)
+	{
+		MSGASSERT(std::string(_SearchKeyName) + "라는 이름의 Sprite는 로드할 수 없습니다.");
+		return;
+	}
+	if (Sprites.contains(NewSpriteName) == true)
+	{
+		MSGASSERT(std::string(_NewSpriteKeyName) + "라는 이름의 Sprite가 이미 존재합니다.");
+		return;
+	}
+	if (Images.contains(NewSpriteName) == true)
+	{
+		MSGASSERT(std::string(_NewSpriteKeyName) + "라는 이름의 Image가 이미 존재합니다.");
+		return;
+	}
+
+
+	UEngineSprite* Sprite = Sprites[SearchName];
+	UEngineWinImage* Image = Images[SearchName];
+
+	Sprite->ClearSpriteData();
+
+	UINT YCount = _ImageCount / _Xcount;
+	if (_ImageCount % _Xcount > 0)
+		++YCount;
+
+	float TotalSizeX = _StartPos.X + (_CuttingSize.X * _Xcount) + (_XYOffSet.X * (_Xcount - 1));
+	float TotalSizeY = _StartPos.Y + (_CuttingSize.Y * YCount) + (_XYOffSet.Y * (YCount - 1));
+
+	if (TotalSizeX > Image->GetImageScale().X)
+	{
+		MSGASSERT("필요한 이미지 가로 사이즈가 원본 이미지 사이즈보다 큽니다.");
+		return;
+	}
+	if (TotalSizeY > Image->GetImageScale().Y)
+	{
+		MSGASSERT("필요한 이미지 세로 사이즈가 원본 이미지 사이즈보다 큽니다.");
+		return;
+	}
+
+	FVector2D TotalSize = FVector2D(static_cast<int>(TotalSizeX), static_cast<int>(TotalSizeY));
+
+
+	UEngineWinImage* NewImage = new UEngineWinImage();
+	UEngineSprite* NewSprite = new UEngineSprite();
+	NewImage->Create(UEngineAPICore::GetCore()->GetMainWindow().GetWindowImage(), TotalSize);
+
+	BitBlt(NewImage->GetDC(), 0, 0, static_cast<int>(TotalSizeX), static_cast<int>(TotalSizeY), Image->GetDC(), static_cast<int>(_StartPos.X), static_cast<int>(_StartPos.Y), SRCCOPY);
+
+	Images.insert(make_pair(NewSpriteName, NewImage));
+	Sprites.insert(make_pair(NewSpriteName, NewSprite));
+
+	FVector2D CuttingPos = {};
+
+	for (UINT y = 0; y < YCount; ++y)
+	{
+		CuttingPos.Y = _CuttingSize.Y * y + _XYOffSet.Y * y;
+
+		for (UINT x = 0; x < _Xcount; ++x)
+		{
+			CuttingPos.X = _CuttingSize.X * x + _XYOffSet.X * x;
+			FTransform insertInst = {};
+			insertInst.Scale = _CuttingSize;
+			insertInst.Location = CuttingPos;
+			NewSprite->PushData(NewImage, insertInst);
+		}
+		CuttingPos.X = 0.f;
+	}
 }

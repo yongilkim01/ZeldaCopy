@@ -1,46 +1,56 @@
 #pragma once
 #include <filesystem>
 
-/**
-* 파일 불러오기를 위한 클래스
-*/
+// 설명 :
 class UEnginePath
 {
 public:
-	/** 생성자 소멸자 */
+	// constrcuter destructer
 	UEnginePath();
 	UEnginePath(std::string_view _Path);
 	UEnginePath(std::filesystem::path _Path);
 	~UEnginePath();
 
-	/** 상위 디렉토리로 이동하는 메소드 */
-	void MoveParent();
-	/** 상위 디렉토리로 이동하는 메소드 */
-	bool MoveParentToDirectory(std::string_view _Path);
-	/** 하위 폴더를 경로에 덧붙이는 메소드 */
-	void Append(std::string_view AppendName);
+	//// delete Function
+	//UEnginePath(const UEnginePath& _Other) = delete;
+	//UEnginePath(UEnginePath&& _Other) noexcept = delete;
+	//UEnginePath& operator=(const UEnginePath& _Other) = delete;
+	//UEnginePath& operator=(UEnginePath&& _Other) noexcept = delete;
 
-	/** 경로를 String 객체로 반환하는 메소드 */
+	bool IsExists();
+	void MoveParent();
+
 	std::string GetPathToString();
-	/** 파일명 + 확장자 반환하는 메소드 */
+
+	// 파일명 + 확장자 포함
 	std::string GetFileName();
-	/** 확장자 반환 메소드 */
-	std::string GetExtension();
-	/** 디렉토리 이름 반환 메소드 */
+
+	// 파일명 + 확장자 포함
 	std::string GetDirectoryName();
 
-	/** 경로상의 디렉토리 또는 파일이 유효한지 확인하는 메소드 */
-	bool IsExists();
-	/** 디렉토리가 유효한지 확인하는 메소드 */
+	// 확장자
+	std::string GetExtension();
+
+
+	// "C:\\AAAA\\BBBB\\";
+	// "C:\\AAAA\\BBBB\\Resources";
+	// "C:\\AAAA\\"
+	// "C:\\AAAA\\Resources"
+	// "C:\\"
+	// "C:\\Resources"
+	// 특정 디렉토리가 나올때까지 MoveParent를 반복하는 함수.
+	bool MoveParentToDirectory(std::string_view _Path);
+
 	bool IsDirectory();
-	/** 파일이 유효한지 확인하는 메소드 */
+
 	bool IsFile();
 
+	void Append(std::string_view _AppendName);
+
+
 protected:
-	/** 경로상를 담는 멤버 변수 */
 	std::filesystem::path Path;
 
 private:
-
 };
 
