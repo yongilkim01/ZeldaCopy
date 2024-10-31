@@ -13,6 +13,11 @@ UEngineDirectory::UEngineDirectory(std::string_view Path)
 {
 }
 
+UEngineDirectory::UEngineDirectory(std::filesystem::path _Path)
+	: UEnginePath(_Path)
+{
+}
+
 UEngineDirectory::~UEngineDirectory()
 {
 
@@ -54,6 +59,33 @@ std::vector<class UEngineFile> UEngineDirectory::GetAllFile(bool IsRecursive /* 
 		++Diriter;
 	}
 	// 결과 벡터 반환
+	return Result;
+}
+
+std::vector<class UEngineDirectory> UEngineDirectory::GetAllDirectory()
+{
+	// 결과를 반환할 벡터 객체
+	std::vector<class UEngineDirectory> Result;
+
+	// 경로를 넣어주면 그 경로의 첫번째 파일을 가리키게 된다.
+	std::filesystem::directory_iterator Diriter = std::filesystem::directory_iterator(Path);
+
+	while (Diriter._At_end() == false)
+	{
+		std::filesystem::path FilePath = *Diriter;
+
+		UEnginePath Path = UEnginePath(FilePath);
+
+		if (Path.IsDirectory() == false)
+		{
+			++Diriter;
+			continue;
+		}
+
+		Result.push_back(UEngineDirectory(FilePath));
+		++Diriter;
+	}
+
 	return Result;
 }
 

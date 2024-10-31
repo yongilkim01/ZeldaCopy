@@ -29,7 +29,17 @@ public:
 	void Load(std::string_view Path);
 	void Load(std::string_view KeyName, std::string_view Path);
 
+	void LoadFolder(std::string_view Path);
+	void LoadFolder(std::string_view KeyName, std::string_view Path);
+
 	void CuttingSprite(std::string_view KeyName, FVector2D CuttingSize);
+	void CreateCutSprite(std::string_view _SearchKeyName,
+		std::string_view _NewSpriteKeyName,
+		FVector2D _StartPos,
+		FVector2D _CuttingSize,
+		FVector2D _XYOffSet,
+		UINT _Xcount,
+		UINT _ImageCount);
 
 	bool IsLoadSprite(std::string_view KeyName);
 	UEngineSprite* FindSprite(std::string_view KeyName);

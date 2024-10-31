@@ -4,6 +4,8 @@
 #include <EngineBase/EnginePath.h>
 #include <EngineBase/EngineDebug.h>
 #include <EngineBase/EngineString.h>
+#include <EngineBase/EngineFile.h>
+#include <EngineBase/EngineDirectory.h>
 #include <EngineCore/EngineAPICore.h>
 
 UImageManager::UImageManager()
@@ -25,8 +27,10 @@ void UImageManager::Load(std::string_view Path)
 
 void UImageManager::Load(std::string_view KeyName, std::string_view Path)
 {
+	// 경로 저장
 	UEnginePath EnginePath = UEnginePath(Path);
 
+	// 경로가 유효한지 확인
 	if (EnginePath.IsDirectory() == true)
 	{
 		MSGASSERT("디렉토리는 로드할수 없습니다." + std::string(Path));
@@ -39,9 +43,24 @@ void UImageManager::Load(std::string_view KeyName, std::string_view Path)
 		return;
 	}
 
+	// 메인 윈도우 HDC를 사용하기 위한 윈도우 이미지 변수 생성
 	UEngineWinImage* WindowImage = UEngineAPICore::GetCore()->GetMainWindow().GetWindowImage();
 
+	// 파일 이름 통일을 위한 대문자화
 	std::string UpperName = UEngineString::ToUpper(KeyName);
+
+	if (Images.contains(UpperName) == true)
+	{
+		MSGASSERT("이미 로드된 이미지입니다. " + std::string(KeyName));
+		return;
+	}
+
+	if (Sprites.contains(UpperName) == true)
+	{
+		MSGASSERT("이미 로드된 이미지입니다. " + std::string(KeyName));
+		return;
+	}
+
 	// 만들었다고 끝이 아닙니다.
 	UEngineWinImage* NewImage = new UEngineWinImage();
 	NewImage->Load(WindowImage, Path);
@@ -60,19 +79,85 @@ void UImageManager::Load(std::string_view KeyName, std::string_view Path)
 	Sprites.insert({ UpperName , NewSprite });
 }
 
+void UImageManager::LoadFolder(std::string_view Path)
+{
+	// 함수 인자로 받은 경로를 가지고서 객체 생서
+	UEnginePath EnginePath = UEnginePath(Path);
+
+	std::string DirName = EnginePath.GetDirectoryName();
+
+	LoadFolder(DirName, Path);
+}
+
+void UImageManager::LoadFolder(std::string_view KeyName, std::string_view Path)
+{
+	// 경로가 유효한지 검사
+	UEnginePath EnginePath = UEnginePath(Path);
+
+	if (EnginePath.IsExists() == false)
+	{
+		MSGASSERT("유효하지 않은 파일 경로입니다. " + std::string(Path));
+		return;
+	}
+
+	std::string UpperName = UEngineString::ToUpper(KeyName);
+
+	if (Sprites.contains(UpperName) == true)
+	{
+		MSGASSERT("이미 로드된 이미지입니다. " + UpperName);
+		return;
+	}
+
+	// 새로운 스프라이트 객체 생성
+	UEngineSprite* NewSprite = new UEngineSprite();
+
+	// 스프라이트 목록에 추가
+	Sprites.insert({ UpperName, NewSprite });
+
+	// 이미지를 로드하기 위해서 필요한 Window  main HDC
+	UEngineWinImage* WindowImage = UEngineAPICore::GetCore()->GetMainWindow().GetWindowImage();
+
+	UEngineDirectory Dir = Path;
+	// 모든 이미지 파일들들 저장
+	std::vector<UEngineFile> ImageFiles = Dir.GetAllFile();
+
+	for (size_t i = 0; i < ImageFiles.size(); i++)
+	{
+		// 이미지 파일의 경로를 저장
+		std::string FilePath = ImageFiles[i].GetPathToString();
+
+		// 이미지 파일의 이름을 저장
+		std::string FileName = UEngineString::ToUpper(ImageFiles[i].GetFileName());
+
+		// 윈도우 메인 HDC에 해당 이미지를 로드
+		UEngineWinImage* NewImage = new UEngineWinImage();
+		NewImage->Load(WindowImage, FilePath);
+		Images.insert({ FileName, NewImage });
+
+		FTransform Transform;
+		Transform.Location = { 0, 0 };
+		Transform.Scale = NewImage->GetImageScale();
+
+		NewSprite->PushData(NewImage, Transform);
+
+
+	}
+
+}
+
 void UImageManager::CuttingSprite(std::string_view KeyName, FVector2D CuttingSize)
 {
 	std::string UpperName = UEngineString::ToUpper(KeyName);
 
 	if (false == Sprites.contains(UpperName))
 	{
-		MSGASSERT("존재하지 않은 스프라이트를 자르려고 했습니다" + std::string(KeyName));
+		MSGASSERT("존재하지 않은 스프라이트를 자르려고 했습니다. " + std::string(KeyName));
 		return;
 	}
 
 	if (false == Images.contains(UpperName))
 	{
-		MSGASSERT("존재하지 않은 이미지를 기반으로 스프라이트를 자르려고 했습니다" + std::string(KeyName));
+		MSGASSERT("존재하지 않은 이미지를 기반으로 스프라이트를 자르려고 했습니다. " + std::string(KeyName));
 		return;
 	}
 
@@ -112,6 +197,10 @@ void UImageManager::CuttingSprite(std::string_view KeyName, FVector2D CuttingSiz
 		CuttingTrans.Location.X = 0.0f;
 		CuttingTrans.Location.Y += CuttingSize.Y;
 	}
+}
+
+void UImageManager::CreateCutSprite(std::string_view _SearchKeyName, std::string_view _NewSpriteKeyName, FVector2D _StartPos, FVector2D _CuttingSize, FVector2D _XYOffSet, UINT _Xcount, UINT _ImageCount)
+{
 }
 
 bool UImageManager::IsLoadSprite(std::string_view KeyName)

@@ -140,6 +140,11 @@ void UEngineWinImage::Load(UEngineWinImage* _TargetImage, std::string_view _Path
 		delete pImage;
 	
 	}
+	else if (UpperExt == ".BMP")
+	{
+		HANDLE NewHandle = LoadImageA(nullptr, _Path.data(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+		NewBitmap = reinterpret_cast<HBITMAP>(NewHandle);
+	}
 
 	if (NewBitmap == nullptr)
 	{

@@ -50,12 +50,27 @@ std::string UEnginePath::GetPathToString()
 
 std::string UEnginePath::GetFileName()
 {
+	if (IsDirectory() == false)
+	{
+		MSGASSERT("파일 경로 일때만 GetDirectory()를 호출 할 수 있습니다. " + Path.string());
+		return "";
+	}
 	return Path.filename().string();
 }
 
 std::string UEnginePath::GetExtension()
 {
 	return Path.extension().string();
+}
+
+std::string UEnginePath::GetDirectoryName()
+{
+	if (IsDirectory() == false)
+	{
+		MSGASSERT("디렉토리 경로 일때만 GetDirectory()를 호출 할 수 있습니다. " + Path.string());
+		return "";
+	}
+	return Path.filename().string();
 }
 
 bool UEnginePath::MoveParentToDirectory(std::string_view _Path)
@@ -86,4 +101,9 @@ bool UEnginePath::MoveParentToDirectory(std::string_view _Path)
 	}
 
 	return Result;
+}
+
+void UEnginePath::Append(std::string_view AppendName)
+{
+	Path.append(AppendName);
 }

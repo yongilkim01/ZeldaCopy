@@ -24,13 +24,17 @@ void ZeldaContentsCore::BeginPlay()
 {
 	UEngineDirectory Dir;
 
+	// 현재 디렉토리 Resources 디렉토리
 	if (Dir.MoveParentToDirectory("Resources") == false)
 	{
 		MSGASSERT("리소스 폴더를 찾지 못했습니다.");
 		return;
 	}
 
+
+
 	std::vector<UEngineFile> ImageFiles = Dir.GetAllFile();
+
 
 	for (size_t i = 0; i < ImageFiles.size(); i++)
 	{
