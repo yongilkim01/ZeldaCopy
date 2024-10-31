@@ -56,20 +56,12 @@ void ZeldaContentsCore::BeginPlay()
 
 	UImageManager::GetInst().CuttingSprite("Player_Right.png", { 128, 128 });
 
-
-	{
-
-		UEngineDirectory BombDir;
-		BombDir.MoveParentToDirectory("Resources");
-		BombDir.Append("bomb");
-
-		UImageManager::GetInst().LoadFolder(BombDir.GetPathToString());
-
-	}
-
-
-
-
+	//{
+	//	UEngineDirectory BombDir;
+	//	BombDir.MoveParentToDirectory("Resources");
+	//	BombDir.Append("bomb");
+	//	UImageManager::GetInst().LoadFolder(BombDir.GetPathToString());
+	//}
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("EduWindow");
 

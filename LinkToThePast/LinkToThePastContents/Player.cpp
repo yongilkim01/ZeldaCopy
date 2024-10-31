@@ -19,7 +19,8 @@ APlayer::APlayer()
 
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("Player_Right.png");
-	SpriteRenderer->SetComponentScale({ 300, 300 });
+	SpriteRenderer->SetSpriteScale(3.0f);
+	//SpriteRenderer->SetComponentScale({ 300, 300 });
 
 	// SpriteRenderer->CreateAnimation("bomb", 0, 2, 0.1f);
 
