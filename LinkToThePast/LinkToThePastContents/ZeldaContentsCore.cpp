@@ -11,6 +11,7 @@
 #include "TitleGameMode.h"
 #include "PlayGameMode.h"
 #include "Player.h"
+#include "RoomManageMode.h"
 
 ZeldaContentsCore::ZeldaContentsCore()
 {
@@ -57,9 +58,9 @@ void ZeldaContentsCore::BeginPlay()
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");
 
 	// 이거 꼭 호출해줘야 합니다.
-	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 1280, 720 });
+	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 768, 672 });
 
-	UEngineAPICore::GetCore()->CreateLevel<APlayGameMode, APlayer>("Play");
+	UEngineAPICore::GetCore()->CreateLevel<ARoomManageMode, APlayer>("Play");
 	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 	//UEngineAPICore::GetCore()->CreateLevel("End");
 

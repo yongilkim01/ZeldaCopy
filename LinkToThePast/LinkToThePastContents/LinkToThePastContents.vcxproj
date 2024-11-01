@@ -169,6 +169,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="Room.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RoomManageMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TitleGameMode.h">
       <SubType>
       </SubType>
@@ -203,6 +211,14 @@
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RoomManageMode.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
       <SubType>

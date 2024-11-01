@@ -16,7 +16,7 @@ void APlayer::RunSoundPlay()
 APlayer::APlayer()
 {
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
-	SetActorLocation({ 100, 100 });
+	SetActorLocation({ 0, 0 });
 
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
@@ -39,6 +39,8 @@ APlayer::APlayer()
 
 	// SpriteRenderer->CreateAnimation("Test", "Player_Right.png", { 5,  4,  3}, 0.1f);
 	//SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
+
+	//Room->Renderer->SetSprite
 }
 
 APlayer::~APlayer()
@@ -70,22 +72,22 @@ void APlayer::Tick(float _DeltaTime)
 
 	if (true == UEngineInput::GetInst().IsPress('D'))
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right");
+		//SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
 	}
 	if (true == UEngineInput::GetInst().IsPress('A'))
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right");
+		//SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::LEFT * _DeltaTime * Speed);
 	}
 	if (true == UEngineInput::GetInst().IsPress('S'))
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right");
+		//SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::DOWN * _DeltaTime * Speed);
 	}
 	if (true == UEngineInput::GetInst().IsPress('W'))
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right");
+		//SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
 	}
 
@@ -94,7 +96,7 @@ void APlayer::Tick(float _DeltaTime)
 		false == UEngineInput::GetInst().IsPress('W') &&
 		false == UEngineInput::GetInst().IsPress('S'))
 	{
-		SpriteRenderer->ChangeAnimation("Idle_Right");
+		//SpriteRenderer->ChangeAnimation("Idle_Right");
 	}
 
 }
