@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "EngineAPICore.h"
 #include "SpriteRenderer.h"
+#include "EngineCoreDebug.h"
 
 #include <EngineBase/EngineMath.h>
 #include <EnginePlatform/EngineWindow.h>
@@ -83,6 +84,8 @@ void ULevel::Render(float DeltaTime)
 			(*RenderStartIter)->Render(DeltaTime);
 		}
 	}
+
+	UEngineDebug::PrintEngineDebugText();
 
 	DoubleBuffering();
 }

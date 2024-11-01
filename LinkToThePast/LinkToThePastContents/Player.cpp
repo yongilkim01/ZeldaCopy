@@ -3,6 +3,7 @@
 
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/EngineCoreDebug.h>
 
 #include <EnginePlatform/EngineInput.h>
 #include "Bullet.h"
@@ -48,6 +49,9 @@ void APlayer::BeginPlay()
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / _DeltaTime));
+	UEngineDebug::CoreOutPutString("PlayerPos : " + GetActorLocation().ToString());
 
 	if (true == UEngineInput::GetInst().IsPress('D'))
 	{
