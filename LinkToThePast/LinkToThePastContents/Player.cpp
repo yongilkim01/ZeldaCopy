@@ -19,18 +19,26 @@ APlayer::APlayer()
 	SetActorLocation({ 100, 100 });
 
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-	SpriteRenderer->SetSprite("Player_Right.png");
+	SpriteRenderer->SetSprite("LinkMoveDown.png");
 	SpriteRenderer->SetSpriteScale(3.0f);
 	//SpriteRenderer->SetComponentScale({ 300, 300 });
 
 	// SpriteRenderer->CreateAnimation("bomb", 0, 2, 0.1f);
 
-	SpriteRenderer->CreateAnimation("Run_Right", "Player_Right.png", 2, 4, 0.1f);
-	SpriteRenderer->CreateAnimation("Idle_Right", "Player_Right.png", 0, 0, 0.1f);
-	SpriteRenderer->ChangeAnimation("Idle_Right");
+	SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveDown.png", 1, 9, 0.1f);
+	SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 9, 0.1f);
+	SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 9, 0.1f);
+	SpriteRenderer->CreateAnimation("Run_Down", "LinkMoveRight.png", 1, 9, 0.1f);
+
+	SpriteRenderer->CreateAnimation("Idle_Right", "LinkMoveDown.png", 0, 0, 0.1f);
+	SpriteRenderer->CreateAnimation("Idle_Left", "LinkMoveDown.png", 0, 0, 0.1f);
+	SpriteRenderer->CreateAnimation("Idle_Up", "LinkMoveDown.png", 0, 0, 0.1f);
+	SpriteRenderer->CreateAnimation("Idle_Down", "LinkMoveDown.png", 0, 0, 0.1f);
+
+	SpriteRenderer->ChangeAnimation("Idle_Down");
 
 	// SpriteRenderer->CreateAnimation("Test", "Player_Right.png", { 5,  4,  3}, 0.1f);
-	SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
+	//SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
 }
 
 APlayer::~APlayer()

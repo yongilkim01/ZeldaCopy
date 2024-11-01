@@ -159,27 +159,27 @@ FVector2D USpriteRenderer::SetSpriteScale(float _Ratio /*= 1.0f*/, int _CurIndex
 }
 
 
-void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, int _Start, int _End, float Time /*= 0.1f*/, bool _Loop /*= true*/)
+void USpriteRenderer::CreateAnimation(std::string_view AnimationName, std::string_view SpriteName, int Start, int End, float Time /*= 0.1f*/, bool IsLoop /*= true*/)
 {
-	if (_Start > _End)
+	if (Start > End)
 	{
-		MSGASSERT("애니메이션에서 Start가 End보다 클수는 없습니다. " + std::string(_AnimationName));
+		MSGASSERT("애니메이션에서 Start가 End보다 클수는 없습니다. " + std::string(AnimationName));
 		return;
 	}
 
-	int Inter = (_End - _Start) + 1;
+	int Inter = (End - Start) + 1;
 
 	std::vector<int> Indexs;
 	std::vector<float> Times;
 
 	for (size_t i = 0; i < Inter; i++)
 	{
-		Indexs.push_back(_Start);
+		Indexs.push_back(Start);
 		Times.push_back(Time);
-		++_Start;
+		++Start;
 	}
 
-	CreateAnimation(_AnimationName, _SpriteName, Indexs, Times, _Loop);
+	CreateAnimation(AnimationName, SpriteName, Indexs, Times, IsLoop);
 }
 
 void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, std::vector<float> _Frame, bool _Loop /*= true*/)

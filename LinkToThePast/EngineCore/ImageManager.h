@@ -32,6 +32,7 @@ public:
 	void LoadFolder(std::string_view Path);
 	void LoadFolder(std::string_view KeyName, std::string_view Path);
 
+	void CuttingSprite(std::string_view _KeyName, int _X, int _Y);
 	void CuttingSprite(std::string_view KeyName, FVector2D CuttingSize);
 	void CreateCutSprite(std::string_view _SearchKeyName,
 		std::string_view _NewSpriteKeyName,
