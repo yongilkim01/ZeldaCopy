@@ -76,6 +76,23 @@ void UEngineAPICore::EngineTick()
 
 void UEngineAPICore::Tick()
 {
+	/** 레벨 이동 방법 */
+	if (nullptr != NextLevel)
+	{
+		// 레벨들을 왔다갔다 할때가 있기 때문에.
+		// 그 순간마다 여러분들이 뭔가를 해주고 싶을수가 있다.
+		if (nullptr != CurLevel)
+		{
+			CurLevel->LevelChangeEnd();
+		}
+		CurLevel = NextLevel;
+		NextLevel->LevelChangeStart();
+		NextLevel = nullptr;
+		// 델타타임이 지연될수 있으므로 델타타임을 초기화시켜주는것이 좋다.
+		DeltaTimer.TimeStart();
+
+	}
+
 	DeltaTimer.TimeCheck();
 	float DeltaTime = DeltaTimer.GetDeltaTime();
 

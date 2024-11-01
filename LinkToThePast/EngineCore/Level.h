@@ -18,6 +18,10 @@ public:
 	ULevel& operator=(const ULevel& _Other) = delete;
 	ULevel& operator=(ULevel&& _Other) noexcept = delete;
 
+	void LevelChangeStart();
+
+	void LevelChangeEnd();
+
 	void Tick(float _DeltaTime);
 	void Render(float DeltaTime);
 

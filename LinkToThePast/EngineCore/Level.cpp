@@ -28,6 +28,28 @@ ULevel::~ULevel()
 	}
 }
 
+void ULevel::LevelChangeStart()
+{
+	std::list<AActor*>::iterator StartIter = AllActors.begin();
+	std::list<AActor*>::iterator EndIter = AllActors.end();
+	for (; StartIter != EndIter; ++StartIter)
+	{
+		AActor* CurActor = *StartIter;
+		CurActor->LevelChangeStart();
+	}
+}
+
+void ULevel::LevelChangeEnd()
+{
+	std::list<AActor*>::iterator StartIter = AllActors.begin();
+	std::list<AActor*>::iterator EndIter = AllActors.end();
+	for (; StartIter != EndIter; ++StartIter)
+	{
+		AActor* CurActor = *StartIter;
+		CurActor->LevelChangeEnd();
+	}
+}
+
 void ULevel::Tick(float _DeltaTime)
 {
 	{

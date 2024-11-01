@@ -22,6 +22,12 @@
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="TitleLogo.h">
+      <Filter>ContentsObject\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -45,6 +51,12 @@
     <ClCompile Include="ContentsEnum.cpp">
       <Filter>Global</Filter>
     </ClCompile>
+    <ClCompile Include="TitleLogo.cpp">
+      <Filter>ContentsObject\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PCH">
@@ -67,6 +79,9 @@
     </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{da15f387-2619-4319-85c2-199836679ba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Title">
+      <UniqueIdentifier>{02b43c37-a9ef-4afe-869e-6006edb40ca1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

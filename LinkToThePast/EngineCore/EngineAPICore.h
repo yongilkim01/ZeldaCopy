@@ -86,5 +86,7 @@ private:
 	std::map<std::string, class ULevel*> Levels;
 	/** 현재 레벨멤버 변수 */
 	class ULevel* CurLevel = nullptr;
+	/** 다음 이동할 레벨 멤버 변수 */
+	class ULevel* NextLevel = nullptr;
 };
 

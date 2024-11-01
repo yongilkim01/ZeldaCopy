@@ -18,7 +18,8 @@ public:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	void MoveFunction(FVector2D _Dir);
+	void LevelChangeStart();
+	void LevelChangeEnd();
 
 	void RunSoundPlay();
 

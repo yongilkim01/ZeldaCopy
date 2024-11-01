@@ -24,6 +24,9 @@ public:
 	virtual void BeginPlay() {}
 	virtual void Tick(float _DeltaTime) {}
 
+	virtual void LevelChangeStart() {}
+	virtual void LevelChangeEnd() {}
+
 	template<typename ComponentType>
 	ComponentType* CreateDefaultSubObject()
 	{

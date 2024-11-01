@@ -8,6 +8,7 @@
 #include <EngineBase/EngineDebug.h>
 #include <EngineBase/EngineFile.h>
 
+#include "TitleGameMode.h"
 #include "PlayGameMode.h"
 #include "Player.h"
 
@@ -69,9 +70,10 @@ void ZeldaContentsCore::BeginPlay()
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 1280, 720 });
 
 	UEngineAPICore::GetCore()->CreateLevel<APlayGameMode, APlayer>("Play");
+	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 	//UEngineAPICore::GetCore()->CreateLevel("End");
 
-	UEngineAPICore::GetCore()->OpenLevel("Play");
+	UEngineAPICore::GetCore()->OpenLevel("Title");
 
 }
 
