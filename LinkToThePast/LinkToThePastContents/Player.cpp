@@ -17,7 +17,7 @@ APlayer::APlayer()
 {
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
 	SetActorLocation({ 0, 0 });
-
+	Speed = 1000.f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
 	SpriteRenderer->SetSpriteScale(3.0f);
