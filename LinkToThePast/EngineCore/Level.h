@@ -41,6 +41,7 @@ public:
 
 	void SetCameraToMainPawn(bool IsCameraToMainPawn) { this->IsCameraToMainPawn = IsCameraToMainPawn; }
 	void SetCameraPivot(FVector2D Pivot) { CameraPivot = Pivot; }
+	void SetCameraPos(FVector2D _Pos) { CameraPos = _Pos; }
 
 protected:
 

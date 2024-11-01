@@ -19,7 +19,7 @@ ATitleGameMode::~ATitleGameMode()
 void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	TitleLogo* NewActor = GetWorld()->SpawnActor<TitleLogo>();
+	//TitleLogo* NewActor = GetWorld()->SpawnActor<TitleLogo>();
 }
 
 
