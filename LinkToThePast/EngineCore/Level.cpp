@@ -14,17 +14,30 @@ ULevel::ULevel()
 
 ULevel::~ULevel()
 {
+	//{
+	//	// BeginPlayList 한번도 체인지 안한 액터는 
+	//	// 액터들이 다 비긴 플레이 리스트에 들어가 있다.
+	//	std::list<AActor*>::iterator StartIter = BeginPlayList.begin();
+	//	std::list<AActor*>::iterator EndIter = BeginPlayList.end();
+	//	for (; StartIter != EndIter; ++StartIter)
+	//	{
+	//		AActor* CurActor = *StartIter;
+	//		delete CurActor;
+	//	}
+	//}
+	std::list<AActor*>::iterator StartIter = AllActors.begin();
+	std::list<AActor*>::iterator EndIter = AllActors.end();
+
+	for (; StartIter != EndIter; ++StartIter)
 	{
-		// BeginPlayList 한번도 체인지 안한 액터는 
-		// 액터들이 다 비긴 플레이 리스트에 들어가 있다.
-		std::list<AActor*>::iterator StartIter = BeginPlayList.begin();
-		std::list<AActor*>::iterator EndIter = BeginPlayList.end();
-		for (; StartIter != EndIter; ++StartIter)
+		AActor* CurActor = *StartIter;
+
+		if (nullptr != CurActor)
 		{
-			AActor* CurActor = *StartIter;
-			delete CurActor;
+			delete* StartIter;
 		}
 	}
+
 }
 
 void ULevel::LevelChangeStart()
