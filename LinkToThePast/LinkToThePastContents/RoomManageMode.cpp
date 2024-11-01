@@ -18,6 +18,8 @@ void ARoomManageMode::BeginPlay()
 	ARoom* Dungeon1 = GetWorld()->SpawnActor<ARoom>();
 	Dungeon1->SetRoomSprite("Dungeon1.png", ERenderOrder::BACKGROUND, { 0, 0 }, RoomScale);
 
+	//Dungeon1->AddMonster("Orc");
+
 	ARoom* Dungeon2 = GetWorld()->SpawnActor<ARoom>();
 	Dungeon2->SetRoomSprite("Dungeon2.png", ERenderOrder::BACKGROUND, { 0, 720 }, RoomScale);
 
