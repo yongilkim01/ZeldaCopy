@@ -6,7 +6,9 @@
 #include <EngineCore/EngineCoreDebug.h>
 
 #include <EnginePlatform/EngineInput.h>
-#include "Bullet.h"
+#include "Room.h"
+
+APlayer* APlayer::StaticPlayer = nullptr;
 
 void APlayer::RunSoundPlay()
 {
@@ -16,7 +18,7 @@ void APlayer::RunSoundPlay()
 APlayer::APlayer()
 {
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
-	SetActorLocation({ 0, 0 });
+	SetActorLocation({ 1600, 2200 });
 	Speed = 1000.f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
@@ -25,22 +27,19 @@ APlayer::APlayer()
 
 	// SpriteRenderer->CreateAnimation("bomb", 0, 2, 0.1f);
 
-	SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveDown.png", 1, 9, 0.1f);
-	SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 9, 0.1f);
-	SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 9, 0.1f);
-	SpriteRenderer->CreateAnimation("Run_Down", "LinkMoveRight.png", 1, 9, 0.1f);
+	SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveRight.png", 1, 8, 0.1f);
+	SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 8, 0.1f);
+	SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 8, 0.1f);
+	SpriteRenderer->CreateAnimation("Run_Down", "LinkMoveDown.png", 1, 8, 0.1f);
 
-	SpriteRenderer->CreateAnimation("Idle_Right", "LinkMoveDown.png", 0, 0, 0.1f);
-	SpriteRenderer->CreateAnimation("Idle_Left", "LinkMoveDown.png", 0, 0, 0.1f);
-	SpriteRenderer->CreateAnimation("Idle_Up", "LinkMoveDown.png", 0, 0, 0.1f);
+	SpriteRenderer->CreateAnimation("Idle_Right", "LinkMoveRight.png", 0, 0, 0.1f);
+	SpriteRenderer->CreateAnimation("Idle_Left", "LinkMoveLeft.png", 0, 0, 0.1f);
+	SpriteRenderer->CreateAnimation("Idle_Up", "LinkMoveUp.png", 0, 0, 0.1f);
 	SpriteRenderer->CreateAnimation("Idle_Down", "LinkMoveDown.png", 0, 0, 0.1f);
 
 	SpriteRenderer->ChangeAnimation("Idle_Down");
 
-	// SpriteRenderer->CreateAnimation("Test", "Player_Right.png", { 5,  4,  3}, 0.1f);
-	//SpriteRenderer->SetAnimationEvent("Run_Right", 2, std::bind(&APlayer::RunSoundPlay, this));
-
-	//Room->Renderer->SetSprite
+	StaticPlayer = this;
 }
 
 APlayer::~APlayer()
@@ -52,8 +51,16 @@ void APlayer::BeginPlay()
 	Super::BeginPlay();
 
 	// 직접 카메라 피봇을 설정해줘야 한다.
-	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
-	GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
+	if (CurRoom == nullptr)
+	{
+		FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+		GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
+	}
+	else
+	{
+		FVector2D Size = CurRoom->GetRoomSize();
+		GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
+	}
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -72,22 +79,22 @@ void APlayer::Tick(float _DeltaTime)
 
 	if (true == UEngineInput::GetInst().IsPress('D'))
 	{
-		//SpriteRenderer->ChangeAnimation("Run_Right");
+		SpriteRenderer->ChangeAnimation("Run_Right");
 		AddActorLocation(FVector2D::RIGHT * _DeltaTime * Speed);
 	}
 	if (true == UEngineInput::GetInst().IsPress('A'))
 	{
-		//SpriteRenderer->ChangeAnimation("Run_Right");
+		SpriteRenderer->ChangeAnimation("Run_Left");
 		AddActorLocation(FVector2D::LEFT * _DeltaTime * Speed);
 	}
 	if (true == UEngineInput::GetInst().IsPress('S'))
 	{
-		//SpriteRenderer->ChangeAnimation("Run_Right");
+		SpriteRenderer->ChangeAnimation("Run_Down");
 		AddActorLocation(FVector2D::DOWN * _DeltaTime * Speed);
 	}
 	if (true == UEngineInput::GetInst().IsPress('W'))
 	{
-		//SpriteRenderer->ChangeAnimation("Run_Right");
+		SpriteRenderer->ChangeAnimation("Run_Up");
 		AddActorLocation(FVector2D::UP * _DeltaTime * Speed);
 	}
 
@@ -96,7 +103,7 @@ void APlayer::Tick(float _DeltaTime)
 		false == UEngineInput::GetInst().IsPress('W') &&
 		false == UEngineInput::GetInst().IsPress('S'))
 	{
-		//SpriteRenderer->ChangeAnimation("Idle_Right");
+		SpriteRenderer->ChangeAnimation("Idle_Down");
 	}
 
 }

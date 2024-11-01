@@ -20,8 +20,14 @@ public:
 
 	void SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale = 3.0f);
 
+	FVector2D GetRoomSize() { return RoomSize; }
+	void SetRoomSize(FVector2D Size) { RoomSize = Size; }
+	void SetRoomSize(int SizeX, int SizeY) { RoomSize = { SizeX, SizeY }; }
+
 protected:
 
-public:
+private:
 	class USpriteRenderer* SpriteRenderer = nullptr;
+	class APlayer* PlayerCharacter = nullptr;
+	FVector2D RoomSize = FVector2D::ZERO;
 };

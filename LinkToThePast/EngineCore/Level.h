@@ -1,7 +1,9 @@
 #pragma once
 #include "GameMode.h"
 
-// Ό³Έν :
+/**
+* 
+*/
 class ULevel
 {
 public:
@@ -79,4 +81,3 @@ private:
 
 	std::map<int, std::list<class USpriteRenderer*>> Renderers;
 };
-

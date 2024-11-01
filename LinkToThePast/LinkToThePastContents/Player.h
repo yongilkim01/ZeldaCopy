@@ -5,6 +5,8 @@
 class APlayer : public AActor
 {
 public:
+	static APlayer* StaticPlayer;
+
 	// constrcuter destructer
 	APlayer();
 	~APlayer();
@@ -22,6 +24,8 @@ public:
 	void LevelChangeEnd();
 
 	void RunSoundPlay();
+
+	class ARoom* CurRoom = nullptr;
 
 protected:
 

@@ -23,4 +23,3 @@ void ARoom::SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder,
 	SpriteRenderer->SetComponentLocation(MapScale.Half());
 	SetActorLocation(SpritePos);
 }
-
