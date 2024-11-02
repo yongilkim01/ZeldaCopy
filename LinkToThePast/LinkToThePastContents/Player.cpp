@@ -19,7 +19,7 @@ APlayer::APlayer()
 {
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
 	//SetActorLocation({ 1600, 2200 });
-	SetActorLocation({ 100, 100 });
+	SetActorLocation({ 390, 427 });
 	Speed = 1000.f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
@@ -63,16 +63,28 @@ void APlayer::Tick(float _DeltaTime)
 	UEngineDebug::CoreOutPutString("PlayerPos : " + GetActorLocation().ToString());
 	UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
 	UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
-	UEngineDebug::CoreOutPutString("CameraPos : " + GetWorld()->GetCameraPos().ToString());
 
 	if (CurRoom != nullptr)
 	{
+		UEngineDebug::CoreOutPutString(" ");
 		UEngineDebug::CoreOutPutString("Room Posiiton : " + CurRoom->GetActorLocation().ToString());
-		UEngineDebug::CoreOutPutString("Room Scale : " + CurRoom->GetTransform().Scale.ToString());
 		UEngineDebug::CoreOutPutString("Room LeftTop : " + CurRoom->LeftTopPos.ToString());
 		UEngineDebug::CoreOutPutString("Room RightBottom : " + CurRoom->RightBottomPos.ToString());
-		UEngineDebug::CoreOutPutString("Room Size : " + CurRoom->GetRoomSize().ToString());
 		UEngineDebug::CoreOutPutString("Room Name : " + CurRoom->GetName());
+
+		int CurrentWindowX = GetActorLocation().iX() + GetWorld()->GetCameraPivot().iX();
+
+		UEngineDebug::CoreOutPutString(" ");
+
+		UEngineDebug::CoreOutPutString("Current Window X Posiiton : " + std::to_string(CurrentWindowX));
+		UEngineDebug::CoreOutPutString("CameraPos : " + GetWorld()->GetCameraPos().ToString());
+
+		if (CurRoom->LeftTopPos.iX() >= CurrentWindowX)
+		{
+			FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+			GetWorld()->SetCameraPivot(Size.Half() * -1);
+			GetWorld()->SetCameraPivot({ -1 * (GetActorLocation().X - CurRoom->LeftTopPos.X), Size.Half().Y * -1});
+		}
 	}
 
 	if (true == UEngineInput::GetInst().IsDown('R'))
@@ -109,11 +121,6 @@ void APlayer::Tick(float _DeltaTime)
 		false == UEngineInput::GetInst().IsPress('S'))
 	{
 		SpriteRenderer->ChangeAnimation("Idle_Down");
-	}
-
-	if (CurRoom == nullptr)
-	{
-		//SetCamera
 	}
 
 }

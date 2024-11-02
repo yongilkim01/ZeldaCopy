@@ -45,6 +45,7 @@ public:
 	void SetCameraPivot(FVector2D Pivot) { CameraPivot = Pivot; }
 	void SetCameraPos(FVector2D _Pos) { CameraPos = _Pos; }
 	FVector2D GetCameraPos() { return CameraPos; }
+	FVector2D GetCameraPivot() { return CameraPivot; }
 
 protected:
 
