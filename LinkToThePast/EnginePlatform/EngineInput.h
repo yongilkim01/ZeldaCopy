@@ -15,11 +15,13 @@ enum class KeyEvent
 	Up,
 };
 
-// 설명 :
+/** 
+ *	엔진 입력 처리 클래스
+ */
 class UEngineInput
 {
 public:
-	// constrcuter destructer
+	/** 생성자, 소멸자 */
 	~UEngineInput();
 
 	// delete Function

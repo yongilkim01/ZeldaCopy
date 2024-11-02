@@ -151,10 +151,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Bullet.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Player.h">
       <SubType>
@@ -191,10 +187,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bullet.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="ContentsEnum.cpp" />
     <ClCompile Include="Player.cpp">
       <SubType>

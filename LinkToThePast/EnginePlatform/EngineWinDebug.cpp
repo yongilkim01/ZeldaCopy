@@ -4,11 +4,8 @@
 
 namespace UEngineDebug
 {
-	// f
-	// 분리해야 하겠네요
-	void WinAPIOutPutString(UEngineWinImage* _Image, std::string_view _Text, FVector2D _Pos)
+	void WinAPIOutPutString(UEngineWinImage* WinImage, std::string_view OutputStr, FVector2D Position)
 	{
-		// 쓰기가 귀찮고 어렵다.
-		TextOutA(_Image->GetDC(), _Pos.iX(), _Pos.iY(), _Text.data(), static_cast<int>(_Text.size()));
+		TextOutA(WinImage->GetDC(), Position.iX(), Position.iY(), OutputStr.data(), static_cast<int>(OutputStr.size()));
 	}
 }
