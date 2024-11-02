@@ -18,7 +18,8 @@ void APlayer::RunSoundPlay()
 APlayer::APlayer()
 {
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
-	SetActorLocation({ 1600, 2200 });
+	//SetActorLocation({ 1600, 2200 });
+	SetActorLocation({ 100, 100 });
 	Speed = 1000.f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
@@ -60,6 +61,19 @@ void APlayer::Tick(float _DeltaTime)
 
 	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / _DeltaTime));
 	UEngineDebug::CoreOutPutString("PlayerPos : " + GetActorLocation().ToString());
+	UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
+	UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
+	UEngineDebug::CoreOutPutString("CameraPos : " + GetWorld()->GetCameraPos().ToString());
+
+	if (CurRoom != nullptr)
+	{
+		UEngineDebug::CoreOutPutString("Room Posiiton : " + CurRoom->GetActorLocation().ToString());
+		UEngineDebug::CoreOutPutString("Room Scale : " + CurRoom->GetTransform().Scale.ToString());
+		UEngineDebug::CoreOutPutString("Room LeftTop : " + CurRoom->LeftTopPos.ToString());
+		UEngineDebug::CoreOutPutString("Room RightBottom : " + CurRoom->RightBottomPos.ToString());
+		UEngineDebug::CoreOutPutString("Room Size : " + CurRoom->GetRoomSize().ToString());
+		UEngineDebug::CoreOutPutString("Room Name : " + CurRoom->GetName());
+	}
 
 	if (true == UEngineInput::GetInst().IsDown('R'))
 	{

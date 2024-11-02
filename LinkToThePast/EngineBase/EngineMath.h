@@ -1,9 +1,4 @@
 #pragma once
-// FVector로 통일하겠습니다.
-// FVector2D xy
-// FVector3D xyz
-// FVector4D xyzw
-// FVector4D == FVector;
 
 class FVector2D
 {
@@ -133,6 +128,16 @@ public:
 		X += _Other.X;
 		Y += _Other.Y;
 		return *this;
+	}
+
+	bool operator>(FVector2D _Other) const
+	{
+		return iX() > _Other.iX() && iY() > _Other.iY();
+	}
+
+	bool operator<(FVector2D _Other) const
+	{
+		return iX() < _Other.iX() && iY() < _Other.iY();
 	}
 
 	std::string ToString()

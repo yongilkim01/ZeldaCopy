@@ -18,16 +18,24 @@ public:
 	ARoom& operator=(const ARoom& _Other) = delete;
 	ARoom& operator=(ARoom&& _Other) noexcept = delete;
 
+	virtual void Tick(float DeltaTime) override;
+
 	void SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale = 3.0f);
 
 	FVector2D GetRoomSize() { return RoomSize; }
-	void SetRoomSize(FVector2D Size) { RoomSize = Size; }
-	void SetRoomSize(int SizeX, int SizeY) { RoomSize = { SizeX, SizeY }; }
+	void SetRoomSize(FVector2D Size) { SetRoomSize(Size.iX(), Size.iY()); }
+	void SetRoomSize(int SizeX, int SizeY);
+
+	bool CheckPlayer(class APlayer* PlayerCharacter);
+	void SetPlayer(class APlayer* PlayerCharacter);
+
+	FVector2D RoomSize = FVector2D::ZERO;
+	FVector2D LeftTopPos = FVector2D::ZERO;
+	FVector2D RightBottomPos = FVector2D::ZERO;
 
 protected:
 
 private:
 	class USpriteRenderer* SpriteRenderer = nullptr;
 	class APlayer* PlayerCharacter = nullptr;
-	FVector2D RoomSize = FVector2D::ZERO;
 };
