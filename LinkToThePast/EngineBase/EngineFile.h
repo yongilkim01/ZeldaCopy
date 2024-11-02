@@ -1,43 +1,34 @@
 #pragma once
+/** Std Header */
 #include <Windows.h>
 #include <iostream>
 #include <io.h>
 
+/** Engine Header */
 #include "EnginePath.h"
-
-// 파일과 관련된 모든 기능은 여기에서 사용합니다.
-// FIle 랩핑
-// 코딩 애초에 잘못사용하기도 힘들게 짜는것이 베스트 입니다.
-// 삭제
-// 이동
 
 
 const int MAXPATH = 256;
 
 class UEngineFile : public UEnginePath
 {
-	// 하드코딩 
 public:
+	/** 생성자, 소멸자 */
 	UEngineFile();
-	// 생성체인
-	UEngineFile(std::string_view _Path);
-	UEngineFile(std::filesystem::path _Path);
+	UEngineFile(std::string_view Path);
+	UEngineFile(std::filesystem::path Path);
 	~UEngineFile();
 
-	// Write
-	void Write(const void* _Ptr, size_t _Size);
-	void Read(void* _Ptr, size_t _Size);
+	/** 파일 쓰기 읽기 메소드 */
+	void Write(const void* Ptr, size_t Size);
+	void Read(void* Ptr, size_t Size);
 
-	void FileOpen(const char* _Mode);
+	/** 파일 열고 닫기 메소드 */
+	void FileOpen(const char* Mode);
 	bool IsExits();
 	void Close();
 
-	// 기능 클래스 랩핑
 private:
-	// 상수
-	// _MAX_DIR 윈도우에 의존적인 프로그램
-
-
 	char Path[MAXPATH] = "";
 	FILE* File = nullptr;
 };

@@ -37,7 +37,6 @@ ULevel::~ULevel()
 			delete* StartIter;
 		}
 	}
-
 }
 
 void ULevel::LevelChangeStart()

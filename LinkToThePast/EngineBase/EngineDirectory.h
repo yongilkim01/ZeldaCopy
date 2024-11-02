@@ -1,35 +1,47 @@
 #pragma once
-#include <vector>
-// 최신 std기능을 이용해볼겁니다.
+/** Engine Header */
 #include "EnginePath.h"
 
-// 실패가 없는게 여러분들의 가장문제.
+/** Std Header */
+#include <vector>
 
-// 설명 : 
+/**
+ * 디렉토리 파일 순회 기능을 하는 클래스
+ */
 class UEngineDirectory : public UEnginePath
 {
 public:
-	// constrcuter destructer
+	/** 생성자, 소멸자 */
 	UEngineDirectory();
 	UEngineDirectory(std::string_view _Path);
 	UEngineDirectory(std::filesystem::path _Path);
 	~UEngineDirectory();
 
-	//// delete Function
+	/** 객체 값 복사 방지 */
 	//UEngineDirectory(const UEngineDirectory& _Other) = delete;
 	//UEngineDirectory(UEngineDirectory&& _Other) noexcept = delete;
 	//UEngineDirectory& operator=(const UEngineDirectory& _Other) = delete;
 	//UEngineDirectory& operator=(UEngineDirectory&& _Other) noexcept = delete;
 
-	// 시간이 너무 없다고 안만듬. 나중에 만들어야지.
-	std::vector<class UEngineFile> GetAllFile(bool _IsRecursive = true);
+	/** 
+	 * 디렉토리 내 모든 파일들을 가져와서 UEngineFile 타입으로 값을 저장 후 반환하는 메소드
 
+	 * @param IsRecursive - 재귀를 통한 디렉토리 순회 여부
+	 */
+	std::vector<class UEngineFile> GetAllFile(bool IsRecursive = true);
+
+	/** 디렉토리 내 모든 디렉토리들을 가져와서 UEngineDirectory 타입으로 값을 저장 후 반환하는 메소드 */
 	std::vector<class UEngineDirectory> GetAllDirectory();
 
 protected:
 
 private:
-	void GetAllFileRecursive(std::filesystem::path _Path, std::vector<class UEngineFile>& _Result);
-
+	/** 
+	 * 디렉토리 내 모든 파일들을 재귀 형식으로 가져오는 메소드, UEngineDirectory::GetAllFile에서 IsRecursive를 true로 설정하였을 때 호출
+	 *
+	 * @param Path - 디렉토리 경로
+	 * @param Result - 결과 값을 저장할 벡터의 참조 객체
+	 */
+	void GetAllFileRecursive(std::filesystem::path Path, std::vector<class UEngineFile>& Result);
 };
 

@@ -89,10 +89,10 @@ std::vector<class UEngineDirectory> UEngineDirectory::GetAllDirectory()
 	return Result;
 }
 
-void UEngineDirectory::GetAllFileRecursive(std::filesystem::path _Path, std::vector<class UEngineFile>& Result)
+void UEngineDirectory::GetAllFileRecursive(std::filesystem::path Path, std::vector<class UEngineFile>& Result)
 {
-	// 경로를 넣어주면 그 경로의 첫번째 파일을 포커스
-	std::filesystem::directory_iterator Diriter = std::filesystem::directory_iterator(_Path);
+	// Path의 첫번째 파일 또는 디렉토리를 포커스
+	std::filesystem::directory_iterator Diriter = std::filesystem::directory_iterator(Path);
 
 	// 순회를 위한 반복문
 	while (Diriter._At_end() == false)

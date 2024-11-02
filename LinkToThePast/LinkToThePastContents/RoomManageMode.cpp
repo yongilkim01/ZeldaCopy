@@ -50,8 +50,8 @@ void ARoomManageMode::BeginPlay()
 	Dungeon8->SetRoomSize(1406, 824);
 	//780, 720
 
-	APlayer::StaticPlayer->CurRoom = Dungeon7;
-	FVector2D Size = Dungeon7->GetRoomSize();
-	GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
+	//APlayer::StaticPlayer->CurRoom = Dungeon7;
+	//FVector2D Size = Dungeon7->GetRoomSize();
+	//GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
 }
 

@@ -50,17 +50,8 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// 직접 카메라 피봇을 설정해줘야 한다.
-	if (CurRoom == nullptr)
-	{
-		FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
-		GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
-	}
-	else
-	{
-		FVector2D Size = CurRoom->GetRoomSize();
-		GetWorld()->SetCameraPivot(Size.Half() * -1.0f);
-	}
+	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+	GetWorld()->SetCameraPivot(Size.Half() * -1);
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -104,6 +95,11 @@ void APlayer::Tick(float _DeltaTime)
 		false == UEngineInput::GetInst().IsPress('S'))
 	{
 		SpriteRenderer->ChangeAnimation("Idle_Down");
+	}
+
+	if (CurRoom == nullptr)
+	{
+		//SetCamera
 	}
 
 }

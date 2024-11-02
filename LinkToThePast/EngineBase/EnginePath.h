@@ -1,36 +1,24 @@
 #pragma once
+/** Std Header file */
 #include <filesystem>
 
-// 설명 :
+/**
+ * 파일 경로를 래핑한 클래스
+ */
 class UEnginePath
 {
 public:
-	// constrcuter destructer
+	/** 생성자, 소멸자 */
 	UEnginePath();
-	UEnginePath(std::string_view _Path);
-	UEnginePath(std::filesystem::path _Path);
+	UEnginePath(std::string_view FilePath);
+	UEnginePath(std::filesystem::path FilePath);
 	~UEnginePath();
 
-	//// delete Function
+	/** 객체 값 복사 방지 */
 	//UEnginePath(const UEnginePath& _Other) = delete;
 	//UEnginePath(UEnginePath&& _Other) noexcept = delete;
 	//UEnginePath& operator=(const UEnginePath& _Other) = delete;
 	//UEnginePath& operator=(UEnginePath&& _Other) noexcept = delete;
-
-	bool IsExists();
-	void MoveParent();
-
-	std::string GetPathToString();
-
-	// 파일명 + 확장자 포함
-	std::string GetFileName();
-
-	// 파일명 + 확장자 포함
-	std::string GetDirectoryName();
-
-	// 확장자
-	std::string GetExtension();
-
 
 	// "C:\\AAAA\\BBBB\\";
 	// "C:\\AAAA\\BBBB\\Resources";
@@ -38,14 +26,24 @@ public:
 	// "C:\\AAAA\\Resources"
 	// "C:\\"
 	// "C:\\Resources"
-	// 특정 디렉토리가 나올때까지 MoveParent를 반복하는 함수.
-	bool MoveParentToDirectory(std::string_view _Path);
+	/** 디렉토리 상위 디렉토리로 이동하는 메소드 */
+	void MoveParent();
+	/** 특정 디렉토리가 나올 때 까지 UEnginePath::MoveParent를 호출하는 메소드 */
+	bool MoveParentToDirectory(std::string_view FilePath);
+	void Append(std::string_view AppendName);
 
 	bool IsDirectory();
-
 	bool IsFile();
+	bool IsExists();
 
-	void Append(std::string_view _AppendName);
+	/** 파일경로를 반환하는 메소드 */
+	std::string GetPathToString();
+	/** 파일명 + 확장자 포함을 반환하는 메소드 */
+	std::string GetFileName();
+	/** 파일명 + 확장자 포함을 반환하는 메소드 */
+	std::string GetDirectoryName();
+	/** 확장자를 반환하는 메소드 */
+	std::string GetExtension();
 
 
 protected:
