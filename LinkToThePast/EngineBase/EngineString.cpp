@@ -11,20 +11,20 @@ UEngineString::~UEngineString()
 }
 
 
-std::string UEngineString::ToUpper(std::string_view _string)
+std::string UEngineString::ToUpper(std::string_view Str)
 {
-	std::string Result = _string.data();
-	Result.resize(_string.size());
+	std::string Result = Str.data();
+	Result.resize(Str.size());
 
-	for (size_t i = 0; i < _string.size(); i++)
+	for (size_t i = 0; i < Str.size(); i++)
 	{
-		Result[i] = std::toupper(_string[i]);
+		Result[i] = std::toupper(Str[i]);
 	}
 
 	return Result;
 }
 
-std::wstring UEngineString::AnsiToUnicode(std::string_view _Name)
+std::wstring UEngineString::AnsiToUnicode(std::string_view Str)
 {
 	// 윈도우가 지원해줄까?
 	// 기본적으로 대부분의 운영체제의 문자인코딩 방식은
@@ -46,22 +46,22 @@ std::wstring UEngineString::AnsiToUnicode(std::string_view _Name)
 	// 받기위한 와이드바이트 메모리와
 	// 그 메모리의 크기를 넣어주면
 	// 변환시 크기가 얼마가 되는지 계산해주는 함수로 변경됩니다.
-	int Size = MultiByteToWideChar(CP_ACP, 0, _Name.data(), static_cast<int>(_Name.size()), nullptr, 0);
+	int Size = MultiByteToWideChar(CP_ACP, 0, Str.data(), static_cast<int>(Str.size()), nullptr, 0);
 
 	if (0 == Size)
 	{
-		MSGASSERT("MultiByteToWideChar 문자열 변환에 실패했습니다" + std::string(_Name));
+		MSGASSERT("MultiByteToWideChar 문자열 변환에 실패했습니다" + std::string(Str));
 		return L"";
 	}
 
 	std::wstring Result;
 	Result.resize(Size);
 
-	Size = MultiByteToWideChar(CP_ACP, 0, _Name.data(), static_cast<int>(_Name.size()), &Result[0], Size);
+	Size = MultiByteToWideChar(CP_ACP, 0, Str.data(), static_cast<int>(Str.size()), &Result[0], Size);
 
 	if (0 == Size)
 	{
-		MSGASSERT("MultiByteToWideChar 문자열 변환에 실패했습니다" + std::string(_Name));
+		MSGASSERT("MultiByteToWideChar 문자열 변환에 실패했습니다" + std::string(Str));
 		return L"";
 	}
 

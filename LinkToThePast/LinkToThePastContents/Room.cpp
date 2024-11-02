@@ -39,20 +39,6 @@ void ARoom::SetRoomSize(int SizeX, int SizeY)
 	//SetActorScale(RoomSize);
 }
 
-bool ARoom::CheckPlayer(APlayer* PlayerCharacter)
-{
-	if (PlayerCharacter->GetActorLocation() > GetTransform().CenterLeftTop()
-		&& PlayerCharacter->GetActorLocation() < GetTransform().CenterRightBottom())
-	{
-		/*PlayerCharacter->CurRoom->SetPlayer(nullptr);
-		PlayerCharacter->CurRoom = this;*/
-
-		return true;
-	}
-	
-	return false;
-}
-
 void ARoom::SetPlayer(APlayer* PlayerCharacter)
 {
 	if (PlayerCharacter == nullptr) return;

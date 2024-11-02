@@ -26,7 +26,6 @@ public:
 	void SetRoomSize(FVector2D Size) { SetRoomSize(Size.iX(), Size.iY()); }
 	void SetRoomSize(int SizeX, int SizeY);
 
-	bool CheckPlayer(class APlayer* PlayerCharacter);
 	void SetPlayer(class APlayer* PlayerCharacter);
 
 	FVector2D RoomSize = FVector2D::ZERO;
