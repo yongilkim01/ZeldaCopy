@@ -27,6 +27,7 @@ public:
 	/** 디바이드 제로 예외 처리 메소드  */
 	bool IsZeroed() const { return X == 0.0f || Y == 0.0f; }
 	bool EqualToInt(FVector2D _Other) const { return iX() == _Other.iX() && iY() == _Other.iY(); }
+	float Dot(const FVector2D& other) const { return X * other.X + Y * other.Y; }
 	void Normalize() 
 	{
 		float Len = Length();
