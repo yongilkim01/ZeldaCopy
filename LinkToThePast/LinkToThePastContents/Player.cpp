@@ -19,7 +19,8 @@ APlayer::APlayer()
 {
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
 	//SetActorLocation({ 1600, 2200 });
-	SetActorLocation({ 390, 427 });
+	//SetActorLocation({ 390, 427 });
+	SetActorLocation({ 280, 200 });
 	Speed = 1000.f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
@@ -72,19 +73,43 @@ void APlayer::Tick(float _DeltaTime)
 		UEngineDebug::CoreOutPutString("Room RightBottom : " + CurRoom->RightBottomPos.ToString());
 		UEngineDebug::CoreOutPutString("Room Name : " + CurRoom->GetName());
 
-		int CurrentWindowX = GetActorLocation().iX() + GetWorld()->GetCameraPivot().iX();
+		int LightTopPosX = GetActorLocation().iX() + GetWorld()->GetCameraPivot().iX();
+		int LightTopPosY = GetActorLocation().iY() + GetWorld()->GetCameraPivot().iY();
+		int RightBottomPosX = GetActorLocation().iX() - GetWorld()->GetCameraPivot().iX();
+		int RightBottomPosY = GetActorLocation().iY() - GetWorld()->GetCameraPivot().iY();
+
+		float MovePositionX = GetTransform().Location.X + GetWorld()->GetCameraPivot().X;
+		float MovePositionY = GetTransform().Location.Y + GetWorld()->GetCameraPivot().Y;
 
 		UEngineDebug::CoreOutPutString(" ");
 
-		UEngineDebug::CoreOutPutString("Current Window X Posiiton : " + std::to_string(CurrentWindowX));
+		UEngineDebug::CoreOutPutString("Current Window X Posiiton : " + std::to_string(LightTopPosX));
 		UEngineDebug::CoreOutPutString("CameraPos : " + GetWorld()->GetCameraPos().ToString());
 
-		if (CurRoom->LeftTopPos.iX() >= CurrentWindowX)
+		if (CurRoom->LeftTopPos.iX() > LightTopPosX)
 		{
-			FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
-			GetWorld()->SetCameraPivot(Size.Half() * -1);
-			GetWorld()->SetCameraPivot({ -1 * (GetActorLocation().X - CurRoom->LeftTopPos.X), Size.Half().Y * -1});
+			MovePositionX = CurRoom->LeftTopPos.X;
 		}
+		else if (CurRoom->RightBottomPos.iX() < RightBottomPosX)
+		{
+			MovePositionX = CurRoom->GetActorLocation().X;
+		}
+
+		if (CurRoom->LeftTopPos.iY() > LightTopPosY)
+		{
+			MovePositionY = CurRoom->LeftTopPos.Y;
+		}
+		else if (CurRoom->RightBottomPos.iY() < RightBottomPosY)
+		{
+			MovePositionY = CurRoom->GetActorLocation().Y;
+		}
+
+
+		//if (CurRoom->RoomSize.iX() <= UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().iX()) MovePositionY = LightTopPosY;
+		//if (CurRoom->RoomSize.iY() <= UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().iY()) MovePositionY = RightBottomPosY;
+
+		GetWorld()->SetCameraPos({ MovePositionX , MovePositionY });
+
 	}
 
 	if (true == UEngineInput::GetInst().IsDown('R'))

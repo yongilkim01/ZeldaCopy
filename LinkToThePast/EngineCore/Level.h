@@ -77,7 +77,7 @@ private:
 	std::list<AActor*> BeginPlayList;
 
 	/** 카메라 관련 멤버 변수 */
-	bool IsCameraToMainPawn = true;
+	bool IsCameraToMainPawn = false;
 	FVector2D CameraPos;
 	FVector2D CameraPivot;
 

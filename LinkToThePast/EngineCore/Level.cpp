@@ -99,7 +99,7 @@ void ULevel::Render(float DeltaTime)
 	if (IsCameraToMainPawn == true)
 	{
 		// CameraPivot = FVector2D(-1280, -720) * 0.5f;
-		CameraPos = MainPawn->GetTransform().Location + CameraPivot;
+		//CameraPos = MainPawn->GetTransform().Location + CameraPivot;
 	}
 
 	std::map<int, std::list<class USpriteRenderer*>>::iterator StartOrderIter = Renderers.begin();
