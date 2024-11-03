@@ -240,6 +240,8 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, bool _For
 	{
 		CurAnimation->Events[CurAnimation->CurIndex]();
 	}
+
+	Sprite = CurAnimation->Sprite;
 }
 
 void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, float _Frame, bool Loop)
