@@ -7,7 +7,7 @@
 #include <iostream>
 
 class ARoom;
-
+class AUserInterface;
 // 설명 :
 class ARoomManageMode : public AGameMode
 {
@@ -22,9 +22,13 @@ public:
 	ARoomManageMode& operator=(const ARoomManageMode& _Other) = delete;
 	ARoomManageMode& operator=(ARoomManageMode&& _Other) noexcept = delete;
 
-	void BeginPlay();
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	void RoomesBeginPlay();
+	void RommesTick();
 
+	void UIBeginPlay();
+	void UITick();
 	bool CheckRoomInPlayer(ARoom* CheckRoom);
 protected:
 
@@ -32,7 +36,11 @@ private:
 	class APlayer* PlayerCharacter = nullptr;
 	const int RoomCount = 8;
 
+	/** 던전 방 멤버 변수 */
 	std::vector<ARoom*> Roomes;
 	std::vector<FVector2D> RoomLocations;
 	std::vector<FVector2D> RoomSizes;
+
+	/** 유저 인터페이스 멤버 변수 */
+	AUserInterface* UI = nullptr;
 };

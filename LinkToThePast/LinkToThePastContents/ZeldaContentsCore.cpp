@@ -41,19 +41,11 @@ void ZeldaContentsCore::BeginPlay()
 		UImageManager::GetInst().Load(FilePath);
 	}
 
-
-	//UImageManager::GetInst().CuttingSprite("Player_Right.png", { 128, 128 });
 	UImageManager::GetInst().CuttingSprite("LinkMoveDown.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkMoveRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkMoveUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkMoveLeft.png", { 64, 64 });
 
-	//{
-	//	UEngineDirectory BombDir;
-	//	BombDir.MoveParentToDirectory("Resources");
-	//	BombDir.Append("Link");
-	//	UImageManager::GetInst().LoadFolder(BombDir.GetPathToString());
-	//}
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");
 
@@ -62,7 +54,6 @@ void ZeldaContentsCore::BeginPlay()
 
 	UEngineAPICore::GetCore()->CreateLevel<ARoomManageMode, APlayer>("Play");
 	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
-	//UEngineAPICore::GetCore()->CreateLevel("End");
 
 	UEngineAPICore::GetCore()->OpenLevel("Title");
 

@@ -31,6 +31,9 @@
     <ClInclude Include="Room.h">
       <Filter>ContentsObject\Play</Filter>
     </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>ContentsObject\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -63,6 +66,9 @@
     <ClCompile Include="Room.cpp">
       <Filter>ContentsObject\Play</Filter>
     </ClCompile>
+    <ClCompile Include="UserInterface.cpp">
+      <Filter>ContentsObject\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PCH">
@@ -88,6 +94,9 @@
     </Filter>
     <Filter Include="ContentsObject\Title">
       <UniqueIdentifier>{02b43c37-a9ef-4afe-869e-6006edb40ca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\UI">
+      <UniqueIdentifier>{7b142bbd-5f66-46ec-82e3-46c48ce28f39}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

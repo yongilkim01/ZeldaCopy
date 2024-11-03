@@ -181,6 +181,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="UserInterface.h" />
     <ClInclude Include="ZeldaContentsCore.h">
       <SubType>
       </SubType>
@@ -220,6 +221,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="ZeldaContentsCore.cpp">
       <SubType>
       </SubType>
