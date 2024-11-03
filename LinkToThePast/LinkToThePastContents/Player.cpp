@@ -67,48 +67,89 @@ void APlayer::Tick(float _DeltaTime)
 
 	if (CurRoom != nullptr)
 	{
-		UEngineDebug::CoreOutPutString(" ");
-		UEngineDebug::CoreOutPutString("Room Posiiton : " + CurRoom->GetActorLocation().ToString());
-		UEngineDebug::CoreOutPutString("Room LeftTop : " + CurRoom->LeftTopPos.ToString());
-		UEngineDebug::CoreOutPutString("Room RightBottom : " + CurRoom->RightBottomPos.ToString());
-		UEngineDebug::CoreOutPutString("Room Name : " + CurRoom->GetName());
+		//UEngineDebug::CoreOutPutString(" ");
+		//UEngineDebug::CoreOutPutString("Room Posiiton : " + CurRoom->GetActorLocation().ToString());
+		//UEngineDebug::CoreOutPutString("Room LeftTop : " + CurRoom->LeftTopPos.ToString());
+		//UEngineDebug::CoreOutPutString("Room RightBottom : " + CurRoom->RightBottomPos.ToString());
+		//UEngineDebug::CoreOutPutString("Room Name : " + CurRoom->GetName());
+		//UEngineDebug::CoreOutPutString("Room Size : " + CurRoom->RoomSize.ToString());
 
-		int LightTopPosX = GetActorLocation().iX() + GetWorld()->GetCameraPivot().iX();
-		int LightTopPosY = GetActorLocation().iY() + GetWorld()->GetCameraPivot().iY();
-		int RightBottomPosX = GetActorLocation().iX() - GetWorld()->GetCameraPivot().iX();
-		int RightBottomPosY = GetActorLocation().iY() - GetWorld()->GetCameraPivot().iY();
+		//int LightTopPosX = GetActorLocation().iX() + GetWorld()->GetCameraPivot().iX();
+		//int LightTopPosY = GetActorLocation().iY() + GetWorld()->GetCameraPivot().iY();
+		//int RightBottomPosX = GetActorLocation().iX() - GetWorld()->GetCameraPivot().iX();
+		//int RightBottomPosY = GetActorLocation().iY() - GetWorld()->GetCameraPivot().iY();
 
-		float MovePositionX = GetTransform().Location.X + GetWorld()->GetCameraPivot().X;
-		float MovePositionY = GetTransform().Location.Y + GetWorld()->GetCameraPivot().Y;
+		//float MovePositionX = GetTransform().Location.X + GetWorld()->GetCameraPivot().X;
+		//float MovePositionY = GetTransform().Location.Y + GetWorld()->GetCameraPivot().Y;
+		//float PrevPositionY = MovePositionY;
 
-		UEngineDebug::CoreOutPutString(" ");
+		//UEngineDebug::CoreOutPutString(" ");
 
-		UEngineDebug::CoreOutPutString("Current Window X Posiiton : " + std::to_string(LightTopPosX));
-		UEngineDebug::CoreOutPutString("CameraPos : " + GetWorld()->GetCameraPos().ToString());
+		//UEngineDebug::CoreOutPutString("Current Window X Posiiton : " + std::to_string(LightTopPosX));
+		//UEngineDebug::CoreOutPutString("CameraPos : " + GetWorld()->GetCameraPos().ToString());
 
-		if (CurRoom->LeftTopPos.iX() > LightTopPosX)
+		//if (CurRoom->LeftTopPos.iX() > LightTopPosX)
+		//{
+		//	MovePositionX = CurRoom->LeftTopPos.X;
+		//}
+		//if (CurRoom->RightBottomPos.iX() < RightBottomPosX)
+		//{
+		//	MovePositionX = CurRoom->RightBottomPos.X - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X;
+		//}
+
+		//UEngineDebug::CoreOutPutString(" ");
+		//UEngineDebug::CoreOutPutString(" ");
+		//UEngineDebug::CoreOutPutString("CurRoom LeftTop : " + CurRoom->LeftTopPos.ToString());
+		//UEngineDebug::CoreOutPutString("CurRoom RightBottom : " + CurRoom->RightBottomPos.ToString());
+		//UEngineDebug::CoreOutPutString("Window Size : " + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().ToString());
+		//int Num1 = CurRoom->RightBottomPos.Y;
+		//int Num2 = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
+
+		//bool Case1 = false;
+		//bool Case2 = false;
+
+		//if (CurRoom->LeftTopPos.iY() > LightTopPosY)
+		//{
+		//	MovePositionY = CurRoom->LeftTopPos.Y;
+		//	Case1 = true;
+		//}
+		//if (CurRoom->RightBottomPos.iY() < RightBottomPosY)
+		//{
+		//	MovePositionY = CurRoom->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
+		//	UEngineDebug::CoreOutPutString("Move Position : " + std::to_string(MovePositionY));
+		//	Case2 = true;
+		//}
+
+		//if (static_cast<int>(MovePositionY) == 1428)
+		//{
+		//	int a = 0;
+		//}
+
+		//GetWorld()->SetCameraPos({ MovePositionX , MovePositionY });
+
+		FVector2D CameraMovePos = GetTransform().Location + GetWorld()->GetCameraPivot();
+
+		if (CameraMovePos.iX() < CurRoom->LeftTopPos.iX())
 		{
-			MovePositionX = CurRoom->LeftTopPos.X;
+			CameraMovePos.X = CurRoom->LeftTopPos.X;
 		}
-		else if (CurRoom->RightBottomPos.iX() < RightBottomPosX)
+
+		if (CameraMovePos.iY() < CurRoom->LeftTopPos.iY())
 		{
-			MovePositionX = CurRoom->RightBottomPos.X - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X;
+			CameraMovePos.Y = CurRoom->LeftTopPos.Y;
 		}
 
-		if (CurRoom->LeftTopPos.iY() > LightTopPosY)
+		if (CurRoom->RightBottomPos.iX() < CameraMovePos.iX() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X)
 		{
-			MovePositionY = CurRoom->LeftTopPos.Y;
+			CameraMovePos.X = CurRoom->RightBottomPos.X - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X;
 		}
-		else if (CurRoom->RightBottomPos.iY() < RightBottomPosY)
+
+		if (CurRoom->RightBottomPos.iY() < CameraMovePos.iY() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y)
 		{
-			MovePositionY = CurRoom->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
+			CameraMovePos.Y = CurRoom->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
 		}
 
-
-		//if (CurRoom->RoomSize.iX() <= UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().iX()) MovePositionY = LightTopPosY;
-		//if (CurRoom->RoomSize.iY() <= UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().iY()) MovePositionY = RightBottomPosY;
-
-		GetWorld()->SetCameraPos({ MovePositionX , MovePositionY });
+		GetWorld()->SetCameraPos(CameraMovePos);
 
 	}
 
@@ -116,7 +157,6 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		UEngineDebug::SwitchIsDebug();
 		UEngineAPICore::GetCore()->OpenLevel("Title");
-		// UEngineDebug::SwitchIsDebug();
 	}
 
 	if (true == UEngineInput::GetInst().IsPress('D'))
