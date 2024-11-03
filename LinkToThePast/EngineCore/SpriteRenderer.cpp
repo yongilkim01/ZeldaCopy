@@ -16,7 +16,7 @@ USpriteRenderer::~USpriteRenderer()
 // SpriteRenderer : public URenderer
 // MeshRenderer : public URenderer
 // StaticMeshRenderer : public URenderer
-void USpriteRenderer::Render(float _DeltaTime)
+void USpriteRenderer::Render(float DeltaTime)
 {
 	// 일단 여기서 다 짠다.
 	if (nullptr != CurAnimation)
@@ -27,7 +27,7 @@ void USpriteRenderer::Render(float _DeltaTime)
 		Sprite = CurAnimation->Sprite;
 
 
-		CurAnimation->CurTime += _DeltaTime;
+		CurAnimation->CurTime += DeltaTime;
 
 		float CurFrameTime = Times[CurAnimation->CurIndex];
 
@@ -240,6 +240,16 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, bool _For
 	{
 		CurAnimation->Events[CurAnimation->CurIndex]();
 	}
+}
+
+void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, float _Frame, bool Loop)
+{
+	std::vector<float> Times;
+	for (size_t i = 0; i < _Indexs.size(); i++)
+	{
+		Times.push_back(_Frame);
+	}
+	CreateAnimation(_AnimationName, _SpriteName, _Indexs, Times, Loop);
 }
 
 

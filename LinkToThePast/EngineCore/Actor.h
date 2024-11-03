@@ -51,7 +51,6 @@ public:
 	class ULevel* GetWorld() { return World; }
 	void SetActorLocation(FVector2D _Location) { Transform.Location = _Location; }
 	void AddActorLocation(FVector2D _Direction) { Transform.Location += _Direction; }
-	void SetActorScale(FVector2D _Scale) { Transform.Scale = _Scale; }
 	FTransform GetTransform() { return Transform; }
 	FVector2D GetActorLocation() { return Transform.Location; }
 
