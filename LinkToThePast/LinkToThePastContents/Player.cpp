@@ -92,7 +92,7 @@ void APlayer::Tick(float _DeltaTime)
 		}
 		else if (CurRoom->RightBottomPos.iX() < RightBottomPosX)
 		{
-			MovePositionX = CurRoom->GetActorLocation().X;
+			MovePositionX = CurRoom->RightBottomPos.X - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X;
 		}
 
 		if (CurRoom->LeftTopPos.iY() > LightTopPosY)
@@ -101,7 +101,7 @@ void APlayer::Tick(float _DeltaTime)
 		}
 		else if (CurRoom->RightBottomPos.iY() < RightBottomPosY)
 		{
-			MovePositionY = CurRoom->GetActorLocation().Y;
+			MovePositionY = CurRoom->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
 		}
 
 
