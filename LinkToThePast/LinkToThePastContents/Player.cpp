@@ -21,7 +21,7 @@ APlayer::APlayer()
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
 	//SetActorLocation({ 1600, 2200 });
 	//SetActorLocation({ 390, 427 });
-	SetActorLocation({ 280, 200 });
+	SetActorLocation({ 380, 340 });
 	Speed = 1000.f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
@@ -37,8 +37,15 @@ APlayer::APlayer()
 	SpriteRenderer->CreateAnimation("Idle_Up", "LinkMoveUp.png", 0, 0, 0.1f);
 	SpriteRenderer->CreateAnimation("Idle_Down", "LinkMoveDown.png", 0, 0, 0.1f);
 
-	SpriteRenderer->CreateAnimation("Attack_Right", "LinkAttackRight.png", 0, 5, 0.06f);
-	SpriteRenderer->CreateAnimation("Attack_Left", "LinkAttackLeft.png", 0, 5, 0.1f);
+	SpriteRenderer->CreateAnimation("Attack_Right", "LinkAttackRight.png", 0, 5, 0.1f, false);
+	SpriteRenderer->CreateAnimation("Attack_Left", "LinkAttackLeft.png", 0, 5, 0.1f, false);
+	SpriteRenderer->CreateAnimation("Attack_Up", "LinkAttackUp.png", 0, 4, 0.1f, false);
+	SpriteRenderer->CreateAnimation("Attack_Down", "LinkAttackDown.png", 0, 5, 0.1f, false);
+
+	SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayer::SetPlayerStateToIdle, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayer::SetPlayerStateToIdle, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayer::SetPlayerStateToIdle, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayer::SetPlayerStateToIdle, this));
 
 	SpriteRenderer->ChangeAnimation("Idle_Down");
 
@@ -99,8 +106,6 @@ void APlayer::Tick(float DeltaTime)
 		UEngineAPICore::GetCore()->OpenLevel("Title");
 	}
 
-	FVector2D CurDir = FVector2D::ZERO;
-
 	// TODO: 콜리전 체크
 	if (false)
 	{
@@ -108,43 +113,54 @@ void APlayer::Tick(float DeltaTime)
 	}
 	else
 	{
-		if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true)
-		{
-			SpriteRenderer->ChangeAnimation("Attack_Right");
-		}
-		if (true == UEngineInput::GetInst().IsPress('D'))
+		if (true == UEngineInput::GetInst().IsPress('D') &&
+			CurState != EPlayerState::Attack)
 		{
 			SpriteRenderer->ChangeAnimation("Run_Right");
 			CurDir = FVector2D::RIGHT;
 			CurState = EPlayerState::Move;
 		}
-		if (true == UEngineInput::GetInst().IsPress('A'))
+		if (true == UEngineInput::GetInst().IsPress('A') &&
+			CurState != EPlayerState::Attack)
 		{
 			SpriteRenderer->ChangeAnimation("Run_Left");
 			CurDir = FVector2D::LEFT;
 			CurState = EPlayerState::Move;
 		}
-		if (true == UEngineInput::GetInst().IsPress('S'))
+		if (true == UEngineInput::GetInst().IsPress('S') &&
+			CurState != EPlayerState::Attack)
 		{
 			SpriteRenderer->ChangeAnimation("Run_Down");
 			CurDir = FVector2D::DOWN;
 			CurState = EPlayerState::Move;
 		}
-		if (true == UEngineInput::GetInst().IsPress('W'))
+		if (true == UEngineInput::GetInst().IsPress('W') &&
+			CurState != EPlayerState::Attack)
 		{
 			SpriteRenderer->ChangeAnimation("Run_Up");
 			CurDir = FVector2D::UP;
 			CurState = EPlayerState::Move;
 		}
+
+		if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
+			CurState != EPlayerState::Attack)
+		{
+			PlayAttackAnimation(CurDir);
+			CurState = EPlayerState::Attack;
+		}
+
 		if (false == UEngineInput::GetInst().IsPress('A') &&
 			false == UEngineInput::GetInst().IsPress('D') &&
 			false == UEngineInput::GetInst().IsPress('W') &&
 			false == UEngineInput::GetInst().IsPress('S') &&
-			false == UEngineInput::GetInst().IsPress(VK_LBUTTON))
+			false == UEngineInput::GetInst().IsPress(VK_LBUTTON) &&
+			CurState == EPlayerState::Move &&
+			CurState != EPlayerState::Attack)
 		{
 			
 			SpriteRenderer->ChangeAnimation("Idle_Down");
 			CurState = EPlayerState::Idle;
+			CurDir = FVector2D::ZERO;
 		}
 	}
 	AddActorLocation(CurDir * DeltaTime * Speed);
@@ -179,5 +195,74 @@ void APlayer::PrintDebugPlayerState()
 		break;
 	default:
 		break;
+	}
+}
+
+void APlayer::SetPlayerStateToIdle()
+{
+	SpriteRenderer->ChangeAnimation("Idle_Down");
+	CurState = EPlayerState::Idle;
+}
+
+void APlayer::PlayAttackAnimation(FVector2D Dir)
+{
+	if (Dir == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("Attack_Right", true);
+	}
+	else if (Dir == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("Attack_Left", true);
+	}
+	else if (Dir == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("Attack_Up", true);
+	}
+	else if (Dir == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("Attack_Down", true);
+	}
+	else
+	{
+		SpriteRenderer->ChangeAnimation("Attack_Down", true);
+	}
+}
+
+void APlayer::Idle()
+{
+}
+
+void APlayer::Move()
+{
+}
+
+void APlayer::Attack()
+{
+}
+
+void APlayer::FollowCamera()
+{
+	if (CurRoom != nullptr)
+	{
+		FVector2D CameraMovePos = GetTransform().Location + GetWorld()->GetCameraPivot();
+
+		if (CameraMovePos.iX() < CurRoom->LeftTopPos.iX())
+		{
+			CameraMovePos.X = CurRoom->LeftTopPos.X;
+		}
+		if (CameraMovePos.iY() < CurRoom->LeftTopPos.iY())
+		{
+			CameraMovePos.Y = CurRoom->LeftTopPos.Y;
+		}
+		if (CurRoom->RightBottomPos.iX() < CameraMovePos.iX() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X)
+		{
+			CameraMovePos.X = CurRoom->RightBottomPos.X - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X;
+		}
+		if (CurRoom->RightBottomPos.iY() < CameraMovePos.iY() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y)
+		{
+			CameraMovePos.Y = CurRoom->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
+		}
+
+		GetWorld()->SetCameraPos(CameraMovePos);
 	}
 }

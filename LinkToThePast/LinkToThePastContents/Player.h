@@ -34,6 +34,14 @@ public:
 	void RunSoundPlay();
 
 	void PrintDebugPlayerState();
+	void SetPlayerStateToIdle();
+	void PlayAttackAnimation(FVector2D Dir);
+
+	void Idle();
+	void Move();
+	void Attack();
+
+	void FollowCamera();
 
 	class ARoom* CurRoom = nullptr;
 
@@ -46,5 +54,6 @@ private:
 	class USpriteRenderer* SpriteRenderer;
 
 	EPlayerState CurState = EPlayerState::None;
+	FVector2D CurDir = FVector2D::ZERO;
 };
 
