@@ -15,6 +15,7 @@ void APlayer::RunSoundPlay()
 
 }
 
+
 APlayer::APlayer()
 {
 	// UEngineAPICore::GetCore()->CreateLevel("Title");
@@ -36,7 +37,12 @@ APlayer::APlayer()
 	SpriteRenderer->CreateAnimation("Idle_Up", "LinkMoveUp.png", 0, 0, 0.1f);
 	SpriteRenderer->CreateAnimation("Idle_Down", "LinkMoveDown.png", 0, 0, 0.1f);
 
+	SpriteRenderer->CreateAnimation("Attack_Right", "LinkAttackRight.png", 0, 5, 0.06f);
+	SpriteRenderer->CreateAnimation("Attack_Left", "LinkAttackLeft.png", 0, 5, 0.1f);
+
 	SpriteRenderer->ChangeAnimation("Idle_Down");
+
+	CurState = EPlayerState::Idle;
 
 	StaticPlayer = this;
 }
@@ -102,36 +108,48 @@ void APlayer::Tick(float DeltaTime)
 	}
 	else
 	{
+		if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true)
+		{
+			SpriteRenderer->ChangeAnimation("Attack_Right");
+		}
 		if (true == UEngineInput::GetInst().IsPress('D'))
 		{
 			SpriteRenderer->ChangeAnimation("Run_Right");
 			CurDir = FVector2D::RIGHT;
+			CurState = EPlayerState::Move;
 		}
 		if (true == UEngineInput::GetInst().IsPress('A'))
 		{
 			SpriteRenderer->ChangeAnimation("Run_Left");
 			CurDir = FVector2D::LEFT;
+			CurState = EPlayerState::Move;
 		}
 		if (true == UEngineInput::GetInst().IsPress('S'))
 		{
 			SpriteRenderer->ChangeAnimation("Run_Down");
 			CurDir = FVector2D::DOWN;
+			CurState = EPlayerState::Move;
 		}
 		if (true == UEngineInput::GetInst().IsPress('W'))
 		{
 			SpriteRenderer->ChangeAnimation("Run_Up");
 			CurDir = FVector2D::UP;
+			CurState = EPlayerState::Move;
 		}
 		if (false == UEngineInput::GetInst().IsPress('A') &&
 			false == UEngineInput::GetInst().IsPress('D') &&
 			false == UEngineInput::GetInst().IsPress('W') &&
-			false == UEngineInput::GetInst().IsPress('S'))
+			false == UEngineInput::GetInst().IsPress('S') &&
+			false == UEngineInput::GetInst().IsPress(VK_LBUTTON))
 		{
+			
 			SpriteRenderer->ChangeAnimation("Idle_Down");
+			CurState = EPlayerState::Idle;
 		}
 	}
 	AddActorLocation(CurDir * DeltaTime * Speed);
 
+	PrintDebugPlayerState();
 }
 
 void APlayer::LevelChangeStart()
@@ -141,4 +159,25 @@ void APlayer::LevelChangeStart()
 void APlayer::LevelChangeEnd()
 {
 	Super::LevelChangeEnd();
+}
+
+void APlayer::PrintDebugPlayerState()
+{
+	switch (CurState)
+	{
+	case EPlayerState::None:
+		UEngineDebug::CoreOutPutString("Player Current State : None ");
+		break;
+	case EPlayerState::Idle:
+		UEngineDebug::CoreOutPutString("Player Current State : Idle ");
+		break;
+	case EPlayerState::Move:
+		UEngineDebug::CoreOutPutString("Player Current State : Move ");
+		break;
+	case EPlayerState::Attack:
+		UEngineDebug::CoreOutPutString("Player Current State : Attack ");
+		break;
+	default:
+		break;
+	}
 }

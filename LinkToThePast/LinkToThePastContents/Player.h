@@ -1,6 +1,14 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
+enum class EPlayerState
+{
+	None = 0,
+	Idle = 1,
+	Move = 2,
+	Attack = 3
+};
+
 // Ό³Έν :
 class APlayer : public AActor
 {
@@ -25,6 +33,8 @@ public:
 
 	void RunSoundPlay();
 
+	void PrintDebugPlayerState();
+
 	class ARoom* CurRoom = nullptr;
 
 protected:
@@ -34,5 +44,7 @@ private:
 	int MySpriteIndex = 0;
 
 	class USpriteRenderer* SpriteRenderer;
+
+	EPlayerState CurState = EPlayerState::None;
 };
 

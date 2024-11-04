@@ -45,6 +45,8 @@ void ZeldaContentsCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("LinkMoveRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkMoveUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkMoveLeft.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkAttackRight.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkAttackLeft.png", { 64, 64 });
 
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");
