@@ -38,7 +38,7 @@ public:
 	void PlayAttackAnimation(FVector2D Dir);
 
 	void Idle();
-	void Move();
+	void Move(float DeltaTime);
 	void Attack();
 
 	void FollowCamera();
