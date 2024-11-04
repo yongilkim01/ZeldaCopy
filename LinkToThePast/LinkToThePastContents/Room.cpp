@@ -31,6 +31,12 @@ void ARoom::SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder,
 	SetActorLocation(SpritePos);
 }
 
+void ARoom::LinkRoom(ARoom* LinkedRoom)
+{
+	this->LinkedRoomes.push_back(LinkedRoom);
+	LinkedRoom->LinkedRoomes.push_back(this);
+}
+
 void ARoom::SetRoomSize(int SizeX, int SizeY)
 {
 	RoomSize = { SizeX, SizeY };

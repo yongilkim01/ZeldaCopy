@@ -9,6 +9,7 @@
 
 ARoomManageMode::ARoomManageMode()
 {
+
 }
 
 ARoomManageMode::~ARoomManageMode()
@@ -68,6 +69,9 @@ void ARoomManageMode::RoomesBeginPlay()
 
 		Roomes.push_back(DungeonRoom);
 	}
+
+	FindRoomToName("Dungeon1")->LinkRoom(FindRoomToName("Dungeon2"));
+	int a = 0;
 }
 
 void ARoomManageMode::RommesTick()
@@ -98,5 +102,18 @@ bool ARoomManageMode::CheckRoomInPlayer(ARoom* CheckRoom)
 		&& PlayerCharacter->GetActorLocation().iY() > CheckRoom->LeftTopPos.iY()
 		&& PlayerCharacter->GetActorLocation().iX() < CheckRoom->RightBottomPos.iX()
 		&& PlayerCharacter->GetActorLocation().iY() < CheckRoom->RightBottomPos.iY());
+}
+
+ARoom* ARoomManageMode::FindRoomToName(std::string_view RoomName)
+{
+	for (int i = 0; i < RoomCount; i++)
+	{
+		if (Roomes[i]->GetName() == RoomName)
+		{
+			return Roomes[i];
+		}
+	}
+
+	return nullptr;
 }
 

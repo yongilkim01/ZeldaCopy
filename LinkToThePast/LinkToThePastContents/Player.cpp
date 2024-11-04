@@ -22,7 +22,7 @@ APlayer::APlayer()
 	//SetActorLocation({ 1600, 2200 });
 	//SetActorLocation({ 390, 427 });
 	SetActorLocation({ 380, 340 });
-	//Speed = 1000.f;
+	Speed = 1000.f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
 	SpriteRenderer->SetSpriteScale(3.0f);
@@ -228,6 +228,11 @@ void APlayer::FollowCamera()
 {
 	if (CurRoom != nullptr)
 	{
+		for (int i = 0; i < CurRoom->GetLinkedRoomes().size(); i++)
+		{
+			UEngineDebug::CoreOutPutString("Link Room : " + CurRoom->GetLinkedRoomes()[i]->GetName());
+		}
+
 		FVector2D CameraMovePos = GetTransform().Location + GetWorld()->GetCameraPivot();
 
 		if (CameraMovePos.iX() < CurRoom->LeftTopPos.iX())

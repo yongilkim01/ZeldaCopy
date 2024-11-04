@@ -59,9 +59,6 @@ private:
 		MainPawn->World = this;
 		GameMode->World = this;
 
-		GameMode->BeginPlay();
-		MainPawn->BeginPlay();
-
 		BeginPlayList.push_back(GameMode);
 		BeginPlayList.push_back(MainPawn);
 	}

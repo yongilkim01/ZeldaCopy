@@ -30,6 +30,8 @@ public:
 	void UIBeginPlay();
 	void UITick();
 	bool CheckRoomInPlayer(ARoom* CheckRoom);
+	ARoom* FindRoomToName(std::string_view RoomName);
+	
 protected:
 
 private:

@@ -21,8 +21,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale = 3.0f);
+	void LinkRoom(ARoom* LinkedRoom);
 
 	FVector2D GetRoomSize() { return RoomSize; }
+	std::vector<ARoom*>& GetLinkedRoomes() { return LinkedRoomes; }
 	void SetRoomSize(FVector2D Size) { SetRoomSize(Size.iX(), Size.iY()); }
 	void SetRoomSize(int SizeX, int SizeY);
 
@@ -37,4 +39,6 @@ protected:
 private:
 	class USpriteRenderer* SpriteRenderer = nullptr;
 	class APlayer* PlayerCharacter = nullptr;
+
+	std::vector<ARoom*> LinkedRoomes;
 };
