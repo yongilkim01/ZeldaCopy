@@ -34,6 +34,9 @@
     <ClInclude Include="UserInterface.h">
       <Filter>ContentsObject\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>ContentsObject\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -69,6 +72,9 @@
     <ClCompile Include="UserInterface.cpp">
       <Filter>ContentsObject\UI</Filter>
     </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>ContentsObject\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PCH">
@@ -97,6 +103,9 @@
     </Filter>
     <Filter Include="ContentsObject\UI">
       <UniqueIdentifier>{7b142bbd-5f66-46ec-82e3-46c48ce28f39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Camera">
+      <UniqueIdentifier>{aa6e93f8-27e6-454d-a1f3-55c8cf51cccd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -18,9 +18,6 @@ void APlayer::RunSoundPlay()
 
 APlayer::APlayer()
 {
-	// UEngineAPICore::GetCore()->CreateLevel("Title");
-	//SetActorLocation({ 1600, 2200 });
-	//SetActorLocation({ 390, 427 });
 	SetActorLocation({ 380, 340 });
 	Speed = 1000.f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -52,6 +49,7 @@ APlayer::APlayer()
 	CurState = EPlayerState::Idle;
 
 	StaticPlayer = this;
+	IsCameraControl = true;
 }
 
 APlayer::~APlayer()
@@ -92,15 +90,6 @@ void APlayer::Tick(float DeltaTime)
 	default:
 		break;
 	}
-}
-
-void APlayer::LevelChangeStart()
-{
-	Super::LevelChangeStart();
-}
-void APlayer::LevelChangeEnd()
-{
-	Super::LevelChangeEnd();
 }
 
 void APlayer::PrintDebugPlayerState()
@@ -158,28 +147,11 @@ void APlayer::Idle()
 {
 	FollowCamera();
 
-	if (UEngineInput::GetInst().IsPress('D') == true)
+	if (UEngineInput::GetInst().IsPress('A') == true
+		|| UEngineInput::GetInst().IsPress('D') == true
+		|| UEngineInput::GetInst().IsPress('W') == true
+		|| UEngineInput::GetInst().IsPress('S') == true)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right");
-		CurDir = FVector2D::RIGHT;
-		CurState = EPlayerState::Move;
-	}
-	if (UEngineInput::GetInst().IsPress('A') == true)
-	{
-		SpriteRenderer->ChangeAnimation("Run_Left");
-		CurDir = FVector2D::LEFT;
-		CurState = EPlayerState::Move;
-	}
-	if (UEngineInput::GetInst().IsPress('S') == true)
-	{
-		SpriteRenderer->ChangeAnimation("Run_Down");
-		CurDir = FVector2D::DOWN;
-		CurState = EPlayerState::Move;
-	}
-	if (true == UEngineInput::GetInst().IsPress('W') == true)
-	{
-		SpriteRenderer->ChangeAnimation("Run_Up");
-		CurDir = FVector2D::UP;
 		CurState = EPlayerState::Move;
 	}
 
@@ -189,11 +161,40 @@ void APlayer::Idle()
 		PlayAttackAnimation(CurDir);
 		CurState = EPlayerState::Attack;
 	}
+
 }
 
 void APlayer::Move(float DeltaTime)
 {
 	FollowCamera();
+
+	if (UEngineInput::GetInst().IsPress('D') == true)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
+		CurDir = FVector2D::RIGHT;
+	}
+	if (UEngineInput::GetInst().IsPress('A') == true)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Left");
+		CurDir = FVector2D::LEFT;
+	}
+	if (UEngineInput::GetInst().IsPress('S') == true)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Down");
+		CurDir = FVector2D::DOWN;
+	}
+	if (true == UEngineInput::GetInst().IsPress('W') == true)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Up");
+		CurDir = FVector2D::UP;
+	}
+
+	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
+		CurState != EPlayerState::Attack)
+	{
+		PlayAttackAnimation(CurDir);
+		CurState = EPlayerState::Attack;
+	}
 
 	AddActorLocation(CurDir * DeltaTime * Speed);
 
@@ -254,4 +255,13 @@ void APlayer::FollowCamera()
 
 		GetWorld()->SetCameraPos(CameraMovePos);
 	}
+}
+
+void APlayer::LevelChangeStart()
+{
+	Super::LevelChangeStart();
+}
+void APlayer::LevelChangeEnd()
+{
+	Super::LevelChangeEnd();
 }

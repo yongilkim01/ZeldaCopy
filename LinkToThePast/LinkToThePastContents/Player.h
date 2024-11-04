@@ -45,6 +45,8 @@ public:
 
 	class ARoom* CurRoom = nullptr;
 
+	bool IsCameraControl = false;
+
 protected:
 
 private:

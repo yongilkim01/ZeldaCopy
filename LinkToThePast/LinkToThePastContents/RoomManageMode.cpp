@@ -6,6 +6,9 @@
 #include "UserInterface.h"
 
 #include <EngineCore/SpriteRenderer.h>
+#include <EnginePlatform/EngineInput.h>
+
+bool ARoomManageMode::IsMapMoving = false;
 
 ARoomManageMode::ARoomManageMode()
 {
@@ -20,7 +23,7 @@ void ARoomManageMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerCharacter = APlayer::StaticPlayer;
+	PlayerCharacter = dynamic_cast<APlayer*>(GetWorld()->GetPawn());
 
 	RoomesBeginPlay();
 	UIBeginPlay();
@@ -30,6 +33,17 @@ void ARoomManageMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (CurRoom != nullptr)
+	{
+		if (UEngineInput::GetInst().IsPress('1') == true)
+		{
+			while (GetWorld()->GetCameraPos().Y < CurRoom->GetLinkedRoomes()[0]->LeftTopPos.Y)
+			{
+				//GetWorld()->SetCameraPos({ CurRoom->GetLinkedRoomes()[0]->LeftTopPos.X, GetWorld()->GetCameraPos().Y + 0.0000001f });
+			}
+		}
+
+	}
 	RommesTick();
 }
 
@@ -71,7 +85,7 @@ void ARoomManageMode::RoomesBeginPlay()
 	}
 
 	FindRoomToName("Dungeon1")->LinkRoom(FindRoomToName("Dungeon2"));
-	int a = 0;
+	FindRoomToName("Dungeon2")->LinkRoom(FindRoomToName("Dungeon3"));
 }
 
 void ARoomManageMode::RommesTick()
@@ -80,8 +94,10 @@ void ARoomManageMode::RommesTick()
 	{
 		if (CheckRoomInPlayer(Roomes[i]))
 		{
-			APlayer::StaticPlayer->CurRoom->SetPlayer(nullptr);
-			APlayer::StaticPlayer->CurRoom = Roomes[i];
+			PlayerCharacter->CurRoom->SetPlayer(nullptr);
+			PlayerCharacter->CurRoom = Roomes[i];
+			this->CurRoom = Roomes[i];
+
 		}
 	}
 }

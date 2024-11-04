@@ -12,6 +12,8 @@ class AUserInterface;
 class ARoomManageMode : public AGameMode
 {
 public:
+	static bool IsMapMoving;
+
 	// constrcuter destructer
 	ARoomManageMode();
 	~ARoomManageMode();
@@ -39,6 +41,7 @@ private:
 	const int RoomCount = 8;
 
 	/** 던전 방 멤버 변수 */
+	ARoom* CurRoom = nullptr;
 	std::vector<ARoom*> Roomes;
 	std::vector<FVector2D> RoomLocations;
 	std::vector<FVector2D> RoomSizes;
