@@ -29,18 +29,30 @@ void ARoomManageMode::BeginPlay()
 	UIBeginPlay();
 }
 
+FVector2D MovePos = FVector2D::ZERO;
+
 void ARoomManageMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (ARoomManageMode::IsMapMoving == true)
+	{
+		GetWorld()->SetCameraPos(GetWorld()->GetCameraPos() + MovePos);
+		if (GetWorld()->GetCameraPos().iY() > CurRoom->GetLinkedRoomes()[0]->LeftTopPos.iY())
+		{
+			IsMapMoving = false;
+			CurRoom = CurRoom->GetLinkedRoomes()[0];
+			PlayerCharacter->CurRoom = CurRoom;
+		}
+	}
 
 	if (CurRoom != nullptr)
 	{
 		if (UEngineInput::GetInst().IsPress('1') == true)
 		{
-			while (GetWorld()->GetCameraPos().Y < CurRoom->GetLinkedRoomes()[0]->LeftTopPos.Y)
-			{
-				//GetWorld()->SetCameraPos({ CurRoom->GetLinkedRoomes()[0]->LeftTopPos.X, GetWorld()->GetCameraPos().Y + 0.0000001f });
-			}
+			ARoomManageMode::IsMapMoving = true;
+			MovePos = { 0.0f, 0.5f };
+			//GetWorld()->SetCameraPos({ CurRoom->GetLinkedRoomes()[0]->LeftTopPos.X, GetWorld()->GetCameraPos().Y + 0.0000001f });
 		}
 
 	}

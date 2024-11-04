@@ -7,6 +7,7 @@
 
 #include <EnginePlatform/EngineInput.h>
 #include "Room.h"
+#include "RoomManageMode.h"
 
 APlayer* APlayer::StaticPlayer = nullptr;
 
@@ -67,6 +68,8 @@ void APlayer::BeginPlay()
 void APlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (ARoomManageMode::IsMapMoving == true) return;
 
 	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / DeltaTime));
 	UEngineDebug::CoreOutPutString("PlayerPos : " + GetActorLocation().ToString());
@@ -261,6 +264,7 @@ void APlayer::LevelChangeStart()
 {
 	Super::LevelChangeStart();
 }
+
 void APlayer::LevelChangeEnd()
 {
 	Super::LevelChangeEnd();
