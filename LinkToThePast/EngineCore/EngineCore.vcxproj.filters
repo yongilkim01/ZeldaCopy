@@ -107,5 +107,8 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{4d5f4bd8-a15e-4d5d-9d4f-39d1be770e4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SubSystem">
+      <UniqueIdentifier>{fa713371-2805-4c23-b6b3-7ca7d0767773}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

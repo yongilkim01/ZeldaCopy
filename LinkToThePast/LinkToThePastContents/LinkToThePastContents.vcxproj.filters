@@ -7,14 +7,8 @@
     <ClInclude Include="ZeldaContentsCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="PlayGameMode.h">
-      <Filter>ContentsObject\GameMode</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ContentsObject\Global</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayMap.h">
-      <Filter>ContentsObject\Play</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
@@ -29,13 +23,13 @@
       <Filter>ContentsObject\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Room.h">
-      <Filter>ContentsObject\Play</Filter>
+      <Filter>ContentsObject\Room</Filter>
     </ClInclude>
     <ClInclude Include="UserInterface.h">
       <Filter>ContentsObject\UI</Filter>
     </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>ContentsObject\Camera</Filter>
+    <ClInclude Include="RoomMove.h">
+      <Filter>ContentsObject\Room</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -45,14 +39,8 @@
     <ClCompile Include="ZeldaContentsCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="PlayGameMode.cpp">
-      <Filter>ContentsObject\GameMode</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>ContentsObject\Global</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayMap.cpp">
-      <Filter>ContentsObject\Play</Filter>
     </ClCompile>
     <ClCompile Include="ContentsEnum.cpp">
       <Filter>Global</Filter>
@@ -67,13 +55,13 @@
       <Filter>ContentsObject\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="Room.cpp">
-      <Filter>ContentsObject\Play</Filter>
+      <Filter>ContentsObject\Room</Filter>
     </ClCompile>
     <ClCompile Include="UserInterface.cpp">
       <Filter>ContentsObject\UI</Filter>
     </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>ContentsObject\Camera</Filter>
+    <ClCompile Include="RoomMove.cpp">
+      <Filter>ContentsObject\Room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +80,6 @@
     <Filter Include="ContentsObject\Global">
       <UniqueIdentifier>{8f4392f1-396e-4b8b-be29-b550be7e9d78}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ContentsObject\Play">
-      <UniqueIdentifier>{12c26f1d-7b52-42b2-9dad-ce0bc259929e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{da15f387-2619-4319-85c2-199836679ba5}</UniqueIdentifier>
     </Filter>
@@ -104,8 +89,11 @@
     <Filter Include="ContentsObject\UI">
       <UniqueIdentifier>{7b142bbd-5f66-46ec-82e3-46c48ce28f39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ContentsObject\Camera">
-      <UniqueIdentifier>{aa6e93f8-27e6-454d-a1f3-55c8cf51cccd}</UniqueIdentifier>
+    <Filter Include="ContentsObject\Room">
+      <UniqueIdentifier>{12c26f1d-7b52-42b2-9dad-ce0bc259929e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentsObject\Dungeon">
+      <UniqueIdentifier>{b27407eb-4fbb-48cc-b1a3-7fb18dcbe130}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

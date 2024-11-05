@@ -151,20 +151,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CameraManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Player.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="PlayGameMode.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="PlayMap.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -174,6 +162,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="RoomManageMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RoomMove.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -192,20 +184,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CameraManager.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="ContentsEnum.cpp" />
     <ClCompile Include="Player.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="PlayGameMode.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="PlayMap.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -218,6 +198,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="RoomManageMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RoomMove.cpp">
       <SubType>
       </SubType>
     </ClCompile>

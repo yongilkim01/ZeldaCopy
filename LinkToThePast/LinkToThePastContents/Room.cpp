@@ -5,6 +5,7 @@
 #include <EnginePlatform/EngineInput.h>
 #include "ContentsEnum.h"
 #include "Player.h"
+#include "RoomMove.h"
 
 ARoom::ARoom()
 {
@@ -22,11 +23,22 @@ ARoom::ARoom()
 		ColSpriteRenderer->SetSprite("Dungeon1Collision.png");
 		FVector2D MapScale = ColSpriteRenderer->SetSpriteScale(1.0f);
 		ColSpriteRenderer->SetComponentLocation(MapScale.Half());
+		ColSpriteRenderer->SetActive(false);
 	}
+
+	//RoomMoves.push_back(new URoomMove(380.0f, 600.0f));
 }
 
 ARoom::~ARoom()
 {
+	if (RoomMoves.size() > 0)
+	{
+		for (int i = 0; i < RoomMoves.size(); i++)
+		{
+			delete RoomMoves[i];
+			RoomMoves[i] = nullptr;
+		}
+	}
 }
 
 void ARoom::Tick(float DeltaTime)

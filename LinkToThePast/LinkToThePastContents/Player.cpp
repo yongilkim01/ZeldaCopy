@@ -7,9 +7,8 @@
 
 #include <EnginePlatform/EngineInput.h>
 #include "Room.h"
+#include "RoomMove.h"
 #include "RoomManageMode.h"
-
-APlayer* APlayer::StaticPlayer = nullptr;
 
 void APlayer::RunSoundPlay()
 {
@@ -25,10 +24,10 @@ APlayer::APlayer()
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
 	SpriteRenderer->SetSpriteScale(3.0f);
 
-	SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveRight.png", 1, 8, 0.1f);
-	SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 8, 0.1f);
-	SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 8, 0.1f);
-	SpriteRenderer->CreateAnimation("Run_Down", "LinkMoveDown.png", 1, 8, 0.1f);
+	SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveRight.png", 1, 8, 0.04f);
+	SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 8, 0.04f);
+	SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 8, 0.04f);
+	SpriteRenderer->CreateAnimation("Run_Down", "LinkMoveDown.png", 1, 8, 0.04f);
 
 	SpriteRenderer->CreateAnimation("Idle_Right", "LinkMoveRight.png", 0, 0, 0.1f);
 	SpriteRenderer->CreateAnimation("Idle_Left", "LinkMoveLeft.png", 0, 0, 0.1f);
@@ -45,11 +44,9 @@ APlayer::APlayer()
 	SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayer::SetPlayerStateToIdle, this));
 	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayer::SetPlayerStateToIdle, this));
 
-	SpriteRenderer->ChangeAnimation("Idle_Down");
 
-	CurState = EPlayerState::Idle;
+	CurDir = FVector2D::DOWN;
 
-	StaticPlayer = this;
 	IsCameraControl = true;
 }
 
@@ -64,6 +61,8 @@ void APlayer::BeginPlay()
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1);
 	SetCollisionImage("Dungeon1Collision.png");
+
+	ChangeState(EPlayerState::Idle);
 }
 
 void APlayer::Tick(float DeltaTime)
@@ -80,16 +79,14 @@ void APlayer::Tick(float DeltaTime)
 
 	switch (CurState)
 	{
-	case EPlayerState::None:
-		break;
 	case EPlayerState::Idle:
-		Idle();
+		Idle(DeltaTime);
 		break;
 	case EPlayerState::Move:
 		Move(DeltaTime);
 		break;
 	case EPlayerState::Attack:
-		Attack();
+		Attack(DeltaTime);
 		break;
 	default:
 		break;
@@ -105,9 +102,6 @@ void APlayer::PrintDebugPlayerState()
 {
 	switch (CurState)
 	{
-	case EPlayerState::None:
-		UEngineDebug::CoreOutPutString("Player Current State : None ");
-		break;
 	case EPlayerState::Idle:
 		UEngineDebug::CoreOutPutString("Player Current State : Idle ");
 		break;
@@ -128,123 +122,208 @@ void APlayer::SetPlayerStateToIdle()
 	CurState = EPlayerState::Idle;
 }
 
-void APlayer::PlayAttackAnimation(FVector2D Dir)
+void APlayer::ChangeState(EPlayerState ChangeState)
 {
-	if (Dir == FVector2D::RIGHT)
+	switch (ChangeState)
+	{
+	case EPlayerState::Idle:
+		IdleStart();
+		break;
+	case EPlayerState::Move:
+		MoveStart();
+		break;
+	case EPlayerState::Attack:
+		AttackStart();
+		break;
+	default:
+		break;
+	}
+
+	CurState = ChangeState;
+}
+
+void APlayer::IdleStart()
+{
+	if (CurDir == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("Idle_Right");
+	}
+	else if (CurDir == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("Idle_Left");
+	}
+	else if (CurDir == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("Idle_Up");
+	}
+	else if (CurDir == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("Idle_Down");
+	}
+	else
+	{
+		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+		return;
+	}
+
+	CurState = EPlayerState::Idle;
+}
+
+void APlayer::MoveStart()
+{
+	if (CurDir == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
+	}
+	else if (CurDir == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Left");
+	}
+	else if (CurDir == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Up");
+	}
+	else if (CurDir == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Down");
+	}
+	else
+	{
+		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+		return;
+	}
+
+	CurState = EPlayerState::Move;
+}
+
+void APlayer::AttackStart()
+{
+	if (CurDir == FVector2D::RIGHT)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Right", true);
 	}
-	else if (Dir == FVector2D::LEFT)
+	else if (CurDir == FVector2D::LEFT)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Left", true);
 	}
-	else if (Dir == FVector2D::UP)
+	else if (CurDir == FVector2D::UP)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Up", true);
 	}
-	else if (Dir == FVector2D::DOWN)
+	else if (CurDir == FVector2D::DOWN)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Down", true);
 	}
 	else
 	{
-		SpriteRenderer->ChangeAnimation("Attack_Down", true);
+		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+		return;
 	}
+
+	CurState = EPlayerState::Attack;
 }
 
-void APlayer::Idle()
+void APlayer::Idle(float DeltaTime)
 {
 	FollowCamera();
 
-	if (UEngineInput::GetInst().IsPress('A') == true
-		|| UEngineInput::GetInst().IsPress('D') == true
-		|| UEngineInput::GetInst().IsPress('W') == true
-		|| UEngineInput::GetInst().IsPress('S') == true)
+	if (UEngineInput::GetInst().IsPress('A') == true)
 	{
-		CurState = EPlayerState::Move;
+		CurDir = FVector2D::LEFT;
+		ChangeState(EPlayerState::Move);
+		return;
 	}
-
-	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
-		CurState != EPlayerState::Attack)
+	else if (UEngineInput::GetInst().IsPress('D') == true)
 	{
-		PlayAttackAnimation(CurDir);
-		CurState = EPlayerState::Attack;
+		CurDir = FVector2D::RIGHT;
+		ChangeState(EPlayerState::Move);
+		return;
 	}
-
+	else if (UEngineInput::GetInst().IsPress('W') == true)
+	{
+		CurDir = FVector2D::UP;
+		ChangeState(EPlayerState::Move);
+		return;
+	}
+	else if (UEngineInput::GetInst().IsPress('S') == true)
+	{
+		CurDir = FVector2D::DOWN;
+		ChangeState(EPlayerState::Move);
+		return;
+	}
 }
 
 void APlayer::Move(float DeltaTime)
 {
 	FollowCamera();
 
-	if (UEngineInput::GetInst().IsPress('D') == true)
+	if (UEngineInput::GetInst().IsPress('D') == true
+		&& CurDir != FVector2D::RIGHT)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right");
 		CurDir = FVector2D::RIGHT;
+		//SpriteRenderer->ChangeAnimation("Run_Right");
 	}
-	if (UEngineInput::GetInst().IsPress('A') == true)
+	if (UEngineInput::GetInst().IsPress('A') == true
+		&& CurDir != FVector2D::LEFT)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Left");
 		CurDir = FVector2D::LEFT;
+		//SpriteRenderer->ChangeAnimation("Run_Left");
 	}
-	if (UEngineInput::GetInst().IsPress('S') == true)
+	if (UEngineInput::GetInst().IsPress('S') == true
+		&& CurDir != FVector2D::DOWN)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Down");
 		CurDir = FVector2D::DOWN;
+		//SpriteRenderer->ChangeAnimation("Run_Down");
 	}
-	if (true == UEngineInput::GetInst().IsPress('W') == true)
+	if (UEngineInput::GetInst().IsPress('W') == true
+		&& CurDir != FVector2D::UP)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Up");
 		CurDir = FVector2D::UP;
+		//SpriteRenderer->ChangeAnimation("Run_Up");
 	}
 
-	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
-		CurState != EPlayerState::Attack)
-	{
-		PlayAttackAnimation(CurDir);
-		CurState = EPlayerState::Attack;
-	}
+	//if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
+	//	CurState != EPlayerState::Attack)
+	//{
+	//	PlayAttackAnimation(CurDir);
+	//	CurState = EPlayerState::Attack;
+	//}
 
-	if (CollisionImage != nullptr)
-	{
-		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
-		FVector2D NextPos = GetActorLocation() + CurDir * DeltaTime * Speed;
-		UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
-		if (Color == UColor::WHITE)
-		{
-			AddActorLocation(CurDir * DeltaTime * Speed);
-		} 
-		else if (Color == UColor::ORANGE)
-		{
-			AddActorLocation(CurDir * DeltaTime * (Speed * 0.5f));
-		}
-	}
+	//if (CollisionImage != nullptr)
+	//{
+	//	// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
+	//	FVector2D NextPos = GetActorLocation() + CurDir * DeltaTime * Speed;
+	//	UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
+	//	if (Color == UColor::WHITE)
+	//	{
+	//		AddActorLocation(CurDir * DeltaTime * Speed);
+	//	} 
+	//	else if (Color == UColor::ORANGE)
+	//	{
+	//		AddActorLocation(CurDir * DeltaTime * (Speed * 0.5f));
+	//	}
+	//}
 
-	// AddActorLocation(CurDir * DeltaTime * Speed);
+	AddActorLocation(CurDir * DeltaTime * Speed);
 
 	if (false == UEngineInput::GetInst().IsPress('A') &&
 		false == UEngineInput::GetInst().IsPress('D') &&
 		false == UEngineInput::GetInst().IsPress('W') &&
-		false == UEngineInput::GetInst().IsPress('S') &&
-		false == UEngineInput::GetInst().IsPress(VK_LBUTTON) &&
-		CurState == EPlayerState::Move &&
-		CurState != EPlayerState::Attack)
+		false == UEngineInput::GetInst().IsPress('S'))
 	{
 
-		SpriteRenderer->ChangeAnimation("Idle_Down");
-		CurState = EPlayerState::Idle;
-		CurDir = FVector2D::ZERO;
+		ChangeState(EPlayerState::Idle);
 	}
 
-	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
-		CurState != EPlayerState::Attack)
-	{
-		PlayAttackAnimation(CurDir);
-		CurState = EPlayerState::Attack;
-	}
+	//if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
+	//	CurState != EPlayerState::Attack)
+	//{
+	//	PlayAttackAnimation(CurDir);
+	//	CurState = EPlayerState::Attack;
+	//}
 }
 
-void APlayer::Attack()
+void APlayer::Attack(float DeltaTime)
 {
 	FollowCamera();
 }
@@ -253,9 +332,13 @@ void APlayer::FollowCamera()
 {
 	if (CurRoom != nullptr)
 	{
-		for (int i = 0; i < CurRoom->GetLinkedRoomes().size(); i++)
+		for (int i = 0; i < CurRoom->GetRoomMovesSize(); i++)
 		{
-			UEngineDebug::CoreOutPutString("Link Room : " + CurRoom->GetLinkedRoomes()[i]->GetName());
+			URoomMove* RoomMove = CurRoom->FindRoomMove(i);
+			ARoom* TestRoom1 = RoomMove->GetCurRoom();
+			ARoom* TestRoom2 = RoomMove->GetMoveRoom();
+			if (RoomMove->GetMoveRoom() == nullptr || RoomMove->GetCurRoom() == nullptr) continue;
+			UEngineDebug::CoreOutPutString("Link Room : " + RoomMove->GetMoveRoom()->GetName());
 		}
 
 		FVector2D CameraMovePos = GetTransform().Location + GetWorld()->GetCameraPivot();

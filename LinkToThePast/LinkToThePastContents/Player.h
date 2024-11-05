@@ -1,21 +1,19 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineCore/ImageManager.h>
+#include <EngineBase/FSMStateManager.h>
 
 enum class EPlayerState
 {
-	None = 0,
-	Idle = 1,
-	Move = 2,
-	Attack = 3
+	Idle,
+	Move,
+	Attack,
 };
 
 // Ό³Έν :
 class APlayer : public AActor
 {
 public:
-	static APlayer* StaticPlayer;
-
 	// constrcuter destructer
 	APlayer();
 	~APlayer();
@@ -38,11 +36,16 @@ public:
 
 	void PrintDebugPlayerState();
 	void SetPlayerStateToIdle();
-	void PlayAttackAnimation(FVector2D Dir);
 
-	void Idle();
+	void ChangeState(EPlayerState ChangeState);
+
+	void IdleStart();
+	void MoveStart();
+	void AttackStart();
+
+	void Idle(float DeltaTime);
 	void Move(float DeltaTime);
-	void Attack();
+	void Attack(float DeltaTime);
 
 	void FollowCamera();
 
@@ -58,8 +61,10 @@ private:
 
 	class USpriteRenderer* SpriteRenderer;
 
-	EPlayerState CurState = EPlayerState::None;
+	EPlayerState CurState = EPlayerState::Idle;
 	FVector2D CurDir = FVector2D::ZERO;
 	class UEngineWinImage* CollisionImage = nullptr;
+
+	UFSMStateManager FSM;
 };
 

@@ -5,6 +5,7 @@
 #include "ContentsEnum.h"
 
 class USpriteRenderer;
+class URoomMove;
 
 // Ό³Έν :
 class ARoom : public AActor
@@ -24,13 +25,15 @@ public:
 
 	void SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale = 3.0f);
 	void LinkRoom(ARoom* LinkedRoom);
+	URoomMove* FindRoomMove(int Index) { return RoomMoves[Index]; }
 
 	FVector2D GetRoomSize() { return RoomSize; }
 	std::vector<ARoom*>& GetLinkedRoomes() { return LinkedRoomes; }
 	void SetRoomSize(FVector2D Size) { SetRoomSize(Size.iX(), Size.iY()); }
 	void SetRoomSize(int SizeX, int SizeY);
-
 	void SetPlayer(class APlayer* PlayerCharacter);
+	void AddRoomMove(URoomMove* RoomMove) { RoomMoves.push_back(RoomMove); }
+	int GetRoomMovesSize() { return RoomMoves.size(); }
 
 	FVector2D RoomSize = FVector2D::ZERO;
 	FVector2D LeftTopPos = FVector2D::ZERO;
@@ -45,4 +48,6 @@ private:
 	APlayer* PlayerCharacter = nullptr;
 
 	std::vector<ARoom*> LinkedRoomes;
+
+	std::vector<URoomMove*> RoomMoves;
 };

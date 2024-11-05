@@ -4,6 +4,7 @@
 #include "ContentsEnum.h"
 #include "Player.h"
 #include "UserInterface.h"
+#include "RoomMove.h"
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EnginePlatform/EngineInput.h>
@@ -36,28 +37,28 @@ void ARoomManageMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (ARoomManageMode::IsMapMoving == true)
-	{
-		GetWorld()->SetCameraPos(GetWorld()->GetCameraPos() + MovePos);
-		if (GetWorld()->GetCameraPos().iY() > CurRoom->GetLinkedRoomes()[0]->LeftTopPos.iY())
-		{
-			IsMapMoving = false;
-			CurRoom = CurRoom->GetLinkedRoomes()[0];
-			PlayerCharacter->CurRoom = CurRoom;
-			//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y);
-		}
-	}
+	//if (ARoomManageMode::IsMapMoving == true)
+	//{
+	//	GetWorld()->SetCameraPos(GetWorld()->GetCameraPos() + MovePos);
+	//	if (GetWorld()->GetCameraPos().iY() > CurRoom->GetLinkedRoomes()[0]->LeftTopPos.iY())
+	//	{
+	//		IsMapMoving = false;
+	//		CurRoom = CurRoom->GetLinkedRoomes()[0];
+	//		PlayerCharacter->CurRoom = CurRoom;
+	//		//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y);
+	//	}
+	//}
 
-	if (CurRoom != nullptr)
-	{
-		if (UEngineInput::GetInst().IsPress('1') == true)
-		{
-			ARoomManageMode::IsMapMoving = true;
-			MovePos = { 0.0f, 0.5f };
-			//GetWorld()->SetCameraPos({ CurRoom->GetLinkedRoomes()[0]->LeftTopPos.X, GetWorld()->GetCameraPos().Y + 0.0000001f });
-		}
+	//if (CurRoom != nullptr)
+	//{
+	//	if (UEngineInput::GetInst().IsPress('1') == true)
+	//	{
+	//		ARoomManageMode::IsMapMoving = true;
+	//		MovePos = { 0.0f, 0.5f };
+	//		//GetWorld()->SetCameraPos({ CurRoom->GetLinkedRoomes()[0]->LeftTopPos.X, GetWorld()->GetCameraPos().Y + 0.0000001f });
+	//	}
 
-	}
+	//}
 	
 	RommesTick();
 }
@@ -101,6 +102,10 @@ void ARoomManageMode::RoomesBeginPlay()
 
 	FindRoomToName("Dungeon1")->LinkRoom(FindRoomToName("Dungeon2"));
 	FindRoomToName("Dungeon2")->LinkRoom(FindRoomToName("Dungeon3"));
+
+	// 던전1 <=> 던전2로 링크
+	Roomes[0]->AddRoomMove(new URoomMove({ 380.0f, 600.0f }, Roomes[0], Roomes[1]));
+	Roomes[1]->AddRoomMove(new URoomMove({ 380.0f, 894.0f }, Roomes[1], Roomes[0]));
 }
 
 void ARoomManageMode::RommesTick()
