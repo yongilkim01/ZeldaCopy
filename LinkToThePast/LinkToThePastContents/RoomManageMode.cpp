@@ -24,7 +24,7 @@ void ARoomManageMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerCharacter = dynamic_cast<APlayer*>(GetWorld()->GetPawn());
+	PlayerCharacter = GetWorld()->GetPawn<APlayer>();
 
 	RoomesBeginPlay();
 	UIBeginPlay();

@@ -70,6 +70,12 @@ void ULevel::Tick(float _DeltaTime)
 		for (; StartIter != EndIter; ++StartIter)
 		{
 			AActor* CurActor = *StartIter;
+
+			if (CurActor->IsActive() == false)
+			{
+				continue;
+			}
+
 			CurActor->BeginPlay();
 			AllActors.push_back(CurActor);
 		}
@@ -114,6 +120,11 @@ void ULevel::Render(float DeltaTime)
 
 		for (; RenderStartIter != RenderEndIter; ++RenderStartIter)
 		{
+			if ((*RenderStartIter)->IsActive() == false)
+			{
+				continue;
+			}
+
 			(*RenderStartIter)->Render(DeltaTime);
 		}
 	}
@@ -121,6 +132,49 @@ void ULevel::Render(float DeltaTime)
 	UEngineDebug::PrintEngineDebugText();
 
 	DoubleBuffering();
+}
+
+void ULevel::Release(float DeltaTime)
+{
+	// 릴리즈 순서는 말단부터 돌려야 합니다.
+	std::map<int, std::list<class USpriteRenderer*>>::iterator StartOrderIter = Renderers.begin();
+	std::map<int, std::list<class USpriteRenderer*>>::iterator EndOrderIter = Renderers.end();
+	for (; StartOrderIter != EndOrderIter; ++StartOrderIter)
+	{
+		std::list<class USpriteRenderer*>& RendererList = StartOrderIter->second;
+		std::list<class USpriteRenderer*>::iterator RenderStartIter = RendererList.begin();
+		std::list<class USpriteRenderer*>::iterator RenderEndIter = RendererList.end();
+		// 언리얼은 중간에 삭제할수 없어.
+		for (; RenderStartIter != RenderEndIter; )
+		{
+			if (false == (*RenderStartIter)->IsDestroy())
+			{
+				++RenderStartIter;
+				continue;
+			}
+			// 랜더러는 지울 필요가 없습니다.
+			// (*RenderStartIter) 누가 지울 권한을 가졌느냐.
+			// 컴포넌트의 메모리를 삭제할수 권한은 오로지 액터만 가지고 있다.
+			RenderStartIter = RendererList.erase(RenderStartIter);
+		}
+	}
+	{
+		std::list<AActor*>::iterator StartIter = AllActors.begin();
+		std::list<AActor*>::iterator EndIter = AllActors.end();
+		for (; StartIter != EndIter; )
+		{
+			AActor* CurActor = *StartIter;
+			if (CurActor->IsDestroy() == false)
+			{
+				CurActor->ReleaseCheck(DeltaTime);
+				++StartIter;
+				continue;
+			}
+			// 레벨은 액터의 삭제권한을 가지고 있으니 액터는 진짜 지워 준다.
+			delete CurActor;
+			StartIter = AllActors.erase(StartIter);
+		}
+	}
 }
 
 void ULevel::ScreenClear()

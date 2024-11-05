@@ -44,6 +44,19 @@ public:
 	void BeginPlay() override;
 	void ComponentTick(float _DeltaTime) override;
 
+	bool IsActive() override
+	{
+		// 랜더러는 자신을 가진 액터에게 종속된다.
+		// 부모도        true            true
+		return UObject::IsActive() && GetActor()->IsActive();
+	}
+
+	bool IsDestroy() override
+	{
+		// 부모도        true            true
+		return UObject::IsDestroy() || GetActor()->IsDestroy();
+	}
+
 	// int를 주는 함수들은 일반적으로 Enum으로 대체해서 넣고 싶을때가 많다.
 	// 그런데 그건 커텐츠 만드는 사람이 만드는 자신만의 enum일 것이기 때문에 
 	// 템플릿을 사용하여 어떤 enum이건 받게 만드는 방식을 선호한다.

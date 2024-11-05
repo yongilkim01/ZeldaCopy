@@ -47,3 +47,24 @@ AActor::~AActor()
 
 	Components.clear();
 }
+
+void AActor::ReleaseCheck(float DeltaTime)
+{
+	UObject::ReleaseCheck(DeltaTime);
+	// 컴포넌트의 생성주기는 액터의 생명주기와 같다고 한다.
+	std::list<UActorComponent*>::iterator StartIter = Components.begin();
+	std::list<UActorComponent*>::iterator EndIter = Components.end();
+	for (; StartIter != EndIter; )
+	{
+		UActorComponent* Component = *StartIter;
+		if (false == Component->IsDestroy())
+		{
+			Component->ReleaseCheck(DeltaTime);
+			++StartIter;
+			continue;
+		}
+		// 액터는 죽을 컴포넌트가 있으면 진짜 죽
+		delete Component;
+		StartIter = Components.erase(StartIter);
+	}
+}

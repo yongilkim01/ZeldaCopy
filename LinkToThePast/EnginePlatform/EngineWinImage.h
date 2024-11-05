@@ -33,9 +33,14 @@ public:
 		, UColor Color = UColor(255, 0, 255, 0));
 	void Load(UEngineWinImage* TargetImage, std::string_view Path);
 
-	inline void Create(HDC DC) { ImageDC = DC; }
-	inline FVector2D GetImageScale() const { return { Info.bmWidth, Info.bmHeight }; }
-	inline HDC GetDC() { return ImageDC; }
+	void Create(HDC DC) { ImageDC = DC; }
+	FVector2D GetImageScale() const { return { Info.bmWidth, Info.bmHeight }; }
+	HDC GetDC() { return ImageDC; }
+	UColor GetColor(FIntPoint Point, UColor DefaultColor);
+	UColor GetColor(FVector2D Point, UColor DefaultColor = UColor::WHITE)
+	{
+		return GetColor(Point.ConvertToPoint(), DefaultColor);
+	}
 
 protected:
 

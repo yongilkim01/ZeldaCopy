@@ -46,6 +46,7 @@ public:
 	UEngineWinImage* GetBackBuffer() const { return BackBufferImage; }
 	FVector2D GetMousePos();
 
+
 protected:
 
 private:
