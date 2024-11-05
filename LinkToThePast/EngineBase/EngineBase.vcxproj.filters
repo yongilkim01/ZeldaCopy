@@ -63,6 +63,9 @@
     <ClCompile Include="EngineSerializer.cpp">
       <Filter>IO</Filter>
     </ClCompile>
+    <ClCompile Include="FSMStateManager.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="EngineSerializer.h">
       <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="FSMStateManager.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
