@@ -20,7 +20,7 @@ void APlayer::RunSoundPlay()
 APlayer::APlayer()
 {
 	SetActorLocation({ 380, 340 });
-	Speed = 1000.f;
+	Speed = 250.0f;
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetSprite("LinkMoveDown.png");
 	SpriteRenderer->SetSpriteScale(3.0f);

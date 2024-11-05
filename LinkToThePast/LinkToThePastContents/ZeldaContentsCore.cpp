@@ -57,9 +57,9 @@ void ZeldaContentsCore::BeginPlay()
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 768, 672 });
 
 	UEngineAPICore::GetCore()->CreateLevel<ARoomManageMode, APlayer>("Play");
-	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
+	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 
-	UEngineAPICore::GetCore()->OpenLevel("Title");
+	UEngineAPICore::GetCore()->OpenLevel("Play");
 
 }
 

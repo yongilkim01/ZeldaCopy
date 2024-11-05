@@ -7,6 +7,7 @@
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EnginePlatform/EngineInput.h>
+#include <EngineCore/EngineAPICore.h>
 
 bool ARoomManageMode::IsMapMoving = false;
 
@@ -43,6 +44,7 @@ void ARoomManageMode::Tick(float DeltaTime)
 			IsMapMoving = false;
 			CurRoom = CurRoom->GetLinkedRoomes()[0];
 			PlayerCharacter->CurRoom = CurRoom;
+			//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y);
 		}
 	}
 
@@ -56,6 +58,7 @@ void ARoomManageMode::Tick(float DeltaTime)
 		}
 
 	}
+	
 	RommesTick();
 }
 

@@ -1,11 +1,17 @@
 #include "PreCompile.h"
 #include "EngineFile.h"
 #include "EngineDebug.h"
+#include "EngineSerializer.h"
 
 UEngineFile::UEngineFile()
 {
 
 
+}
+
+UEngineFile::UEngineFile(const std::string& Path)
+	: UEnginePath(std::string_view(Path.c_str()))
+{
 }
 
 UEngineFile::UEngineFile(std::string_view Path)
@@ -27,12 +33,17 @@ UEngineFile::~UEngineFile()
 
 void UEngineFile::FileOpen(const char* Mode)
 {
-	fopen_s(&File, Path, Mode);
+	fopen_s(&File, GetPathToString().c_str(), Mode);
 
-	// 파일을 열지 못하였을 때 프로그램 종료
+	// 방어코드
+	// 파일을 열지 못했다.
 	if (nullptr == File)
 	{
-		MSGASSERT(Path /*+ "파일 오픈에 실패했습니다"*/);
+		// char [] Arr0
+		// char [] Arr1
+		// Arr0 + Arr1
+
+		MSGASSERT(GetPathToString() + +"파일 오픈에 실패했습니다");
 	}
 }
 
@@ -59,6 +70,11 @@ void UEngineFile::Write(const void* Ptr, size_t Size)
 	fwrite(Ptr, Size, 1, File);
 }
 
+void UEngineFile::Write(UEngineSerializer& Ser)
+{
+	Write(Ser.GetDataPtr(), Ser.GetWriteOffset());
+}
+
 void UEngineFile::Read(void* Ptr, size_t Size)
 {
 	if (0 == Size)
@@ -80,12 +96,13 @@ void UEngineFile::Read(void* Ptr, size_t Size)
 	fread(Ptr, Size, 1, File);
 }
 
-bool UEngineFile::IsExits()
+void UEngineFile::Read(UEngineSerializer& Ser)
 {
-	int Result = _access(Path, 00);
+	int FileSize = GetFileSize();
 
-	// 0이면 있는것 0 이외의 값이면 없는 것
-	return 0 == Result;
+	Ser.DataResize(FileSize);
+
+	Read(Ser.GetDataPtr(), FileSize);
 }
 
 void UEngineFile::Close()
@@ -95,5 +112,16 @@ void UEngineFile::Close()
 		fclose(File);
 		File = nullptr;
 	}
+}
+
+int UEngineFile::GetFileSize()
+{
+	if (false == IsFile())
+	{
+		MSGASSERT(Path.string() + "파일이 아닌 존재의 크기를 알수는 없습니다.");
+		return -1;
+	}
+
+	return static_cast<int>(std::filesystem::file_size(Path));
 }
 
