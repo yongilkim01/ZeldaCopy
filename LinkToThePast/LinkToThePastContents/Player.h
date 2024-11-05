@@ -3,6 +3,8 @@
 #include <EngineCore/ImageManager.h>
 #include <EngineBase/FSMStateManager.h>
 
+class ARoom;
+
 enum class EPlayerState
 {
 	Idle,
@@ -49,7 +51,10 @@ public:
 
 	void FollowCamera();
 
-	class ARoom* CurRoom = nullptr;
+	void SetCurRoom(ARoom* Room) { CurRoom = Room; }
+	ARoom* GetCurRoom() { return CurRoom; }
+
+	ARoom* CurRoom = nullptr;
 
 	bool IsCameraControl = false;
 

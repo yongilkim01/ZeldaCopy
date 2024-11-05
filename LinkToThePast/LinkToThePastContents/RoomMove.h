@@ -8,7 +8,7 @@ class URoomMove
 public:
 	// constrcuter destructer
 	URoomMove();
-	URoomMove(FVector2D EntryLocation, ARoom* CurRoom, ARoom* MoveRoom);
+	URoomMove(FVector2D EntryLocation, ARoom* CurRoom, ARoom* MoveRoom, FVector2D MoveDir);
 	~URoomMove();
 
 	// delete Function
@@ -22,7 +22,7 @@ public:
 	void SetMoveDir(int X, int Y) { MoveDir = { X, Y }; }
 	FVector2D GetMoveDir() { return MoveDir; }
 
-	void SetEntryLocation(FVector2D ChangeLocation) { EntryLocation = ChangeLocation; }
+	void SetEntryLocation(FVector2D Location) { EntryLocation = Location; }
 	void SetEntryLocation(float X, float Y) { EntryLocation = { X, Y }; }
 	void SetEntryLocation(int X, int Y) { EntryLocation = { X, Y }; }
 	FVector2D GetEntryLocation() { return EntryLocation; }
@@ -37,7 +37,6 @@ protected:
 private:
 	FVector2D MoveDir = FVector2D::ZERO;
 	FVector2D EntryLocation = FVector2D::ZERO;
-	FVector2D ExitLocation = FVector2D::ZERO;
 
 	ARoom* CurRoom = nullptr;
 	ARoom* MoveRoom = nullptr;

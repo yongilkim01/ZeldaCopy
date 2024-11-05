@@ -8,7 +8,7 @@ URoomMove::URoomMove()
 {
 }
 
-URoomMove::URoomMove(FVector2D EntryLocation, ARoom* CurRoom, ARoom* MoveRoom)
+URoomMove::URoomMove(FVector2D EntryLocation, ARoom* CurRoom, ARoom* MoveRoom, FVector2D MoveDir)
 {
 	if (CurRoom == nullptr || MoveRoom == nullptr)
 	{
@@ -19,6 +19,7 @@ URoomMove::URoomMove(FVector2D EntryLocation, ARoom* CurRoom, ARoom* MoveRoom)
 	this->EntryLocation = EntryLocation;
 	this->CurRoom = CurRoom;
 	this->MoveRoom = MoveRoom;
+	this->MoveDir = MoveDir;
 }
 
 

@@ -32,13 +32,17 @@ public:
 	void UIBeginPlay();
 	void UITick();
 	bool CheckRoomInPlayer(ARoom* CheckRoom);
+	void CheckMoveRoom();
 	ARoom* FindRoomToName(std::string_view RoomName);
+
+	void TranslateRoom(float DeltaTime);
 	
 protected:
 
 private:
 	class APlayer* PlayerCharacter = nullptr;
 	const int RoomCount = 8;
+	FVector2D MoveDir = FVector2D::ZERO;
 
 	/** 던전 방 멤버 변수 */
 	ARoom* CurRoom = nullptr;

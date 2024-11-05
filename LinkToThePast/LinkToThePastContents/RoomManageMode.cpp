@@ -61,6 +61,15 @@ void ARoomManageMode::Tick(float DeltaTime)
 	//}
 	
 	RommesTick();
+
+	if (ARoomManageMode::IsMapMoving == true)
+	{
+		TranslateRoom(DeltaTime);
+	}
+	else
+	{
+		CheckMoveRoom();
+	}
 }
 
 void ARoomManageMode::RoomesBeginPlay()
@@ -104,8 +113,8 @@ void ARoomManageMode::RoomesBeginPlay()
 	FindRoomToName("Dungeon2")->LinkRoom(FindRoomToName("Dungeon3"));
 
 	// 던전1 <=> 던전2로 링크
-	Roomes[0]->AddRoomMove(new URoomMove({ 380.0f, 600.0f }, Roomes[0], Roomes[1]));
-	Roomes[1]->AddRoomMove(new URoomMove({ 380.0f, 894.0f }, Roomes[1], Roomes[0]));
+	Roomes[0]->AddRoomMove(new URoomMove({ 380.0f, 600.0f }, Roomes[0], Roomes[1], FVector2D::DOWN));
+	Roomes[1]->AddRoomMove(new URoomMove({ 380.0f, 894.0f }, Roomes[1], Roomes[0], FVector2D::UP));
 }
 
 void ARoomManageMode::RommesTick()
@@ -140,6 +149,19 @@ bool ARoomManageMode::CheckRoomInPlayer(ARoom* CheckRoom)
 		&& PlayerCharacter->GetActorLocation().iY() < CheckRoom->RightBottomPos.iY());
 }
 
+void ARoomManageMode::CheckMoveRoom()
+{
+	for (size_t i = 0; i < PlayerCharacter->GetCurRoom()->GetRoomMovesSize(); i++)
+	{
+		URoomMove* RoomMove = PlayerCharacter->GetCurRoom()->FindRoomMove(i);
+		if (RoomMove->GetEntryLocation().iY() <= PlayerCharacter->GetTransform().Location.iY())
+		{
+			ARoomManageMode::IsMapMoving = true;
+			MoveDir = RoomMove->GetMoveDir();
+		}
+	}
+}
+
 ARoom* ARoomManageMode::FindRoomToName(std::string_view RoomName)
 {
 	for (int i = 0; i < RoomCount; i++)
@@ -153,3 +175,10 @@ ARoom* ARoomManageMode::FindRoomToName(std::string_view RoomName)
 	return nullptr;
 }
 
+void ARoomManageMode::TranslateRoom(float DeltaTime)
+{
+	FVector2D CurCameraLocation = GetWorld()->GetCameraPos();
+	GetWorld()->SetCameraPos(CurCameraLocation + (MoveDir * DeltaTime * 300.0f));
+	CurCameraLocation = GetWorld()->GetCameraPos();
+	//if(CurCameraLocation.)
+}

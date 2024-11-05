@@ -25,7 +25,7 @@ public:
 
 	void SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale = 3.0f);
 	void LinkRoom(ARoom* LinkedRoom);
-	URoomMove* FindRoomMove(int Index) { return RoomMoves[Index]; }
+	URoomMove* FindRoomMove(size_t Index) { return RoomMoves[Index]; }
 
 	FVector2D GetRoomSize() { return RoomSize; }
 	std::vector<ARoom*>& GetLinkedRoomes() { return LinkedRoomes; }
@@ -33,7 +33,10 @@ public:
 	void SetRoomSize(int SizeX, int SizeY);
 	void SetPlayer(class APlayer* PlayerCharacter);
 	void AddRoomMove(URoomMove* RoomMove) { RoomMoves.push_back(RoomMove); }
-	int GetRoomMovesSize() { return RoomMoves.size(); }
+	size_t GetRoomMovesSize() 
+	{ 
+		return RoomMoves.size(); 
+	}
 
 	FVector2D RoomSize = FVector2D::ZERO;
 	FVector2D LeftTopPos = FVector2D::ZERO;
