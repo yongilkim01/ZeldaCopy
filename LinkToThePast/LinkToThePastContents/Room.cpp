@@ -2,13 +2,28 @@
 #include "Room.h"
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EnginePlatform/EngineInput.h>
 #include "ContentsEnum.h"
 #include "Player.h"
 
 ARoom::ARoom()
 {
-	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-	SpriteRenderer->SetSprite("Dungeon1.png");
+	{
+		BackSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		BackSpriteRenderer->SetOrder(ERenderOrder::BACKGROUND);
+		BackSpriteRenderer->SetSprite("Dungeon1.png");
+
+		FVector2D MapScale = BackSpriteRenderer->SetSpriteScale(1.0f);
+		BackSpriteRenderer->SetComponentLocation(MapScale.Half());
+	}
+
+	{
+		ColSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		ColSpriteRenderer->SetOrder(ERenderOrder::COLMAP);
+		ColSpriteRenderer->SetSprite("Dungeon1Collision.png");
+		FVector2D MapScale = ColSpriteRenderer->SetSpriteScale(1.0f);
+		ColSpriteRenderer->SetComponentLocation(MapScale.Half());
+	}
 }
 
 ARoom::~ARoom()
@@ -18,16 +33,20 @@ ARoom::~ARoom()
 void ARoom::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//CheckPlayer(APlayer::StaticPlayer);
+
+	if (true == UEngineInput::GetInst().IsDown('Y'))
+	{
+		ColSpriteRenderer->SetActiveSwitch();
+	}
 }
 
 void ARoom::SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale /* = 3.0f */)
 {
-	SpriteRenderer->SetOrder(RenderOrder);
-	SpriteRenderer->SetSprite(SpriteName);
+	BackSpriteRenderer->SetOrder(RenderOrder);
+	BackSpriteRenderer->SetSprite(SpriteName);
 
-	FVector2D MapScale = SpriteRenderer->SetSpriteScale(SpriteScale);
-	SpriteRenderer->SetComponentLocation(MapScale.Half());
+	FVector2D MapScale = BackSpriteRenderer->SetSpriteScale(SpriteScale);
+	BackSpriteRenderer->SetComponentLocation(MapScale.Half());
 	SetActorLocation(SpritePos);
 }
 

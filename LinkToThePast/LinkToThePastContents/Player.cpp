@@ -63,6 +63,7 @@ void APlayer::BeginPlay()
 
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1);
+	SetCollisionImage("Dungeon1Collision.png");
 }
 
 void APlayer::Tick(float DeltaTime)
@@ -93,6 +94,11 @@ void APlayer::Tick(float DeltaTime)
 	default:
 		break;
 	}
+}
+
+void APlayer::SetCollisionImage(std::string_view CollisionImageName)
+{
+	CollisionImage = UImageManager::GetInst().FindImage(CollisionImageName);
 }
 
 void APlayer::PrintDebugPlayerState()
@@ -199,7 +205,22 @@ void APlayer::Move(float DeltaTime)
 		CurState = EPlayerState::Attack;
 	}
 
-	AddActorLocation(CurDir * DeltaTime * Speed);
+	if (CollisionImage != nullptr)
+	{
+		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
+		FVector2D NextPos = GetActorLocation() + CurDir * DeltaTime * Speed;
+		UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
+		if (Color == UColor::WHITE)
+		{
+			AddActorLocation(CurDir * DeltaTime * Speed);
+		} 
+		else if (Color == UColor::ORANGE)
+		{
+			AddActorLocation(CurDir * DeltaTime * (Speed * 0.5f));
+		}
+	}
+
+	// AddActorLocation(CurDir * DeltaTime * Speed);
 
 	if (false == UEngineInput::GetInst().IsPress('A') &&
 		false == UEngineInput::GetInst().IsPress('D') &&

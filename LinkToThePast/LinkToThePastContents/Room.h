@@ -4,6 +4,8 @@
 
 #include "ContentsEnum.h"
 
+class USpriteRenderer;
+
 // Ό³Έν :
 class ARoom : public AActor
 {
@@ -37,8 +39,10 @@ public:
 protected:
 
 private:
-	class USpriteRenderer* SpriteRenderer = nullptr;
-	class APlayer* PlayerCharacter = nullptr;
+	USpriteRenderer* BackSpriteRenderer;
+	USpriteRenderer* ColSpriteRenderer;
+
+	APlayer* PlayerCharacter = nullptr;
 
 	std::vector<ARoom*> LinkedRoomes;
 };

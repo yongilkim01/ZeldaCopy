@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include <EngineCore/ImageManager.h>
 
 enum class EPlayerState
 {
@@ -27,6 +28,8 @@ public:
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
+
+	void SetCollisionImage(std::string_view CollisionImageName);
 
 	void LevelChangeStart();
 	void LevelChangeEnd();
@@ -57,5 +60,6 @@ private:
 
 	EPlayerState CurState = EPlayerState::None;
 	FVector2D CurDir = FVector2D::ZERO;
+	class UEngineWinImage* CollisionImage = nullptr;
 };
 
