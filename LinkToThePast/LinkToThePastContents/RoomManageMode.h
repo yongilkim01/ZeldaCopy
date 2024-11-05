@@ -7,6 +7,7 @@
 #include <iostream>
 
 class ARoom;
+class URoomMove;
 class AUserInterface;
 // 설명 :
 class ARoomManageMode : public AGameMode
@@ -42,10 +43,12 @@ protected:
 private:
 	class APlayer* PlayerCharacter = nullptr;
 	const int RoomCount = 8;
-	FVector2D MoveDir = FVector2D::ZERO;
 
 	/** 던전 방 멤버 변수 */
 	ARoom* CurRoom = nullptr;
+	ARoom* MoveRoom = nullptr;
+	URoomMove* CurRoomMove = nullptr;
+	FVector2D GolLocation = FVector2D::ZERO;
 	std::vector<ARoom*> Roomes;
 	std::vector<FVector2D> RoomLocations;
 	std::vector<FVector2D> RoomSizes;
