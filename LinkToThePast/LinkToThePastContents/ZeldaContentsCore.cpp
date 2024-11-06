@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "TitleGameMode.h"
 #include "RoomManageMode.h"
+#include "DungeonGameMode.h"
 
 ZeldaContentsCore::ZeldaContentsCore()
 {
@@ -55,7 +56,8 @@ void ZeldaContentsCore::BeginPlay()
 	// 이거 꼭 호출해줘야 합니다.
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 780, 588 });
 
-	UEngineAPICore::GetCore()->CreateLevel<ARoomManageMode, APlayer>("Play");
+	UEngineAPICore::GetCore()->CreateLevel<DungeonGameMode, APlayer>("Play");
+	//UEngineAPICore::GetCore()->CreateLevel<ARoomManageMode, APlayer>("Play");
 	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 
 	UEngineAPICore::GetCore()->OpenLevel("Play");

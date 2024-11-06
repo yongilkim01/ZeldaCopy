@@ -6,12 +6,20 @@
 #include <string>
 #include <iostream>
 
+class URoomData
+{
+public:
+	FVector2D Location;
+	FVector2D Scale;
+};
+
 class ARoom;
 class URoomMove;
 class AUserInterface;
 // 설명 :
 class ARoomManageMode : public AGameMode
 {
+
 public:
 	static bool IsMapMoving;
 
@@ -26,21 +34,17 @@ public:
 	ARoomManageMode& operator=(ARoomManageMode&& _Other) noexcept = delete;
 
 	virtual void BeginPlay() override;
-	virtual void Tick(float DeltaTime) override;
-	void RoomesBeginPlay();
-	void RommesTick();
-
 	void UIBeginPlay();
+
+	virtual void Tick(float DeltaTime) override;
 	void UITick();
+
 	bool CheckRoomInPlayer(ARoom* CheckRoom);
 	void CheckMoveRoom();
 	ARoom* FindRoomToName(std::string_view RoomName);
+	void CreateRoomActor(std::string_view _MapName);
 
-	//void TranslateRoom(FVector2D StartPos, FVector2D EndPos, float DeltaTime);
-	
 protected:
-
-private:
 	class APlayer* PlayerCharacter = nullptr;
 	const int RoomCount = 8;
 
@@ -52,6 +56,14 @@ private:
 	std::vector<FVector2D> RoomLocations;
 	std::vector<FVector2D> RoomSizes;
 
+	std::vector<URoomData> RoomDataes;
+
+
 	/** 유저 인터페이스 멤버 변수 */
 	AUserInterface* UI = nullptr;
+	std::string DungeonName = "";
+
+private:
+
+
 };

@@ -152,6 +152,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="DungeonGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h">
       <SubType>
       </SubType>
@@ -185,6 +189,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsEnum.cpp" />
+    <ClCompile Include="DungeonGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>

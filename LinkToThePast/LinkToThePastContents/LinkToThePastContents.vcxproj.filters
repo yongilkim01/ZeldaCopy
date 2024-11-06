@@ -31,6 +31,9 @@
     <ClInclude Include="RoomMove.h">
       <Filter>ContentsObject\Room</Filter>
     </ClInclude>
+    <ClInclude Include="DungeonGameMode.h">
+      <Filter>ContentsObject\GameMode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -62,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="RoomMove.cpp">
       <Filter>ContentsObject\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonGameMode.cpp">
+      <Filter>ContentsObject\GameMode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
