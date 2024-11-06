@@ -43,10 +43,6 @@ void DungeonGameMode::RoomBeginPlay()
 	RoomDataes.push_back({ { 1546, 2100 } ,{ 1406, 824 } });	// Dungeon7
 	RoomDataes.push_back({ { 0, 1480 } ,{ 1546, 1444 } });		// Dungeon8
 
-	CreateRoomActor("Dungeon");
-	
-	// 던전1 <=> 던전2로 링크
-	Roomes[0]->AddRoomMove(new URoomMove({ 380.0f, 610.0f }, Roomes[0], Roomes[1], FVector2D::DOWN));
-	//Roomes[1]->AddRoomMove(new URoomMove({ 380.0f, 894.0f }, Roomes[1], Roomes[0], FVector2D::UP));
+	CreateRoomActor("Dungeon", 0);
 }
 

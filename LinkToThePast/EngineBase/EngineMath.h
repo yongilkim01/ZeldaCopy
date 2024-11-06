@@ -153,6 +153,8 @@ public:
 		return *this;
 	}
 
+	static FVector2D LerpClimp(FVector2D _StartLocation, FVector2D _TargetLocation, float _t);
+
 	std::string ToString()
 	{
 		std::string Stream;
@@ -260,6 +262,10 @@ public:
 	static const UColor BLUE;
 	static const UColor YELLOW;
 	static const UColor ORANGE;
+
+
+	static const UColor ROOM_UP;
+	static const UColor ROOM_DOWN;
 
 	union
 	{

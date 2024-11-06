@@ -48,7 +48,7 @@ void ARoom::Tick(float DeltaTime)
 	if (true == UEngineInput::GetInst().IsDown('Y'))
 	{
 		ColSpriteRenderer->SetActiveSwitch();
-	}
+	}	
 }
 
 void ARoom::SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale /* = 3.0f */)
@@ -80,4 +80,11 @@ void ARoom::SetPlayer(APlayer* PlayerCharacter)
 	if (PlayerCharacter == nullptr) return;
 
 	this->PlayerCharacter = PlayerCharacter;
+}
+
+void ARoom::PlayerLinkCheck()
+{
+	// TODO: 
+	std::string SpriteName = ColSpriteRenderer->GetCurSpriteName();
+	UEngineWinImage* WinImage = UImageManager::GetInst().FindImage(SpriteName);
 }

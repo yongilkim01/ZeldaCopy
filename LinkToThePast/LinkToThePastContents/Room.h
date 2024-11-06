@@ -1,11 +1,14 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineBase/EngineMath.h>
+#include <EngineCore/ImageManager.h>
+#include <EngineCore/SpriteRenderer.h>
 
 #include "ContentsEnum.h"
 
 class USpriteRenderer;
 class URoomMove;
+class UEngineWinImage;
 
 // Ό³Έν :
 class ARoom : public AActor
@@ -38,15 +41,25 @@ public:
 		return RoomMoves.size(); 
 	}
 
+	//UEngineWinImage* GetColSprite() {return ColSprite
+	UEngineWinImage* GetColWinImage() 
+	{ 
+		return UImageManager::GetInst().FindImage(this->ColSpriteRenderer->GetCurSpriteName()); 
+	}
+
 	FVector2D RoomSize = FVector2D::ZERO;
 	FVector2D LeftTopPos = FVector2D::ZERO;
 	FVector2D RightBottomPos = FVector2D::ZERO;
+
+	void PlayerLinkCheck();
+
+	USpriteRenderer* ColSpriteRenderer;
 
 protected:
 
 private:
 	USpriteRenderer* BackSpriteRenderer;
-	USpriteRenderer* ColSpriteRenderer;
+	//USpriteRenderer* ColSpriteRenderer;
 
 	APlayer* PlayerCharacter = nullptr;
 
