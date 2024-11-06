@@ -63,6 +63,10 @@ public:
 		return sqrtf(X * X + Y * Y);
 	}
 
+	float DistanceTo(const FVector2D& Other) const {
+		return std::sqrt((X - Other.X) * (X - Other.X) + (Y - Other.Y) * (Y - Other.Y));
+	}
+
 	class FIntPoint ConvertToPoint() const;
 
 	void Normalize()
@@ -76,16 +80,16 @@ public:
 		return;
 	}
 
-	float Dot(const FVector2D& other) const
+	float Dot(const FVector2D& Other) const
 	{
-		return X * other.X + Y * other.Y;
+		return X * Other.X + Y * Other.Y;
 	}
 
-	FVector2D operator*(float _Value) const
+	FVector2D operator*(float Value) const
 	{
 		FVector2D Result;
-		Result.X = X * _Value;
-		Result.Y = Y * _Value;
+		Result.X = X * Value;
+		Result.Y = Y * Value;
 		return Result;
 	}
 
@@ -236,6 +240,12 @@ public:
 
 class EngineMath
 {
+public:
+	static FVector2D Lerp(FVector2D StartLocation, FVector2D EndLocation, float Distance)
+	{
+		return { StartLocation.X + Distance * (EndLocation.X - StartLocation.X), StartLocation.Y + Distance * (EndLocation.Y - StartLocation.Y) };
+
+	}
 };
 
 

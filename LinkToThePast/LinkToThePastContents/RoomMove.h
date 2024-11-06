@@ -17,6 +17,8 @@ public:
 	URoomMove& operator=(const URoomMove& _Other) = delete;
 	URoomMove& operator=(URoomMove&& _Other) noexcept = delete;
 
+	FVector2D TranslateRoom(FVector2D StartLocation, float DeltaTime);
+
 	void SetMoveDir(FVector2D ChangeDir) { MoveDir = ChangeDir; }
 	void SetMoveDir(float X, float Y) { MoveDir = { X, Y }; }
 	void SetMoveDir(int X, int Y) { MoveDir = { X, Y }; }
@@ -37,10 +39,20 @@ public:
 	void SetExitLocation(int X, int Y) { ExitLocation = { X, Y }; }
 	FVector2D GetExitLocation() { return ExitLocation; }
 
+	void SetCameraEndLocation(FVector2D Location) { CameraEndLocation = Location; }
+	void SetCameraEndLocation(float X, float Y) { CameraEndLocation = { X, Y }; }
+	void SetCameraEndLocation(int X, int Y) { CameraEndLocation = { X, Y }; }
+	FVector2D GetCameraEndLocation() { return CameraEndLocation; }
+
 	void SetCurRoom(ARoom* Room) { CurRoom = Room; }
 	ARoom* GetCurRoom() { return CurRoom; }
 	void SetMoveRoom(ARoom* Room) { MoveRoom = Room; }
 	ARoom* GetMoveRoom() { return MoveRoom; }
+
+	void SetSpeed(float Speed) { this->Speed = Speed; }
+	float GetSpeed() { return Speed; }
+
+	float GetDistance(FVector2D StartLocation, FVector2D EndLocation);
 
 protected:
 
@@ -50,7 +62,12 @@ private:
 	FVector2D EntryLocation = FVector2D::ZERO;
 	FVector2D ExitLocation = FVector2D::ZERO;
 
+	//FVector2D CameraStartLocation = FVector2D::ZERO;
+	FVector2D CameraEndLocation = FVector2D::ZERO;
+
 	ARoom* CurRoom = nullptr;
 	ARoom* MoveRoom = nullptr;
+
+	float Speed = 300.0f;
 };
 

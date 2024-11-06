@@ -7,6 +7,7 @@
 #include "RoomMove.h"
 
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/EngineCoreDebug.h>
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
 
@@ -38,34 +39,30 @@ void ARoomManageMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//if (ARoomManageMode::IsMapMoving == true)
-	//{
-	//	GetWorld()->SetCameraPos(GetWorld()->GetCameraPos() + MovePos);
-	//	if (GetWorld()->GetCameraPos().iY() > CurRoom->GetLinkedRoomes()[0]->LeftTopPos.iY())
-	//	{
-	//		IsMapMoving = false;
-	//		CurRoom = CurRoom->GetLinkedRoomes()[0];
-	//		PlayerCharacter->CurRoom = CurRoom;
-	//		//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y);
-	//	}
-	//}
-
-	//if (CurRoom != nullptr)
-	//{
-	//	if (UEngineInput::GetInst().IsPress('1') == true)
-	//	{
-	//		ARoomManageMode::IsMapMoving = true;
-	//		MovePos = { 0.0f, 0.5f };
-	//		//GetWorld()->SetCameraPos({ CurRoom->GetLinkedRoomes()[0]->LeftTopPos.X, GetWorld()->GetCameraPos().Y + 0.0000001f });
-	//	}
-
-	//}
+	UEngineDebug::CoreOutPutString("  ");
+	UEngineDebug::CoreOutPutString("CameraPos : " + GetWorld()->GetCameraPos().ToString());
 	
 	//RommesTick();
 
 	if (ARoomManageMode::IsMapMoving == true)
 	{
-		TranslateRoom(DeltaTime);
+		FVector2D StartLocation = GetWorld()->GetCameraPos();
+		FVector2D EndLocation = CurRoomMove->GetMoveRoom()->LeftTopPos;
+		//float CameraDistnace = GetWorld()->GetCameraPos().DistanceTo(CurRoomMove->GetCameraEndLocation());
+		float CameraDistnace = CurRoomMove->GetDistance(GetWorld()->GetCameraPos(), CurRoomMove->GetCameraEndLocation());
+		if (CameraDistnace >= 0.1f)
+		{
+			FVector2D LerpLocation = CurRoomMove->TranslateRoom(GetWorld()->GetCameraPos(), DeltaTime);
+			GetWorld()->SetCameraPos(LerpLocation);
+		}
+		else
+		{
+			PlayerCharacter->SetActorLocation(CurRoomMove->GetExitLocation());
+			PlayerCharacter->CurRoom->SetPlayer(nullptr);
+			PlayerCharacter->CurRoom = CurRoomMove->GetMoveRoom();
+			this->CurRoom = CurRoomMove->GetMoveRoom();
+			ARoomManageMode::IsMapMoving = false;
+		}
 	}
 	else
 	{
@@ -114,8 +111,8 @@ void ARoomManageMode::RoomesBeginPlay()
 	FindRoomToName("Dungeon2")->LinkRoom(FindRoomToName("Dungeon3"));
 
 	// 던전1 <=> 던전2로 링크
-	Roomes[0]->AddRoomMove(new URoomMove({ 380.0f, 600.0f }, Roomes[0], Roomes[1], FVector2D::DOWN));
-	Roomes[1]->AddRoomMove(new URoomMove({ 380.0f, 894.0f }, Roomes[1], Roomes[0], FVector2D::UP));
+	Roomes[0]->AddRoomMove(new URoomMove({ 380.0f, 610.0f }, Roomes[0], Roomes[1], FVector2D::DOWN));
+	//Roomes[1]->AddRoomMove(new URoomMove({ 380.0f, 894.0f }, Roomes[1], Roomes[0], FVector2D::UP));
 }
 
 void ARoomManageMode::RommesTick()
@@ -152,6 +149,12 @@ bool ARoomManageMode::CheckRoomInPlayer(ARoom* CheckRoom)
 
 void ARoomManageMode::CheckMoveRoom()
 {
+	if (PlayerCharacter->GetCurRoom() == nullptr)
+	{
+		MSGASSERT("플레이어의 현재 룸이 nullptr입니다.");
+		return;
+	}
+
 	for (size_t i = 0; i < PlayerCharacter->GetCurRoom()->GetRoomMovesSize(); i++)
 	{
 		URoomMove* RoomMove = PlayerCharacter->GetCurRoom()->FindRoomMove(i);
@@ -159,10 +162,6 @@ void ARoomManageMode::CheckMoveRoom()
 		{
 			ARoomManageMode::IsMapMoving = true;
 			CurRoomMove = RoomMove;
-			FVector2D CurRoomExit = CurRoomMove->GetExitLocation();
-			FVector2D Pivot = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() * -1.0f;
-			GolLocation = Pivot + CurRoomExit;
-			int a = 0;
 		}
 	}
 }
@@ -179,73 +178,73 @@ ARoom* ARoomManageMode::FindRoomToName(std::string_view RoomName)
 
 	return nullptr;
 }
-
-void ARoomManageMode::TranslateRoom(float DeltaTime)
-{
-	FVector2D CurCameraPos = GetWorld()->GetCameraPos();
-	GetWorld()->SetCameraPos(CurCameraPos + (CurRoomMove->GetMoveDir() * DeltaTime * 300.0f));
-	CurCameraPos = GetWorld()->GetCameraPos();
-	//FVector2D
-
-	if (CurRoomMove->GetMoveDir() == FVector2D::RIGHT)
-	{
-		if (CurCameraPos.iX() > GolLocation.iX())
-		{
-			GetWorld()->SetCameraPos({ GolLocation.X, CurCameraPos.Y});
-			ARoomManageMode::IsMapMoving = false;
-			PlayerCharacter->CurRoom->SetPlayer(nullptr);
-			PlayerCharacter->CurRoom = MoveRoom;
-			this->CurRoom = MoveRoom;
-
-			GolLocation = FVector2D::ZERO;
-			CurRoomMove = nullptr;
-		}
-	}
-	else if (CurRoomMove->GetMoveDir() == FVector2D::LEFT)
-	{
-		if (CurCameraPos.iX() < GolLocation.iX())
-		{
-			GetWorld()->SetCameraPos({ GolLocation.X, CurCameraPos.Y });
-			ARoomManageMode::IsMapMoving = false;
-			PlayerCharacter->CurRoom->SetPlayer(nullptr);
-			PlayerCharacter->CurRoom = MoveRoom;
-			this->CurRoom = MoveRoom;
-
-			GolLocation = FVector2D::ZERO;
-			CurRoomMove = nullptr;
-		}
-	}
-	else if (CurRoomMove->GetMoveDir() == FVector2D::UP)
-	{
-		if (CurCameraPos.iY() < GolLocation.iY())
-		{
-			GetWorld()->SetCameraPos({ CurCameraPos.X, GolLocation.Y });
-			ARoomManageMode::IsMapMoving = false;
-			PlayerCharacter->CurRoom->SetPlayer(nullptr);
-			PlayerCharacter->CurRoom = MoveRoom;
-			this->CurRoom = MoveRoom;
-
-			GolLocation = FVector2D::ZERO;
-			CurRoomMove = nullptr;
-		}
-	}
-	else if (CurRoomMove->GetMoveDir() == FVector2D::DOWN)
-	{
-		int CurY = CurCameraPos.iY();
-		int ExitY = GolLocation.iY();
-
-		if (CurCameraPos.iY() > GolLocation.iY())
-		{
-			GetWorld()->SetCameraPos({ CurCameraPos.X, GolLocation.Y });
-			ARoomManageMode::IsMapMoving = false;
-			PlayerCharacter->CurRoom->SetPlayer(nullptr);
-			PlayerCharacter->CurRoom = Roomes[1];
-			PlayerCharacter->AddActorLocation(CurRoomMove->GetMoveSize());
-			PlayerCharacter->AddActorLocation({0, 15});
-			this->CurRoom = Roomes[1];
-
-			GolLocation = FVector2D::ZERO;
-			CurRoomMove = nullptr;
-		}
-	}
-}
+//
+//void ARoomManageMode::TranslateRoom(FVector2D StartPos, FVector2D EndPos, float DeltaTime)
+//{
+//	//FVector2D CurCameraPos = GetWorld()->GetCameraPos();
+//	//GetWorld()->SetCameraPos(CurCameraPos + (CurRoomMove->GetMoveDir() * DeltaTime * 300.0f));
+//	//CurCameraPos = GetWorld()->GetCameraPos();
+//	////FVector2D
+//
+//	//if (CurRoomMove->GetMoveDir() == FVector2D::RIGHT)
+//	//{
+//	//	if (CurCameraPos.iX() > GolLocation.iX())
+//	//	{
+//	//		GetWorld()->SetCameraPos({ GolLocation.X, CurCameraPos.Y});
+//	//		ARoomManageMode::IsMapMoving = false;
+//	//		PlayerCharacter->CurRoom->SetPlayer(nullptr);
+//	//		PlayerCharacter->CurRoom = MoveRoom;
+//	//		this->CurRoom = MoveRoom;
+//
+//	//		GolLocation = FVector2D::ZERO;
+//	//		CurRoomMove = nullptr;
+//	//	}
+//	//}
+//	//else if (CurRoomMove->GetMoveDir() == FVector2D::LEFT)
+//	//{
+//	//	if (CurCameraPos.iX() < GolLocation.iX())
+//	//	{
+//	//		GetWorld()->SetCameraPos({ GolLocation.X, CurCameraPos.Y });
+//	//		ARoomManageMode::IsMapMoving = false;
+//	//		PlayerCharacter->CurRoom->SetPlayer(nullptr);
+//	//		PlayerCharacter->CurRoom = MoveRoom;
+//	//		this->CurRoom = MoveRoom;
+//
+//	//		GolLocation = FVector2D::ZERO;
+//	//		CurRoomMove = nullptr;
+//	//	}
+//	//}
+//	//else if (CurRoomMove->GetMoveDir() == FVector2D::UP)
+//	//{
+//	//	if (CurCameraPos.iY() < GolLocation.iY())
+//	//	{
+//	//		GetWorld()->SetCameraPos({ CurCameraPos.X, GolLocation.Y });
+//	//		ARoomManageMode::IsMapMoving = false;
+//	//		PlayerCharacter->CurRoom->SetPlayer(nullptr);
+//	//		PlayerCharacter->CurRoom = MoveRoom;
+//	//		this->CurRoom = MoveRoom;
+//
+//	//		GolLocation = FVector2D::ZERO;
+//	//		CurRoomMove = nullptr;
+//	//	}
+//	//}
+//	//else if (CurRoomMove->GetMoveDir() == FVector2D::DOWN)
+//	//{
+//	//	int CurY = CurCameraPos.iY();
+//	//	int ExitY = GolLocation.iY();
+//
+//	//	if (CurCameraPos.iY() > GolLocation.iY())
+//	//	{
+//	//		GetWorld()->SetCameraPos({ CurCameraPos.X, GolLocation.Y });
+//	//		ARoomManageMode::IsMapMoving = false;
+//	//		PlayerCharacter->CurRoom->SetPlayer(nullptr);
+//	//		PlayerCharacter->CurRoom = Roomes[1];
+//	//		PlayerCharacter->AddActorLocation(CurRoomMove->GetMoveSize());
+//	//		PlayerCharacter->AddActorLocation({0, 15});
+//	//		this->CurRoom = Roomes[1];
+//
+//	//		GolLocation = FVector2D::ZERO;
+//	//		CurRoomMove = nullptr;
+//	//	}
+//	//}
+//}

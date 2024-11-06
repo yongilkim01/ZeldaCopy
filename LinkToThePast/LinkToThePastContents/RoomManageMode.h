@@ -36,7 +36,7 @@ public:
 	void CheckMoveRoom();
 	ARoom* FindRoomToName(std::string_view RoomName);
 
-	void TranslateRoom(float DeltaTime);
+	//void TranslateRoom(FVector2D StartPos, FVector2D EndPos, float DeltaTime);
 	
 protected:
 
@@ -48,7 +48,6 @@ private:
 	ARoom* CurRoom = nullptr;
 	ARoom* MoveRoom = nullptr;
 	URoomMove* CurRoomMove = nullptr;
-	FVector2D GolLocation = FVector2D::ZERO;
 	std::vector<ARoom*> Roomes;
 	std::vector<FVector2D> RoomLocations;
 	std::vector<FVector2D> RoomSizes;
