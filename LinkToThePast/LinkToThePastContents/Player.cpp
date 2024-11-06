@@ -44,7 +44,6 @@ APlayer::APlayer()
 	SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayer::IdleStart, this));
 	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayer::IdleStart, this));
 
-
 	CurDir = FVector2D::DOWN;
 
 	IsCameraControl = true;
@@ -270,14 +269,12 @@ void APlayer::Move(float DeltaTime)
 	{
 		CurDir = FVector2D::RIGHT;
 		MoveDir += FVector2D::RIGHT;
-		//SpriteRenderer->ChangeAnimation("Run_Right");
 	}
-	if (UEngineInput::GetInst().IsPress('A') == true
+	else if (UEngineInput::GetInst().IsPress('A') == true
 		&& MoveDir != FVector2D::LEFT)
 	{
 		CurDir = FVector2D::LEFT;
 		MoveDir += FVector2D::LEFT;
-		//SpriteRenderer->ChangeAnimation("Run_Left");
 	}
 
 	if (UEngineInput::GetInst().IsPress('S') == true
@@ -285,17 +282,13 @@ void APlayer::Move(float DeltaTime)
 	{
 		CurDir = FVector2D::DOWN;
 		MoveDir += FVector2D::DOWN;
-		//SpriteRenderer->ChangeAnimation("Run_Down");
 	}
-	if (UEngineInput::GetInst().IsPress('W') == true
+	else if (UEngineInput::GetInst().IsPress('W') == true
 		&& MoveDir != FVector2D::UP)
 	{
 		CurDir = FVector2D::UP;
 		MoveDir += FVector2D::UP;
-		//SpriteRenderer->ChangeAnimation("Run_Up");
 	}
-
-
 	MoveDir.Normal();
 
 	if (CollisionImage != nullptr)
