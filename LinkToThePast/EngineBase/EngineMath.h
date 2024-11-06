@@ -80,6 +80,20 @@ public:
 		return;
 	}
 
+
+	void Normal()
+	{
+		if (X > 0)
+		{
+			X = 1;
+		}
+		if (Y > 0)
+		{
+			Y = 1;
+		}
+		return;
+	}
+
 	float Dot(const FVector2D& Other) const
 	{
 		return X * Other.X + Y * Other.Y;

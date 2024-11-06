@@ -68,6 +68,7 @@ private:
 
 	EPlayerState CurState = EPlayerState::Idle;
 	FVector2D CurDir = FVector2D::ZERO;
+	FVector2D MoveDir = FVector2D::ZERO;
 	class UEngineWinImage* CollisionImage = nullptr;
 
 	UFSMStateManager FSM;

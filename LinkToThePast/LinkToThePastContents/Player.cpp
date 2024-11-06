@@ -39,10 +39,10 @@ APlayer::APlayer()
 	SpriteRenderer->CreateAnimation("Attack_Up", "LinkAttackUp.png", 0, 4, 0.04f, false);
 	SpriteRenderer->CreateAnimation("Attack_Down", "LinkAttackDown.png", 0, 5, 0.04f, false);
 
-	SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayer::SetPlayerStateToIdle, this));
-	SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayer::SetPlayerStateToIdle, this));
-	SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayer::SetPlayerStateToIdle, this));
-	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayer::SetPlayerStateToIdle, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayer::IdleStart, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayer::IdleStart, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayer::IdleStart, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayer::IdleStart, this));
 
 
 	CurDir = FVector2D::DOWN;
@@ -251,6 +251,14 @@ void APlayer::Idle(float DeltaTime)
 		ChangeState(EPlayerState::Move);
 		return;
 	}
+
+
+	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
+		CurState != EPlayerState::Attack)
+	{
+		AttackStart();
+		CurState = EPlayerState::Attack;
+	}
 }
 
 void APlayer::Move(float DeltaTime)
@@ -258,53 +266,55 @@ void APlayer::Move(float DeltaTime)
 	FollowCamera();
 
 	if (UEngineInput::GetInst().IsPress('D') == true
-		&& CurDir != FVector2D::RIGHT)
+		&& MoveDir != FVector2D::RIGHT)
 	{
 		CurDir = FVector2D::RIGHT;
+		MoveDir += FVector2D::RIGHT;
 		//SpriteRenderer->ChangeAnimation("Run_Right");
 	}
 	if (UEngineInput::GetInst().IsPress('A') == true
-		&& CurDir != FVector2D::LEFT)
+		&& MoveDir != FVector2D::LEFT)
 	{
 		CurDir = FVector2D::LEFT;
+		MoveDir += FVector2D::LEFT;
 		//SpriteRenderer->ChangeAnimation("Run_Left");
 	}
+
 	if (UEngineInput::GetInst().IsPress('S') == true
-		&& CurDir != FVector2D::DOWN)
+		&& MoveDir != FVector2D::DOWN)
 	{
 		CurDir = FVector2D::DOWN;
+		MoveDir += FVector2D::DOWN;
 		//SpriteRenderer->ChangeAnimation("Run_Down");
 	}
 	if (UEngineInput::GetInst().IsPress('W') == true
-		&& CurDir != FVector2D::UP)
+		&& MoveDir != FVector2D::UP)
 	{
 		CurDir = FVector2D::UP;
+		MoveDir += FVector2D::UP;
 		//SpriteRenderer->ChangeAnimation("Run_Up");
 	}
 
-	//if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
-	//	CurState != EPlayerState::Attack)
-	//{
-	//	PlayAttackAnimation(CurDir);
-	//	CurState = EPlayerState::Attack;
-	//}
 
-	//if (CollisionImage != nullptr)
-	//{
-	//	// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
-	//	FVector2D NextPos = GetActorLocation() + CurDir * DeltaTime * Speed;
-	//	UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
-	//	if (Color == UColor::WHITE)
-	//	{
-	//		AddActorLocation(CurDir * DeltaTime * Speed);
-	//	} 
-	//	else if (Color == UColor::ORANGE)
-	//	{
-	//		AddActorLocation(CurDir * DeltaTime * (Speed * 0.5f));
-	//	}
-	//}
+	MoveDir.Normal();
 
-	AddActorLocation(CurDir * DeltaTime * Speed);
+	if (CollisionImage != nullptr)
+	{
+		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
+		FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
+		UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
+		if (Color == UColor::WHITE)
+		{
+			AddActorLocation(MoveDir * DeltaTime * Speed);
+		} 
+		else if (Color == UColor::ORANGE)
+		{
+			AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+		}
+	}
+	//AddActorLocation(MoveDir * DeltaTime * Speed);
+
+	MoveDir = FVector2D::ZERO;
 
 	if (false == UEngineInput::GetInst().IsPress('A') &&
 		false == UEngineInput::GetInst().IsPress('D') &&
@@ -315,18 +325,19 @@ void APlayer::Move(float DeltaTime)
 		ChangeState(EPlayerState::Idle);
 	}
 
-	//if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
-	//	CurState != EPlayerState::Attack)
-	//{
-	//	PlayAttackAnimation(CurDir);
-	//	CurState = EPlayerState::Attack;
-	//}
+	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
+		CurState != EPlayerState::Attack)
+	{
+		AttackStart();
+		CurState = EPlayerState::Attack;
+	}
 }
 
 void APlayer::Attack(float DeltaTime)
 {
 	FollowCamera();
 }
+
 
 void APlayer::FollowCamera()
 {
