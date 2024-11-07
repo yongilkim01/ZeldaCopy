@@ -1,45 +1,45 @@
 #pragma once
 #include <vector>
 #include <string>
+
 #include "EngineMath.h"
 
-// 설명 :
+/**
+ *	파일 직렬화 저장 클래스
+ */
 class UEngineSerializer
 {
 public:
-	// constrcuter destructer
+	/** 생성자, 소멸자 */
 	UEngineSerializer();
 	~UEngineSerializer();
 
-	// delete Function
+	/** 객체 복사 방지 */
 	UEngineSerializer(const UEngineSerializer& _Other) = delete;
 	UEngineSerializer(UEngineSerializer&& _Other) noexcept = delete;
 	UEngineSerializer& operator=(const UEngineSerializer& _Other) = delete;
 	UEngineSerializer& operator=(UEngineSerializer&& _Other) noexcept = delete;
 
 	// 데이터의 크기
-	void Write(void* _Data, unsigned int _Size);
+	void Write(void* Data, unsigned int Size);
 
+	void operator<<(class ISerializObject& _Data);
 	void operator<<(int& _Data)
 	{
 		Write(&_Data, sizeof(int));
 	}
-
 	void operator<<(bool& _Data)
 	{
 		Write(&_Data, sizeof(bool));
 	}
-
 	void operator<<(FVector2D& _Data)
 	{
 		Write(&_Data, sizeof(FVector2D));
 	}
-
 	void operator<<(FIntPoint& _Data)
 	{
 		Write(&_Data, sizeof(FIntPoint));
 	}
-
 	void operator<<(std::string& _Data)
 	{
 		// int하나랑 포인터 하나 들고 있죠?
@@ -48,9 +48,6 @@ public:
 		operator<<(Size);
 		Write(&_Data[0], static_cast<int>(_Data.size()));
 	}
-
-	void operator<<(class ISerializObject& _Data);
-
 	template<typename DataType>
 	void operator<<(std::vector<DataType>& _vector)
 	{

@@ -156,7 +156,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="PlayerCharacter.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -197,7 +197,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="PlayerCharacter.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -7,7 +7,7 @@
     <ClInclude Include="ZeldaContentsCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="PlayerCharacter.h">
       <Filter>ContentsObject\Global</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
@@ -45,7 +45,7 @@
     <ClCompile Include="ZeldaContentsCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="PlayerCharacter.cpp">
       <Filter>ContentsObject\Global</Filter>
     </ClCompile>
     <ClCompile Include="ContentsEnum.cpp">

@@ -4,7 +4,7 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EnginePlatform/EngineInput.h>
 #include "ContentsEnum.h"
-#include "Player.h"
+#include "PlayerCharacter.h"
 #include "RoomMove.h"
 
 ARoom::ARoom()

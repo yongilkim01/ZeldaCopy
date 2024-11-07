@@ -11,7 +11,7 @@
 
 #include "Room.h"
 #include "ContentsEnum.h"
-#include "Player.h"
+#include "PlayerCharacter.h"
 #include "UserInterface.h"
 #include "RoomMove.h"
 

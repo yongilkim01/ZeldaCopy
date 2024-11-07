@@ -8,7 +8,7 @@
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/ImageManager.h>
 
-#include "Player.h"
+#include "PlayerCharacter.h"
 #include "TitleGameMode.h"
 #include "RoomManageMode.h"
 #include "DungeonGameMode.h"
