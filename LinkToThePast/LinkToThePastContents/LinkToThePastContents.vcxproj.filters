@@ -34,6 +34,9 @@
     <ClInclude Include="DungeonGameMode.h">
       <Filter>ContentsObject\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>ContentsObject\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -68,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="DungeonGameMode.cpp">
       <Filter>ContentsObject\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>ContentsObject\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

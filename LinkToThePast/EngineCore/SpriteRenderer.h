@@ -77,6 +77,15 @@ public:
 		return Sprite->GetName();
 	}
 
+	void SetCameraEffect(bool Value)
+	{
+		IsCameraEffect = Value;
+	}
+
+	void SetCameraEffectScale(float Effect);
+	void SetSprite(std::string_view Name, int CurIndex = 0);
+
+
 	FVector2D SetSpriteScale(float _Ratio = 1.0f, int _CurIndex = 0);
 
 
@@ -101,9 +110,10 @@ protected:
 public:
 	int Order = 0;
 	int CurIndex = 0;
+	bool IsCameraEffect = true;
+	float CameraEffectScale = 1.0f;
 
 	class UEngineSprite* Sprite = nullptr;
-	void SetSprite(std::string_view _Name, int _CurIndex = 0);
 
 	std::map<std::string, FrameAnimation> FrameAnimations;
 	FrameAnimation* CurAnimation = nullptr;
