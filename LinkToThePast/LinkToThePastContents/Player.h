@@ -14,18 +14,18 @@ enum class EPlayerState
 };
 
 // Ό³Έν :
-class APlayer : public AActor
+class APlayerCharacter : public AActor
 {
 public:
 	// constrcuter destructer
-	APlayer();
-	~APlayer();
+	APlayerCharacter();
+	~APlayerCharacter();
 
 	// delete Function
-	APlayer(const APlayer& _Other) = delete;
-	APlayer(APlayer&& _Other) noexcept = delete;
-	APlayer& operator=(const APlayer& _Other) = delete;
-	APlayer& operator=(APlayer&& _Other) noexcept = delete;
+	APlayerCharacter(const APlayerCharacter& _Other) = delete;
+	APlayerCharacter(APlayerCharacter&& _Other) noexcept = delete;
+	APlayerCharacter& operator=(const APlayerCharacter& _Other) = delete;
+	APlayerCharacter& operator=(APlayerCharacter&& _Other) noexcept = delete;
 
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

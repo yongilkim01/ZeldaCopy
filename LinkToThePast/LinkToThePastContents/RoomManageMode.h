@@ -77,7 +77,7 @@ public:
 	void CheckCollisionRoom();
 
 protected:
-	class APlayer* PlayerCharacter = nullptr;
+	class APlayerCharacter* PlayerCharacter = nullptr;
 
 	/** ¹æ ¸â¹ö º¯¼ö */
 	ARoom* CurRoom = nullptr;

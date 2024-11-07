@@ -75,7 +75,7 @@ void ARoom::SetRoomSize(int SizeX, int SizeY)
 	//SetActorScale(RoomSize);
 }
 
-void ARoom::SetPlayer(APlayer* PlayerCharacter)
+void ARoom::SetPlayer(APlayerCharacter* PlayerCharacter)
 {
 	if (PlayerCharacter == nullptr) return;
 

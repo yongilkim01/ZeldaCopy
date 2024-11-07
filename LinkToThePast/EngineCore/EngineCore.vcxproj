@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="2DCollision.h" />
     <ClInclude Include="Actor.h">
       <SubType>
       </SubType>
@@ -58,7 +57,6 @@
     <ClInclude Include="SpriteRenderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2DCollision.cpp" />
     <ClCompile Include="Actor.cpp">
       <SubType>
       </SubType>

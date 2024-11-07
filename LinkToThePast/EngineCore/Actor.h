@@ -53,10 +53,6 @@ public:
 	void AddActorLocation(FVector2D _Direction) { Transform.Location += _Direction; }
 	FTransform GetTransform() { return Transform; }
 	FVector2D GetActorLocation() { return Transform.Location; }
-	void DebugOn() { IsDebug = true; }
-	void DebugOff() { IsDebug = false; }
-	void DebugSwitch() { IsDebug = !IsDebug; }
-
 
 protected:
 
@@ -71,6 +67,4 @@ private:
 	FTransform Transform;
 
 	std::list<class UActorComponent*> Components;
-
-	bool IsDebug = false;
 };

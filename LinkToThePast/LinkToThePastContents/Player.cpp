@@ -11,13 +11,13 @@
 #include "RoomMove.h"
 #include "RoomManageMode.h"
 
-void APlayer::RunSoundPlay()
+void APlayerCharacter::RunSoundPlay()
 {
 
 }
 
 
-APlayer::APlayer()
+APlayerCharacter::APlayerCharacter()
 {
 	SetActorLocation({ 380, 340 });
 	Speed = 250.0f;
@@ -38,10 +38,10 @@ APlayer::APlayer()
 	SpriteRenderer->CreateAnimation("Attack_Up", "LinkAttackUp.png", 0, 4, 0.04f, false);
 	SpriteRenderer->CreateAnimation("Attack_Down", "LinkAttackDown.png", 0, 5, 0.04f, false);
 
-	SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayer::IdleStart, this));
-	SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayer::IdleStart, this));
-	SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayer::IdleStart, this));
-	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayer::IdleStart, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::IdleStart, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayerCharacter::IdleStart, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayerCharacter::IdleStart, this));
+	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayerCharacter::IdleStart, this));
 
 	{
 		Collision = CreateDefaultSubObject<UCollision2D>();
@@ -55,11 +55,11 @@ APlayer::APlayer()
 	DebugOn();
 }
 
-APlayer::~APlayer()
+APlayerCharacter::~APlayerCharacter()
 {
 }
 
-void APlayer::BeginPlay()
+void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -70,7 +70,7 @@ void APlayer::BeginPlay()
 	ChangeState(EPlayerState::Idle);
 }
 
-void APlayer::Tick(float DeltaTime)
+void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
@@ -98,12 +98,12 @@ void APlayer::Tick(float DeltaTime)
 	}
 }
 
-void APlayer::SetCollisionImage(std::string_view CollisionImageName)
+void APlayerCharacter::SetCollisionImage(std::string_view CollisionImageName)
 {
 	CollisionImage = UImageManager::GetInst().FindImage(CollisionImageName);
 }
 
-void APlayer::PrintDebugPlayerState()
+void APlayerCharacter::PrintDebugPlayerState()
 {
 	switch (CurState)
 	{
@@ -121,13 +121,13 @@ void APlayer::PrintDebugPlayerState()
 	}
 }
 
-void APlayer::SetPlayerStateToIdle()
+void APlayerCharacter::SetPlayerStateToIdle()
 {
 	SpriteRenderer->ChangeAnimation("Idle_Down");
 	CurState = EPlayerState::Idle;
 }
 
-void APlayer::ChangeState(EPlayerState ChangeState)
+void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 {
 	switch (ChangeState)
 	{
@@ -147,7 +147,7 @@ void APlayer::ChangeState(EPlayerState ChangeState)
 	CurState = ChangeState;
 }
 
-void APlayer::IdleStart()
+void APlayerCharacter::IdleStart()
 {
 	if (CurDir == FVector2D::RIGHT)
 	{
@@ -174,7 +174,7 @@ void APlayer::IdleStart()
 	CurState = EPlayerState::Idle;
 }
 
-void APlayer::MoveStart()
+void APlayerCharacter::MoveStart()
 {
 	if (CurDir == FVector2D::RIGHT)
 	{
@@ -201,7 +201,7 @@ void APlayer::MoveStart()
 	CurState = EPlayerState::Move;
 }
 
-void APlayer::AttackStart()
+void APlayerCharacter::AttackStart()
 {
 	if (CurDir == FVector2D::RIGHT)
 	{
@@ -228,9 +228,9 @@ void APlayer::AttackStart()
 	CurState = EPlayerState::Attack;
 }
 
-void APlayer::Idle(float DeltaTime)
+void APlayerCharacter::Idle(float DeltaTime)
 {
-	//FollowCamera();
+	FollowCamera();
 
 	if (UEngineInput::GetInst().IsPress('A') == true)
 	{
@@ -266,7 +266,7 @@ void APlayer::Idle(float DeltaTime)
 	}
 }
 
-void APlayer::Move(float DeltaTime)
+void APlayerCharacter::Move(float DeltaTime)
 {
 	FollowCamera();
 
@@ -334,13 +334,13 @@ void APlayer::Move(float DeltaTime)
 	}
 }
 
-void APlayer::Attack(float DeltaTime)
+void APlayerCharacter::Attack(float DeltaTime)
 {
 	FollowCamera();
 }
 
 
-void APlayer::FollowCamera()
+void APlayerCharacter::FollowCamera()
 {
 	if (CurRoom != nullptr)
 	{
@@ -376,23 +376,23 @@ void APlayer::FollowCamera()
 	}
 }
 
-void APlayer::LevelChangeStart()
+void APlayerCharacter::LevelChangeStart()
 {
 	Super::LevelChangeStart();
 }
 
-void APlayer::LevelChangeEnd()
+void APlayerCharacter::LevelChangeEnd()
 {
 	Super::LevelChangeEnd();
 }
 
-void APlayer::PlayerCameraCheck()
+void APlayerCharacter::PlayerCameraCheck()
 {
 	FVector2D WindowSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPos(GetActorLocation() - WindowSize.Half());
 }
 
-void APlayer::PlayerGroundCheck(FVector2D _MovePos)
+void APlayerCharacter::PlayerGroundCheck(FVector2D _MovePos)
 {
 	IsMove = false;
 	IsGround = false;
@@ -411,7 +411,7 @@ void APlayer::PlayerGroundCheck(FVector2D _MovePos)
 		}
 	}
 }
-void APlayer::Gravity(float _DeltaTime)
+void APlayerCharacter::Gravity(float _DeltaTime)
 {
 	if (false == IsGround)
 	{

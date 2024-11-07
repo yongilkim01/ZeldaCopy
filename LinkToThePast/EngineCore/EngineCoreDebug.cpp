@@ -27,9 +27,9 @@ namespace UEngineDebug
 	bool IsDebug = false;
 #endif
 
-	void SetIsDebug(bool _IsDebug)
+	void SetIsDebug(bool Active)
 	{
-		IsDebug = _IsDebug;
+		IsDebug = Active;
 	}
 
 	void SwitchIsDebug()
@@ -40,7 +40,6 @@ namespace UEngineDebug
 	void CoreOutPutString(std::string_view _Text)
 	{
 		// #ifdef _DEBUG
-				// 바로 출력하지 않는다.
 		DebugTexts.push_back({ _Text.data(), EngineTextPos });
 		EngineTextPos.Y += 20;
 		// endif 
@@ -53,19 +52,19 @@ namespace UEngineDebug
 		// #endif
 	}
 
-	class DebugPosInfo
+	class DebugRenderInfo
 	{
 	public:
-		FVector2D Pos;
+		FTransform Transform;
 		EDebugPosType Type;
 	};
 
 
-	std::vector<DebugPosInfo> DebugPoses;
+	std::vector<DebugRenderInfo> DebugPoses;
 
-	void CoreDebugPos(FVector2D _Pos, EDebugPosType _Type)
+	void CoreDebugRender(FTransform Transform, EDebugPosType Type)
 	{
-		DebugPoses.push_back({ _Pos, _Type });
+		DebugPoses.push_back({ Transform, Type });
 	}
 
 	void PrintEngineDebugRender()
@@ -87,23 +86,19 @@ namespace UEngineDebug
 		EngineTextPos = FVector2D::ZERO;
 		DebugTexts.clear();
 
-		FTransform Trans;
-		Trans.Scale = FVector2D(6, 6);
-
 		for (size_t i = 0; i < DebugPoses.size(); i++)
 		{
 
 			EDebugPosType Type = DebugPoses[i].Type;
 
-			Trans.Location = DebugPoses[i].Pos;
-			FVector2D LT = Trans.CenterLeftTop();
-			FVector2D RB = Trans.CenterRightBottom();
+			FVector2D LT = DebugPoses[i].Transform.CenterLeftTop();
+			FVector2D RB = DebugPoses[i].Transform.CenterRightBottom();
 			switch (Type)
 			{
-			case UEngineDebug::Rect:
+			case UEngineDebug::EDebugPosType::Rect:
 				Rectangle(BackBuffer->GetDC(), LT.iX(), LT.iY(), RB.iX(), RB.iY());
 				break;
-			case UEngineDebug::Circle:
+			case UEngineDebug::EDebugPosType::Circle:
 				Ellipse(BackBuffer->GetDC(), LT.iX(), LT.iY(), RB.iX(), RB.iY());
 				break;
 			default:
@@ -112,8 +107,7 @@ namespace UEngineDebug
 		}
 
 		DebugPoses.clear();
-
 	}
 
-
+	void CoreDebugBox(FTransform _Trans) {}
 }

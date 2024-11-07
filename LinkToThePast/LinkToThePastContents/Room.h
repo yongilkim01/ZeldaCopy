@@ -34,7 +34,7 @@ public:
 	std::vector<ARoom*>& GetLinkedRoomes() { return LinkedRoomes; }
 	void SetRoomSize(FVector2D Size) { SetRoomSize(Size.iX(), Size.iY()); }
 	void SetRoomSize(int SizeX, int SizeY);
-	void SetPlayer(class APlayer* PlayerCharacter);
+	void SetPlayer(class APlayerCharacter* PlayerCharacter);
 	void AddRoomMove(URoomMove* RoomMove) { RoomMoves.push_back(RoomMove); }
 	size_t GetRoomMovesSize() 
 	{ 
@@ -61,7 +61,7 @@ private:
 	USpriteRenderer* BackSpriteRenderer;
 	//USpriteRenderer* ColSpriteRenderer;
 
-	APlayer* PlayerCharacter = nullptr;
+	APlayerCharacter* PlayerCharacter = nullptr;
 
 	std::vector<ARoom*> LinkedRoomes;
 

@@ -33,14 +33,13 @@ AActor::AActor()
 
 AActor::~AActor()
 {
-	// 컴포넌트의 생성주기는 액터의 생명주기와 같다고 한다.
 	std::list<UActorComponent*>::iterator StartIter = Components.begin();
 	std::list<UActorComponent*>::iterator EndIter = Components.end();
 	for (; StartIter != EndIter; ++StartIter)
 	{
 		UActorComponent* Component = *StartIter;
 
-		if (nullptr != Component)
+		if (Component != nullptr)
 		{
 			delete Component;
 		}
@@ -49,28 +48,32 @@ AActor::~AActor()
 	Components.clear();
 }
 
-void AActor::Tick(float _DeltaTime)
+void AActor::Tick(float DeltaTime)
 {
-	if (true == IsDebug)
+	if (IsDebug() == true)
 	{
-		FVector2D Pos = GetActorLocation();
-		FVector2D CameraPos = GetWorld()->GetCameraPos();
-		UEngineDebug::CoreDebugPos(Pos - CameraPos, UEngineDebug::EDebugPosType::Circle);
-		//UEngineDebug::Core
+		FVector2D ActorLocation = GetActorLocation();
+		FVector2D CameraLocation = GetWorld()->GetCameraPos();
+
+		FTransform Transform;
+		Transform.Location = ActorLocation - CameraLocation;
+		Transform.Scale = { 6, 6 };
+
+		UEngineDebug::CoreDebugRender(Transform, UEngineDebug::EDebugPosType::Circle);
 	}
 
 	std::list<class UActorComponent*>::iterator StartIter = Components.begin();
 	std::list<class UActorComponent*>::iterator EndIter = Components.end();
 	for (; StartIter != EndIter; ++StartIter)
 	{
-		(*StartIter)->ComponentTick(_DeltaTime);
+		(*StartIter)->ComponentTick(DeltaTime);
 	}
 }
 
 void AActor::ReleaseCheck(float DeltaTime)
 {
 	UObject::ReleaseCheck(DeltaTime);
-	// 컴포넌트의 생성주기는 액터의 생명주기와 같다고 한다.
+
 	std::list<UActorComponent*>::iterator StartIter = Components.begin();
 	std::list<UActorComponent*>::iterator EndIter = Components.end();
 	for (; StartIter != EndIter; )
@@ -82,7 +85,6 @@ void AActor::ReleaseCheck(float DeltaTime)
 			++StartIter;
 			continue;
 		}
-		// 액터는 죽을 컴포넌트가 있으면 진짜 죽
 		delete Component;
 		StartIter = Components.erase(StartIter);
 	}

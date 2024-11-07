@@ -31,9 +31,6 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="2DCollision.h">
-      <Filter>Object\Component\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="EngineCoreDebug.h">
       <Filter>Debug</Filter>
     </ClInclude>
@@ -71,9 +68,6 @@
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Object\Component\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="2DCollision.cpp">
-      <Filter>Object\Component\Collision</Filter>
     </ClCompile>
     <ClCompile Include="EngineCoreDebug.cpp">
       <Filter>Debug</Filter>

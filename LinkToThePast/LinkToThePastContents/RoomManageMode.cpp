@@ -29,7 +29,7 @@ ARoomManageMode::~ARoomManageMode()
 void ARoomManageMode::BeginPlay()
 {
 	Super::BeginPlay();
-	PlayerCharacter = GetWorld()->GetPawn<APlayer>();
+	PlayerCharacter = GetWorld()->GetPawn<APlayerCharacter>();
 
 }
 
