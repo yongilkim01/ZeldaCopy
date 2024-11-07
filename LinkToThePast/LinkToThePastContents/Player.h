@@ -82,6 +82,6 @@ private:
 	bool IsMove = false;
 	FVector2D GravityForce = FVector2D::ZERO;
 
-	UCollision2D* Collision = nullptr;
+	UCollision2D* CollisionComponent = nullptr;
 };
 

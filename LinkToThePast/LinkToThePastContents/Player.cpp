@@ -44,8 +44,10 @@ APlayerCharacter::APlayerCharacter()
 	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayerCharacter::IdleStart, this));
 
 	{
-		Collision = CreateDefaultSubObject<UCollision2D>();
-		Collision->SetComponentScale({ 100, 100 });
+		CollisionComponent = CreateDefaultSubObject<UCollision2D>();
+		CollisionComponent->SetComponentLocation({ 200, 0 });
+		CollisionComponent->SetComponentScale({ 50, 50 });
+		CollisionComponent->SetCollisionGroup(ECollisionGroup::PlayerBody);
 	}
 
 	CurDir = FVector2D::DOWN;
@@ -390,6 +392,8 @@ void APlayerCharacter::PlayerCameraCheck()
 {
 	FVector2D WindowSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPos(GetActorLocation() - WindowSize.Half());
+
+	DebugOn();
 }
 
 void APlayerCharacter::PlayerGroundCheck(FVector2D _MovePos)

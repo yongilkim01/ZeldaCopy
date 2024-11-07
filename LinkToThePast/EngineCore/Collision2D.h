@@ -32,11 +32,37 @@ public:
 		return CollisionGroup;
 	}
 
+	template<typename EnumType>
+	void SetCollisionGroup(EnumType CollisionGroup)
+	{
+		SetCollisionGroup(static_cast<int>(CollisionGroup));
+	}
+	template<typename EnumType>
+	bool IsCollision(EnumType _OtherCollisionGroup)
+	{
+		return IsCollision(static_cast<int>(_OtherCollisionGroup));
+	}
+	template<typename EnumType>
+	UCollision2D* CollisionOnce(EnumType _OtherCollisionGroup)
+	{
+		return CollisionOnce(static_cast<int>(_OtherCollisionGroup));
+	}
+	template<typename EnumType>
+	bool Collision(EnumType _OtherCollisionGroup, std::vector<UCollision2D*>* _Result = nullptr)
+	{
+		return Collision(static_cast<int>(_OtherCollisionGroup), _Result);
+	}
+
+	void SetCollisionGroup(int CollisionGroup) { this->CollisionGroup = CollisionGroup; }
+	bool IsCollision(int _OtherCollisionGroup);
+	UCollision2D* Collision(int _OtherCollisionGroup);
+	bool Collision(int _OtherCollisionGroup, std::vector<UCollision2D*>* _Result = nullptr);
+
 protected:
 
 private:
 	// 충돌체의 오더는 약간 의미가 다르다.
-	int CollisionGroup = 0;
+	int CollisionGroup = -1;
 };
 
 // 여러분들이 만들어야 하는 기능
