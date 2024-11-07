@@ -81,7 +81,11 @@ void USpriteRenderer::Render(float DeltaTime)
 
 	ULevel* Level = GetActor()->GetWorld();
 
-	Trans.Location = Trans.Location - Level->CameraPos;
+	//Trans.Location = Trans.Location - Level->CameraPos;
+	if (IsCameraEffect == true)
+	{
+		Trans.Location = Trans.Location - (Level->CameraPos * CameraEffectScale);
+	}
 
 	// Trans.Location -= 카메라포스
 
