@@ -7,6 +7,7 @@
 class ULevel
 {
 public:
+	friend class UCollision2D;
 	friend class USpriteRenderer;
 	friend class UEngineAPICore;
 
@@ -72,6 +73,7 @@ private:
 	void ScreenClear();
 	void DoubleBuffering();
 	void PushRenderer(class USpriteRenderer* Renderer);
+	void PushCollision(class UCollision2D* Collision);
 	void ChangeRenderOrder(class USpriteRenderer* Renderer, int PrevOrder);
 
 	class AGameMode* GameMode = nullptr;
@@ -85,4 +87,5 @@ private:
 	FVector2D CameraPivot;
 
 	std::map<int, std::list<class USpriteRenderer*>> Renderers;
+	std::map<int, std::list<class UCollision2D*>> Collisions;
 };

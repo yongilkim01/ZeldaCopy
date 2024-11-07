@@ -2,6 +2,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineCore/ImageManager.h>
 #include <EngineBase/FSMStateManager.h>
+#include <EngineCore/Collision2D.h>
 
 class ARoom;
 
@@ -54,6 +55,10 @@ public:
 	void SetCurRoom(ARoom* Room) { CurRoom = Room; }
 	ARoom* GetCurRoom() { return CurRoom; }
 
+	void PlayerCameraCheck();
+	void PlayerGroundCheck(FVector2D MovePos);
+	void Gravity(float _DeltaTime);
+
 	ARoom* CurRoom = nullptr;
 
 	bool IsCameraControl = false;
@@ -72,5 +77,11 @@ private:
 	class UEngineWinImage* CollisionImage = nullptr;
 
 	UFSMStateManager FSM;
+
+	int IsGround = false;
+	bool IsMove = false;
+	FVector2D GravityForce = FVector2D::ZERO;
+
+	UCollision2D* Collision = nullptr;
 };
 

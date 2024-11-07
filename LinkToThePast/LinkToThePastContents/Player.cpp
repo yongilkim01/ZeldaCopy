@@ -4,6 +4,7 @@
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineCoreDebug.h>
+#include <EngineCore/Collision2D.h>
 
 #include <EnginePlatform/EngineInput.h>
 #include "Room.h"
@@ -28,12 +29,10 @@ APlayer::APlayer()
 	SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 8, 0.04f);
 	SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 8, 0.04f);
 	SpriteRenderer->CreateAnimation("Run_Down", "LinkMoveDown.png", 1, 8, 0.04f);
-
 	SpriteRenderer->CreateAnimation("Idle_Right", "LinkMoveRight.png", 0, 0, 0.1f);
 	SpriteRenderer->CreateAnimation("Idle_Left", "LinkMoveLeft.png", 0, 0, 0.1f);
 	SpriteRenderer->CreateAnimation("Idle_Up", "LinkMoveUp.png", 0, 0, 0.1f);
 	SpriteRenderer->CreateAnimation("Idle_Down", "LinkMoveDown.png", 0, 0, 0.1f);
-
 	SpriteRenderer->CreateAnimation("Attack_Right", "LinkAttackRight.png", 0, 5, 0.04f, false);
 	SpriteRenderer->CreateAnimation("Attack_Left", "LinkAttackLeft.png", 0, 5, 0.04f, false);
 	SpriteRenderer->CreateAnimation("Attack_Up", "LinkAttackUp.png", 0, 4, 0.04f, false);
@@ -44,9 +43,16 @@ APlayer::APlayer()
 	SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayer::IdleStart, this));
 	SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayer::IdleStart, this));
 
+	{
+		Collision = CreateDefaultSubObject<UCollision2D>();
+		Collision->SetComponentScale({ 100, 100 });
+	}
+
 	CurDir = FVector2D::DOWN;
 
 	IsCameraControl = true;
+
+	DebugOn();
 }
 
 APlayer::~APlayer()
@@ -60,7 +66,7 @@ void APlayer::BeginPlay()
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1);
 	SetCollisionImage("Dungeon1Collision.png");
-
+	GetWorld()->SetCameraToMainPawn(false);
 	ChangeState(EPlayerState::Idle);
 }
 
@@ -224,7 +230,7 @@ void APlayer::AttackStart()
 
 void APlayer::Idle(float DeltaTime)
 {
-	FollowCamera();
+	//FollowCamera();
 
 	if (UEngineInput::GetInst().IsPress('A') == true)
 	{
@@ -378,4 +384,42 @@ void APlayer::LevelChangeStart()
 void APlayer::LevelChangeEnd()
 {
 	Super::LevelChangeEnd();
+}
+
+void APlayer::PlayerCameraCheck()
+{
+	FVector2D WindowSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
+	GetWorld()->SetCameraPos(GetActorLocation() - WindowSize.Half());
+}
+
+void APlayer::PlayerGroundCheck(FVector2D _MovePos)
+{
+	IsMove = false;
+	IsGround = false;
+	if (nullptr != CollisionImage)
+	{
+		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
+		FVector2D NextPos = GetActorLocation() + _MovePos;
+		UColor Color = CollisionImage->GetColor(NextPos, UColor::BLACK);
+		if (Color == UColor::WHITE)
+		{
+			IsMove = true;
+		}
+		else if (Color == UColor::BLACK)
+		{
+			IsGround = true;
+		}
+	}
+}
+void APlayer::Gravity(float _DeltaTime)
+{
+	if (false == IsGround)
+	{
+		GravityForce += FVector2D::DOWN * _DeltaTime * 0.1f;
+	}
+	else {
+		GravityForce = FVector2D::ZERO;
+	}
+	// 상시 
+	AddActorLocation(GravityForce);
 }

@@ -34,6 +34,9 @@ public:
 
 	void CuttingSprite(std::string_view _KeyName, int _X, int _Y);
 	void CuttingSprite(std::string_view KeyName, FVector2D CuttingSize);
+	void CuttingSprite(std::string_view NewSpriteName,
+		std::string_view ImageName,
+		FVector2D CuttingSize);
 	void CreateCutSprite(std::string_view _SearchKeyName,
 		std::string_view _NewSpriteKeyName,
 		FVector2D _StartPos,

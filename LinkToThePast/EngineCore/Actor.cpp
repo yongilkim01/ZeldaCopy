@@ -10,6 +10,7 @@
 #include "EngineSprite.h"
 #include "ImageManager.h"
 #include "ActorComponent.h"
+#include "EngineCoreDebug.h"
 
 std::list<UActorComponent*> AActor::ComponentList;
 
@@ -46,6 +47,24 @@ AActor::~AActor()
 	}
 
 	Components.clear();
+}
+
+void AActor::Tick(float _DeltaTime)
+{
+	if (true == IsDebug)
+	{
+		FVector2D Pos = GetActorLocation();
+		FVector2D CameraPos = GetWorld()->GetCameraPos();
+		UEngineDebug::CoreDebugPos(Pos - CameraPos, UEngineDebug::EDebugPosType::Circle);
+		//UEngineDebug::Core
+	}
+
+	std::list<class UActorComponent*>::iterator StartIter = Components.begin();
+	std::list<class UActorComponent*>::iterator EndIter = Components.end();
+	for (; StartIter != EndIter; ++StartIter)
+	{
+		(*StartIter)->ComponentTick(_DeltaTime);
+	}
 }
 
 void AActor::ReleaseCheck(float DeltaTime)

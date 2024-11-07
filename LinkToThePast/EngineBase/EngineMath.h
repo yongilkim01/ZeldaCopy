@@ -262,6 +262,11 @@ public:
 		return { StartLocation.X + Distance * (EndLocation.X - StartLocation.X), StartLocation.Y + Distance * (EndLocation.Y - StartLocation.Y) };
 
 	}
+
+	static float Sqrt(float _Value)
+	{
+		return ::sqrtf(_Value);
+	}
 };
 
 

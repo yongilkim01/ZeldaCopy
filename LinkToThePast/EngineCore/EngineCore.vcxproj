@@ -25,6 +25,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ActorComponent.h" />
+    <ClInclude Include="Collision2D.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineAPICore.h">
       <SubType>
       </SubType>
@@ -60,6 +64,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ActorComponent.cpp" />
+    <ClCompile Include="Collision2D.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineAPICore.cpp">
       <SubType>
       </SubType>
