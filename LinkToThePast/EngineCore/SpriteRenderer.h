@@ -1,5 +1,15 @@
 #pragma once
 #include "SceneComponent.h"
+#include "EngineSprite.h"
+#include <EngineBase/EngineDelegate.h>
+#include <map>
+
+enum class PivotType
+{
+	Center,
+	Bot,
+	Top,
+};
 
 // 설명 :
 class USpriteRenderer : public USceneComponent
@@ -50,7 +60,6 @@ public:
 		// 부모도        true            true
 		return UObject::IsActive() && GetActor()->IsActive();
 	}
-
 	bool IsDestroy() override
 	{
 		// 부모도        true            true
@@ -87,7 +96,11 @@ public:
 
 
 	FVector2D SetSpriteScale(float _Ratio = 1.0f, int _CurIndex = 0);
-
+	void SetPivot(FVector2D _Pivot)
+	{
+		Pivot = _Pivot;
+	}
+	void SetPivotType(PivotType _Type);
 
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, int _Start, int _End, float Time = 0.1f, bool _Loop = true);
 
@@ -117,5 +130,6 @@ public:
 
 	std::map<std::string, FrameAnimation> FrameAnimations;
 	FrameAnimation* CurAnimation = nullptr;
+	FVector2D Pivot = FVector2D::ZERO;
 };
 
