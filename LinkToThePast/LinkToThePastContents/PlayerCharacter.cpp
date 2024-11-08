@@ -67,7 +67,7 @@ void APlayerCharacter::BeginPlay()
 
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1);
-	SetCollisionImage("Dungeon1Collision.png");
+	SetCollisionImage("CastleDungeon1Collision.png");
 	GetWorld()->SetCameraToMainPawn(false);
 	ChangeState(EPlayerState::Idle);
 }

@@ -12,7 +12,7 @@ ARoom::ARoom()
 	{
 		BackSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		BackSpriteRenderer->SetOrder(ERenderOrder::BACKGROUND);
-		BackSpriteRenderer->SetSprite("Dungeon1.png");
+		BackSpriteRenderer->SetSprite("CastleDungeon1.png");
 		FVector2D MapScale = BackSpriteRenderer->SetSpriteScale(1.0f);
 		BackSpriteRenderer->SetComponentLocation(MapScale.Half());
 	}
@@ -20,7 +20,7 @@ ARoom::ARoom()
 	{
 		ColSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		ColSpriteRenderer->SetOrder(ERenderOrder::COLMAP);
-		ColSpriteRenderer->SetSprite("Dungeon1Collision.png");
+		ColSpriteRenderer->SetSprite("CastleDungeon1Collision.png");
 		FVector2D MapScale = ColSpriteRenderer->SetSpriteScale(1.0f);
 		ColSpriteRenderer->SetComponentLocation(MapScale.Half());
 		ColSpriteRenderer->SetActive(false);

@@ -43,6 +43,6 @@ void DungeonGameMode::RoomBeginPlay()
 	RoomDataes.push_back({ { 1546, 2100 } ,{ 1406, 824 } });	// Dungeon7
 	RoomDataes.push_back({ { 0, 1480 } ,{ 1546, 1444 } });		// Dungeon8
 
-	CreateRoomActor("Dungeon", 0);
+	CreateRoomActor("CastleDungeon", 0);
 }
 
