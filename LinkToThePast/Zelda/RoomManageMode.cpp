@@ -247,7 +247,7 @@ void ARoomManageMode::CheckCollisionRoom()
 			if (CheckPlayerInRoom(Roomes[i]))
 			{
 				//PlayerCharacter->CurRoom->SetPlayer(nullptr);
-				PlayerCharacter->CurRoom = Roomes[i];
+				PlayerCharacter->SetCurRoom(Roomes[i]);
 				this->CurRoom = Roomes[i];
 
 			}

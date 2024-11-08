@@ -89,3 +89,8 @@ bool UCollision2D::Collision(int OtherCollisionGroup, std::vector<AActor*>& Resu
 	}
 	return ResultActors.size() != 0;
 }
+
+bool UCollision2D::CollisionMap(UColor Color)
+{
+	return false;
+}

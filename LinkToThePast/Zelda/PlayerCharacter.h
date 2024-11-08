@@ -1,10 +1,11 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineCore/ImageManager.h>
-#include <EngineBase/FSMStateManager.h>
 #include <EngineCore/Collision2D.h>
 
 class ARoom;
+class USpriteRenderer;
+class UEngineWinImage;
 
 enum class EPlayerState
 {
@@ -35,13 +36,6 @@ public:
 	void LevelChangeStart();
 	void LevelChangeEnd();
 
-	void SetCollisionImage(std::string_view CollisionImageName);
-
-	void RunSoundPlay();
-
-	void PrintDebugPlayerState();
-	void SetPlayerStateToIdle();
-
 	void StartIdle();
 	void StartMove();
 	void StartAttack();
@@ -49,6 +43,13 @@ public:
 	void Move(float DeltaTime);
 	void Attack(float DeltaTime);
 	void ChangeState(EPlayerState ChangeState);
+
+	void SetCollisionImage(std::string_view CollisionImageName);
+
+	void RunSoundPlay();
+
+	void PrintDebugPlayerState();
+	void SetPlayerStateToIdle();
 
 	void SetCameraLocationToPlayer();
 
@@ -59,27 +60,23 @@ public:
 	void PlayerGroundCheck(FVector2D MovePos);
 	void Gravity(float _DeltaTime);
 
-	ARoom* CurRoom = nullptr;
-
 protected:
 
 private:
-	float Speed = 250.0f;
-	int MySpriteIndex = 0;
+	ARoom* CurRoom = nullptr;
 
-	class USpriteRenderer* SpriteRenderer;
+	UEngineWinImage* CollisionImage = nullptr;
+	USpriteRenderer* SpriteRenderer = nullptr;
+	UCollision2D* CollisionComponent = nullptr;
 
 	EPlayerState CurState = EPlayerState::Idle;
 	FVector2D CurDir = FVector2D::DOWN;
 	FVector2D MoveDir = FVector2D::ZERO;
-	class UEngineWinImage* CollisionImage = nullptr;
-
-	UFSMStateManager FSM;
-
-	int IsGround = false;
-	bool IsMove = false;
 	FVector2D GravityForce = FVector2D::ZERO;
 
-	UCollision2D* CollisionComponent = nullptr;
+	float Speed = 250.0f;
+	int MySpriteIndex = 0;
+	int IsGround = false;
+	bool IsMove = false;
 };
 

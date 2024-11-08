@@ -174,19 +174,19 @@ void APlayerCharacter::StartMove()
 {
 	if (CurDir == FVector2D::RIGHT)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right");
+		SpriteRenderer->ChangeAnimation("Run_Right", true);
 	}
 	else if (CurDir == FVector2D::LEFT)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Left");
+		SpriteRenderer->ChangeAnimation("Run_Left", true);
 	}
 	else if (CurDir == FVector2D::UP)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Up");
+		SpriteRenderer->ChangeAnimation("Run_Up", true);
 	}
 	else if (CurDir == FVector2D::DOWN)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Down");
+		SpriteRenderer->ChangeAnimation("Run_Down", true);
 	}
 	else
 	{
@@ -292,24 +292,44 @@ void APlayerCharacter::Move(float DeltaTime)
 		MoveDir += FVector2D::UP;
 	}
 
+	if (CurDir == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Right");
+	}
+	else if (CurDir == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Left");
+	}
+	else if (CurDir == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Up");
+	}
+	else if (CurDir == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("Run_Down");
+	}
+
 	MoveDir.Normal();
 
-	//if (CollisionImage != nullptr)
-	//{
-	//	// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
-	//	FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
-	//	UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
-	//	if (Color == UColor::WHITE || Color == UColor::ROOM_DOWN)
-	//	{
-	//		AddActorLocation(MoveDir * DeltaTime * Speed);
-	//	} 
-	//	else if (Color == UColor::ORANGE)
-	//	{
-	//		AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
-	//	}
-	//}
+	if (CollisionImage != nullptr)
+	{
+		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
+		FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
+		UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
+		if (Color == UColor::WHITE || Color == UColor::ROOM_DOWN)
+		{
+			AddActorLocation(MoveDir * DeltaTime * Speed);
+		} 
+		else if (Color == UColor::ORANGE)
+		{
+			AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+		}
+	}
 	
-	AddActorLocation(MoveDir * DeltaTime * Speed);
+
+	//AddActorLocation(MoveDir * DeltaTime * Speed);
+
+	//CollisionComponent->CollisionMap(UColor::PINK);
 
 	MoveDir = FVector2D::ZERO;
 

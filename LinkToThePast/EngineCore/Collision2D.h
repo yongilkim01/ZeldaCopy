@@ -73,11 +73,13 @@ public:
 		this->CollisionType = CollisionType;
 	}
 
+	bool CollisionMap(UColor Color);
+
 protected:
 
 private:
 	// 충돌체의 오더는 약간 의미가 다르다.
-	ECollisionType CollisionType = ECollisionType::Circle;
+	ECollisionType CollisionType = ECollisionType::Rect;
 	int CollisionGroup = -1;
 };
 

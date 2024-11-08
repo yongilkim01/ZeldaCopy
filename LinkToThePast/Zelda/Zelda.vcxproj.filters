@@ -20,22 +20,22 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Room.h">
-      <Filter>3_Data</Filter>
-    </ClInclude>
-    <ClInclude Include="RoomMove.h">
-      <Filter>3_Data</Filter>
+      <Filter>2_Data</Filter>
     </ClInclude>
     <ClInclude Include="UserInterface.h">
-      <Filter>4_UI</Filter>
+      <Filter>3_UI</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
-      <Filter>4_UI</Filter>
+      <Filter>3_UI</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
-      <Filter>5_Util</Filter>
+      <Filter>4_Util</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
-      <Filter>5_Util</Filter>
+      <Filter>4_Util</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomMove.h">
+      <Filter>4_Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -58,22 +58,22 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Room.cpp">
-      <Filter>3_Data</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomMove.cpp">
-      <Filter>3_Data</Filter>
+      <Filter>2_Data</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
-      <Filter>4_UI</Filter>
+      <Filter>3_UI</Filter>
     </ClCompile>
     <ClCompile Include="UserInterface.cpp">
-      <Filter>4_UI</Filter>
+      <Filter>3_UI</Filter>
     </ClCompile>
     <ClCompile Include="ContentsEnum.cpp">
-      <Filter>5_Util</Filter>
+      <Filter>4_Util</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
-      <Filter>5_Util</Filter>
+      <Filter>4_Util</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomMove.cpp">
+      <Filter>4_Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,13 +95,13 @@
     <Filter Include="Core">
       <UniqueIdentifier>{4f50dd17-7d7d-4ed0-b148-a0be88316692}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3_Data">
+    <Filter Include="2_Data">
       <UniqueIdentifier>{cc93c005-227f-4498-8f19-080a0125ff90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="4_UI">
+    <Filter Include="3_UI">
       <UniqueIdentifier>{4ab86a67-4101-4c64-b1c1-4f990d1f38f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="5_Util">
+    <Filter Include="4_Util">
       <UniqueIdentifier>{7da3a844-87c8-4e0e-9790-0edeff16ca5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

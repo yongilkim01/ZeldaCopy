@@ -19,7 +19,7 @@ void DungeonGameMode::BeginPlay()
 	RoomBeginPlay();
 	UIBeginPlay();
 
-	PlayerCharacter->CurRoom = Roomes[0];
+	PlayerCharacter->SetCurRoom(Roomes[0]);
 	this->CurRoom = Roomes[0];
 
 }
