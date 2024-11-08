@@ -26,7 +26,7 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	void SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale = 3.0f);
+	void SetRoomSprite(std::string_view SpriteName, std::string_view CollisionName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale = 3.0f);
 	void LinkRoom(ARoom* LinkedRoom);
 	URoomMove* FindRoomMove(size_t Index) { return RoomMoves[Index]; }
 
@@ -41,7 +41,6 @@ public:
 		return RoomMoves.size(); 
 	}
 
-	//UEngineWinImage* GetColSprite() {return ColSprite
 	UEngineWinImage* GetColWinImage() 
 	{ 
 		return UImageManager::GetInst().FindImage(this->ColSpriteRenderer->GetCurSpriteName()); 
@@ -53,13 +52,12 @@ public:
 
 	void PlayerLinkCheck();
 
-	USpriteRenderer* ColSpriteRenderer;
 
 protected:
 
 private:
 	USpriteRenderer* BackSpriteRenderer;
-	//USpriteRenderer* ColSpriteRenderer;
+	USpriteRenderer* ColSpriteRenderer;
 
 	APlayerCharacter* PlayerCharacter = nullptr;
 

@@ -51,13 +51,18 @@ void ARoom::Tick(float DeltaTime)
 	}	
 }
 
-void ARoom::SetRoomSprite(std::string_view SpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale /* = 3.0f */)
+void ARoom::SetRoomSprite(std::string_view SpriteName, std::string_view CollisionSpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale /* = 3.0f */)
 {
 	BackSpriteRenderer->SetOrder(RenderOrder);
 	BackSpriteRenderer->SetSprite(SpriteName);
-
 	FVector2D MapScale = BackSpriteRenderer->SetSpriteScale(SpriteScale);
 	BackSpriteRenderer->SetComponentLocation(MapScale.Half());
+
+	ColSpriteRenderer->SetOrder(ERenderOrder::COLMAP);
+	ColSpriteRenderer->SetSprite(CollisionSpriteName);
+	FVector2D ColMapScale = ColSpriteRenderer->SetSpriteScale(1.0f);
+	ColSpriteRenderer->SetComponentLocation(ColMapScale.Half());
+
 	SetActorLocation(SpritePos);
 }
 

@@ -357,6 +357,8 @@ public:
 
 	static const UColor ROOM_UP;
 	static const UColor ROOM_DOWN;
+	static const UColor ROOM_RIGHT;
+	static const UColor ROOM_LEFT;
 
 	union
 	{

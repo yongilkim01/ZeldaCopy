@@ -22,6 +22,8 @@ const UColor UColor::YELLOW = { 255, 255, 0, 0 };
 
 const UColor UColor::ROOM_UP = { 200, 0, 0, 0 };
 const UColor UColor::ROOM_DOWN = { 0, 200, 0, 0 };
+const UColor UColor::ROOM_RIGHT = { 0, 0, 200, 0 };
+const UColor UColor::ROOM_LEFT = { 200, 200, 0, 0 };
 
 FIntPoint FVector2D::ConvertToPoint() const
 {

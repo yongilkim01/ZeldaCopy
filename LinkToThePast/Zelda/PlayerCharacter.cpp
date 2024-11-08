@@ -311,23 +311,23 @@ void APlayerCharacter::Move(float DeltaTime)
 
 	MoveDir.Normal();
 
-	if (CollisionImage != nullptr)
-	{
-		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
-		FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
-		UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
-		if (Color == UColor::WHITE || Color == UColor::ROOM_DOWN)
-		{
-			AddActorLocation(MoveDir * DeltaTime * Speed);
-		} 
-		else if (Color == UColor::ORANGE)
-		{
-			AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
-		}
-	}
+	//if (CollisionImage != nullptr)
+	//{
+	//	// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
+	//	FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
+	//	UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
+	//	if (Color == UColor::WHITE || Color == UColor::ROOM_DOWN)
+	//	{
+	//		AddActorLocation(MoveDir * DeltaTime * Speed);
+	//	} 
+	//	else if (Color == UColor::ORANGE)
+	//	{
+	//		AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+	//	}
+	//}
 	
 
-	//AddActorLocation(MoveDir * DeltaTime * Speed);
+	AddActorLocation(MoveDir * DeltaTime * Speed);
 
 	//CollisionComponent->CollisionMap(UColor::PINK);
 

@@ -201,8 +201,9 @@ void ARoomManageMode::CreateRoomActor(std::string_view _MapName, int StartRoomIn
 		ARoom* DungeonRoom = GetWorld()->SpawnActor<ARoom>();
 		DungeonName = _MapName;
 		DungeonName.append(std::to_string(i + 1));
-		std::string FileName = DungeonName + ".png";
-		DungeonRoom->SetRoomSprite(FileName, ERenderOrder::BACKGROUND, RoomDataes[i].Location, 1.0f);
+		std::string SpriteName = DungeonName + ".png";
+		std::string CollisionSpriteName = DungeonName + "Collision.png";
+		DungeonRoom->SetRoomSprite(SpriteName, CollisionSpriteName, ERenderOrder::BACKGROUND, RoomDataes[i].Location, 1.0f);
 		DungeonRoom->SetRoomSize(RoomDataes[i].Scale);
 		DungeonRoom->SetName(DungeonName);
 
