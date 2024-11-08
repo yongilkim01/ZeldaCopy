@@ -1,10 +1,12 @@
 #include "PreCompile.h"
-#include <LinkToThePastContents/ZeldaContentsCore.h>
+//#include <LinkToThePastContents/ZeldaContentsCore.h>
+#include <Zelda/ZeldaCore.h>
 
 #include <EngineCore/EngineAPICore.h>
 
 #pragma comment (lib, "EngineCore.lib")
-#pragma comment (lib, "LinkToThePastContents.lib")
+//#pragma comment (lib, "LinkToThePastContents.lib")
+#pragma comment (lib, "Zelda.lib")
 
 #include <EngineBase/EngineTimer.h>
 
@@ -13,6 +15,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ LPWSTR    lpCmdLine,
 	_In_ int       nCmdShow)
 {
-	ZeldaContentsCore User;
+	UZeldaCore User;
 	return UEngineAPICore::EngineStart(hInstance, &User);
 }

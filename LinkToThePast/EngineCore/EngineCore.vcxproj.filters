@@ -83,6 +83,15 @@
     <Filter Include="Core">
       <UniqueIdentifier>{bebdc23f-910f-491a-8151-273b50260e44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{e9b31773-e7a0-4ec4-9a47-6efeac9ef270}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{4d5f4bd8-a15e-4d5d-9d4f-39d1be770e4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SubSystem">
+      <UniqueIdentifier>{fa713371-2805-4c23-b6b3-7ca7d0767773}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{6eea677c-75ff-4b91-a048-d8102bceedbb}</UniqueIdentifier>
     </Filter>
@@ -92,9 +101,6 @@
     <Filter Include="Object\Actor">
       <UniqueIdentifier>{705d56b2-fa45-474c-8a45-46f9553b0417}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{e9b31773-e7a0-4ec4-9a47-6efeac9ef270}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Component">
       <UniqueIdentifier>{3b10733c-46e8-40cb-b363-7218dc5b81f7}</UniqueIdentifier>
     </Filter>
@@ -103,12 +109,6 @@
     </Filter>
     <Filter Include="Object\Component\Rendering">
       <UniqueIdentifier>{1fa26e84-a436-4800-869e-8d1744679ce5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Debug">
-      <UniqueIdentifier>{4d5f4bd8-a15e-4d5d-9d4f-39d1be770e4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SubSystem">
-      <UniqueIdentifier>{fa713371-2805-4c23-b6b3-7ca7d0767773}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

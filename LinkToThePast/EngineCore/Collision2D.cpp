@@ -38,22 +38,54 @@ void UCollision2D::ComponentTick(float _DeltaTime)
 
 		ActorTransform.Location -= CameraPos;
 
-		UEngineDebug::CoreDebugRender(ActorTransform, UEngineDebug::EDebugPosType::Rect);
+		switch (CollisionType)
+		{
+		case ECollisionType::Point:
+			break;
+		case ECollisionType::Rect:
+			UEngineDebug::CoreDebugRender(ActorTransform, UEngineDebug::EDebugPosType::Rect);
+			break;
+		case ECollisionType::Circle:
+			UEngineDebug::CoreDebugRender(ActorTransform, UEngineDebug::EDebugPosType::Circle);
+			break;
+		case ECollisionType::Max:
+			break;
+		default:
+			break;
+		}
 	}
 }
 
-
-bool UCollision2D::IsCollision(int _OtherCollisionGroup)
+bool UCollision2D::Collision(int OtherCollisionGroup, std::vector<AActor*>& ResultActors, unsigned int Limite)
 {
-	return false;
-}
+	std::list<class UCollision2D*>& OtherCollisions = GetActor()->GetWorld()->Collisions[OtherCollisionGroup];
 
-UCollision2D* UCollision2D::Collision(int _OtherCollisionGroup)
-{
-	return nullptr;
-}
+	std::list<class UCollision2D*>::iterator StartIter = OtherCollisions.begin();
+	std::list<class UCollision2D*>::iterator EndIter = OtherCollisions.end();
 
-bool UCollision2D::Collision(int _OtherCollisionGroup, std::vector<UCollision2D*>* _Result)
-{
-	return false;
+	for (; StartIter != EndIter; ++StartIter)
+	{
+		UCollision2D* ThisCollision = this;
+		UCollision2D* TargetCollision = *StartIter;
+
+		FTransform ThisTransform = ThisCollision->GetActorTransform();
+		FTransform TargetTransform = TargetCollision->GetActorTransform();
+
+		ECollisionType ThisCollisionType = ThisCollision->CollisionType;
+		ECollisionType TargetCollisionType = TargetCollision->CollisionType;
+
+		bool Result = FTransform::Collision(ThisCollisionType, ThisTransform, TargetCollisionType, TargetTransform);
+
+		if (Result == true)
+		{
+			ResultActors.push_back(TargetCollision->GetActor());
+			--Limite;
+
+			if (Limite == 0)
+			{
+				return ResultActors.size() != 0;
+			}
+		}
+	}
+	return ResultActors.size() != 0;
 }

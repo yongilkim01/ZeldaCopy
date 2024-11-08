@@ -21,6 +21,7 @@ public:
 	ULevel& operator=(const ULevel& _Other) = delete;
 	ULevel& operator=(ULevel&& _Other) noexcept = delete;
 
+
 	void LevelChangeStart();
 
 	void LevelChangeEnd();
@@ -45,9 +46,10 @@ public:
 
 	void SetCameraToMainPawn(bool IsCameraToMainPawn) { this->IsCameraToMainPawn = IsCameraToMainPawn; }
 	void SetCameraPivot(FVector2D Pivot) { CameraPivot = Pivot; }
-	void SetCameraPos(FVector2D _Pos) { CameraPos = _Pos; }
-	void AddCameraPos(FVector2D Value) { CameraPos += Value; }
-	FVector2D GetCameraPos() { return CameraPos; }
+	void SetCameraPos(FVector2D _Pos) { CameraLocation = _Pos; }
+	void SetCameraLocation(FVector2D Location) { CameraLocation = Location; }
+	void AddCameraPos(FVector2D Value) { CameraLocation += Value; }
+	FVector2D GetCameraPos() { return CameraLocation; }
 	FVector2D GetCameraPivot() { return CameraPivot; }
 	template<typename ConvertType>
 	ConvertType* GetPawn()
@@ -84,7 +86,7 @@ private:
 
 	/** 카메라 관련 멤버 변수 */
 	bool IsCameraToMainPawn = false;
-	FVector2D CameraPos;
+	FVector2D CameraLocation;
 	FVector2D CameraPivot;
 
 	std::map<int, std::list<class USpriteRenderer*>> Renderers;

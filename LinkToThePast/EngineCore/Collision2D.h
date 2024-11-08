@@ -32,36 +32,52 @@ public:
 		return CollisionGroup;
 	}
 
+	/** 콜리전 형식 그룹을 설정하는 메소드 */
 	template<typename EnumType>
 	void SetCollisionGroup(EnumType CollisionGroup)
 	{
 		SetCollisionGroup(static_cast<int>(CollisionGroup));
 	}
+	void SetCollisionGroup(int CollisionGroup) { this->CollisionGroup = CollisionGroup; }
+
 	template<typename EnumType>
-	bool IsCollision(EnumType _OtherCollisionGroup)
+	AActor* CollisionOnce(EnumType OtherCollisionGroup)
 	{
-		return IsCollision(static_cast<int>(_OtherCollisionGroup));
-	}
-	template<typename EnumType>
-	UCollision2D* CollisionOnce(EnumType _OtherCollisionGroup)
-	{
-		return CollisionOnce(static_cast<int>(_OtherCollisionGroup));
-	}
-	template<typename EnumType>
-	bool Collision(EnumType _OtherCollisionGroup, std::vector<UCollision2D*>* _Result = nullptr)
-	{
-		return Collision(static_cast<int>(_OtherCollisionGroup), _Result);
+
+		// 상대가 100개이다. 100개 
+		std::vector<AActor*> Result;
+		Collision(static_cast<int>(OtherCollisionGroup), Result, 1);
+
+		if (true == Result.empty())
+		{
+			return nullptr;
+		}
+
+		return Result[0];
 	}
 
-	void SetCollisionGroup(int CollisionGroup) { this->CollisionGroup = CollisionGroup; }
-	bool IsCollision(int _OtherCollisionGroup);
-	UCollision2D* Collision(int _OtherCollisionGroup);
-	bool Collision(int _OtherCollisionGroup, std::vector<UCollision2D*>* _Result = nullptr);
+	template<typename EnumType>
+	std::vector<AActor*> CollisionAll(EnumType OtherCollisionGroup)
+	{
+		// 상대가 100개이다. 100개 
+		std::vector<AActor*> Result;
+		Collision(static_cast<int>(OtherCollisionGroup), Result, -1);
+
+		return Result;
+	}
+
+	bool Collision(int OtherCollisionGroup, std::vector<AActor*>& ResultActors, unsigned int  Limite);
+
+	void SetCollisionType(ECollisionType CollisionType)
+	{
+		this->CollisionType = CollisionType;
+	}
 
 protected:
 
 private:
 	// 충돌체의 오더는 약간 의미가 다르다.
+	ECollisionType CollisionType = ECollisionType::Circle;
 	int CollisionGroup = -1;
 };
 
