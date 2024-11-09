@@ -217,6 +217,7 @@ void ARoomManageMode::MoveRoom()
 		case ERoomDirection::RIGHT_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
+			PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(0.3f, 0.0f));
 			if (CameraMovePosition.iX() > CameraEndLocation.iX())
 			{
 				EndStart();
@@ -227,6 +228,7 @@ void ARoomManageMode::MoveRoom()
 		case ERoomDirection::LEFT_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(-CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
+			PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(-0.3f, 0.0f));
 			if (CameraMovePosition.iX() < CameraEndLocation.iX())
 			{
 				EndStart();
@@ -292,7 +294,7 @@ void ARoomManageMode::EndRoomMove()
 		MoveSize = {
 			DirectMoveDistance,
 			0.0f};
-		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::LEFT:
 		MoveSize = {
@@ -310,7 +312,7 @@ void ARoomManageMode::EndRoomMove()
 		MoveSize = {
 			-DirectMoveDistance,
 			0.0f};
-		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::UP:
 		MoveSize = {

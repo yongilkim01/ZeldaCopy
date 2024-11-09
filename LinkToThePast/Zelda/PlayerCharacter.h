@@ -53,7 +53,7 @@ public:
 
 	void SetCameraLocationToPlayer();
 
-	void SetCurRoom(ARoom* Room) { CurRoom = Room; }
+	void SetCurRoom(ARoom* Room);
 	ARoom* GetCurRoom() { return CurRoom; }
 
 	void PlayerCameraCheck();

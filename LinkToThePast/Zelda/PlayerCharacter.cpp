@@ -70,6 +70,8 @@ void APlayerCharacter::Tick(float DeltaTime)
 	UEngineDebug::CoreOutPutString("PlayerPos : " + GetActorLocation().ToString());
 	UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
 	UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
+	UEngineDebug::CoreOutPutString("Player Room Name : " + CurRoom->GetName());
+	UEngineDebug::CoreOutPutString("Player Room Collision Name : " + CurRoom->GetColWinImage()->GetName());
 	PrintDebugPlayerState();
 
 	switch (CurState)
@@ -311,23 +313,24 @@ void APlayerCharacter::Move(float DeltaTime)
 
 	MoveDir.Normal();
 
-	//if (CollisionImage != nullptr)
-	//{
-	//	// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
-	//	FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
-	//	UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
-	//	if (Color == UColor::WHITE || Color == UColor::ROOM_DOWN)
-	//	{
-	//		AddActorLocation(MoveDir * DeltaTime * Speed);
-	//	} 
-	//	else if (Color == UColor::ORANGE)
-	//	{
-	//		AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
-	//	}
-	//}
+	if (CollisionImage != nullptr)
+	{
+		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
+		FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
+		NextPos -= CurRoom->GetActorLocation();
+		UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
+		if (Color != UColor::PINK)
+		{
+			AddActorLocation(MoveDir * DeltaTime * Speed);
+		} 
+		else if (Color == UColor::ORANGE)
+		{
+			AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+		}
+	}
 	
 
-	AddActorLocation(MoveDir * DeltaTime * Speed);
+	//AddActorLocation(MoveDir * DeltaTime * Speed);
 
 	//CollisionComponent->CollisionMap(UColor::PINK);
 
@@ -450,5 +453,20 @@ void APlayerCharacter::Gravity(float _DeltaTime)
 
 void APlayerCharacter::RunSoundPlay()
 {
+
+}
+
+void APlayerCharacter::SetCurRoom(ARoom* Room)
+{
+	if (this->CurRoom != nullptr)
+	{
+		this->CurRoom->SetPlayer(nullptr);
+		this->CurRoom = nullptr;
+		this->CollisionImage = nullptr;
+	}
+
+	this->CurRoom = Room;
+	this->CurRoom->SetPlayer(this);
+	this->CollisionImage = this->CurRoom->GetColWinImage();
 
 }
