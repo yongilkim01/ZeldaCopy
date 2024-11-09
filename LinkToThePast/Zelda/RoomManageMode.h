@@ -91,11 +91,7 @@ protected:
 	ARoom* CurRoom = nullptr;
 	std::vector<ARoom*> Roomes;
 	std::vector<URoomData> RoomDataes;
-
-
-	/** 유저 인터페이스 멤버 변수 */
 	AUserInterface* UI = nullptr;
-	std::string DungeonName = "";
 
 	// 새로운 변수
 	FVector2D CameraStartLocation = FVector2D::ZERO;
@@ -103,8 +99,10 @@ protected:
 
 	ERoomDirection CurRoomDir = ERoomDirection::NONE;
 	ERoomMoveState RoomMoveState = ERoomMoveState::CHECK;
+
 private:
-	float CameraMoveSpeed = 1.0f;
-	float RoomSizeRatio = 1.4f;
-	float RoomMovePadding = 15.0f;
+	const float CameraMoveSpeed = 1.0f;
+	const float RoomSizeRatio = 1.4f;
+	const float RoomMovePadding = 15.0f;
+	const float DirectMoveDistance = 100.0f;
 };

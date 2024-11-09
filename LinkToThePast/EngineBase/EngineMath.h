@@ -370,6 +370,8 @@ public:
 	static const UColor ROOM_RIGHT_DIRECT;
 	static const UColor ROOM_LEFT_DIRECT;
 
+	static const UColor FALL;
+
 	union
 	{
 		int Color;

@@ -290,7 +290,7 @@ void ARoomManageMode::EndRoomMove()
 		break;
 	case ERoomDirection::RIGHT_DIRECT:
 		MoveSize = {
-			80.0f,
+			DirectMoveDistance,
 			0.0f};
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
@@ -308,8 +308,8 @@ void ARoomManageMode::EndRoomMove()
 		break;
 	case ERoomDirection::LEFT_DIRECT:
 		MoveSize = {
-			0.0f,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+			-DirectMoveDistance,
+			0.0f};
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::UP:
@@ -327,7 +327,7 @@ void ARoomManageMode::EndRoomMove()
 	case ERoomDirection::UP_DIRECT:
 		MoveSize = {
 			0.0f,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+			-DirectMoveDistance };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::DOWN:
@@ -345,7 +345,7 @@ void ARoomManageMode::EndRoomMove()
 	case ERoomDirection::DOWN_DIRECT	:
 		MoveSize = {
 			0.0f,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+			DirectMoveDistance };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	default:
@@ -355,12 +355,12 @@ void ARoomManageMode::EndRoomMove()
 	CurRoomDir = ERoomDirection::NONE;
 }
 
-void ARoomManageMode::CreateRoomActor(std::string_view _MapName, int StartRoomIndex)
+void ARoomManageMode::CreateRoomActor(std::string_view MapName, int StartRoomIndex)
 {
 	for (size_t i = 0; i < RoomDataes.size(); i++)
 	{
 		ARoom* DungeonRoom = GetWorld()->SpawnActor<ARoom>();
-		DungeonName = _MapName;
+		std::string DungeonName = MapName.data();
 		DungeonName.append(std::to_string(i + 1));
 		std::string SpriteName = DungeonName + ".png";
 		std::string CollisionSpriteName = DungeonName + "Collision.png";
