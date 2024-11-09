@@ -1,11 +1,9 @@
 #include "PreCompile.h"
-//#include <LinkToThePastContents/ZeldaContentsCore.h>
 #include <Zelda/ZeldaCore.h>
 
 #include <EngineCore/EngineAPICore.h>
 
 #pragma comment (lib, "EngineCore.lib")
-//#pragma comment (lib, "LinkToThePastContents.lib")
 #pragma comment (lib, "Zelda.lib")
 
 #include <EngineBase/EngineTimer.h>

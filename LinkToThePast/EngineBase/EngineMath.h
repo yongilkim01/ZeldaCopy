@@ -239,8 +239,8 @@ public:
 	static bool RectToRect(const FTransform& LeftTransform, const FTransform& RightTransform);
 	static bool CircleToCircle(const FTransform& LeftTrnasform, const FTransform& RightTransform);
 
-	FVector2D Scale;
-	FVector2D Location;
+	FVector2D Scale = FVector2D::ZERO;
+	FVector2D Location = FVector2D::ZERO;
 
 	FVector2D CenterLeftTop() const
 	{
@@ -388,5 +388,10 @@ public:
 		:R(_R), G(_G), B(_B), A(_A)
 	{
 
+	}
+
+	std::string ToString()
+	{
+		return "R: " + std::to_string(R) + ", G: " + std::to_string(G) + ", B: " + std::to_string(B);
 	}
 };

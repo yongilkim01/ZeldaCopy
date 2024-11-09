@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "RoomManageMode.h"
 
+#include <EngineBase/EngineMath.h>
+
 #include <EnginePlatform/EngineInput.h>
 #include <EnginePlatform/EngineWinImage.h>
 
@@ -88,15 +90,19 @@ void ARoomManageMode::CheckRoomMove()
 	// 현재 룸의 콜리전 이미지를 가져온다
 	UEngineWinImage* RoomWinImage = CurRoom->GetColWinImage();
 	CurRoomDir = ERoomDirection::NONE;
-
+	
 	if (RoomWinImage != nullptr)
 	{
 		// 현재 플레이어의 위치
-		FVector2D PlayerLocation = PlayerCharacter->GetActorLocation();
+		FVector2D PlayerLocation = PlayerCharacter->GetActorLocation() - CurRoom->GetActorLocation();
 		// 현재 플레이어의 위치에 있는 콜리전 색상
 		UColor Color = RoomWinImage->GetColor(PlayerLocation);
 
-		// 
+		// std::string ColorStr = "R: " + std::to_string(Color.R) + ", G: " + std::to_string(Color.G) + ", B: " + std::to_string(Color.B);
+		UEngineDebug::CoreOutPutString("Current RGB : " + Color.ToString());
+		UEngineDebug::CoreOutPutString("Current Room Name : " + CurRoom->GetName());
+		UEngineDebug::CoreOutPutString("Current Room Collision Name : " + RoomWinImage->GetName());
+
 		if (Color == UColor::ROOM_UP)
 		{
 			CurRoomDir = ERoomDirection::UP;
@@ -105,6 +111,16 @@ void ARoomManageMode::CheckRoomMove()
 		else if (Color == UColor::ROOM_DOWN)
 		{
 			CurRoomDir = ERoomDirection::DOWN;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_RIGHT)
+		{
+			CurRoomDir = ERoomDirection::RIGHT;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_LEFT)
+		{
+			CurRoomDir = ERoomDirection::LEFT;
 			MoveStart(CurRoomDir);
 		}
 	}
@@ -155,14 +171,26 @@ void ARoomManageMode::MoveRoom()
 		case ERoomDirection::RIGHT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(1.0f, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
+			if (CameraMovePosition.iX() > CameraEndLocation.iX())
+			{
+				EndStart();
+			}
 			break;
 		case ERoomDirection::LEFT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(-1.0f, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
+			if (CameraMovePosition.iX() < CameraEndLocation.iX())
+			{
+				EndStart();
+			}
 			break;
 		case ERoomDirection::UP:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(0.0f, -0.5f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
+			if (CameraMovePosition.iY() < CameraEndLocation.iY())
+			{
+				EndStart();
+			}
 			break;
 		case ERoomDirection::DOWN:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(0.0f, 0.5f);
@@ -189,9 +217,37 @@ void ARoomManageMode::EndRoomMove()
 	ARoomManageMode::IsMapMoving = false;
 	CameraStartLocation = FVector2D::ZERO;
 	CameraEndLocation = FVector2D::ZERO;
-	PlayerCharacter->AddActorLocation({ 0.0f, 293.0f });
-	CheckCollisionRoom();
 	RoomMoveState = ERoomMoveState::CHECK;
+	
+	FVector2D MoveSize = FVector2D::ZERO;
+
+	switch (CurRoomDir)
+	{
+	case ERoomDirection::NONE:
+		break;
+	case ERoomDirection::RIGHT:
+		MoveSize = { UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X, 0.0f };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::LEFT:
+		MoveSize = { (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f, 0.0f };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::UP:
+		MoveSize = { 0.0f, (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::DOWN:
+		MoveSize = { 0.0f, UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y};
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);	
+		break;
+	default:
+		break;
+	}
+
+	//PlayerCharacter->AddActorLocation({ 0.0f, 300.0f });
+	CheckCollisionRoom();
+	CurRoomDir = ERoomDirection::NONE;
 }
 
 void ARoomManageMode::CreateRoomActor(std::string_view _MapName, int StartRoomIndex)
@@ -247,9 +303,12 @@ void ARoomManageMode::CheckCollisionRoom()
 		{
 			if (CheckPlayerInRoom(Roomes[i]))
 			{
+				int TestIndex = i;
 				//PlayerCharacter->CurRoom->SetPlayer(nullptr);
 				PlayerCharacter->SetCurRoom(Roomes[i]);
+				PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage()->GetName());
 				this->CurRoom = Roomes[i];
+				return;
 
 			}
 		}

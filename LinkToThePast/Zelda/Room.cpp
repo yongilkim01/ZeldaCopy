@@ -20,7 +20,7 @@ ARoom::ARoom()
 	{
 		ColSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		ColSpriteRenderer->SetOrder(ERenderOrder::COLMAP);
-		ColSpriteRenderer->SetSprite("CastleDungeon1Collision.png");
+		ColSpriteRenderer->SetSprite("CastleDungeon2Collision.png");
 		FVector2D MapScale = ColSpriteRenderer->SetSpriteScale(1.0f);
 		ColSpriteRenderer->SetComponentLocation(MapScale.Half());
 		ColSpriteRenderer->SetActive(false);
@@ -60,10 +60,11 @@ void ARoom::SetRoomSprite(std::string_view SpriteName, std::string_view Collisio
 
 	ColSpriteRenderer->SetOrder(ERenderOrder::COLMAP);
 	ColSpriteRenderer->SetSprite(CollisionSpriteName);
-	FVector2D ColMapScale = ColSpriteRenderer->SetSpriteScale(1.0f);
+	FVector2D ColMapScale = ColSpriteRenderer->SetSpriteScale(SpriteScale);
 	ColSpriteRenderer->SetComponentLocation(ColMapScale.Half());
 
 	SetActorLocation(SpritePos);
+	//ColSpriteRenderer->SetActorL
 }
 
 void ARoom::LinkRoom(ARoom* LinkedRoom)
