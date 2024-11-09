@@ -12,7 +12,11 @@ enum class ERoomDirection
 	RIGHT,
 	LEFT,
 	UP,
-	DOWN
+	DOWN,
+	RIGHT_2F,
+	LEFT_2F,
+	UP_2F,
+	DOWN_2F,
 };
 
 enum class ERoomMoveState
@@ -96,5 +100,7 @@ protected:
 	ERoomDirection CurRoomDir = ERoomDirection::NONE;
 	ERoomMoveState RoomMoveState = ERoomMoveState::CHECK;
 private:
-
+	float CameraMoveSpeed = 1.0f;
+	float RoomSizeRatio = 1.4f;
+	float RoomMovePadding = 15.0f;
 };

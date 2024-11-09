@@ -360,6 +360,11 @@ public:
 	static const UColor ROOM_RIGHT;
 	static const UColor ROOM_LEFT;
 
+	static const UColor ROOM_UP_2F;
+	static const UColor ROOM_DOWN_2F;
+	static const UColor ROOM_RIGHT_2F;
+	static const UColor ROOM_LEFT_2F;
+
 	union
 	{
 		int Color;
