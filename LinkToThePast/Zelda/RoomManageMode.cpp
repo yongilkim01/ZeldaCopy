@@ -85,8 +85,6 @@ void ARoomManageMode::CheckRoomMove()
 		return;
 	}
 
-	//CheckRoomCollision();
-
 	// 현재 룸의 콜리전 이미지를 가져온다
 	UEngineWinImage* RoomWinImage = CurRoom->GetColWinImage();
 	CurRoomDir = ERoomDirection::NONE;
@@ -102,24 +100,9 @@ void ARoomManageMode::CheckRoomMove()
 		UEngineDebug::CoreOutPutString("Current Room Name : " + CurRoom->GetName());
 		UEngineDebug::CoreOutPutString("Current Room Collision Name : " + RoomWinImage->GetName());
 
-		if (Color == UColor::ROOM_UP)
-		{
-			CurRoomDir = ERoomDirection::UP;
-			MoveStart(CurRoomDir);
-		}
-		else if (Color == UColor::ROOM_DOWN)
-		{
-			CurRoomDir = ERoomDirection::DOWN;
-			MoveStart(CurRoomDir);
-		}
-		else if (Color == UColor::ROOM_RIGHT)
+		if (Color == UColor::ROOM_RIGHT)
 		{
 			CurRoomDir = ERoomDirection::RIGHT;
-			MoveStart(CurRoomDir);
-		}	
-		else if (Color == UColor::ROOM_LEFT)
-		{
-			CurRoomDir = ERoomDirection::LEFT;
 			MoveStart(CurRoomDir);
 		}
 		else if (Color == UColor::ROOM_RIGHT_2F)
@@ -127,9 +110,29 @@ void ARoomManageMode::CheckRoomMove()
 			CurRoomDir = ERoomDirection::RIGHT_2F;
 			MoveStart(CurRoomDir);
 		}
+		else if (Color == UColor::ROOM_RIGHT_DIRECT)
+		{
+			CurRoomDir = ERoomDirection::RIGHT_DIRECT;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_LEFT)
+		{
+			CurRoomDir = ERoomDirection::LEFT;
+			MoveStart(CurRoomDir);
+		}
 		else if (Color == UColor::ROOM_LEFT_2F)
 		{
 			CurRoomDir = ERoomDirection::LEFT_2F;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_LEFT_DIRECT)
+		{
+			CurRoomDir = ERoomDirection::LEFT_DIRECT;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_UP)
+		{
+			CurRoomDir = ERoomDirection::UP;
 			MoveStart(CurRoomDir);
 		}
 		else if (Color == UColor::ROOM_UP_2F)
@@ -137,9 +140,24 @@ void ARoomManageMode::CheckRoomMove()
 			CurRoomDir = ERoomDirection::UP_2F;
 			MoveStart(CurRoomDir);
 		}
+		else if (Color == UColor::ROOM_UP_DIRECT)
+		{
+			CurRoomDir = ERoomDirection::UP_DIRECT;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_DOWN)
+		{
+			CurRoomDir = ERoomDirection::DOWN;
+			MoveStart(CurRoomDir);
+		}
 		else if (Color == UColor::ROOM_DOWN_2F)
 		{
 			CurRoomDir = ERoomDirection::DOWN_2F;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_DOWN_DIRECT)
+		{
+			CurRoomDir = ERoomDirection::DOWN_DIRECT;
 			MoveStart(CurRoomDir);
 		}
 	}
@@ -264,27 +282,21 @@ void ARoomManageMode::EndRoomMove()
 			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
-	case ERoomDirection::LEFT:
-		MoveSize = {
-			( (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f) - RoomMovePadding, 
-			0.0f };
-		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
-		break;
-	case ERoomDirection::UP:
-		MoveSize = {
-			0.0f, 
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f };
-		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
-		break;
-	case ERoomDirection::DOWN:
-		MoveSize = {
-			0.0f,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y };
-		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);	
-		break;
 	case ERoomDirection::RIGHT_2F:
 		MoveSize = {
 			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X + RoomMovePadding) * RoomSizeRatio,
+			0.0f };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::RIGHT_DIRECT:
+		MoveSize = {
+			80.0f,
+			0.0f};
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::LEFT:
+		MoveSize = {
+			( (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f) - RoomMovePadding, 
 			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
@@ -294,32 +306,38 @@ void ARoomManageMode::EndRoomMove()
 			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
-	case ERoomDirection::UP_2F:
-		MoveSize = { 
-			0.0f,
-			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) * RoomSizeRatio };
-		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
-		break;
-	case ERoomDirection::DOWN_2F:
-		MoveSize = { 
-			0.0f,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
-		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
-		break;
-	case ERoomDirection::RIGHT_DIRECT:
-		MoveSize = {
-			0.0f,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
-		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
-		break;
 	case ERoomDirection::LEFT_DIRECT:
 		MoveSize = {
 			0.0f,
 			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
+	case ERoomDirection::UP:
+		MoveSize = {
+			0.0f, 
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::UP_2F:
+		MoveSize = {
+			0.0f,
+			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) * RoomSizeRatio };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
 	case ERoomDirection::UP_DIRECT:
 		MoveSize = {
+			0.0f,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::DOWN:
+		MoveSize = {
+			0.0f,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);	
+		break;
+	case ERoomDirection::DOWN_2F:
+		MoveSize = { 
 			0.0f,
 			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
