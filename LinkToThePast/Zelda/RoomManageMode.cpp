@@ -122,6 +122,16 @@ void ARoomManageMode::CheckRoomMove()
 			CurRoomDir = ERoomDirection::LEFT;
 			MoveStart(CurRoomDir);
 		}
+		else if (Color == UColor::ROOM_RIGHT_2F)
+		{
+			CurRoomDir = ERoomDirection::RIGHT_2F;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_LEFT_2F)
+		{
+			CurRoomDir = ERoomDirection::LEFT_2F;
+			MoveStart(CurRoomDir);
+		}
 		else if (Color == UColor::ROOM_UP_2F)
 		{
 			CurRoomDir = ERoomDirection::UP_2F;
@@ -144,28 +154,24 @@ void ARoomManageMode::MoveStart(ERoomDirection RoomMoveDirection)
 	case ERoomDirection::NONE:
 		break;
 	case ERoomDirection::RIGHT:
+	case ERoomDirection::RIGHT_2F:
+	case ERoomDirection::RIGHT_DIRECT:
 		MoveSize = { UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X, 0.0f };
 		break;
 	case ERoomDirection::LEFT:
+	case ERoomDirection::LEFT_2F:
+	case ERoomDirection::LEFT_DIRECT:
 		MoveSize = { (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X * -1.0f), 0.0f };
 		break;
 	case ERoomDirection::UP:
-		MoveSize = { 0.0f, (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y * -1.0f) };
+	case ERoomDirection::UP_2F:
+	case ERoomDirection::UP_DIRECT:
+		MoveSize = { 0.0f, UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y * -1.0f };
 		break;
 	case ERoomDirection::DOWN:
-		MoveSize = { 0.0f, UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y };
-		break;
-	case ERoomDirection::RIGHT_2F:
-		// TODO: 2층 건물 오른쪽 맵으로 이동하는 기능 추가
-		break;
-	case ERoomDirection::LEFT_2F:
-		// TODO: 2층 건물 왼쪽 맵으로 이동하는 기능 추가
-		break;
-	case ERoomDirection::UP_2F:
-		MoveSize = { 0.0f, (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y * -1.0f) };
-		break;
 	case ERoomDirection::DOWN_2F:
-		MoveSize = { 0.0f, (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y) };
+	case ERoomDirection::DOWN_DIRECT:
+		MoveSize = { 0.0f, UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y };
 		break;
 	default:
 		break;
@@ -185,11 +191,12 @@ void ARoomManageMode::MoveRoom()
 	{
 		ARoomManageMode::IsMapMoving = true;
 		FVector2D CameraMovePosition = FVector2D::ZERO;
+
 		switch (CurRoomDir)
 		{
-		case ERoomDirection::NONE:
-			break;
 		case ERoomDirection::RIGHT:
+		case ERoomDirection::RIGHT_2F:
+		case ERoomDirection::RIGHT_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
 			if (CameraMovePosition.iX() > CameraEndLocation.iX())
@@ -198,6 +205,8 @@ void ARoomManageMode::MoveRoom()
 			}
 			break;
 		case ERoomDirection::LEFT:
+		case ERoomDirection::LEFT_2F:
+		case ERoomDirection::LEFT_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(-CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
 			if (CameraMovePosition.iX() < CameraEndLocation.iX())
@@ -206,6 +215,8 @@ void ARoomManageMode::MoveRoom()
 			}
 			break;
 		case ERoomDirection::UP:
+		case ERoomDirection::UP_2F:
+		case ERoomDirection::UP_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(0.0f, -CameraMoveSpeed);
 			GetWorld()->SetCameraPos(CameraMovePosition);
 			if (CameraMovePosition.iY() < CameraEndLocation.iY())
@@ -214,28 +225,8 @@ void ARoomManageMode::MoveRoom()
 			}
 			break;
 		case ERoomDirection::DOWN:
-			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(0.0f, CameraMoveSpeed);
-			GetWorld()->SetCameraPos(CameraMovePosition);
-			if (CameraMovePosition.iY() > CameraEndLocation.iY())
-			{
-				EndStart();
-			}
-			break;
-		case ERoomDirection::RIGHT_2F:
-			// TODO: 2층 건물 오른쪽 맵으로 이동하는 기능 추가
-			break;
-		case ERoomDirection::LEFT_2F:
-			// TODO: 2층 건물 왼쪽 맵으로 이동하는 기능 추가
-			break;
-		case ERoomDirection::UP_2F:
-			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(0.0f, -CameraMoveSpeed);
-			GetWorld()->SetCameraPos(CameraMovePosition);
-			if (CameraMovePosition.iY() < CameraEndLocation.iY())
-			{
-				EndStart();
-			}
-			break;
 		case ERoomDirection::DOWN_2F:
+		case ERoomDirection::DOWN_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(0.0f, CameraMoveSpeed);
 			GetWorld()->SetCameraPos(CameraMovePosition);
 			if (CameraMovePosition.iY() > CameraEndLocation.iY())
@@ -246,7 +237,6 @@ void ARoomManageMode::MoveRoom()
 		default:
 			break;
 		}
-
 	}
 }
 
@@ -269,41 +259,80 @@ void ARoomManageMode::EndRoomMove()
 	case ERoomDirection::NONE:
 		break;
 	case ERoomDirection::RIGHT:
-		MoveSize = { UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X + RoomMovePadding, 0.0f };
+		MoveSize = { 
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X + RoomMovePadding, 
+			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::LEFT:
-		MoveSize = {( (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f) - RoomMovePadding, 0.0f };
+		MoveSize = {
+			( (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f) - RoomMovePadding, 
+			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::UP:
-		MoveSize = { 0.0f, (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) };
+		MoveSize = {
+			0.0f, 
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::DOWN:
-		MoveSize = { 0.0f, UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y};
+		MoveSize = {
+			0.0f,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);	
 		break;
 	case ERoomDirection::RIGHT_2F:
-		// TODO: 2층 건물 오른쪽 맵으로 이동하는 기능 추가
-		break;
-	case ERoomDirection::LEFT_2F:
-		// TODO: 2층 건물 왼쪽 맵으로 이동하는 기능 추가
-		break;
-	case ERoomDirection::UP_2F:
-		MoveSize = { 0.0f, (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) * RoomSizeRatio };
+		MoveSize = {
+			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X + RoomMovePadding) * RoomSizeRatio,
+			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
+	case ERoomDirection::LEFT_2F:
+		MoveSize = {
+			(((UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f) - RoomMovePadding) * RoomSizeRatio,
+			0.0f };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::UP_2F:
+		MoveSize = { 
+			0.0f,
+			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) * RoomSizeRatio };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::DOWN_2F:
-		MoveSize = { 0.0f, UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+		MoveSize = { 
+			0.0f,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::RIGHT_DIRECT:
+		MoveSize = {
+			0.0f,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::LEFT_DIRECT:
+		MoveSize = {
+			0.0f,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::UP_DIRECT:
+		MoveSize = {
+			0.0f,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::DOWN_DIRECT	:
+		MoveSize = {
+			0.0f,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	default:
 		break;
 	}
-
-	//PlayerCharacter->AddActorLocation({ 0.0f, 300.0f });
 	CheckCollisionRoom();
 	CurRoomDir = ERoomDirection::NONE;
 }

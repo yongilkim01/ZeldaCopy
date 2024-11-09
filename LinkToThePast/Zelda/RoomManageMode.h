@@ -17,6 +17,10 @@ enum class ERoomDirection
 	LEFT_2F,
 	UP_2F,
 	DOWN_2F,
+	RIGHT_DIRECT,
+	LEFT_DIRECT,
+	UP_DIRECT,
+	DOWN_DIRECT,
 };
 
 enum class ERoomMoveState

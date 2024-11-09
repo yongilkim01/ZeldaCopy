@@ -11,7 +11,7 @@ AUserInterface::AUserInterface()
 	SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	SpriteRenderer->SetOrder(ERenderOrder::UI);
 	SpriteRenderer->SetSprite("PlayerInfoUI.png");
-	SpriteRenderer->SetSpriteScale(3.0f);
+	SpriteRenderer->SetSpriteScale(1.0f);
 
 	SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half());
 }

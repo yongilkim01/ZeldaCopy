@@ -30,6 +30,11 @@ const UColor UColor::ROOM_DOWN_2F = { 0, 225, 0, 0 };
 const UColor UColor::ROOM_RIGHT_2F = { 0, 0, 225, 0 };
 const UColor UColor::ROOM_LEFT_2F = { 225, 225, 0, 0 };
 
+const UColor UColor::ROOM_UP_DIRECT = { 250, 0, 0, 0 };
+const UColor UColor::ROOM_DOWN_DIRECT = { 0, 250, 0, 0 };
+const UColor UColor::ROOM_RIGHT_DIRECT = { 0, 0, 250, 0 };
+const UColor UColor::ROOM_LEFT_DIRECT = { 250, 250, 0, 0 };
+
 FIntPoint FVector2D::ConvertToPoint() const
 {
 	return { iX(), iY() };
