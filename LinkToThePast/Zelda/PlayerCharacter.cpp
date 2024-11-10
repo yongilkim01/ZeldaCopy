@@ -255,7 +255,6 @@ void APlayerCharacter::Idle(float DeltaTime)
 		return;
 	}
 
-
 	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
 		CurState != EPlayerState::Attack)
 	{

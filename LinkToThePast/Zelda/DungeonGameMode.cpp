@@ -46,6 +46,12 @@ void DungeonGameMode::RoomBeginPlay()
 	CreateRoomActor("CastleDungeon", 0);
 
 	this->Roomes[0]->SetIsSecondFloor(true);
-	//this->Roomes[]
+	this->Roomes[0]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon1Collision2F.png");
+
+	this->Roomes[7]->SetIsSecondFloor(true);
+	this->Roomes[7]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
+	this->Roomes[7]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon8Collision2F.png");
+	FVector2D ColMapScale = this->Roomes[7]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
+	this->Roomes[7]->GetColSpriteRenderer2F()->SetComponentLocation(ColMapScale.Half());
 }
 

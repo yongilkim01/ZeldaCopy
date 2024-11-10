@@ -50,6 +50,10 @@ public:
 	void SetRoomSize(FVector2D Size) { SetRoomSize(Size.iX(), Size.iY()); }
 	void SetRoomSize(int SizeX, int SizeY);
 
+	USpriteRenderer* GetColSpriteRenderer2F()
+	{
+		return this->ColSpriteRenderer2F;
+	}
 	UEngineWinImage* GetColWinImage1F();
 	UEngineWinImage* GetColWinImage2F();
 	UEngineWinImage* GetCurColWinImage()
@@ -61,6 +65,11 @@ public:
 	
 	bool GetIsSecondFloor() { return this->IsSecondFloor; }
 	void SetIsSecondFloor(bool IsSecondFloor) { this->IsSecondFloor = IsSecondFloor; }
+
+	void AddEnvSprite(USpriteRenderer* SpriteRender)
+	{
+		EnvSprites.push_back(SpriteRender);
+	}
 
 	FVector2D RoomSize = FVector2D::ZERO;
 	FVector2D LeftTopPos = FVector2D::ZERO;
@@ -80,6 +89,8 @@ private:
 	APlayerCharacter* PlayerCharacter = nullptr;
 
 	ERoomFloor CurFloor = ERoomFloor::FLOOR_1F;
+
+	std::vector<USpriteRenderer*> EnvSprites;
 
 	bool IsSecondFloor = false;
 	bool IsDebugRenderMode = false;

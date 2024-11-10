@@ -38,6 +38,8 @@ ARoom::ARoom()
 
 	CurColSpriteRenderer = ColSpriteRenderer1F;
 	CurrentCollisionWinImage = UImageManager::GetInst().FindImage(ColSpriteRenderer1F->GetCurSpriteName());
+
+	EnvSprites.reserve(10);
 }
 
 ARoom::~ARoom()
