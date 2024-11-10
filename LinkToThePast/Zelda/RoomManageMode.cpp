@@ -414,7 +414,26 @@ void ARoomManageMode::CheckCollisionRoom()
 				int TestIndex = i;
 				//PlayerCharacter->CurRoom->SetPlayer(nullptr);
 				PlayerCharacter->SetCurRoom(Roomes[i]);
-				PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage1F()->GetName());
+				if (PlayerCharacter->GetCurRoom()->GetIsSecondFloor())
+				{
+					switch (PlayerCharacter->GetRoomFloor())
+					{
+					case ERoomFloor::FLOOR_1F:
+						PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage1F()->GetName());
+						PlayerCharacter->GetCurRoom()->SetCulWinImageTo1F();
+						break;
+					case ERoomFloor::FLOOR_2F:
+						PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage2F()->GetName());
+						PlayerCharacter->GetCurRoom()->SetCulWinImageTo2F();
+						break;
+					default:
+						break;
+					}
+				}
+				else
+				{
+					PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage1F()->GetName());
+				}
 				this->CurRoom = Roomes[i];
 				return;
 

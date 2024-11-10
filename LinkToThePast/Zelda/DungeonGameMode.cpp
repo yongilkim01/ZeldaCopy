@@ -48,11 +48,19 @@ void DungeonGameMode::RoomBeginPlay()
 	this->Roomes[0]->SetIsSecondFloor(true);
 	this->Roomes[0]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon1Collision2F.png");
 
+
+	this->Roomes[1]->SetIsSecondFloor(true);
+	this->Roomes[1]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
+	this->Roomes[1]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon2Collision2F.png");
+	FVector2D ColMap2Scale = this->Roomes[1]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
+	this->Roomes[1]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
+
+
 	this->Roomes[7]->SetIsSecondFloor(true);
 	this->Roomes[7]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
 	this->Roomes[7]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon8Collision2F.png");
-	FVector2D ColMapScale = this->Roomes[7]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
-	this->Roomes[7]->GetColSpriteRenderer2F()->SetComponentLocation(ColMapScale.Half());
+	FVector2D ColMap8Scale = this->Roomes[7]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
+	this->Roomes[7]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap8Scale.Half());
 	this->Roomes[7]->CreateEnvSprite("CastleDungeon8Bridge.png");
 
 	

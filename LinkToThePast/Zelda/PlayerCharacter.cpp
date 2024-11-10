@@ -19,6 +19,7 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->SetSprite("LinkMoveDown.png");
 		SpriteRenderer->SetSpriteScale(3.0f);
 
+		SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
 		SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveRight.png", 1, 8, 0.04f);
 		SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 8, 0.04f);
 		SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 8, 0.04f);
@@ -323,17 +324,21 @@ void APlayerCharacter::Move(float DeltaTime)
 			AddActorLocation(MoveDir * DeltaTime * Speed);
 		} 
 
-		if (Color == UColor::ROOM_UPSTAIRS)
+		if (Color == UColor::ROOM_UPSTAIRS && CurRoom->GetIsSecondFloor())
 		{
 			//AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
 			CurRoom->SetCulWinImageTo2F();
+			this->CurRoomFloor = ERoomFloor::FLOOR_2F;
 			this->CollisionImage = CurRoom->GetColWinImage2F();
+			this->SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::PLAYER) + 100);
 		}
-		else if (Color == UColor::ROOM_DOWNSTAIRS)
+		else if (Color == UColor::ROOM_DOWNSTAIRS && CurRoom->GetIsSecondFloor())
 		{
 			//AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
 			CurRoom->SetCulWinImageTo1F();
+			this->CurRoomFloor = ERoomFloor::FLOOR_1F;
 			this->CollisionImage = CurRoom->GetColWinImage1F();
+			SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::PLAYER));
 		}
 	}
 	

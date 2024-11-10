@@ -3,6 +3,8 @@
 #include <EngineCore/ImageManager.h>
 #include <EngineCore/Collision2D.h>
 
+#include "ContentsEnum.h"
+
 class ARoom;
 class USpriteRenderer;
 class UEngineWinImage;
@@ -55,6 +57,14 @@ public:
 
 	void SetCurRoom(ARoom* Room);
 	ARoom* GetCurRoom() { return CurRoom; }
+	void SetRoomFloor(ERoomFloor RoomFloor)
+	{
+		this->CurRoomFloor = RoomFloor;
+	}
+	ERoomFloor GetRoomFloor()
+	{
+		return this->CurRoomFloor;
+	}
 
 	void PlayerCameraCheck();
 	void PlayerGroundCheck(FVector2D MovePos);
@@ -70,6 +80,7 @@ private:
 	UCollision2D* CollisionComponent = nullptr;
 
 	EPlayerState CurState = EPlayerState::Idle;
+	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
 	FVector2D CurDir = FVector2D::DOWN;
 	FVector2D MoveDir = FVector2D::ZERO;
 	FVector2D GravityForce = FVector2D::ZERO;

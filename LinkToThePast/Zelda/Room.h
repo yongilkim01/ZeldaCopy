@@ -10,12 +10,6 @@ class USpriteRenderer;
 class URoomMove;
 class UEngineWinImage;
 
-enum class ERoomFloor
-{
-	FLOOR_1F,
-	FLOOR_2F,
-};
-
 /**
  *	방 구조를 나타내는 클래스
  */
