@@ -471,6 +471,25 @@ void APlayerCharacter::SetCurRoom(ARoom* Room)
 
 	this->CurRoom = Room;
 	this->CurRoom->SetPlayer(this);
-	this->CollisionImage = this->CurRoom->GetColWinImage1F();
 
+	if (CurRoom->GetIsSecondFloor())
+	{
+		switch (CurRoomFloor)
+		{
+		case ERoomFloor::FLOOR_1F:
+			SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+			CurRoom->SetCulWinImageTo1F();
+			break;
+		case ERoomFloor::FLOOR_2F:
+			SetCollisionImage(CurRoom->GetColWinImage2F()->GetName());
+			CurRoom->SetCulWinImageTo2F();
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+	}
 }

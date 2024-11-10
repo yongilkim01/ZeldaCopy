@@ -395,49 +395,30 @@ void ARoomManageMode::SetCurRoom(int _Index)
 	this->CurRoom = Roomes[_Index];
 }
 
+void ARoomManageMode::CheckCollisionRoom()
+{
+	if (Roomes.size() == 0)
+	{
+		MSGASSERT("초기화 된 룸이 없습니다.");
+		return;
+	}
+
+	for (int i = 0; i < Roomes.size(); i++)
+	{
+		if (CheckPlayerInRoom(Roomes[i]))
+		{
+			PlayerCharacter->SetCurRoom(Roomes[i]);
+			this->CurRoom = Roomes[i];
+			return;
+
+		}
+	}
+}
+
 bool ARoomManageMode::CheckPlayerInRoom(ARoom* CheckRoom)
 {
 	return (PlayerCharacter->GetActorLocation().iX() > CheckRoom->LeftTopPos.iX()
 		&& PlayerCharacter->GetActorLocation().iY() > CheckRoom->LeftTopPos.iY()
 		&& PlayerCharacter->GetActorLocation().iX() < CheckRoom->RightBottomPos.iX()
 		&& PlayerCharacter->GetActorLocation().iY() < CheckRoom->RightBottomPos.iY());
-}
-
-void ARoomManageMode::CheckCollisionRoom()
-{
-	if (Roomes.size() > 0)
-	{
-		for (int i = 0; i < Roomes.size(); i++)
-		{
-			if (CheckPlayerInRoom(Roomes[i]))
-			{
-				int TestIndex = i;
-				//PlayerCharacter->CurRoom->SetPlayer(nullptr);
-				PlayerCharacter->SetCurRoom(Roomes[i]);
-				if (PlayerCharacter->GetCurRoom()->GetIsSecondFloor())
-				{
-					switch (PlayerCharacter->GetRoomFloor())
-					{
-					case ERoomFloor::FLOOR_1F:
-						PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage1F()->GetName());
-						PlayerCharacter->GetCurRoom()->SetCulWinImageTo1F();
-						break;
-					case ERoomFloor::FLOOR_2F:
-						PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage2F()->GetName());
-						PlayerCharacter->GetCurRoom()->SetCulWinImageTo2F();
-						break;
-					default:
-						break;
-					}
-				}
-				else
-				{
-					PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage1F()->GetName());
-				}
-				this->CurRoom = Roomes[i];
-				return;
-
-			}
-		}
-	}
 }
