@@ -37,6 +37,9 @@ const UColor UColor::ROOM_LEFT_DIRECT = { 250, 250, 0, 0 };
 
 const UColor UColor::FALL = { 44, 0, 0, 0 };
 
+const UColor UColor::ROOM_UPSTAIRS = { 255, 100, 0, 0 };
+const UColor UColor::ROOM_DOWNSTAIRS = { 255, 100, 100, 0 };
+
 FIntPoint FVector2D::ConvertToPoint() const
 {
 	return { iX(), iY() };

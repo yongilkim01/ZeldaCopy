@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Room.h"
 #include <EngineCore/EngineAPICore.h>
+#include <EngineCore/ImageManager.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EnginePlatform/EngineInput.h>
 #include "ContentsEnum.h"
@@ -18,27 +19,29 @@ ARoom::ARoom()
 	}
 
 	{
-		ColSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		ColSpriteRenderer->SetOrder(ERenderOrder::COLMAP);
-		ColSpriteRenderer->SetSprite("CastleDungeon2Collision.png");
-		FVector2D MapScale = ColSpriteRenderer->SetSpriteScale(1.0f);
-		ColSpriteRenderer->SetComponentLocation(MapScale.Half());
-		ColSpriteRenderer->SetActive(false);
+		ColSpriteRenderer1F = CreateDefaultSubObject<USpriteRenderer>();
+		ColSpriteRenderer1F->SetOrder(ERenderOrder::COLMAP);
+		ColSpriteRenderer1F->SetSprite("CastleDungeon1Collision.png");
+		FVector2D MapScale = ColSpriteRenderer1F->SetSpriteScale(1.0f);
+		ColSpriteRenderer1F->SetComponentLocation(MapScale.Half());
+		ColSpriteRenderer1F->SetActive(false);
 	}
 
-	//RoomMoves.push_back(new URoomMove(380.0f, 600.0f));
+	{
+		ColSpriteRenderer2F = CreateDefaultSubObject<USpriteRenderer>();
+		ColSpriteRenderer2F->SetOrder(ERenderOrder::COLMAP);
+		ColSpriteRenderer2F->SetSprite("CastleDungeon1Collision2F.png");
+		FVector2D MapScale = ColSpriteRenderer2F->SetSpriteScale(1.0f);
+		ColSpriteRenderer2F->SetComponentLocation(MapScale.Half());
+		ColSpriteRenderer2F->SetActive(false);
+	}
+
+	CurColSpriteRenderer = ColSpriteRenderer1F;
+	CurrentCollisionWinImage = UImageManager::GetInst().FindImage(ColSpriteRenderer1F->GetCurSpriteName());
 }
 
 ARoom::~ARoom()
 {
-	if (RoomMoves.size() > 0)
-	{
-		for (int i = 0; i < RoomMoves.size(); i++)
-		{
-			delete RoomMoves[i];
-			RoomMoves[i] = nullptr;
-		}
-	}
 }
 
 void ARoom::Tick(float DeltaTime)
@@ -47,8 +50,13 @@ void ARoom::Tick(float DeltaTime)
 
 	if (true == UEngineInput::GetInst().IsDown('Y'))
 	{
-		ColSpriteRenderer->SetActiveSwitch();
+		this->IsDebugRenderMode = !this->IsDebugRenderMode;
 	}	
+
+	if (CurColSpriteRenderer != nullptr)
+	{
+		CurColSpriteRenderer->SetActive(IsDebugRenderMode);
+	}
 }
 
 void ARoom::SetRoomSprite(std::string_view SpriteName, std::string_view CollisionSpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale /* = 3.0f */)
@@ -58,20 +66,15 @@ void ARoom::SetRoomSprite(std::string_view SpriteName, std::string_view Collisio
 	FVector2D MapScale = BackSpriteRenderer->SetSpriteScale(SpriteScale);
 	BackSpriteRenderer->SetComponentLocation(MapScale.Half());
 
-	ColSpriteRenderer->SetOrder(ERenderOrder::COLMAP);
-	ColSpriteRenderer->SetSprite(CollisionSpriteName);
-	FVector2D ColMapScale = ColSpriteRenderer->SetSpriteScale(SpriteScale);
-	ColSpriteRenderer->SetComponentLocation(ColMapScale.Half());
+	ColSpriteRenderer1F->SetOrder(ERenderOrder::COLMAP);
+	ColSpriteRenderer1F->SetSprite(CollisionSpriteName);
+	FVector2D ColMapScale = ColSpriteRenderer1F->SetSpriteScale(SpriteScale);
+	ColSpriteRenderer1F->SetComponentLocation(ColMapScale.Half());
 
 	SetActorLocation(SpritePos);
 	//ColSpriteRenderer->SetActorL
 }
 
-void ARoom::LinkRoom(ARoom* LinkedRoom)
-{
-	this->LinkedRoomes.push_back(LinkedRoom);
-	LinkedRoom->LinkedRoomes.push_back(this);
-}
 
 void ARoom::SetRoomSize(int SizeX, int SizeY)
 {
@@ -79,6 +82,32 @@ void ARoom::SetRoomSize(int SizeX, int SizeY)
 	LeftTopPos = GetActorLocation();
 	RightBottomPos = GetActorLocation() + RoomSize;
 	//SetActorScale(RoomSize);
+}
+
+UEngineWinImage* ARoom::GetColWinImage1F()
+{
+	return UImageManager::GetInst().FindImage(this->ColSpriteRenderer1F->GetCurSpriteName());
+}
+
+UEngineWinImage* ARoom::GetColWinImage2F()
+{
+	return UImageManager::GetInst().FindImage(this->ColSpriteRenderer2F->GetCurSpriteName());
+}
+
+void ARoom::SetCulWinImageTo1F()
+{
+	this->CurrentCollisionWinImage = UImageManager::GetInst().FindImage(this->ColSpriteRenderer1F->GetCurSpriteName());
+	this->CurFloor = ERoomFloor::FLOOR_1F;
+	CurColSpriteRenderer->SetActive(false);
+	CurColSpriteRenderer = ColSpriteRenderer1F;
+}
+
+void ARoom::SetCulWinImageTo2F()
+{
+	this->CurrentCollisionWinImage = UImageManager::GetInst().FindImage(this->ColSpriteRenderer2F->GetCurSpriteName());
+	this->CurFloor = ERoomFloor::FLOOR_2F;
+	CurColSpriteRenderer->SetActive(false);
+	CurColSpriteRenderer = ColSpriteRenderer2F;
 }
 
 void ARoom::SetPlayer(APlayerCharacter* PlayerCharacter)
@@ -91,6 +120,6 @@ void ARoom::SetPlayer(APlayerCharacter* PlayerCharacter)
 void ARoom::PlayerLinkCheck()
 {
 	// TODO: 
-	std::string SpriteName = ColSpriteRenderer->GetCurSpriteName();
+	std::string SpriteName = ColSpriteRenderer1F->GetCurSpriteName();
 	UEngineWinImage* WinImage = UImageManager::GetInst().FindImage(SpriteName);
 }

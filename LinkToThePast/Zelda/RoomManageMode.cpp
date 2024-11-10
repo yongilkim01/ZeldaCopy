@@ -86,7 +86,7 @@ void ARoomManageMode::CheckRoomMove()
 	}
 
 	// 현재 룸의 콜리전 이미지를 가져온다
-	UEngineWinImage* RoomWinImage = CurRoom->GetColWinImage();
+	UEngineWinImage* RoomWinImage = CurRoom->GetColWinImage1F();
 	CurRoomDir = ERoomDirection::NONE;
 	
 	if (RoomWinImage != nullptr)
@@ -414,7 +414,7 @@ void ARoomManageMode::CheckCollisionRoom()
 				int TestIndex = i;
 				//PlayerCharacter->CurRoom->SetPlayer(nullptr);
 				PlayerCharacter->SetCurRoom(Roomes[i]);
-				PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage()->GetName());
+				PlayerCharacter->SetCollisionImage(Roomes[i]->GetColWinImage1F()->GetName());
 				this->CurRoom = Roomes[i];
 				return;
 

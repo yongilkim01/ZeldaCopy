@@ -10,15 +10,23 @@ class USpriteRenderer;
 class URoomMove;
 class UEngineWinImage;
 
-// 설명 :
+enum class ERoomFloor
+{
+	FLOOR_1F,
+	FLOOR_2F,
+};
+
+/**
+ *	방 구조를 나타내는 클래스
+ */
 class ARoom : public AActor
 {
 public:
-	// constrcuter destructer
+	/** 생성자, 소멸자 */
 	ARoom();
 	~ARoom();
 
-	// delete Function
+	/** 값 객체 복사 방지 */
 	ARoom(const ARoom& _Other) = delete;
 	ARoom(ARoom&& _Other) noexcept = delete;
 	ARoom& operator=(const ARoom& _Other) = delete;
@@ -26,42 +34,53 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	void SetRoomSprite(std::string_view SpriteName, std::string_view CollisionName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale = 3.0f);
+	void PlayerLinkCheck();
+	void SetPlayer(class APlayerCharacter* PlayerCharacter);
+
+	void SetRoomSprite(
+		std::string_view SpriteName, 
+		std::string_view CollisionName,
+		ERenderOrder RenderOrder,
+		FVector2D SpritePos, 
+		float SpriteScale = 3.0f);
+
 	void LinkRoom(ARoom* LinkedRoom);
-	URoomMove* FindRoomMove(size_t Index) { return RoomMoves[Index]; }
 
 	FVector2D GetRoomSize() { return RoomSize; }
-	std::vector<ARoom*>& GetLinkedRoomes() { return LinkedRoomes; }
 	void SetRoomSize(FVector2D Size) { SetRoomSize(Size.iX(), Size.iY()); }
 	void SetRoomSize(int SizeX, int SizeY);
-	void SetPlayer(class APlayerCharacter* PlayerCharacter);
-	void AddRoomMove(URoomMove* RoomMove) { RoomMoves.push_back(RoomMove); }
-	size_t GetRoomMovesSize() 
-	{ 
-		return RoomMoves.size(); 
-	}
 
-	UEngineWinImage* GetColWinImage() 
-	{ 
-		return UImageManager::GetInst().FindImage(this->ColSpriteRenderer->GetCurSpriteName()); 
+	UEngineWinImage* GetColWinImage1F();
+	UEngineWinImage* GetColWinImage2F();
+	UEngineWinImage* GetCurColWinImage()
+	{
+		return this->CurrentCollisionWinImage;
 	}
+	void SetCulWinImageTo1F();
+	void SetCulWinImageTo2F();
+	
+	bool GetIsSecondFloor() { return this->IsSecondFloor; }
+	void SetIsSecondFloor(bool IsSecondFloor) { this->IsSecondFloor = IsSecondFloor; }
 
 	FVector2D RoomSize = FVector2D::ZERO;
 	FVector2D LeftTopPos = FVector2D::ZERO;
 	FVector2D RightBottomPos = FVector2D::ZERO;
 
-	void PlayerLinkCheck();
-
-
 protected:
 
 private:
-	USpriteRenderer* BackSpriteRenderer;
-	USpriteRenderer* ColSpriteRenderer;
+	USpriteRenderer* BackSpriteRenderer = nullptr;
+	USpriteRenderer* ColSpriteRenderer1F = nullptr;
+	USpriteRenderer* ColSpriteRenderer2F = nullptr;
+
+	USpriteRenderer* CurColSpriteRenderer = nullptr;
+
+	UEngineWinImage* CurrentCollisionWinImage = nullptr;
 
 	APlayerCharacter* PlayerCharacter = nullptr;
 
-	std::vector<ARoom*> LinkedRoomes;
+	ERoomFloor CurFloor = ERoomFloor::FLOOR_1F;
 
-	std::vector<URoomMove*> RoomMoves;
+	bool IsSecondFloor = false;
+	bool IsDebugRenderMode = false;
 };

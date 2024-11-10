@@ -71,7 +71,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 	UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
 	UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
 	UEngineDebug::CoreOutPutString("Player Room Name : " + CurRoom->GetName());
-	UEngineDebug::CoreOutPutString("Player Room Collision Name : " + CurRoom->GetColWinImage()->GetName());
+	UEngineDebug::CoreOutPutString("Player Room Collision Name : " + this->CollisionImage->GetName());
 	PrintDebugPlayerState();
 
 	switch (CurState)
@@ -323,9 +323,18 @@ void APlayerCharacter::Move(float DeltaTime)
 		{
 			AddActorLocation(MoveDir * DeltaTime * Speed);
 		} 
-		else if (Color == UColor::ORANGE)
+
+		if (Color == UColor::ROOM_UPSTAIRS)
 		{
-			AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+			//AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+			CurRoom->SetCulWinImageTo2F();
+			this->CollisionImage = CurRoom->GetColWinImage2F();
+		}
+		else if (Color == UColor::ROOM_DOWNSTAIRS)
+		{
+			//AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+			CurRoom->SetCulWinImageTo1F();
+			this->CollisionImage = CurRoom->GetColWinImage1F();
 		}
 	}
 	
@@ -369,15 +378,6 @@ void APlayerCharacter::SetCameraLocationToPlayer()
 {
 	if (CurRoom != nullptr)
 	{
-		for (int i = 0; i < CurRoom->GetRoomMovesSize(); i++)
-		{
-			URoomMove* RoomMove = CurRoom->FindRoomMove(i);
-			ARoom* TestRoom1 = RoomMove->GetCurRoom();
-			ARoom* TestRoom2 = RoomMove->GetMoveRoom();
-			if (RoomMove->GetMoveRoom() == nullptr || RoomMove->GetCurRoom() == nullptr) continue;
-			UEngineDebug::CoreOutPutString("Link Room : " + RoomMove->GetMoveRoom()->GetName());
-		}
-
 		FVector2D CameraMovePos = GetTransform().Location + GetWorld()->GetCameraPivot();
 
 		if (CameraMovePos.iX() < CurRoom->LeftTopPos.iX())
@@ -467,6 +467,6 @@ void APlayerCharacter::SetCurRoom(ARoom* Room)
 
 	this->CurRoom = Room;
 	this->CurRoom->SetPlayer(this);
-	this->CollisionImage = this->CurRoom->GetColWinImage();
+	this->CollisionImage = this->CurRoom->GetColWinImage1F();
 
 }

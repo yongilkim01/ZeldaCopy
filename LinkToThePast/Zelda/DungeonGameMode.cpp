@@ -44,5 +44,8 @@ void DungeonGameMode::RoomBeginPlay()
 	RoomDataes.push_back({ { 0, 1480 } ,{ 1546, 1444 } });		// Dungeon8
 
 	CreateRoomActor("CastleDungeon", 0);
+
+	this->Roomes[0]->SetIsSecondFloor(true);
+	//this->Roomes[]
 }
 
