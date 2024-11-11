@@ -50,7 +50,7 @@ public:
 
 	void RunSoundPlay();
 
-	void PrintDebugPlayerState();
+	void PrintDebugInfo(float DeltaTime);
 	void SetPlayerStateToIdle();
 
 	void SetCameraLocationToPlayer();

@@ -15,11 +15,13 @@ APlayerCharacter::APlayerCharacter()
 {
 	SetActorLocation({ 380, 340 });
 	{
+		// 스프라이트 컴포넌트 생성
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("LinkMoveDown.png");
 		SpriteRenderer->SetSpriteScale(3.0f);
-
 		SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
+
+		// 애니메이션 생성
 		SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveRight.png", 1, 8, 0.04f);
 		SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 8, 0.04f);
 		SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 8, 0.04f);
@@ -33,12 +35,14 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("Attack_Up", "LinkAttackUp.png", 0, 4, 0.04f, false);
 		SpriteRenderer->CreateAnimation("Attack_Down", "LinkAttackDown.png", 0, 5, 0.04f, false);
 
+		// 애니메이션 이벤트 바인드
 		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::StartIdle, this));
 		SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayerCharacter::StartIdle, this));
 		SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayerCharacter::StartIdle, this));
 		SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayerCharacter::StartIdle, this));
 	}
 	{
+		// 충돌 컴포넌트 생성
 		CollisionComponent = CreateDefaultSubObject<UCollision2D>();
 		CollisionComponent->SetComponentLocation({ 0, 0 });
 		CollisionComponent->SetComponentScale({ 50, 50 });
@@ -53,12 +57,11 @@ APlayerCharacter::~APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
+	// 카메라 초기화 설정
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1);
-	SetCollisionImage("CastleDungeon1Collision.png");
 	GetWorld()->SetCameraToMainPawn(false);
-	ChangeState(EPlayerState::Idle);
 }
 
 void APlayerCharacter::Tick(float DeltaTime)
@@ -67,13 +70,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 	if (ARoomManageMode::IsMapMoving == true) return;
 
-	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / DeltaTime));
-	UEngineDebug::CoreOutPutString("PlayerPos : " + GetActorLocation().ToString());
-	UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
-	UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
-	UEngineDebug::CoreOutPutString("Player Room Name : " + CurRoom->GetName());
-	UEngineDebug::CoreOutPutString("Player Room Collision Name : " + this->CollisionImage->GetName());
-	PrintDebugPlayerState();
+	PrintDebugInfo(DeltaTime);
 
 	switch (CurState)
 	{
@@ -94,30 +91,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 void APlayerCharacter::SetCollisionImage(std::string_view CollisionImageName)
 {
 	CollisionImage = UImageManager::GetInst().FindImage(CollisionImageName);
-}
-
-void APlayerCharacter::PrintDebugPlayerState()
-{
-	switch (CurState)
-	{
-	case EPlayerState::Idle:
-		UEngineDebug::CoreOutPutString("Player Current State : Idle ");
-		break;
-	case EPlayerState::Move:
-		UEngineDebug::CoreOutPutString("Player Current State : Move ");
-		break;
-	case EPlayerState::Attack:
-		UEngineDebug::CoreOutPutString("Player Current State : Attack ");
-		break;
-	default:
-		break;
-	}
-
-	if (UEngineInput::GetInst().IsPress('U') == true)
-	{
-		if (IsDebug() == true) DebugOff();
-		else if (IsDebug() == false) DebugOn();
-	}
 }
 
 void APlayerCharacter::SetPlayerStateToIdle()
@@ -491,5 +464,36 @@ void APlayerCharacter::SetCurRoom(ARoom* Room)
 	else
 	{
 		SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+	}
+}
+
+void APlayerCharacter::PrintDebugInfo(float DeltaTime)
+{
+	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / DeltaTime));
+	UEngineDebug::CoreOutPutString("PlayerPos : " + GetActorLocation().ToString());
+	UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
+	UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
+	UEngineDebug::CoreOutPutString("Player Room Name : " + CurRoom->GetName());
+	UEngineDebug::CoreOutPutString("Player Room Collision Name : " + this->CollisionImage->GetName());
+
+	switch (CurState)
+	{
+	case EPlayerState::Idle:
+		UEngineDebug::CoreOutPutString("Player Current State : Idle ");
+		break;
+	case EPlayerState::Move:
+		UEngineDebug::CoreOutPutString("Player Current State : Move ");
+		break;
+	case EPlayerState::Attack:
+		UEngineDebug::CoreOutPutString("Player Current State : Attack ");
+		break;
+	default:
+		break;
+	}
+
+	if (UEngineInput::GetInst().IsPress('U') == true)
+	{
+		if (IsDebug() == true) DebugOff();
+		else if (IsDebug() == false) DebugOn();
 	}
 }
