@@ -38,16 +38,6 @@ AHylianKnights::~AHylianKnights()
 {
 }
 
-void AHylianKnights::TakeDamage(int Damage)
-{
-	CurrentHP -= Damage;
-
-	if (CurrentHP <= 0)
-	{
-		this->Destroy();
-	}
-}
-
 void AHylianKnights::BeginPlay()
 {
 	AEnemyCharacter::BeginPlay();
@@ -56,5 +46,25 @@ void AHylianKnights::BeginPlay()
 void AHylianKnights::Tick(float DeltaTime)
 {
 	AEnemyCharacter::Tick(DeltaTime);
+}
+
+void AHylianKnights::Idle(float DeltaTime)
+{
+	UEngineDebug::CoreOutPutString("Enemy State : Idle");
+}
+
+void AHylianKnights::Move(float DeltaTime)
+{
+	UEngineDebug::CoreOutPutString("Enemy State : Move");
+}
+
+void AHylianKnights::Attack(float DeltaTime)
+{
+	UEngineDebug::CoreOutPutString("Enemy State : Attack");
+}
+
+void AHylianKnights::KnockBack(float DeltaTime)
+{
+	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
 }
 
