@@ -65,10 +65,13 @@ void AHylianKnights::Idle(float DeltaTime)
 
 	UEngineDebug::CoreOutPutString("Enemy State : Idle");
 	UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
-	if (IsRangeToPlayer())
-	{
-		SetCurEnemyState(EEnemyState::Trace);
-	}
+	//if (IsRangeToPlayer())
+	//{
+	//	SetCurEnemyState(EEnemyState::Trace);
+	//}
+	//UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
+
+	GetDegree(PlayerCharacter->GetActorLocation());
 	
 }
 

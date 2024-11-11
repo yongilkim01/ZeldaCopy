@@ -339,6 +339,11 @@ public:
 	{
 		return ::sqrtf(_Value);
 	}
+
+	static int Abs(int Value)
+	{
+		return std::abs(Value);
+	}
 };
 
 
