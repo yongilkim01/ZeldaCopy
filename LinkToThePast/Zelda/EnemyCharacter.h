@@ -1,12 +1,15 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
+class APlayerCharacter;
+
 enum class EEnemyState
 {
 	Idle,
 	Move,
 	Attack,
 	KnockBack,
+	Trace,
 };
 
 /**
@@ -25,20 +28,45 @@ public:
 	AEnemyCharacter& operator=(const AEnemyCharacter& _Other) = delete;
 	AEnemyCharacter& operator=(AEnemyCharacter&& _Other) noexcept = delete;
 
-	void TakeDamage(int Damage = 10);
+	virtual void TakeDamage(int Damage = 10);
+	
+	float CheckDistanceToPlayer();
+	bool IsRangeToPlayer();
+	void AddTurningLocation(FVector2D Location)
+	{
+		this->TurningLocations.push_back(Location);
+	}
+	float GetDegree(FVector2D TargetLocation);
+
+	EEnemyState GetCurEnemyState() { return this->CurEnemyState; }
+	void SetCurEnemyState(EEnemyState EnemyState) { this->CurEnemyState = EnemyState; }
+	void SetSpeed(float Speed) { this->Speed = Speed; }
+	float GetSpeed() { return this->Speed; }
+
+	void PrintEnemyDebugInfo();
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void Idle(float DeltaTime) {};
+	virtual void Idle(float DeltaTime);
 	virtual void Move(float DeltaTime) {};
 	virtual void Attack(float DeltaTime) {};
 	virtual void KnockBack(float DeltaTime) {};
+	virtual void Trace(float DeltaTime) {};
+
+	APlayerCharacter* PlayerCharacter = nullptr;
 
 private:
+	FVector2D CurDir = FVector2D::ZERO;
+	EEnemyState CurEnemyState = EEnemyState::Idle;
+	std::vector<FVector2D> TurningLocations;
+
 	int MaxHP = 100;
 	int CurrentHP = 20;
-	EEnemyState CurEnemyState = EEnemyState::Idle;
+	float DetectionRange = 150.0f;
+	float Speed = 100.0f;
+
+	int CurTurningIndex = 0;
 };
 

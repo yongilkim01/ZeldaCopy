@@ -1,5 +1,8 @@
 #include "PreCompile.h"
 #include "EnemyCharacter.h"
+#include "PlayerCharacter.h"
+
+#include <EngineCore/EngineCoreDebug.h>
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -18,6 +21,8 @@ void AEnemyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	PrintEnemyDebugInfo();
+
 	switch (CurEnemyState)
 	{
 	case EEnemyState::Idle:
@@ -32,8 +37,33 @@ void AEnemyCharacter::Tick(float DeltaTime)
 	case EEnemyState::KnockBack:
 		KnockBack(DeltaTime);
 		break;
+	case EEnemyState::Trace:
+		Trace(DeltaTime);
+		break;
 	default:
 		break;
+	}
+}
+
+void AEnemyCharacter::Idle(float DeltaTime)
+{
+	if (this->TurningLocations[CurTurningIndex].DistanceTo(GetActorLocation()) < 10.0f)
+	{
+		this->CurTurningIndex++;
+		if (this->CurTurningIndex == this->TurningLocations.size())
+		{
+			this->CurTurningIndex = 0;
+		}
+	}
+	else
+	{ 
+		FVector2D CurEnemyLocation = GetActorLocation();
+		FVector2D TurningLocation = this->TurningLocations[CurTurningIndex];
+
+		FVector2D MoveDir = TurningLocation - CurEnemyLocation;
+		MoveDir.Normalize();
+
+		AddActorLocation(MoveDir * DeltaTime * Speed);
 	}
 }
 
@@ -45,4 +75,42 @@ void AEnemyCharacter::TakeDamage(int Damage)
 	{
 		this->Destroy();
 	}
+}
+
+float AEnemyCharacter::CheckDistanceToPlayer()
+{
+	if (this->PlayerCharacter != nullptr)
+	{
+		float Distance = GetActorLocation().DistanceTo(this->PlayerCharacter->GetActorLocation());
+		return GetActorLocation().DistanceTo(this->PlayerCharacter->GetActorLocation());
+	}
+	return 0.0f;
+}
+
+bool AEnemyCharacter::IsRangeToPlayer()
+{
+	return (CheckDistanceToPlayer()) < DetectionRange;
+}
+
+float AEnemyCharacter::GetDegree(FVector2D TargetLocation)
+{
+	FVector2D ResultDir = TargetLocation - GetActorLocation();
+	ResultDir.Normalize();
+	
+	if (ResultDir.Y > ResultDir.X) // Up 또는 Down
+	{
+
+	}
+	else // Right 또는 Left
+	{
+
+	}
+
+	return 0.0f;
+}
+
+void AEnemyCharacter::PrintEnemyDebugInfo()
+{
+	UEngineDebug::CoreOutPutString("Enemy HP : " + std::to_string(this->CurrentHP));
+	UEngineDebug::CoreOutPutString("Enemy Speed : " + std::to_string(this->Speed));
 }

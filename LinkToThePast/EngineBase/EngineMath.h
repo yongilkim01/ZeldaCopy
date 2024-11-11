@@ -85,7 +85,7 @@ public:
 		if (0.0f < Len && false == isnan(Len))
 		{
 			X = X / Len;
-			X = Y / Len;
+			Y = Y / Len;
 		}
 		return;
 	}

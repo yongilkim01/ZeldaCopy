@@ -30,7 +30,7 @@ AHylianKnights::AHylianKnights()
 		CollisionComponent->SetComponentScale({ 60, 75 });
 		CollisionComponent->SetCollisionGroup(ECollisionGroup::EnemyBody);
 		CollisionComponent->SetCollisionType(ECollisionType::Rect);
-		DebugOn();
+		//DebugOn();
 	}
 }
 
@@ -41,6 +41,17 @@ AHylianKnights::~AHylianKnights()
 void AHylianKnights::BeginPlay()
 {
 	AEnemyCharacter::BeginPlay();
+
+	// TODO: Test code
+	this->PlayerCharacter = GetWorld()->GetPawn<APlayerCharacter>();
+
+	// Set base parameter
+	SetSpeed(150.0f);
+
+	// Set turning locations
+	AddTurningLocation(FVector2D(2332, 1724));
+	AddTurningLocation(FVector2D(2332, 1974));
+	//2332, 1724
 }
 
 void AHylianKnights::Tick(float DeltaTime)
@@ -50,7 +61,15 @@ void AHylianKnights::Tick(float DeltaTime)
 
 void AHylianKnights::Idle(float DeltaTime)
 {
+	AEnemyCharacter::Idle(DeltaTime);
+
 	UEngineDebug::CoreOutPutString("Enemy State : Idle");
+	UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
+	if (IsRangeToPlayer())
+	{
+		SetCurEnemyState(EEnemyState::Trace);
+	}
+	
 }
 
 void AHylianKnights::Move(float DeltaTime)
@@ -65,6 +84,35 @@ void AHylianKnights::Attack(float DeltaTime)
 
 void AHylianKnights::KnockBack(float DeltaTime)
 {
+	if (KnockBackCnt > 80)
+	{
+		SetCurEnemyState(EEnemyState::Idle);
+		return;
+	}
 	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
+	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
+	FVector2D EnemeyLocation = this->GetActorLocation();
+
+	FVector2D KnockBackDir = EnemeyLocation - PlayerLocation;
+	KnockBackDir.Normalize();
+
+	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
+
+	KnockBackCnt++;
 }
 
+void AHylianKnights::Trace(float DeltaTime)
+{
+	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
+	FVector2D EnemeyLocation = this->GetActorLocation();
+
+	FVector2D TraceDir = PlayerLocation - EnemeyLocation;
+	TraceDir.Normalize();
+
+	AddActorLocation(TraceDir * DeltaTime * GetSpeed());
+}
+
+void AHylianKnights::TakeDamage(int Damage)
+{
+	AEnemyCharacter::TakeDamage(Damage);
+}
