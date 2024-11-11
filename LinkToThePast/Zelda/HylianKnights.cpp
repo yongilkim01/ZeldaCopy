@@ -38,6 +38,16 @@ AHylianKnights::~AHylianKnights()
 {
 }
 
+void AHylianKnights::TakeDamage(int Damage)
+{
+	CurrentHP -= Damage;
+
+	if (CurrentHP <= 0)
+	{
+		this->Destroy();
+	}
+}
+
 void AHylianKnights::BeginPlay()
 {
 	AEnemyCharacter::BeginPlay();

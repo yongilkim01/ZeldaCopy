@@ -44,6 +44,7 @@ public:
 	void Idle(float DeltaTime);
 	void Move(float DeltaTime);
 	void Attack(float DeltaTime);
+	void EndAttack();
 	void ChangeState(EPlayerState ChangeState);
 
 	void SetCollisionImage(std::string_view CollisionImageName);
@@ -91,5 +92,6 @@ private:
 	int MySpriteIndex = 0;
 	int IsGround = false;
 	bool IsMove = false;
+	bool IsAttack = false;
 };
 

@@ -1,15 +1,13 @@
 #include "PreCompile.h"
 #include "PlayerCharacter.h"
+#include "Room.h"
+#include "HylianKnights.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/Collision2D.h>
-
-#include "Room.h"
-#include "RoomMove.h"
-#include "RoomManageMode.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -36,10 +34,10 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("Attack_Down", "LinkAttackDown.png", 0, 5, 0.04f, false);
 
 		// 애니메이션 이벤트 바인드
-		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::StartIdle, this));
-		SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayerCharacter::StartIdle, this));
-		SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayerCharacter::StartIdle, this));
-		SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayerCharacter::StartIdle, this));
+		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::EndAttack, this));
+		SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayerCharacter::EndAttack, this));
+		SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayerCharacter::EndAttack, this));
+		SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayerCharacter::EndAttack, this));
 	}
 	{
 		// 충돌 컴포넌트 생성
@@ -51,11 +49,30 @@ APlayerCharacter::APlayerCharacter()
 	{
 		// 공격 충돌 컴포넌트 생성
 		AttackCollisions.reserve(4);
-		UCollision2D* AttackCollisionComponent = CreateDefaultSubObject<UCollision2D>();
-		AttackCollisionComponent->SetComponentLocation({ 50, 0 });
-		AttackCollisionComponent->SetComponentScale({ 50, 50 });
-		AttackCollisionComponent->SetCollisionGroup(ECollisionGroup::PlayerAttack);
-		AttackCollisions.push_back(AttackCollisionComponent);
+
+		UCollision2D* RightAttackCollision = CreateDefaultSubObject<UCollision2D>();
+		RightAttackCollision->SetComponentLocation({ 50, 0 });
+		RightAttackCollision->SetComponentScale({ 50, 70 });
+		RightAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		AttackCollisions.push_back(RightAttackCollision);
+
+		UCollision2D* LeftAttackCollision = CreateDefaultSubObject<UCollision2D>();
+		LeftAttackCollision->SetComponentLocation({ -50, 0 });
+		LeftAttackCollision->SetComponentScale({ 50, 70 });
+		LeftAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		AttackCollisions.push_back(LeftAttackCollision);
+
+		UCollision2D* UpAttackCollision = CreateDefaultSubObject<UCollision2D>();
+		UpAttackCollision->SetComponentLocation({ 0, 50 });
+		UpAttackCollision->SetComponentScale({ 70, 50 });
+		UpAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		AttackCollisions.push_back(UpAttackCollision);
+
+		UCollision2D* DownAttackCollision = CreateDefaultSubObject<UCollision2D>();
+		DownAttackCollision->SetComponentLocation({ 0, -50 });
+		DownAttackCollision->SetComponentScale({ 70, 50 });
+		DownAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		AttackCollisions.push_back(DownAttackCollision);
 
 	}
 }
@@ -152,8 +169,6 @@ void APlayerCharacter::StartIdle()
 		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
 		return;
 	}
-
-	CurState = EPlayerState::Idle;
 }
 
 void APlayerCharacter::StartMove()
@@ -352,12 +367,47 @@ void APlayerCharacter::Move(float DeltaTime)
 void APlayerCharacter::Attack(float DeltaTime)
 {
 	SetCameraLocationToPlayer();
+	if (IsAttack == true) return;
 
-	AActor* Result = AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody);
-	if (nullptr != Result)
+	if(this->CurDir == FVector2D::RIGHT)
 	{
-		Result->Destroy();
+		IsAttack = true;
+		AHylianKnights* Result = dynamic_cast<AHylianKnights*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody));
+		if (nullptr != Result)
+		{
+			Result->TakeDamage(10);
+		}
 	}
+	else if (this->CurDir == FVector2D::LEFT)
+	{
+		AActor* Result = AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody);
+		if (nullptr != Result)
+		{
+			Result->Destroy();
+		}
+	}
+	else if (this->CurDir == FVector2D::UP)
+	{
+		AActor* Result = AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody);
+		if (nullptr != Result)
+		{
+			Result->Destroy();
+		}
+	}
+	else if (this->CurDir == FVector2D::DOWN)
+	{
+		AActor* Result = AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody);
+		if (nullptr != Result)
+		{
+			Result->Destroy();
+		}
+	}
+}
+
+void APlayerCharacter::EndAttack()
+{
+	IsAttack = false;
+	ChangeState(EPlayerState::Idle);
 }
 
 
