@@ -79,6 +79,8 @@ private:
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* CollisionComponent = nullptr;
 
+	std::vector<UCollision2D*> AttackCollisions;
+
 	EPlayerState CurState = EPlayerState::Idle;
 	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
 	FVector2D CurDir = FVector2D::DOWN;

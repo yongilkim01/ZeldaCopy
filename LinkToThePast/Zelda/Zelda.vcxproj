@@ -147,6 +147,14 @@
   <ItemGroup>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="DungeonGameMode.h" />
+    <ClInclude Include="EnemyCharacter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HylianKnights.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayerCharacter.h">
       <SubType>
       </SubType>
@@ -167,6 +175,14 @@
   <ItemGroup>
     <ClCompile Include="ContentsEnum.cpp" />
     <ClCompile Include="DungeonGameMode.cpp" />
+    <ClCompile Include="EnemyCharacter.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HylianKnights.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerCharacter.cpp">
       <SubType>
       </SubType>

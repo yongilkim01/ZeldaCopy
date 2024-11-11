@@ -13,7 +13,7 @@
 
 APlayerCharacter::APlayerCharacter()
 {
-	SetActorLocation({ 380, 340 });
+	SetActorLocation({ 2158, 1801 });
 	{
 		// 스프라이트 컴포넌트 생성
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -47,6 +47,16 @@ APlayerCharacter::APlayerCharacter()
 		CollisionComponent->SetComponentLocation({ 0, 0 });
 		CollisionComponent->SetComponentScale({ 50, 50 });
 		CollisionComponent->SetCollisionGroup(ECollisionGroup::PlayerBody);
+	}
+	{
+		// 공격 충돌 컴포넌트 생성
+		AttackCollisions.reserve(4);
+		UCollision2D* AttackCollisionComponent = CreateDefaultSubObject<UCollision2D>();
+		AttackCollisionComponent->SetComponentLocation({ 50, 0 });
+		AttackCollisionComponent->SetComponentScale({ 50, 50 });
+		AttackCollisionComponent->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		AttackCollisions.push_back(AttackCollisionComponent);
+
 	}
 }
 
@@ -343,7 +353,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 {
 	SetCameraLocationToPlayer();
 
-	AActor* Result = CollisionComponent->CollisionOnce(ECollisionGroup::MonsterBody);
+	AActor* Result = AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody);
 	if (nullptr != Result)
 	{
 		Result->Destroy();

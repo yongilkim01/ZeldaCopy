@@ -1,5 +1,11 @@
 #include "PreCompile.h"
 #include "RoomManageMode.h"
+#include "Room.h"
+#include "ContentsEnum.h"
+#include "PlayerCharacter.h"
+#include "UserInterface.h"
+#include "RoomMove.h"
+#include "EnemyCharacter.h"
 
 #include <EngineBase/EngineMath.h>
 
@@ -10,12 +16,6 @@
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/SpriteRenderer.h>
-
-#include "Room.h"
-#include "ContentsEnum.h"
-#include "PlayerCharacter.h"
-#include "UserInterface.h"
-#include "RoomMove.h"
 
 bool ARoomManageMode::IsMapMoving = false;
 

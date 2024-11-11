@@ -3,6 +3,8 @@
 #include "PlayerCharacter.h"
 #include "Room.h"
 #include "RoomMove.h"
+#include "EnemyCharacter.h"
+#include "HylianKnights.h"
 
 DungeonGameMode::DungeonGameMode()
 {
@@ -19,8 +21,14 @@ void DungeonGameMode::BeginPlay()
 	RoomBeginPlay();
 	UIBeginPlay();
 
-	PlayerCharacter->SetCurRoom(Roomes[0]);
-	this->CurRoom = Roomes[0];
+	CheckCollisionRoom();
+	//PlayerCharacter->SetCurRoom(Roomes[0]);
+	//this->CurRoom = Roomes[0];
+
+	{
+		AHylianKnights* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnights>();
+		EnemyCharacter->SetActorLocation({ 2332, 1724 });
+	}
 
 }
 
