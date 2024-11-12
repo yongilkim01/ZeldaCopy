@@ -52,6 +52,7 @@ void AEnemyCharacter::TakeDamage(int Damage)
 	{
 		this->Destroy();
 	}
+	CurEnemyState = EEnemyState::KnockBack;
 }
 
 float AEnemyCharacter::CheckDistanceToPlayer()

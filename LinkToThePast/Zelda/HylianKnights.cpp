@@ -19,15 +19,16 @@ AHylianKnights::AHylianKnights()
 		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
 		SpriteRenderer->SetSpriteScale(3.0f);
 		SpriteRenderer->CreateAnimation("Idle_Down", "HylianKnightMoveDown.png", 0, 0, 0.1f);
+
 		SpriteRenderer->CreateAnimation("Move_Right", "HylianKnightMoveRight.png", 0, 2, 0.3f);
 		SpriteRenderer->CreateAnimation("Move_Left", "HylianKnightMoveLeft.png", 0, 2, 0.3f);
 		SpriteRenderer->CreateAnimation("Move_Up", "HylianKnightMoveUp.png", 0, 2, 0.3f);
 		SpriteRenderer->CreateAnimation("Move_Down", "HylianKnightMoveDown.png", 0, 2, 0.3f);
 
-		SpriteRenderer->CreateAnimation("Hit_Right", "HylianKnightHit.png", 0, 3, 0.05f);
-		SpriteRenderer->CreateAnimation("Hit_Left", "HylianKnightHit.png", 4, 7, 0.05f);
-		SpriteRenderer->CreateAnimation("Hit_Up", "HylianKnightHit.png", 8, 11, 0.05f);
-		SpriteRenderer->CreateAnimation("Hit_Down", "HylianKnightHit.png", 12, 15, 0.05f);
+		SpriteRenderer->CreateAnimation("Hit_Right", "HylianKnightHit.png", 4, 7, 0.05f);
+		SpriteRenderer->CreateAnimation("Hit_Left", "HylianKnightHit.png", 8, 11, 0.05f);
+		SpriteRenderer->CreateAnimation("Hit_Up", "HylianKnightHit.png", 12, 15, 0.05f);
+		SpriteRenderer->CreateAnimation("Hit_Down", "HylianKnightHit.png", 0, 3, 0.05f);
 
 		SpriteRenderer->ChangeAnimation("Move_Down");
 
@@ -91,6 +92,9 @@ void AHylianKnights::Patrol(float DeltaTime)
 		MoveDir.Normalize();
 
 		AddActorLocation(MoveDir * DeltaTime * Speed);
+		ChangeAnimation(
+			GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex])
+			);
 	}
 
 	UEngineDebug::CoreOutPutString("Enemy State : Idle");
@@ -118,6 +122,7 @@ void AHylianKnights::KnockBack(float DeltaTime)
 		SetCurEnemyState(EEnemyState::Patrol);
 		return;
 	}
+	this->SpriteRenderer->ChangeAnimation("Hit_Left");
 	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
 	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
 	FVector2D EnemeyLocation = this->GetActorLocation();
@@ -145,6 +150,11 @@ void AHylianKnights::Trace(float DeltaTime)
 	ChangeAnimation(CurrentDirection);
 }
 
+void AHylianKnights::EndKnockBcack()
+{
+	CurEnemyState = EEnemyState::Patrol;
+}
+
 void AHylianKnights::TakeDamage(int Damage)
 {
 	AEnemyCharacter::TakeDamage(Damage);
@@ -159,21 +169,18 @@ void AHylianKnights::ChangeAnimation(FVector2D Direction)
 {
 	if (Direction == FVector2D::RIGHT)
 	{
-		this->SpriteRenderer->ChangeAnimation("Hit_Down");
+		this->SpriteRenderer->ChangeAnimation("Move_Right");
 	}
 	else if (Direction == FVector2D::LEFT)
 	{
-		this->SpriteRenderer->ChangeAnimation("Hit_Down");
-
+		this->SpriteRenderer->ChangeAnimation("Move_Left");
 	}
 	else if (Direction == FVector2D::UP)
 	{
-		this->SpriteRenderer->ChangeAnimation("Hit_Down");
-
+		this->SpriteRenderer->ChangeAnimation("Move_Up");
 	}
 	else if (Direction == FVector2D::DOWN)
 	{
-		this->SpriteRenderer->ChangeAnimation("Hit_Down");
-
+		this->SpriteRenderer->ChangeAnimation("Move_Down");
 	}
 }

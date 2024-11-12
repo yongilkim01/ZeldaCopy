@@ -64,8 +64,8 @@ protected:
 private:
 
 	int MaxHP = 100;
-	int CurrentHP = 20;
-	float DetectionRange = 150.0f;
+	int CurrentHP = 40;
+	float DetectionRange = 200.0f;
 	float Speed = 100.0f;
 };
 
