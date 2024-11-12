@@ -54,11 +54,6 @@ protected:
 	virtual void KnockBack(float DeltaTime) {};
 	virtual void Trace(float DeltaTime) {};
 
-	virtual void StartPatrol() {};
-	virtual void StartAttack() {};
-	virtual void StartKnockBack() {};
-	virtual void StartTrace() {};
-
 	APlayerCharacter* PlayerCharacter = nullptr;
 	std::vector<FVector2D> TurningLocations;
 	FVector2D CurDir = FVector2D::ZERO;
@@ -70,7 +65,7 @@ protected:
 	int CurrentHP = 40;
 	float DetectionRange = 200.0f;
 	float Speed = 80.0f;
-	float AttackRange = 50.0f;
+	float AttackRange = 60.0f;
 
 private:
 };

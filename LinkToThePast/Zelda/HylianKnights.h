@@ -33,11 +33,6 @@ protected:
 	virtual void KnockBack(float DeltaTime) override;
 	virtual void Trace(float DeltaTime) override;
 
-	virtual void StartPatrol() override;
-	virtual void StartAttack() override;
-	virtual void StartKnockBack() override;
-	virtual void StartTrace() override;
-
 private:
 	int KnockBackCnt = 0;
 	float Speed = 100.0f;

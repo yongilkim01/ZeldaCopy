@@ -70,22 +70,6 @@ void AHylianKnights::Tick(float DeltaTime)
 
 ////////////////////////////////////// State Machine //////////////////////////////////////
 
-void AHylianKnights::StartPatrol()
-{
-}
-
-void AHylianKnights::StartAttack()
-{
-}
-
-void AHylianKnights::StartKnockBack()
-{
-}
-
-void AHylianKnights::StartTrace()
-{
-}
-
 void AHylianKnights::Patrol(float DeltaTime)
 {
 	AEnemyCharacter::Patrol(DeltaTime);
@@ -138,12 +122,22 @@ void AHylianKnights::Trace(float DeltaTime)
 	CurrentDirection = GetDirectionToTargetLocation(PlayerLocation);
 
 	ChangeAnimation(CurrentDirection);
+
+	if (GetDistanceToTargetLocation(PlayerLocation) < AttackRange)
+	{
+		CurEnemyState = EEnemyState::Attack;
+	}
 }
 
 
 void AHylianKnights::Attack(float DeltaTime)
 {
 	UEngineDebug::CoreOutPutString("Enemy State : Attack");
+
+	if (GetDistanceToTargetLocation(this->PlayerCharacter->GetActorLocation()) > AttackRange)
+	{
+		CurEnemyState = EEnemyState::Trace;
+	}
 }
 
 void AHylianKnights::KnockBack(float DeltaTime)
