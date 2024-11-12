@@ -2,6 +2,7 @@
 #include <EngineCore/Actor.h>
 
 class APlayerCharacter;
+class AEffectEnemyDeath;
 
 enum class EEnemyState
 {
@@ -42,6 +43,7 @@ public:
 	void SetCurEnemyState(EEnemyState EnemyState) { this->CurEnemyState = EnemyState; }
 	void SetSpeed(float Speed) { this->Speed = Speed; }
 	float GetSpeed() { return this->Speed; }
+	bool GetDeathEffectAnimationIsEnd();
 
 	void PrintEnemyDebugInfo();
 
@@ -55,6 +57,8 @@ protected:
 	virtual void Trace(float DeltaTime) {};
 
 	APlayerCharacter* PlayerCharacter = nullptr;
+	AEffectEnemyDeath* DeathEffect = nullptr;
+
 	std::vector<FVector2D> TurningLocations;
 	FVector2D CurDir = FVector2D::ZERO;
 	EEnemyState CurEnemyState = EEnemyState::Patrol;

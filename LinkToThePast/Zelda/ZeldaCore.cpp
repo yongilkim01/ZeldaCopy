@@ -56,6 +56,8 @@ void UZeldaCore::BeginPlay()
 
 	UImageManager::GetInst().CuttingSprite("HylianKnightHit.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("EnemyDeathEffect.png", { 64, 64 });
+
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");
 

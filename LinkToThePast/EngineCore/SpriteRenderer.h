@@ -29,6 +29,7 @@ public:
 		int ResultIndex = 0;
 		float CurTime = 0.0f;
 		bool Loop = true;
+		bool IsEnd = false;
 
 		void Reset()
 		{
@@ -117,6 +118,12 @@ public:
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, float _Frame, bool _Loop = true);
 
 	void SetAnimationEvent(std::string_view _AnimationName, int _Frame, std::function<void()> _Function);
+
+	bool IsCurAnimationEnd()
+	{
+		if (this->CurAnimation == nullptr) return false;
+		return CurAnimation->IsEnd;
+	}
 
 protected:
 

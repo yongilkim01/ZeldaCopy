@@ -1,8 +1,8 @@
 #include "PreCompile.h"
 #include "HylianKnights.h"
-
 #include "PlayerCharacter.h"
 #include "ContentsEnum.h"
+#include "EffectEnemyDeath.h"
 
 #include <EnginePlatform/EngineInput.h>
 
@@ -171,7 +171,13 @@ void AHylianKnights::TakeDamage(int Damage)
 
 	if (CurrentHP <= 0)
 	{
-		this->Destroy();
+
+		//SpriteRenderer->SetComponentScale({ 0.0f, 0.0f });
+
+		DeathEffect = GetWorld()->SpawnActor<AEffectEnemyDeath>();
+		DeathEffect->SetActorLocation(GetActorLocation());
+		DeathEffect->SetOwnerActor(this);
+		//this->Destroy();
 	}
 	PrevEnemyState = CurEnemyState;
 	CurEnemyState = EEnemyState::KnockBack;

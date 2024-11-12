@@ -21,6 +21,7 @@ void USpriteRenderer::Render(float DeltaTime)
 	// 일단 여기서 다 짠다.
 	if (nullptr != CurAnimation)
 	{
+		CurAnimation->IsEnd = false;
 		std::vector<int>& Indexs = CurAnimation->FrameIndex;
 		std::vector<float>& Times = CurAnimation->FrameTime;
 
@@ -44,6 +45,11 @@ void USpriteRenderer::Render(float DeltaTime)
 
 			if (CurAnimation->CurIndex >= Indexs.size())
 			{
+				CurAnimation->IsEnd = true;
+			}
+
+			if (CurAnimation->CurIndex >= Indexs.size())
+			{
 				if (true == CurAnimation->Loop)
 				{
 					CurAnimation->CurIndex = 0;
@@ -55,6 +61,7 @@ void USpriteRenderer::Render(float DeltaTime)
 				}
 				else
 				{
+					CurAnimation->IsEnd = true;
 					--CurAnimation->CurIndex;
 				}
 			}

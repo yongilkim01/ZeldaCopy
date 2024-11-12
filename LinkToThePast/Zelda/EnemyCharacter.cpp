@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "EnemyCharacter.h"
 #include "PlayerCharacter.h"
+#include "EffectEnemyDeath.h"
 
 #include <EngineBase/EngineMath.h>
 
@@ -22,6 +23,8 @@ void AEnemyCharacter::BeginPlay()
 void AEnemyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (this->DeathEffect != nullptr && GetDeathEffectAnimationIsEnd() == false) return;
 
 	PrintEnemyDebugInfo();
 
@@ -94,6 +97,11 @@ FVector2D AEnemyCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation
 float AEnemyCharacter::GetDistanceToTargetLocation(FVector2D TargetLocation)
 {
 	return GetActorLocation().DistanceTo(TargetLocation);
+}
+
+bool AEnemyCharacter::GetDeathEffectAnimationIsEnd()
+{
+	return this->DeathEffect->GetAnimationIsEnd();
 }
 
 void AEnemyCharacter::PrintEnemyDebugInfo()
