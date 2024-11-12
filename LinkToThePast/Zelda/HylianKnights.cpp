@@ -24,6 +24,11 @@ AHylianKnights::AHylianKnights()
 		SpriteRenderer->CreateAnimation("Move_Up", "HylianKnightMoveUp.png", 0, 2, 0.3f);
 		SpriteRenderer->CreateAnimation("Move_Down", "HylianKnightMoveDown.png", 0, 2, 0.3f);
 
+		SpriteRenderer->CreateAnimation("Hit_Right", "HylianKnightHit.png", 0, 3, 0.05f);
+		SpriteRenderer->CreateAnimation("Hit_Left", "HylianKnightHit.png", 4, 7, 0.05f);
+		SpriteRenderer->CreateAnimation("Hit_Up", "HylianKnightHit.png", 8, 11, 0.05f);
+		SpriteRenderer->CreateAnimation("Hit_Down", "HylianKnightHit.png", 12, 15, 0.05f);
+
 		SpriteRenderer->ChangeAnimation("Move_Down");
 
 	}
@@ -147,76 +152,28 @@ void AHylianKnights::TakeDamage(int Damage)
 
 void AHylianKnights::TurnAnimation(FVector2D Direction)
 {
-	if (Direction == FVector2D::RIGHT)
-	{
-		if (CurrentDirection == FVector2D::UP)
-		{
-			this->SpriteRenderer->ChangeAnimation("Move_Right");
-		}
-		else if (CurrentDirection == FVector2D::DOWN)
-		{
-			this->SpriteRenderer->ChangeAnimation("Move_Left");
 
-		}
-	}
-	else if (Direction == FVector2D::LEFT)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Left");
-
-	}
-	else if (Direction == FVector2D::UP)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Up");
-
-	}
-	else if (Direction == FVector2D::DOWN)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Down");
-
-	}
-
-
-
-	if (CurrentDirection == FVector2D::RIGHT)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Right");
-	}
-	else if (CurrentDirection == FVector2D::LEFT)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Left");
-
-	}
-	else if (CurrentDirection == FVector2D::UP)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Up");
-
-	}
-	else if (CurrentDirection == FVector2D::DOWN)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Down");
-
-	}
 }
 
 void AHylianKnights::ChangeAnimation(FVector2D Direction)
 {
 	if (Direction == FVector2D::RIGHT)
 	{
-		this->SpriteRenderer->ChangeAnimation("Move_Right");
+		this->SpriteRenderer->ChangeAnimation("Hit_Down");
 	}
 	else if (Direction == FVector2D::LEFT)
 	{
-		this->SpriteRenderer->ChangeAnimation("Move_Left");
+		this->SpriteRenderer->ChangeAnimation("Hit_Down");
 
 	}
 	else if (Direction == FVector2D::UP)
 	{
-		this->SpriteRenderer->ChangeAnimation("Move_Up");
+		this->SpriteRenderer->ChangeAnimation("Hit_Down");
 
 	}
 	else if (Direction == FVector2D::DOWN)
 	{
-		this->SpriteRenderer->ChangeAnimation("Move_Down");
+		this->SpriteRenderer->ChangeAnimation("Hit_Down");
 
 	}
 }
