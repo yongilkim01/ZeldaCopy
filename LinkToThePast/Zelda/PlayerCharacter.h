@@ -24,7 +24,7 @@ class APlayerCharacter : public AActor
 public:
 	/** 생성자, 소멸자 */
 	APlayerCharacter();
-	~APlayerCharacter();
+	~APlayerCharacter() {}
 
 	/** 객체 값 복사 */
 	APlayerCharacter(const APlayerCharacter& _Other) = delete;

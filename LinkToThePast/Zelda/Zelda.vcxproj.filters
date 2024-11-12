@@ -87,6 +87,9 @@
     <ClCompile Include="HylianKnights.cpp">
       <Filter>2_Data\Enemy\Castle</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCharacter_1.StateMachine.cpp">
+      <Filter>0_PlayerCharacter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="0_PlayerCharacter">

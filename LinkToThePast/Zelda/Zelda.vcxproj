@@ -187,6 +187,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerCharacter_1.StateMachine.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
