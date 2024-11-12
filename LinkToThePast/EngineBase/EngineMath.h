@@ -344,6 +344,11 @@ public:
 	{
 		return std::abs(Value);
 	}
+
+	static float Abs(float Value)
+	{
+		return std::abs(Value);
+	}
 };
 
 

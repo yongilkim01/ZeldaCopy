@@ -47,7 +47,10 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("LinkAttackLeft.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkAttackUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkAttackDown.png", { 64, 64 });
-	UImageManager::GetInst().CuttingSprite("KnightMoveDown.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("HylianKnightMoveRight.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("HylianKnightMoveLeft.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("HylianKnightMoveUp.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("HylianKnightMoveDown.png", { 64, 64 });
 
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");

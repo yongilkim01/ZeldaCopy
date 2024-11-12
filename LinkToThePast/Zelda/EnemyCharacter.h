@@ -5,7 +5,7 @@ class APlayerCharacter;
 
 enum class EEnemyState
 {
-	Idle,
+	Patrol,
 	Move,
 	Attack,
 	KnockBack,
@@ -36,7 +36,7 @@ public:
 	{
 		this->TurningLocations.push_back(Location);
 	}
-	float GetDegree(FVector2D TargetLocation);
+	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
 
 	EEnemyState GetCurEnemyState() { return this->CurEnemyState; }
 	void SetCurEnemyState(EEnemyState EnemyState) { this->CurEnemyState = EnemyState; }
@@ -49,8 +49,7 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void Idle(float DeltaTime);
-	virtual void Move(float DeltaTime) {};
+	virtual void Patrol(float DeltaTime);
 	virtual void Attack(float DeltaTime) {};
 	virtual void KnockBack(float DeltaTime) {};
 	virtual void Trace(float DeltaTime) {};
@@ -59,7 +58,7 @@ protected:
 
 private:
 	FVector2D CurDir = FVector2D::ZERO;
-	EEnemyState CurEnemyState = EEnemyState::Idle;
+	EEnemyState CurEnemyState = EEnemyState::Patrol;
 	std::vector<FVector2D> TurningLocations;
 
 	int MaxHP = 100;

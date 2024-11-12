@@ -14,14 +14,17 @@
 AHylianKnights::AHylianKnights()
 {
 	{
-		USpriteRenderer* SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		SpriteRenderer->SetSprite("KnightMoveDown.png");
+		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		SpriteRenderer->SetSprite("HylianKnightMoveDown.png");
 		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
 		SpriteRenderer->SetSpriteScale(3.0f);
-		SpriteRenderer->CreateAnimation("Idle_Down", "KnightMoveDown.png", 0, 0, 0.1f);
-		SpriteRenderer->CreateAnimation("Run_Down", "KnightMoveDown.png", 0, 3, 0.3f);
+		SpriteRenderer->CreateAnimation("Idle_Down", "HylianKnightMoveDown.png", 0, 0, 0.1f);
+		SpriteRenderer->CreateAnimation("Move_Right", "HylianKnightMoveRight.png", 0, 2, 0.3f);
+		SpriteRenderer->CreateAnimation("Move_Left", "HylianKnightMoveLeft.png", 0, 2, 0.3f);
+		SpriteRenderer->CreateAnimation("Move_Up", "HylianKnightMoveUp.png", 0, 2, 0.3f);
+		SpriteRenderer->CreateAnimation("Move_Down", "HylianKnightMoveDown.png", 0, 2, 0.3f);
 
-		SpriteRenderer->ChangeAnimation("Run_Down");
+		SpriteRenderer->ChangeAnimation("Move_Down");
 
 	}
 	{
@@ -59,26 +62,42 @@ void AHylianKnights::Tick(float DeltaTime)
 	AEnemyCharacter::Tick(DeltaTime);
 }
 
-void AHylianKnights::Idle(float DeltaTime)
+void AHylianKnights::Patrol(float DeltaTime)
 {
-	AEnemyCharacter::Idle(DeltaTime);
+	AEnemyCharacter::Patrol(DeltaTime);
 
 	UEngineDebug::CoreOutPutString("Enemy State : Idle");
 	UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
+
 	//if (IsRangeToPlayer())
 	//{
 	//	SetCurEnemyState(EEnemyState::Trace);
 	//}
 	//UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
 
-	GetDegree(PlayerCharacter->GetActorLocation());
-	
+	FVector2D KnightDir = GetDirectionToTargetLocation(PlayerCharacter->GetActorLocation());
+
+	if (KnightDir == FVector2D::RIGHT)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Right");
+	}
+	else if (KnightDir == FVector2D::LEFT)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Left");
+
+	}
+	else if (KnightDir == FVector2D::UP)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Up");
+
+	}
+	else if (KnightDir == FVector2D::DOWN)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Down");
+
+	}
 }
 
-void AHylianKnights::Move(float DeltaTime)
-{
-	UEngineDebug::CoreOutPutString("Enemy State : Move");
-}
 
 void AHylianKnights::Attack(float DeltaTime)
 {
@@ -89,7 +108,7 @@ void AHylianKnights::KnockBack(float DeltaTime)
 {
 	if (KnockBackCnt > 80)
 	{
-		SetCurEnemyState(EEnemyState::Idle);
+		SetCurEnemyState(EEnemyState::Patrol);
 		return;
 	}
 	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");

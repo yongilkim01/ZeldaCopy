@@ -1,6 +1,8 @@
 #pragma once
 #include "EnemyCharacter.h"
 
+class USpriteRenderer;
+
 /**
  *	Ό³Έν
  */
@@ -23,8 +25,7 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void Idle(float DeltaTime) override;
-	virtual void Move(float DeltaTime) override;
+	virtual void Patrol(float DeltaTime) override;
 	virtual void Attack(float DeltaTime) override;
 	virtual void KnockBack(float DeltaTime) override;
 	virtual void Trace(float DeltaTime) override;
@@ -32,5 +33,7 @@ protected:
 private:
 	int KnockBackCnt = 0;
 	float Speed = 100.0f;
+
+	USpriteRenderer* SpriteRenderer;
 };
 

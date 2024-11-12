@@ -2,6 +2,8 @@
 #include "EnemyCharacter.h"
 #include "PlayerCharacter.h"
 
+#include <EngineBase/EngineMath.h>
+
 #include <EngineCore/EngineCoreDebug.h>
 
 AEnemyCharacter::AEnemyCharacter()
@@ -25,11 +27,8 @@ void AEnemyCharacter::Tick(float DeltaTime)
 
 	switch (CurEnemyState)
 	{
-	case EEnemyState::Idle:
-		Idle(DeltaTime);
-		break;
-	case EEnemyState::Move:
-		Move(DeltaTime);
+	case EEnemyState::Patrol:
+		Patrol(DeltaTime);
 		break;
 	case EEnemyState::Attack:
 		Attack(DeltaTime);
@@ -45,7 +44,7 @@ void AEnemyCharacter::Tick(float DeltaTime)
 	}
 }
 
-void AEnemyCharacter::Idle(float DeltaTime)
+void AEnemyCharacter::Patrol(float DeltaTime)
 {
 	//if (this->TurningLocations[CurTurningIndex].DistanceTo(GetActorLocation()) < 10.0f)
 	//{
@@ -92,25 +91,43 @@ bool AEnemyCharacter::IsRangeToPlayer()
 	return (CheckDistanceToPlayer()) < DetectionRange;
 }
 
-float AEnemyCharacter::GetDegree(FVector2D TargetLocation)
+FVector2D AEnemyCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
 {
 	FVector2D ResultDir = TargetLocation - GetActorLocation();
 	ResultDir.Normalize();
 
-	int DirY = EngineMath::Abs(ResultDir.iY());
-	int DirX = EngineMath::Abs(ResultDir.iX());
+	float DirY = EngineMath::Abs(ResultDir.Y);
+	float DirX = EngineMath::Abs(ResultDir.X);
 	UEngineDebug::CoreOutPutString("Player to enemy vector : " + ResultDir.ToString());
 	
-	if (ResultDir.iY() > ResultDir.iX()) // Up 또는 Down
+	if (DirY > DirX) // Up 또는 Down
 	{
-		UEngineDebug::CoreOutPutString("Player position up or down");
+		if (ResultDir.Y > 0.0f)
+		{
+			UEngineDebug::CoreOutPutString("Player position is down");
+			return FVector2D::DOWN;
+		}
+		else
+		{
+			UEngineDebug::CoreOutPutString("Player position is up");
+			return FVector2D::UP;
+		}
 	}
 	else // Right 또는 Left
 	{
-		UEngineDebug::CoreOutPutString("Player position right or left");
+		if (ResultDir.X > 0.0f)
+		{
+			UEngineDebug::CoreOutPutString("Player position is right");
+			return FVector2D::RIGHT;
+		}
+		else
+		{
+			UEngineDebug::CoreOutPutString("Player position is left");
+			return FVector2D::LEFT;
+		}
 	}
 
-	return 0.0f;
+	return FVector2D::ZERO;
 }
 
 void AEnemyCharacter::PrintEnemyDebugInfo()
