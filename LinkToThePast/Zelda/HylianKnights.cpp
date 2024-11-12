@@ -59,7 +59,6 @@ void AHylianKnights::BeginPlay()
 	// Set turning locations
 	AddTurningLocation(FVector2D(2332, 1724));
 	AddTurningLocation(FVector2D(2332, 1974));
-	//2332, 1724
 }
 
 void AHylianKnights::Tick(float DeltaTime)

@@ -13,14 +13,17 @@ void AHylianKnights::Patrol(float DeltaTime)
 
 	if (this->TurningLocations[CurTurningIndex].DistanceTo(GetActorLocation()) < 10.0f)
 	{
-		this->CurTurningIndex++;
-		if (this->CurTurningIndex == this->TurningLocations.size())
+		// 순환을 위해서 현재 인덱스가 마지막 인덱스라면 0으로 초기화
+		if (this->CurTurningIndex == this->TurningLocations.size() - 1)
 		{
 			this->CurTurningIndex = 0;
 		}
-		ChangeMoveAnimation(
-			GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex])
-		);
+		else
+		{
+			this->CurTurningIndex++;
+		}
+		this->CurDir = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
+		ChangeMoveAnimation(CurDir);
 	}
 	else
 	{
@@ -31,14 +34,59 @@ void AHylianKnights::Patrol(float DeltaTime)
 		MoveDir.Normalize();
 
 		AddActorLocation(MoveDir * DeltaTime * Speed);
-		ChangeMoveAnimation(
-			GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex])
-			);
+		this->CurDir = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
+		ChangeMoveAnimation(CurDir);
 	}
 
 	if (IsRangeToPlayer())
 	{
-		SetCurEnemyState(EEnemyState::Trace);
+		if (CurDir == FVector2D::RIGHT)
+		{
+			UEngineDebug::CoreOutPutString("Enemy Direction : Right");
+
+			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + 200.0f &&
+				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - 200.0f)
+			{
+				CurEnemyState = EEnemyState::Trace;
+			}
+
+		}
+		else if (CurDir == FVector2D::LEFT)
+		{
+			UEngineDebug::CoreOutPutString("Enemy Direction : Left");
+
+			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + 200.0f &&
+				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - 200.0f)
+			{
+				CurEnemyState = EEnemyState::Trace;
+			}
+
+		}
+		else if (CurDir == FVector2D::UP)
+		{
+			UEngineDebug::CoreOutPutString("Enemy Direction : Up");
+
+			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + 200.0f &&
+				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - 200.0f &&
+				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y)
+			{
+				CurEnemyState = EEnemyState::Trace;
+			}
+
+		}
+		else if (CurDir == FVector2D::DOWN)
+		{
+			UEngineDebug::CoreOutPutString("Enemy Direction : Down");
+
+
+			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + 100.0f &&
+				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - 100.0f &&
+				GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y)
+			{
+				CurEnemyState = EEnemyState::Trace;
+			}
+
+		}
 	}
 }
 

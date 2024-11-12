@@ -41,7 +41,7 @@
       <Filter>2_Data\0_Enemy</Filter>
     </ClInclude>
     <ClInclude Include="HylianKnights.h">
-      <Filter>2_Data\0_Enemy\Castle</Filter>
+      <Filter>2_Data\0_Enemy\HylianCastle</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>2_Data\1_Effect</Filter>
@@ -91,7 +91,7 @@
       <Filter>2_Data\0_Enemy</Filter>
     </ClCompile>
     <ClCompile Include="HylianKnights.cpp">
-      <Filter>2_Data\0_Enemy\Castle</Filter>
+      <Filter>2_Data\0_Enemy\HylianCastle</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCharacter_1.StateMachine.cpp">
       <Filter>0_PlayerCharacter</Filter>
@@ -103,10 +103,10 @@
       <Filter>2_Data\1_Effect</Filter>
     </ClCompile>
     <ClCompile Include="HylianKnights_2.Animation.cpp">
-      <Filter>2_Data\0_Enemy\Castle</Filter>
+      <Filter>2_Data\0_Enemy\HylianCastle</Filter>
     </ClCompile>
     <ClCompile Include="HylianKnights_1.StateMachine.cpp">
-      <Filter>2_Data\0_Enemy\Castle</Filter>
+      <Filter>2_Data\0_Enemy\HylianCastle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,14 +140,14 @@
     <Filter Include="2_Data\0_Enemy">
       <UniqueIdentifier>{81acc3ac-1612-4237-9e7a-32b77baf0c86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Data\0_Enemy\Castle">
-      <UniqueIdentifier>{d7d9ee7a-a119-4a77-b568-6c923a15a663}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Data\1_Effect">
       <UniqueIdentifier>{c447c80b-86a9-485a-b498-5f1c6112b233}</UniqueIdentifier>
     </Filter>
     <Filter Include="2_Data\2_Room">
       <UniqueIdentifier>{6f4636bb-8c0c-4ba6-8648-b6dfa9839376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\0_Enemy\HylianCastle">
+      <UniqueIdentifier>{d7d9ee7a-a119-4a77-b568-6c923a15a663}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
