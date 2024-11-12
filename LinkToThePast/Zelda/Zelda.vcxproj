@@ -199,6 +199,8 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="HylianKnights_1.StateMachine.cpp" />
+    <ClCompile Include="HylianKnights_2.Animation.cpp" />
     <ClCompile Include="PlayerCharacter.cpp">
       <SubType>
       </SubType>

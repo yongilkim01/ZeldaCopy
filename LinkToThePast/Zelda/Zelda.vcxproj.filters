@@ -102,6 +102,12 @@
     <ClCompile Include="EffectEnemyDeath.cpp">
       <Filter>2_Data\1_Effect</Filter>
     </ClCompile>
+    <ClCompile Include="HylianKnights_2.Animation.cpp">
+      <Filter>2_Data\0_Enemy\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="HylianKnights_1.StateMachine.cpp">
+      <Filter>2_Data\0_Enemy\Castle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="0_PlayerCharacter">

@@ -62,17 +62,17 @@ APlayerCharacter::APlayerCharacter()
 		LeftAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(LeftAttackCollision);
 
-		UCollision2D* UpAttackCollision = CreateDefaultSubObject<UCollision2D>();
-		UpAttackCollision->SetComponentLocation({ 0, 50 });
-		UpAttackCollision->SetComponentScale({ 70, 50 });
-		UpAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
-		AttackCollisions.push_back(UpAttackCollision);
-
 		UCollision2D* DownAttackCollision = CreateDefaultSubObject<UCollision2D>();
-		DownAttackCollision->SetComponentLocation({ 0, -50 });
+		DownAttackCollision->SetComponentLocation({ 0, 50 });
 		DownAttackCollision->SetComponentScale({ 70, 50 });
 		DownAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(DownAttackCollision);
+
+		UCollision2D* UpAttackCollision = CreateDefaultSubObject<UCollision2D>();
+		UpAttackCollision->SetComponentLocation({ 0, -50 });
+		UpAttackCollision->SetComponentScale({ 70, 50 });
+		UpAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		AttackCollisions.push_back(UpAttackCollision);
 
 	}
 }

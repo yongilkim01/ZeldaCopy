@@ -34,12 +34,11 @@ AHylianKnights::AHylianKnights()
 
 	}
 	{
-		UCollision2D* CollisionComponent = CreateDefaultSubObject<UCollision2D>();
+		CollisionComponent = CreateDefaultSubObject<UCollision2D>();
 		CollisionComponent->SetComponentLocation({ 0, 0 });
 		CollisionComponent->SetComponentScale({ 60, 75 });
 		CollisionComponent->SetCollisionGroup(ECollisionGroup::EnemyBody);
 		CollisionComponent->SetCollisionType(ECollisionType::Rect);
-		//DebugOn();
 	}
 }
 
@@ -68,102 +67,6 @@ void AHylianKnights::Tick(float DeltaTime)
 	AEnemyCharacter::Tick(DeltaTime);
 }
 
-////////////////////////////////////// State Machine //////////////////////////////////////
-
-void AHylianKnights::Patrol(float DeltaTime)
-{
-	AEnemyCharacter::Patrol(DeltaTime);
-
-	if (this->TurningLocations[CurTurningIndex].DistanceTo(GetActorLocation()) < 10.0f)
-	{
-		this->CurTurningIndex++;
-		if (this->CurTurningIndex == this->TurningLocations.size())
-		{
-			this->CurTurningIndex = 0;
-		}
-		ChangeAnimation(
-			GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex])
-		);
-	}
-	else
-	{
-		FVector2D CurEnemyLocation = GetActorLocation();
-		FVector2D TurningLocation = this->TurningLocations[CurTurningIndex];
-
-		FVector2D MoveDir = TurningLocation - CurEnemyLocation;
-		MoveDir.Normalize();
-
-		AddActorLocation(MoveDir * DeltaTime * Speed);
-		ChangeAnimation(
-			GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex])
-			);
-	}
-
-	UEngineDebug::CoreOutPutString("Enemy State : Idle");
-	UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
-
-	if (IsRangeToPlayer())
-	{
-		SetCurEnemyState(EEnemyState::Trace);
-	}
-
-}
-
-void AHylianKnights::Trace(float DeltaTime)
-{
-	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
-	FVector2D EnemeyLocation = this->GetActorLocation();
-
-	FVector2D TraceDir = PlayerLocation - EnemeyLocation;
-	TraceDir.Normalize();
-
-	AddActorLocation(TraceDir * DeltaTime * GetSpeed());
-
-	CurrentDirection = GetDirectionToTargetLocation(PlayerLocation);
-
-	ChangeAnimation(CurrentDirection);
-
-	if (GetDistanceToTargetLocation(PlayerLocation) < AttackRange)
-	{
-		CurEnemyState = EEnemyState::Attack;
-	}
-}
-
-
-void AHylianKnights::Attack(float DeltaTime)
-{
-	UEngineDebug::CoreOutPutString("Enemy State : Attack");
-
-	if (GetDistanceToTargetLocation(this->PlayerCharacter->GetActorLocation()) > AttackRange)
-	{
-		CurEnemyState = EEnemyState::Trace;
-	}
-}
-
-void AHylianKnights::KnockBack(float DeltaTime)
-{
-	if (KnockBackCnt > 80)
-	{
-		CurEnemyState = PrevEnemyState;
-		KnockBackCnt = 0;
-		return;
-	}
-	this->SpriteRenderer->ChangeAnimation("Hit_Left");
-	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
-	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
-	FVector2D EnemeyLocation = this->GetActorLocation();
-
-	FVector2D KnockBackDir = EnemeyLocation - PlayerLocation;
-	KnockBackDir.Normalize();
-
-	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
-
-	KnockBackCnt++;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
-
 void AHylianKnights::TakeDamage(int Damage)
 {
 	if (CurEnemyState == EEnemyState::KnockBack) return;
@@ -171,35 +74,9 @@ void AHylianKnights::TakeDamage(int Damage)
 
 	if (CurrentHP <= 0)
 	{
-
-		//SpriteRenderer->SetComponentScale({ 0.0f, 0.0f });
-
-		DeathEffect = GetWorld()->SpawnActor<AEffectEnemyDeath>();
-		DeathEffect->SetActorLocation(GetActorLocation());
-		DeathEffect->SetOwnerActor(this);
-		//this->Destroy();
+		PrevEnemyState = CurEnemyState;
+		CurEnemyState = EEnemyState::KnockBack;
 	}
 	PrevEnemyState = CurEnemyState;
 	CurEnemyState = EEnemyState::KnockBack;
-}
-
-
-void AHylianKnights::ChangeAnimation(FVector2D Direction)
-{
-	if (Direction == FVector2D::RIGHT)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Right");
-	}
-	else if (Direction == FVector2D::LEFT)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Left");
-	}
-	else if (Direction == FVector2D::UP)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Up");
-	}
-	else if (Direction == FVector2D::DOWN)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Down");
-	}
 }

@@ -223,11 +223,6 @@ void APlayerCharacter::Move(float DeltaTime)
 		}
 	}
 
-
-	//AddActorLocation(MoveDir * DeltaTime * Speed);
-
-	//CollisionComponent->CollisionMap(UColor::PINK);
-
 	MoveDir = FVector2D::ZERO;
 
 	if (false == UEngineInput::GetInst().IsPress('A') &&
@@ -261,30 +256,33 @@ void APlayerCharacter::Attack(float DeltaTime)
 			Result->TakeDamage(10);
 		}
 	}
-	//else if (this->CurDir == FVector2D::LEFT)
-	//{
-	//	AActor* Result = AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody);
-	//	if (nullptr != Result)
-	//	{
-	//		Result->Destroy();
-	//	}
-	//}
-	//else if (this->CurDir == FVector2D::UP)
-	//{
-	//	AActor* Result = AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody);
-	//	if (nullptr != Result)
-	//	{
-	//		Result->Destroy();
-	//	}
-	//}
-	//else if (this->CurDir == FVector2D::DOWN)
-	//{
-	//	AActor* Result = AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody);
-	//	if (nullptr != Result)
-	//	{
-	//		Result->Destroy();
-	//	}
-	//}
+	else if (this->CurDir == FVector2D::LEFT)
+	{
+		IsAttack = true;
+		AHylianKnights* Result = dynamic_cast<AHylianKnights*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody));
+		if (nullptr != Result)
+		{
+			Result->TakeDamage(10);
+		}
+	}
+	else if (this->CurDir == FVector2D::DOWN)
+	{
+		IsAttack = true;
+		AHylianKnights* Result = dynamic_cast<AHylianKnights*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody));
+		if (nullptr != Result)
+		{
+			Result->TakeDamage(10);
+		}
+	}
+	else if (this->CurDir == FVector2D::UP)
+	{
+		IsAttack = true;
+		AHylianKnights* Result = dynamic_cast<AHylianKnights*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody));
+		if (nullptr != Result)
+		{
+			Result->TakeDamage(10);
+		}
+	}
 }
 
 void APlayerCharacter::EndAttack()

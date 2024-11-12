@@ -2,6 +2,7 @@
 #include "EnemyCharacter.h"
 
 class USpriteRenderer;
+class UCollision2D;
 
 /**
  *	Ό³Έν
@@ -22,7 +23,8 @@ public:
 	virtual void TakeDamage(int Damage = 10) override;
 
 public:
-	void ChangeAnimation(FVector2D Direction);
+	void ChangeMoveAnimation(FVector2D Direction);
+	void ChangeHitAnimation(FVector2D Direction);
 
 protected:
 	virtual void BeginPlay() override;
@@ -38,6 +40,7 @@ private:
 	float Speed = 100.0f;
 
 	USpriteRenderer* SpriteRenderer = nullptr;
+	UCollision2D* CollisionComponent = nullptr;
 	FVector2D CurrentDirection = FVector2D::ZERO;
 };
 
