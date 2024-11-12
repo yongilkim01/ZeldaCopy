@@ -378,30 +378,30 @@ void APlayerCharacter::Attack(float DeltaTime)
 			Result->TakeDamage(10);
 		}
 	}
-	else if (this->CurDir == FVector2D::LEFT)
-	{
-		AActor* Result = AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody);
-		if (nullptr != Result)
-		{
-			Result->Destroy();
-		}
-	}
-	else if (this->CurDir == FVector2D::UP)
-	{
-		AActor* Result = AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody);
-		if (nullptr != Result)
-		{
-			Result->Destroy();
-		}
-	}
-	else if (this->CurDir == FVector2D::DOWN)
-	{
-		AActor* Result = AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody);
-		if (nullptr != Result)
-		{
-			Result->Destroy();
-		}
-	}
+	//else if (this->CurDir == FVector2D::LEFT)
+	//{
+	//	AActor* Result = AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody);
+	//	if (nullptr != Result)
+	//	{
+	//		Result->Destroy();
+	//	}
+	//}
+	//else if (this->CurDir == FVector2D::UP)
+	//{
+	//	AActor* Result = AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody);
+	//	if (nullptr != Result)
+	//	{
+	//		Result->Destroy();
+	//	}
+	//}
+	//else if (this->CurDir == FVector2D::DOWN)
+	//{
+	//	AActor* Result = AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody);
+	//	if (nullptr != Result)
+	//	{
+	//		Result->Destroy();
+	//	}
+	//}
 }
 
 void APlayerCharacter::EndAttack()

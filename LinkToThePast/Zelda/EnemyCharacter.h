@@ -6,7 +6,6 @@ class APlayerCharacter;
 enum class EEnemyState
 {
 	Patrol,
-	Move,
 	Attack,
 	KnockBack,
 	Trace,
@@ -28,7 +27,7 @@ public:
 	AEnemyCharacter& operator=(const AEnemyCharacter& _Other) = delete;
 	AEnemyCharacter& operator=(AEnemyCharacter&& _Other) noexcept = delete;
 
-	virtual void TakeDamage(int Damage = 10);
+	virtual void TakeDamage(int Damage = 10) {}
 	
 	float CheckDistanceToPlayer();
 	bool IsRangeToPlayer();
@@ -37,6 +36,7 @@ public:
 		this->TurningLocations.push_back(Location);
 	}
 	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
+	float GetDistanceToTargetLocation(FVector2D TargetLocation);
 
 	EEnemyState GetCurEnemyState() { return this->CurEnemyState; }
 	void SetCurEnemyState(EEnemyState EnemyState) { this->CurEnemyState = EnemyState; }
@@ -54,18 +54,24 @@ protected:
 	virtual void KnockBack(float DeltaTime) {};
 	virtual void Trace(float DeltaTime) {};
 
+	virtual void StartPatrol() {};
+	virtual void StartAttack() {};
+	virtual void StartKnockBack() {};
+	virtual void StartTrace() {};
+
 	APlayerCharacter* PlayerCharacter = nullptr;
 	std::vector<FVector2D> TurningLocations;
 	FVector2D CurDir = FVector2D::ZERO;
 	EEnemyState CurEnemyState = EEnemyState::Patrol;
+	EEnemyState PrevEnemyState = EEnemyState::Patrol;
 
 	int CurTurningIndex = 0;
-
-private:
-
 	int MaxHP = 100;
 	int CurrentHP = 40;
 	float DetectionRange = 200.0f;
-	float Speed = 100.0f;
+	float Speed = 80.0f;
+	float AttackRange = 50.0f;
+
+private:
 };
 

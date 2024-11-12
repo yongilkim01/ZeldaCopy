@@ -44,17 +44,6 @@ void AEnemyCharacter::Tick(float DeltaTime)
 	}
 }
 
-void AEnemyCharacter::TakeDamage(int Damage)
-{
-	CurrentHP -= Damage;
-
-	if (CurrentHP <= 0)
-	{
-		this->Destroy();
-	}
-	CurEnemyState = EEnemyState::KnockBack;
-}
-
 float AEnemyCharacter::CheckDistanceToPlayer()
 {
 	if (this->PlayerCharacter != nullptr)
@@ -74,21 +63,16 @@ FVector2D AEnemyCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation
 {
 	FVector2D ResultDir = TargetLocation - GetActorLocation();
 	ResultDir.Normalize();
-
-	float DirY = EngineMath::Abs(ResultDir.Y);
-	float DirX = EngineMath::Abs(ResultDir.X);
-	UEngineDebug::CoreOutPutString("Player to enemy vector : " + ResultDir.ToString());
 	
-	if (DirY > DirX) // Up 또는 Down
+	// Up 또는 Down
+	if (EngineMath::Abs(ResultDir.Y) > EngineMath::Abs(ResultDir.X))
 	{
 		if (ResultDir.Y > 0.0f)
 		{
-			UEngineDebug::CoreOutPutString("Player position is down");
 			return FVector2D::DOWN;
 		}
 		else
 		{
-			UEngineDebug::CoreOutPutString("Player position is up");
 			return FVector2D::UP;
 		}
 	}
@@ -96,17 +80,20 @@ FVector2D AEnemyCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation
 	{
 		if (ResultDir.X > 0.0f)
 		{
-			UEngineDebug::CoreOutPutString("Player position is right");
 			return FVector2D::RIGHT;
 		}
 		else
 		{
-			UEngineDebug::CoreOutPutString("Player position is left");
 			return FVector2D::LEFT;
 		}
 	}
 
 	return FVector2D::ZERO;
+}
+
+float AEnemyCharacter::GetDistanceToTargetLocation(FVector2D TargetLocation)
+{
+	return GetActorLocation().DistanceTo(TargetLocation);
 }
 
 void AEnemyCharacter::PrintEnemyDebugInfo()

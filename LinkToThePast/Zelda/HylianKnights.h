@@ -22,7 +22,6 @@ public:
 	virtual void TakeDamage(int Damage = 10) override;
 
 public:
-	void TurnAnimation(FVector2D Direction);
 	void ChangeAnimation(FVector2D Direction);
 
 protected:
@@ -34,7 +33,10 @@ protected:
 	virtual void KnockBack(float DeltaTime) override;
 	virtual void Trace(float DeltaTime) override;
 
-	void EndKnockBcack();
+	virtual void StartPatrol() override;
+	virtual void StartAttack() override;
+	virtual void StartKnockBack() override;
+	virtual void StartTrace() override;
 
 private:
 	int KnockBackCnt = 0;

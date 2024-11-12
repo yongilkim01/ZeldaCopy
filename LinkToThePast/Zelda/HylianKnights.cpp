@@ -68,6 +68,24 @@ void AHylianKnights::Tick(float DeltaTime)
 	AEnemyCharacter::Tick(DeltaTime);
 }
 
+////////////////////////////////////// State Machine //////////////////////////////////////
+
+void AHylianKnights::StartPatrol()
+{
+}
+
+void AHylianKnights::StartAttack()
+{
+}
+
+void AHylianKnights::StartKnockBack()
+{
+}
+
+void AHylianKnights::StartTrace()
+{
+}
+
 void AHylianKnights::Patrol(float DeltaTime)
 {
 	AEnemyCharacter::Patrol(DeltaTime);
@@ -104,35 +122,7 @@ void AHylianKnights::Patrol(float DeltaTime)
 	{
 		SetCurEnemyState(EEnemyState::Trace);
 	}
-	UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
 
-	CurrentDirection = GetDirectionToTargetLocation(PlayerCharacter->GetActorLocation());
-}
-
-
-void AHylianKnights::Attack(float DeltaTime)
-{
-	UEngineDebug::CoreOutPutString("Enemy State : Attack");
-}
-
-void AHylianKnights::KnockBack(float DeltaTime)
-{
-	if (KnockBackCnt > 80)
-	{
-		SetCurEnemyState(EEnemyState::Patrol);
-		return;
-	}
-	this->SpriteRenderer->ChangeAnimation("Hit_Left");
-	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
-	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
-	FVector2D EnemeyLocation = this->GetActorLocation();
-
-	FVector2D KnockBackDir = EnemeyLocation - PlayerLocation;
-	KnockBackDir.Normalize();
-
-	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
-
-	KnockBackCnt++;
 }
 
 void AHylianKnights::Trace(float DeltaTime)
@@ -150,20 +140,49 @@ void AHylianKnights::Trace(float DeltaTime)
 	ChangeAnimation(CurrentDirection);
 }
 
-void AHylianKnights::EndKnockBcack()
+
+void AHylianKnights::Attack(float DeltaTime)
 {
-	CurEnemyState = EEnemyState::Patrol;
+	UEngineDebug::CoreOutPutString("Enemy State : Attack");
 }
+
+void AHylianKnights::KnockBack(float DeltaTime)
+{
+	if (KnockBackCnt > 80)
+	{
+		CurEnemyState = PrevEnemyState;
+		KnockBackCnt = 0;
+		return;
+	}
+	this->SpriteRenderer->ChangeAnimation("Hit_Left");
+	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
+	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
+	FVector2D EnemeyLocation = this->GetActorLocation();
+
+	FVector2D KnockBackDir = EnemeyLocation - PlayerLocation;
+	KnockBackDir.Normalize();
+
+	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
+
+	KnockBackCnt++;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 
 void AHylianKnights::TakeDamage(int Damage)
 {
-	AEnemyCharacter::TakeDamage(Damage);
+	if (CurEnemyState == EEnemyState::KnockBack) return;
+	CurrentHP -= Damage;
+
+	if (CurrentHP <= 0)
+	{
+		this->Destroy();
+	}
+	PrevEnemyState = CurEnemyState;
+	CurEnemyState = EEnemyState::KnockBack;
 }
 
-void AHylianKnights::TurnAnimation(FVector2D Direction)
-{
-
-}
 
 void AHylianKnights::ChangeAnimation(FVector2D Direction)
 {
