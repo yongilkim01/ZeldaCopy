@@ -44,28 +44,6 @@ void AEnemyCharacter::Tick(float DeltaTime)
 	}
 }
 
-void AEnemyCharacter::Patrol(float DeltaTime)
-{
-	//if (this->TurningLocations[CurTurningIndex].DistanceTo(GetActorLocation()) < 10.0f)
-	//{
-	//	this->CurTurningIndex++;
-	//	if (this->CurTurningIndex == this->TurningLocations.size())
-	//	{
-	//		this->CurTurningIndex = 0;
-	//	}
-	//}
-	//else
-	//{ 
-	//	FVector2D CurEnemyLocation = GetActorLocation();
-	//	FVector2D TurningLocation = this->TurningLocations[CurTurningIndex];
-
-	//	FVector2D MoveDir = TurningLocation - CurEnemyLocation;
-	//	MoveDir.Normalize();
-
-	//	AddActorLocation(MoveDir * DeltaTime * Speed);
-	//}
-}
-
 void AEnemyCharacter::TakeDamage(int Damage)
 {
 	CurrentHP -= Damage;

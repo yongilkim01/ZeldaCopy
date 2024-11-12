@@ -66,36 +66,38 @@ void AHylianKnights::Patrol(float DeltaTime)
 {
 	AEnemyCharacter::Patrol(DeltaTime);
 
+	if (this->TurningLocations[CurTurningIndex].DistanceTo(GetActorLocation()) < 10.0f)
+	{
+		this->CurTurningIndex++;
+		if (this->CurTurningIndex == this->TurningLocations.size())
+		{
+			this->CurTurningIndex = 0;
+		}
+		ChangeAnimation(
+			GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex])
+		);
+	}
+	else
+	{
+		FVector2D CurEnemyLocation = GetActorLocation();
+		FVector2D TurningLocation = this->TurningLocations[CurTurningIndex];
+
+		FVector2D MoveDir = TurningLocation - CurEnemyLocation;
+		MoveDir.Normalize();
+
+		AddActorLocation(MoveDir * DeltaTime * Speed);
+	}
+
 	UEngineDebug::CoreOutPutString("Enemy State : Idle");
 	UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
 
-	//if (IsRangeToPlayer())
-	//{
-	//	SetCurEnemyState(EEnemyState::Trace);
-	//}
-	//UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
-
-	FVector2D KnightDir = GetDirectionToTargetLocation(PlayerCharacter->GetActorLocation());
-
-	if (KnightDir == FVector2D::RIGHT)
+	if (IsRangeToPlayer())
 	{
-		this->SpriteRenderer->ChangeAnimation("Move_Right");
+		SetCurEnemyState(EEnemyState::Trace);
 	}
-	else if (KnightDir == FVector2D::LEFT)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Left");
+	UEngineDebug::CoreOutPutString("Player to Distance : " + std::to_string(CheckDistanceToPlayer()));
 
-	}
-	else if (KnightDir == FVector2D::UP)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Up");
-
-	}
-	else if (KnightDir == FVector2D::DOWN)
-	{
-		this->SpriteRenderer->ChangeAnimation("Move_Down");
-
-	}
+	CurrentDirection = GetDirectionToTargetLocation(PlayerCharacter->GetActorLocation());
 }
 
 
@@ -132,9 +134,89 @@ void AHylianKnights::Trace(float DeltaTime)
 	TraceDir.Normalize();
 
 	AddActorLocation(TraceDir * DeltaTime * GetSpeed());
+
+	CurrentDirection = GetDirectionToTargetLocation(PlayerLocation);
+
+	ChangeAnimation(CurrentDirection);
 }
 
 void AHylianKnights::TakeDamage(int Damage)
 {
 	AEnemyCharacter::TakeDamage(Damage);
+}
+
+void AHylianKnights::TurnAnimation(FVector2D Direction)
+{
+	if (Direction == FVector2D::RIGHT)
+	{
+		if (CurrentDirection == FVector2D::UP)
+		{
+			this->SpriteRenderer->ChangeAnimation("Move_Right");
+		}
+		else if (CurrentDirection == FVector2D::DOWN)
+		{
+			this->SpriteRenderer->ChangeAnimation("Move_Left");
+
+		}
+	}
+	else if (Direction == FVector2D::LEFT)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Left");
+
+	}
+	else if (Direction == FVector2D::UP)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Up");
+
+	}
+	else if (Direction == FVector2D::DOWN)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Down");
+
+	}
+
+
+
+	if (CurrentDirection == FVector2D::RIGHT)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Right");
+	}
+	else if (CurrentDirection == FVector2D::LEFT)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Left");
+
+	}
+	else if (CurrentDirection == FVector2D::UP)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Up");
+
+	}
+	else if (CurrentDirection == FVector2D::DOWN)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Down");
+
+	}
+}
+
+void AHylianKnights::ChangeAnimation(FVector2D Direction)
+{
+	if (Direction == FVector2D::RIGHT)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Right");
+	}
+	else if (Direction == FVector2D::LEFT)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Left");
+
+	}
+	else if (Direction == FVector2D::UP)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Up");
+
+	}
+	else if (Direction == FVector2D::DOWN)
+	{
+		this->SpriteRenderer->ChangeAnimation("Move_Down");
+
+	}
 }

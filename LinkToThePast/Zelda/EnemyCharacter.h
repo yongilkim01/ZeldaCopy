@@ -49,23 +49,23 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void Patrol(float DeltaTime);
+	virtual void Patrol(float DeltaTime) {};
 	virtual void Attack(float DeltaTime) {};
 	virtual void KnockBack(float DeltaTime) {};
 	virtual void Trace(float DeltaTime) {};
 
 	APlayerCharacter* PlayerCharacter = nullptr;
-
-private:
+	std::vector<FVector2D> TurningLocations;
 	FVector2D CurDir = FVector2D::ZERO;
 	EEnemyState CurEnemyState = EEnemyState::Patrol;
-	std::vector<FVector2D> TurningLocations;
+
+	int CurTurningIndex = 0;
+
+private:
 
 	int MaxHP = 100;
 	int CurrentHP = 20;
 	float DetectionRange = 150.0f;
 	float Speed = 100.0f;
-
-	int CurTurningIndex = 0;
 };
 

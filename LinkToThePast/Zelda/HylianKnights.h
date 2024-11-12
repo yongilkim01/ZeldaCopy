@@ -21,6 +21,10 @@ public:
 
 	virtual void TakeDamage(int Damage = 10) override;
 
+public:
+	void TurnAnimation(FVector2D Direction);
+	void ChangeAnimation(FVector2D Direction);
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
@@ -34,6 +38,7 @@ private:
 	int KnockBackCnt = 0;
 	float Speed = 100.0f;
 
-	USpriteRenderer* SpriteRenderer;
+	USpriteRenderer* SpriteRenderer = nullptr;
+	FVector2D CurrentDirection = FVector2D::ZERO;
 };
 
