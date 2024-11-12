@@ -13,7 +13,8 @@ AEffectEnemyDeath::AEffectEnemyDeath()
 
 		SpriteRenderer->CreateAnimation("Enemy_Death", "EnemyDeathEffect.png", 0, 6, 0.2f);
 
-		SpriteRenderer->SetAnimationEvent("Enemy_Death", 6, std::bind(&AEffectEnemyDeath::EndEffect, this));
+		SpriteRenderer->SetAnimationEvent("Enemy_Death", 6, std::bind(&AEffectEnemyDeath::DestroyOwner, this));
+		SpriteRenderer->SetAnimationEvent("Enemy_Death", 4, std::bind(&AEffectEnemyDeath::EndEffect, this));
 
 		SpriteRenderer->ChangeAnimation("Enemy_Death");
 	}
@@ -35,6 +36,11 @@ void AEffectEnemyDeath::Tick(float DeltaTime)
 
 void AEffectEnemyDeath::EndEffect()
 {
-	this->Destroy();
+	//this->Destroy();
 	this->GetOwnerActor()->Destroy();
+}
+
+void AEffectEnemyDeath::DestroyOwner()
+{
+	this->Destroy();
 }

@@ -18,6 +18,7 @@ public:
 	AEffectEnemyDeath& operator=(AEffectEnemyDeath&& _Other) noexcept = delete;
 
 	virtual void EndEffect() override;
+	void DestroyOwner();
 
 protected:
 	virtual void BeginPlay() override;
