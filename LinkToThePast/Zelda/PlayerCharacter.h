@@ -8,6 +8,7 @@
 class ARoom;
 class USpriteRenderer;
 class UEngineWinImage;
+class AEnemyCharacter;
 
 enum class EPlayerState
 {
@@ -42,12 +43,14 @@ public:
 	void StartIdle();
 	void StartMove();
 	void StartAttack();
+	void StartKnockBack();
 	void Idle(float DeltaTime);
 	void Move(float DeltaTime);
 	void Attack(float DeltaTime);
+	void KnockBack(float DeltaTime);
 	void EndAttack();
 	void ChangeState(EPlayerState ChangeState);
-	void TakeDamage(int Damage);
+	void TakeDamage(int Damage, AEnemyCharacter* EnemyCharacter);
 
 	void SetCollisionImage(std::string_view CollisionImageName);
 
@@ -91,6 +94,7 @@ private:
 	FVector2D CurDir = FVector2D::DOWN;
 	FVector2D MoveDir = FVector2D::ZERO;
 	FVector2D GravityForce = FVector2D::ZERO;
+	FVector2D KnockBackDir = FVector2D::ZERO;
 
 	float Speed = 250.0f;
 	int MySpriteIndex = 0;

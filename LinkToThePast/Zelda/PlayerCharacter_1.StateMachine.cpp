@@ -22,6 +22,9 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 	case EPlayerState::Attack:
 		StartAttack();
 		break;
+	case EPlayerState::KnockBack:
+		StartKnockBack();
+		break;
 	default:
 		break;
 	}
@@ -106,6 +109,11 @@ void APlayerCharacter::StartAttack()
 	}
 
 	CurPlayerState = EPlayerState::Attack;
+}
+
+void APlayerCharacter::StartKnockBack()
+{
+	CurPlayerState = EPlayerState::KnockBack;
 }
 
 void APlayerCharacter::Idle(float DeltaTime)
@@ -283,6 +291,11 @@ void APlayerCharacter::Attack(float DeltaTime)
 			Result->TakeDamage(10);
 		}
 	}
+}
+
+void APlayerCharacter::KnockBack(float DeltaTime)
+{
+	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
 }
 
 void APlayerCharacter::EndAttack()

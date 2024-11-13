@@ -116,6 +116,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 	case EPlayerState::Attack:
 		Attack(DeltaTime);
 		break;
+	case EPlayerState::KnockBack:
+		KnockBack(DeltaTime);
+		break;
 	default:
 		break;
 	}

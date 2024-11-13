@@ -1,12 +1,20 @@
 #include "PreCompile.h"
 #include "PlayerCharacter.h"
 #include "Room.h"
+#include "HylianKnights.h"
 
 #include <EngineCore/EngineAPICore.h>
 
-void APlayerCharacter::TakeDamage(int Damage)
+void APlayerCharacter::TakeDamage(int Damage, AEnemyCharacter* EnemyCharacter)
 {
+	if (CurPlayerState == EPlayerState::KnockBack) return;
+
 	CurrentHP -= Damage;
+
+	this->KnockBackDir = GetActorLocation() - EnemyCharacter->GetActorLocation();
+	KnockBackDir.Normalize();
+
+	ChangeState(EPlayerState::KnockBack);
 
 	//if (CurrentHP < 0)
 	//{

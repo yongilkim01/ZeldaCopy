@@ -121,15 +121,13 @@ void AHylianKnights::Attack(float DeltaTime)
 		CurEnemyState = EEnemyState::Trace;
 	}
 
-	if (IsAttack == true) return;
-
 	if (this->CurDir == FVector2D::RIGHT)
 	{
 		IsAttack = true;
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10);
+			Result->TakeDamage(10, this);
 		}
 	}
 	else if (this->CurDir == FVector2D::LEFT)
@@ -138,7 +136,7 @@ void AHylianKnights::Attack(float DeltaTime)
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10);
+			Result->TakeDamage(10, this);
 		}
 	}
 	else if (this->CurDir == FVector2D::DOWN)
@@ -147,7 +145,7 @@ void AHylianKnights::Attack(float DeltaTime)
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10);
+			Result->TakeDamage(10, this);
 		}
 	}
 	else if (this->CurDir == FVector2D::UP)
@@ -156,7 +154,7 @@ void AHylianKnights::Attack(float DeltaTime)
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10);
+			Result->TakeDamage(10, this);
 		}
 	}
 }
