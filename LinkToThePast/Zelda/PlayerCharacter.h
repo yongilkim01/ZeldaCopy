@@ -14,6 +14,7 @@ enum class EPlayerState
 	Idle,
 	Move,
 	Attack,
+	KnockBack,
 };
 
 /**
@@ -35,8 +36,6 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	void InitAnimation();
-
 	void LevelChangeStart();
 	void LevelChangeEnd();
 
@@ -48,6 +47,7 @@ public:
 	void Attack(float DeltaTime);
 	void EndAttack();
 	void ChangeState(EPlayerState ChangeState);
+	void TakeDamage(int Damage);
 
 	void SetCollisionImage(std::string_view CollisionImageName);
 
@@ -84,7 +84,9 @@ private:
 
 	std::vector<UCollision2D*> AttackCollisions;
 
-	EPlayerState CurState = EPlayerState::Idle;
+	EPlayerState CurPlayerState = EPlayerState::Idle;
+	EPlayerState PrevPlayerState = EPlayerState::Idle;
+
 	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
 	FVector2D CurDir = FVector2D::DOWN;
 	FVector2D MoveDir = FVector2D::ZERO;
@@ -95,5 +97,8 @@ private:
 	int IsGround = false;
 	bool IsMove = false;
 	bool IsAttack = false;
+
+	int MaxHP = 100;
+	int CurrentHP = 40;
 };
 

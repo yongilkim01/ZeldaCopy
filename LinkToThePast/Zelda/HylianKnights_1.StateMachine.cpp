@@ -120,13 +120,52 @@ void AHylianKnights::Attack(float DeltaTime)
 	{
 		CurEnemyState = EEnemyState::Trace;
 	}
+
+	if (IsAttack == true) return;
+
+	if (this->CurDir == FVector2D::RIGHT)
+	{
+		IsAttack = true;
+		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::PlayerBody));
+		if (nullptr != Result)
+		{
+			Result->TakeDamage(10);
+		}
+	}
+	else if (this->CurDir == FVector2D::LEFT)
+	{
+		IsAttack = true;
+		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::PlayerBody));
+		if (nullptr != Result)
+		{
+			Result->TakeDamage(10);
+		}
+	}
+	else if (this->CurDir == FVector2D::DOWN)
+	{
+		IsAttack = true;
+		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::PlayerBody));
+		if (nullptr != Result)
+		{
+			Result->TakeDamage(10);
+		}
+	}
+	else if (this->CurDir == FVector2D::UP)
+	{
+		IsAttack = true;
+		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::PlayerBody));
+		if (nullptr != Result)
+		{
+			Result->TakeDamage(10);
+		}
+	}
 }
 
 void AHylianKnights::KnockBack(float DeltaTime)
 {
 	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
 
-	if (KnockBackCnt > 80)
+	if (KnockBackCnt > 50)
 	{
 		CurEnemyState = PrevEnemyState;
 		KnockBackCnt = 0;

@@ -114,6 +114,12 @@
     <ClCompile Include="Fade.cpp">
       <Filter>4_Util</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCharacter_2.Util.cpp">
+      <Filter>0_PlayerCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCharacter_3.Debug.cpp">
+      <Filter>0_PlayerCharacter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="0_PlayerCharacter">

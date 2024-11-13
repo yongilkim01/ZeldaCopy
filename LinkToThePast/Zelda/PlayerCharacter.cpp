@@ -105,7 +105,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 	PrintDebugInfo(DeltaTime);
 
-	switch (CurState)
+	switch (CurPlayerState)
 	{
 	case EPlayerState::Idle:
 		Idle(DeltaTime);
@@ -121,46 +121,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 	}
 }
 
-void APlayerCharacter::SetCollisionImage(std::string_view CollisionImageName)
-{
-	CollisionImage = UImageManager::GetInst().FindImage(CollisionImageName);
-}
-
-void APlayerCharacter::SetPlayerStateToIdle()
-{
-	SpriteRenderer->ChangeAnimation("Idle_Down");
-	CurState = EPlayerState::Idle;
-}
-
-
-
-void APlayerCharacter::SetCameraLocationToPlayer()
-{
-	if (CurRoom != nullptr)
-	{
-		FVector2D CameraMovePos = GetTransform().Location + GetWorld()->GetCameraPivot();
-
-		if (CameraMovePos.iX() < CurRoom->LeftTopPos.iX())
-		{
-			CameraMovePos.X = CurRoom->LeftTopPos.X;
-		}
-		if (CameraMovePos.iY() < CurRoom->LeftTopPos.iY())
-		{
-			CameraMovePos.Y = CurRoom->LeftTopPos.Y;
-		}
-		if (CurRoom->RightBottomPos.iX() < CameraMovePos.iX() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X)
-		{
-			CameraMovePos.X = CurRoom->RightBottomPos.X - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X;
-		}
-		if (CurRoom->RightBottomPos.iY() < CameraMovePos.iY() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y)
-		{
-			CameraMovePos.Y = CurRoom->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
-		}
-
-		GetWorld()->SetCameraPos(CameraMovePos);
-	}
-}
-
 void APlayerCharacter::LevelChangeStart()
 {
 	Super::LevelChangeStart();
@@ -169,114 +129,4 @@ void APlayerCharacter::LevelChangeStart()
 void APlayerCharacter::LevelChangeEnd()
 {
 	Super::LevelChangeEnd();
-}
-
-void APlayerCharacter::PlayerCameraCheck()
-{
-	FVector2D WindowSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
-	GetWorld()->SetCameraPos(GetActorLocation() - WindowSize.Half());
-
-	DebugOn();
-}
-
-void APlayerCharacter::PlayerGroundCheck(FVector2D _MovePos)
-{
-	IsMove = false;
-	IsGround = false;
-	if (nullptr != CollisionImage)
-	{
-		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
-		FVector2D NextPos = GetActorLocation() + _MovePos;
-		UColor Color = CollisionImage->GetColor(NextPos, UColor::BLACK);
-		if (Color == UColor::WHITE)
-		{
-			IsMove = true;
-		}
-		else if (Color == UColor::BLACK)
-		{
-			IsGround = true;
-		}
-	}
-}
-void APlayerCharacter::Gravity(float _DeltaTime)
-{
-	if (false == IsGround)
-	{
-		GravityForce += FVector2D::DOWN * _DeltaTime * 0.1f;
-	}
-	else {
-		GravityForce = FVector2D::ZERO;
-	}
-	// 상시 
-	AddActorLocation(GravityForce);
-}
-
-void APlayerCharacter::RunSoundPlay()
-{
-
-}
-
-void APlayerCharacter::SetCurRoom(ARoom* Room)
-{
-	if (this->CurRoom != nullptr)
-	{
-		this->CurRoom->SetPlayer(nullptr);
-		this->CurRoom = nullptr;
-		this->CollisionImage = nullptr;
-	}
-
-	this->CurRoom = Room;
-	this->CurRoom->SetPlayer(this);
-
-	if (CurRoom->GetIsSecondFloor())
-	{
-		switch (CurRoomFloor)
-		{
-		case ERoomFloor::FLOOR_1F:
-			SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
-			CurRoom->SetCulWinImageTo1F();
-			break;
-		case ERoomFloor::FLOOR_2F:
-			SetCollisionImage(CurRoom->GetColWinImage2F()->GetName());
-			CurRoom->SetCulWinImageTo2F();
-			break;
-		default:
-			break;
-		}
-	}
-	else
-	{
-		SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
-	}
-}
-
-void APlayerCharacter::PrintDebugInfo(float DeltaTime)
-{
-	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / DeltaTime));
-	UEngineDebug::CoreOutPutString("PlayerPos : " + GetActorLocation().ToString());
-	UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
-	UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
-	UEngineDebug::CoreOutPutString("Player Room Name : " + CurRoom->GetName());
-	UEngineDebug::CoreOutPutString("Player Room Collision Name : " + this->CollisionImage->GetName());
-
-	switch (CurState)
-	{
-	case EPlayerState::Idle:
-		UEngineDebug::CoreOutPutString("Player Current State : Idle ");
-		break;
-	case EPlayerState::Move:
-		UEngineDebug::CoreOutPutString("Player Current State : Move ");
-		break;
-	case EPlayerState::Attack:
-		UEngineDebug::CoreOutPutString("Player Current State : Attack ");
-		break;
-	default:
-		break;
-	}
-
-	if (UEngineInput::GetInst().IsPress('U') == true)
-	{
-		if (IsDebug() == true) DebugOff();
-		else if (IsDebug() == false) DebugOn();
-	}
 }

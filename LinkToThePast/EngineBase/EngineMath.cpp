@@ -12,7 +12,6 @@ const FIntPoint FIntPoint::RIGHT = { 1, 0 };
 const FIntPoint FIntPoint::UP = { 0, -1 };
 const FIntPoint FIntPoint::DOWN = { 0, 1 };
 
-
 const UColor UColor::WHITE = { 255, 255, 255, 0 };
 const UColor UColor::BLACK = { 0, 0, 0, 0 };
 const UColor UColor::PINK = { 255, 0, 255, 0 };
@@ -64,7 +63,8 @@ public:
 	{
 		FTransform::AllCollisionFunction[static_cast<int>(ECollisionType::Rect)][static_cast<int>(ECollisionType::Rect)] = FTransform::RectToRect;
 		FTransform::AllCollisionFunction[static_cast<int>(ECollisionType::Circle)][static_cast<int>(ECollisionType::Circle)] = FTransform::CircleToCircle;
-
+		FTransform::AllCollisionFunction[static_cast<int>(ECollisionType::Rect)][static_cast<int>(ECollisionType::Circle)] = FTransform::RectToCircle;
+		FTransform::AllCollisionFunction[static_cast<int>(ECollisionType::Circle)][static_cast<int>(ECollisionType::Rect)] = FTransform::CircleToRect;
 	}
 };
 
@@ -77,6 +77,22 @@ bool FTransform::Collision(ECollisionType LeftCollisionType,
 						   const FTransform& RightTransform)
 {
 	return FTransform::AllCollisionFunction[static_cast<int>(LeftCollisionType)][static_cast<int>(RightCollisionType)](LeftTransform, RightTransform);
+}
+
+bool FTransform::PointToRect(const FTransform& LeftTransform, const FTransform& RightTransform)
+{
+	FTransform LeftTrans = LeftTransform;
+	LeftTrans.Scale = FVector2D::ZERO;
+
+	return RectToRect(LeftTrans, RightTransform);
+}
+
+bool FTransform::PointToCircle(const FTransform& LeftTransform, const FTransform& RightTransform)
+{
+	FTransform LeftTrans = LeftTransform;
+	LeftTrans.Scale = FVector2D::ZERO;
+
+	return CircleToCircle(LeftTrans, RightTransform);
 }
 
 bool FTransform::RectToRect(const FTransform& LeftTransform, const FTransform& RightTransform)
@@ -102,6 +118,49 @@ bool FTransform::RectToRect(const FTransform& LeftTransform, const FTransform& R
 	}
 	// 공식 만들면 된다.
 	return true;
+}
+
+bool FTransform::RectToCircle(const FTransform& LeftTransform, const FTransform& RightTransform)
+{
+	return CircleToRect(RightTransform, LeftTransform);
+}
+
+
+bool FTransform::CircleToRect(const FTransform& LeftTransform, const FTransform& RightTransform)
+{
+	FTransform WTransform = RightTransform;
+	WTransform.Scale.X += LeftTransform.Scale.X;
+
+	FTransform HTransform = RightTransform;
+	HTransform.Scale.Y += LeftTransform.Scale.X;
+
+	if (PointToRect(LeftTransform, WTransform) == true
+		|| PointToRect(LeftTransform, HTransform) == true)
+	{
+		return true;
+	}
+
+	FVector2D ArrPoint[4];
+
+	ArrPoint[0] = RightTransform.CenterLeftTop();
+	ArrPoint[1] = RightTransform.CenterLeftBottom();
+	ArrPoint[2] = RightTransform.CenterRightTop();
+	ArrPoint[3] = RightTransform.CenterRightBottom();
+
+	FTransform PointCircle;
+	PointCircle.Scale = LeftTransform.Scale;
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		PointCircle.Location = ArrPoint[i];
+		
+		if (PointToCircle(LeftTransform, PointCircle) == true)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool FTransform::CircleToCircle(const FTransform& LeftTrnasform, const FTransform& RightTransform)

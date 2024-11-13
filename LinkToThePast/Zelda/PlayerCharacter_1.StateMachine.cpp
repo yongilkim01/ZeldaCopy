@@ -26,7 +26,7 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 		break;
 	}
 
-	CurState = ChangeState;
+	CurPlayerState = ChangeState;
 }
 
 void APlayerCharacter::StartIdle()
@@ -78,7 +78,7 @@ void APlayerCharacter::StartMove()
 		return;
 	}
 
-	CurState = EPlayerState::Move;
+	CurPlayerState = EPlayerState::Move;
 }
 
 void APlayerCharacter::StartAttack()
@@ -105,7 +105,7 @@ void APlayerCharacter::StartAttack()
 		return;
 	}
 
-	CurState = EPlayerState::Attack;
+	CurPlayerState = EPlayerState::Attack;
 }
 
 void APlayerCharacter::Idle(float DeltaTime)
@@ -138,10 +138,10 @@ void APlayerCharacter::Idle(float DeltaTime)
 	}
 
 	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
-		CurState != EPlayerState::Attack)
+		CurPlayerState != EPlayerState::Attack)
 	{
 		StartAttack();
-		CurState = EPlayerState::Attack;
+		CurPlayerState = EPlayerState::Attack;
 	}
 }
 
@@ -235,10 +235,10 @@ void APlayerCharacter::Move(float DeltaTime)
 	}
 
 	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
-		CurState != EPlayerState::Attack)
+		CurPlayerState != EPlayerState::Attack)
 	{
 		StartAttack();
-		CurState = EPlayerState::Attack;
+		CurPlayerState = EPlayerState::Attack;
 	}
 }
 

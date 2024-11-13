@@ -236,7 +236,13 @@ public:
 		ECollisionType RightCollisionType,
 		const FTransform& RightTransform);
 
+	static bool PointToRect(const FTransform& LeftTransform, const FTransform& RightTransform);
+	static bool PointToCircle(const FTransform& LeftTransform, const FTransform& RightTransform);
+
 	static bool RectToRect(const FTransform& LeftTransform, const FTransform& RightTransform);
+	static bool RectToCircle(const FTransform& LeftTransform, const FTransform& RightTransform);
+
+	static bool CircleToRect(const FTransform& LeftTransform, const FTransform& RightTransform);
 	static bool CircleToCircle(const FTransform& LeftTrnasform, const FTransform& RightTransform);
 
 	FVector2D Scale = FVector2D::ZERO;
@@ -245,6 +251,14 @@ public:
 	FVector2D CenterLeftTop() const
 	{
 		return Location - Scale.Half();
+	}
+
+	FVector2D CenterLeftBottom() const
+	{
+		FVector2D Location;
+		Location.X = Location.X - Scale.hX();
+		Location.Y = Location.Y + Scale.hY();
+		return Location;
 	}
 
 	float CenterLeft() const
@@ -260,6 +274,14 @@ public:
 	FVector2D CenterRightBottom() const
 	{
 		return Location + Scale.Half();
+	}
+
+	FVector2D CenterRightTop() const
+	{
+		FVector2D Location;
+		Location.X = Location.X + Scale.hX();
+		Location.Y = Location.Y - Scale.hY();
+		return Location;
 	}
 
 	float CenterRight() const

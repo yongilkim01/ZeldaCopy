@@ -3,6 +3,7 @@
 
 class APlayerCharacter;
 class AEffectEnemyDeath;
+class UCollision2D;
 
 enum class EEnemyState
 {
@@ -60,6 +61,8 @@ protected:
 	AEffectEnemyDeath* DeathEffect = nullptr;
 
 	std::vector<FVector2D> TurningLocations;
+	std::vector<UCollision2D*> AttackCollisions;
+
 	FVector2D CurDir = FVector2D::ZERO;
 	EEnemyState CurEnemyState = EEnemyState::Patrol;
 	EEnemyState PrevEnemyState = EEnemyState::Patrol;
@@ -70,6 +73,8 @@ protected:
 	float DetectionRange = 200.0f;
 	float Speed = 80.0f;
 	float AttackRange = 60.0f;
+
+	bool IsAttack = false;
 
 private:
 };
