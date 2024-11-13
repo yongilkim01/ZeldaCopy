@@ -60,6 +60,38 @@ void APlayerCharacter::SetCurRoom(ARoom* Room)
 	}
 }
 
+FVector2D APlayerCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
+{
+	FVector2D ResultDir = TargetLocation - GetActorLocation();
+	ResultDir.Normalize();
+
+	// Up 또는 Down
+	if (UEngineMath::Abs(ResultDir.Y) > UEngineMath::Abs(ResultDir.X))
+	{
+		if (ResultDir.Y > 0.0f)
+		{
+			return FVector2D::DOWN;
+		}
+		else
+		{
+			return FVector2D::UP;
+		}
+	}
+	else // Right 또는 Left
+	{
+		if (ResultDir.X > 0.0f)
+		{
+			return FVector2D::RIGHT;
+		}
+		else
+		{
+			return FVector2D::LEFT;
+		}
+	}
+
+	return FVector2D::ZERO;
+}
+
 void APlayerCharacter::PlayerCameraCheck()
 {
 	FVector2D WindowSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();

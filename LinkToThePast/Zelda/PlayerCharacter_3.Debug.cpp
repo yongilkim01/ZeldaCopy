@@ -15,6 +15,7 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	UEngineDebug::CoreOutPutString("Player Room Collision Name : " + this->CollisionImage->GetName());
 
 	UEngineDebug::CoreOutPutString("Player HP : " + std::to_string(this->CurrentHP));
+	UEngineDebug::CoreOutPutString("KncokBack DeltaTime: " + std::to_string(KnockBackTime));
 
 
 	switch (CurPlayerState)

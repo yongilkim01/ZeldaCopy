@@ -95,6 +95,8 @@ void AHylianKnights::BeginPlay()
 void AHylianKnights::Tick(float DeltaTime)
 {
 	AEnemyCharacter::Tick(DeltaTime);
+
+	UEngineDebug::CoreOutPutString("Attack Cool Time : " + std::to_string(this->AttackCoolTime));
 }
 
 void AHylianKnights::TakeDamage(int Damage)

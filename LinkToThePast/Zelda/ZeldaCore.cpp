@@ -43,17 +43,20 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("LinkMoveRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkMoveUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkMoveLeft.png", { 64, 64 });
-
 	UImageManager::GetInst().CuttingSprite("LinkAttackRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkAttackLeft.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkAttackUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkAttackDown.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("LinkKnockBackRight.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkKnockBackLeft.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkKnockBackUp.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkKnockBackDown.png", { 64, 64 });
+
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveLeft.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveDown.png", { 64, 64 });
-
 	UImageManager::GetInst().CuttingSprite("HylianKnightHit.png", { 64, 64 });
 
 	UImageManager::GetInst().CuttingSprite("EnemyDeathEffect.png", { 64, 64 });

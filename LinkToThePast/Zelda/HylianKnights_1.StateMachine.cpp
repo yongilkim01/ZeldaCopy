@@ -22,8 +22,8 @@ void AHylianKnights::Patrol(float DeltaTime)
 		{
 			this->CurTurningIndex++;
 		}
-		this->CurDir = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
-		ChangeMoveAnimation(CurDir);
+		this->CurrentDirection = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
+		ChangeMoveAnimation(CurrentDirection);
 	}
 	else
 	{
@@ -34,13 +34,13 @@ void AHylianKnights::Patrol(float DeltaTime)
 		MoveDir.Normalize();
 
 		AddActorLocation(MoveDir * DeltaTime * Speed);
-		this->CurDir = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
-		ChangeMoveAnimation(CurDir);
+		this->CurrentDirection = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
+		ChangeMoveAnimation(CurrentDirection);
 	}
 
 	if (IsRangeToPlayer())
 	{
-		if (CurDir == FVector2D::RIGHT)
+		if (CurrentDirection == FVector2D::RIGHT)
 		{
 			UEngineDebug::CoreOutPutString("Enemy Direction : Right");
 
@@ -51,7 +51,7 @@ void AHylianKnights::Patrol(float DeltaTime)
 			}
 
 		}
-		else if (CurDir == FVector2D::LEFT)
+		else if (CurrentDirection == FVector2D::LEFT)
 		{
 			UEngineDebug::CoreOutPutString("Enemy Direction : Left");
 
@@ -62,7 +62,7 @@ void AHylianKnights::Patrol(float DeltaTime)
 			}
 
 		}
-		else if (CurDir == FVector2D::UP)
+		else if (CurrentDirection == FVector2D::UP)
 		{
 			UEngineDebug::CoreOutPutString("Enemy Direction : Up");
 
@@ -74,7 +74,7 @@ void AHylianKnights::Patrol(float DeltaTime)
 			}
 
 		}
-		else if (CurDir == FVector2D::DOWN)
+		else if (CurrentDirection == FVector2D::DOWN)
 		{
 			UEngineDebug::CoreOutPutString("Enemy Direction : Down");
 
@@ -93,6 +93,8 @@ void AHylianKnights::Patrol(float DeltaTime)
 void AHylianKnights::Trace(float DeltaTime)
 {
 	UEngineDebug::CoreOutPutString("Enemy State : Trace");
+
+	AttackCoolTime += DeltaTime;
 
 	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
 	FVector2D EnemeyLocation = this->GetActorLocation();
@@ -116,47 +118,51 @@ void AHylianKnights::Attack(float DeltaTime)
 {
 	UEngineDebug::CoreOutPutString("Enemy State : Attack");
 
+	if (AttackCoolTime > 1.0f)
+	{
+		AttackCoolTime = 0.0f;
+	}
+
 	if (GetDistanceToTargetLocation(this->PlayerCharacter->GetActorLocation()) > AttackRange)
 	{
 		CurEnemyState = EEnemyState::Trace;
+		return;
 	}
 
-	if (this->CurDir == FVector2D::RIGHT)
+	if (this->CurrentDirection == FVector2D::RIGHT && AttackCoolTime == 0.0f)
 	{
-		IsAttack = true;
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurDir == FVector2D::LEFT)
+	else if (this->CurrentDirection == FVector2D::LEFT && AttackCoolTime == 0.0f)
 	{
-		IsAttack = true;
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurDir == FVector2D::DOWN)
+	else if (this->CurrentDirection == FVector2D::DOWN && AttackCoolTime == 0.0f)
 	{
-		IsAttack = true;
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurDir == FVector2D::UP)
+	else if (this->CurrentDirection == FVector2D::UP && AttackCoolTime == 0.0f)
 	{
-		IsAttack = true;
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10, this);
 		}
 	}
+
+	AttackCoolTime += DeltaTime;
 }
 
 void AHylianKnights::KnockBack(float DeltaTime)

@@ -295,7 +295,35 @@ void APlayerCharacter::Attack(float DeltaTime)
 
 void APlayerCharacter::KnockBack(float DeltaTime)
 {
-	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
+	AddActorLocation(KnockBackDir * DeltaTime * 100.0f);
+
+	KnockBackTime += DeltaTime;
+
+	if (KnockBackTime >= 0.5f)
+	{
+		ChangeState(EPlayerState::Idle);
+		KnockBackTime = 0.0f;
+		return;
+	}
+
+	FVector2D CurDir = GetDirectionToTargetLocation(KnockBackDir);
+
+	if (CurDir == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("KnockBack_Right");
+	}
+	else if (CurDir == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("KnockBack_Left");
+	}
+	else if (CurDir == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("KnockBack_Up");
+	}
+	else if (CurDir == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("KnockBack_Down");
+	}
 }
 
 void APlayerCharacter::EndAttack()

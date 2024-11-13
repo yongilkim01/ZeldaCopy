@@ -71,6 +71,7 @@ public:
 	{
 		return this->CurRoomFloor;
 	}
+	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
 
 	void PlayerCameraCheck();
 	void PlayerGroundCheck(FVector2D MovePos);
@@ -101,6 +102,7 @@ private:
 	int IsGround = false;
 	bool IsMove = false;
 	bool IsAttack = false;
+	float KnockBackTime = 0.0f;
 
 	int MaxHP = 100;
 	int CurrentHP = 40;

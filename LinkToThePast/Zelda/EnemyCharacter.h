@@ -63,7 +63,6 @@ protected:
 	std::vector<FVector2D> TurningLocations;
 	std::vector<UCollision2D*> AttackCollisions;
 
-	FVector2D CurDir = FVector2D::ZERO;
 	EEnemyState CurEnemyState = EEnemyState::Patrol;
 	EEnemyState PrevEnemyState = EEnemyState::Patrol;
 
@@ -72,7 +71,8 @@ protected:
 	int CurrentHP = 40;
 	float DetectionRange = 200.0f;
 	float Speed = 80.0f;
-	float AttackRange = 60.0f;
+	float AttackRange = 80.0f;
+	float AttackCoolTime = 0.0f;
 
 	bool IsAttack = false;
 
