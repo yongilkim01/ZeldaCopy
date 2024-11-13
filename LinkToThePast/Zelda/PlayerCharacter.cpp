@@ -18,7 +18,7 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("LinkMoveDown.png");
 		SpriteRenderer->SetSpriteScale(3.0f);
-		SpriteRenderer->SetOrder(ERenderOrder::PLAYER);
+		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
 
 		// 애니메이션 생성
 		SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveRight.png", 1, 8, 0.04f);
@@ -48,10 +48,16 @@ APlayerCharacter::APlayerCharacter()
 	}
 	{
 		// 충돌 컴포넌트 생성
-		CollisionComponent = CreateDefaultSubObject<UCollision2D>();
-		CollisionComponent->SetComponentLocation({ 0, 0 });
-		CollisionComponent->SetComponentScale({ 50, 50 });
-		CollisionComponent->SetCollisionGroup(ECollisionGroup::PlayerBody);
+		BodyCollisionComp = CreateDefaultSubObject<UCollision2D>();
+		BodyCollisionComp->SetComponentLocation({ 0, 0 });
+		BodyCollisionComp->SetComponentScale({ 50, 80 });
+		BodyCollisionComp->SetCollisionGroup(ECollisionGroup::PlayerBody);
+
+		MoveCollisionComp = CreateDefaultSubObject<UCollision2D>();
+		MoveCollisionComp->SetComponentLocation({ 0, 10 });
+		MoveCollisionComp->SetComponentScale({ 50, 50 });
+		MoveCollisionComp->SetCollisionGroup(ECollisionGroup::PlayerBody);
+
 	}
 	{
 		// 공격 충돌 컴포넌트 생성
@@ -59,25 +65,25 @@ APlayerCharacter::APlayerCharacter()
 
 		UCollision2D* RightAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		RightAttackCollision->SetComponentLocation({ 50, 0 });
-		RightAttackCollision->SetComponentScale({ 50, 70 });
+		RightAttackCollision->SetComponentScale({ 70, 100 });
 		RightAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(RightAttackCollision);
 
 		UCollision2D* LeftAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		LeftAttackCollision->SetComponentLocation({ -50, 0 });
-		LeftAttackCollision->SetComponentScale({ 50, 70 });
+		LeftAttackCollision->SetComponentScale({ 70,100 });
 		LeftAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(LeftAttackCollision);
 
 		UCollision2D* DownAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		DownAttackCollision->SetComponentLocation({ 0, 50 });
-		DownAttackCollision->SetComponentScale({ 70, 50 });
+		DownAttackCollision->SetComponentScale({ 100, 70 });
 		DownAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(DownAttackCollision);
 
 		UCollision2D* UpAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		UpAttackCollision->SetComponentLocation({ 0, -50 });
-		UpAttackCollision->SetComponentScale({ 70, 50 });
+		UpAttackCollision->SetComponentScale({ 100, 70 });
 		UpAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(UpAttackCollision);
 

@@ -4,6 +4,7 @@
 #include "EffectEnemyDeath.h"
 
 #include <EngineCore/EngineCoreDebug.h>
+#include <EngineCore/SpriteRenderer.h>
 
 void AHylianKnights::Patrol(float DeltaTime)
 {
@@ -34,6 +35,7 @@ void AHylianKnights::Patrol(float DeltaTime)
 		MoveDir.Normalize();
 
 		AddActorLocation(MoveDir * DeltaTime * Speed);
+		this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 		this->CurrentDirection = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
 		ChangeMoveAnimation(CurrentDirection);
 	}
@@ -103,6 +105,7 @@ void AHylianKnights::Trace(float DeltaTime)
 	TraceDir.Normalize();
 
 	AddActorLocation(TraceDir * DeltaTime * GetSpeed());
+	this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 
 	CurrentDirection = GetDirectionToTargetLocation(PlayerLocation);
 
@@ -169,7 +172,7 @@ void AHylianKnights::KnockBack(float DeltaTime)
 {
 	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
 
-	if (KnockBackCnt > 50)
+	if (KnockBackCnt > 30)
 	{
 		CurEnemyState = PrevEnemyState;
 		KnockBackCnt = 0;
@@ -191,6 +194,7 @@ void AHylianKnights::KnockBack(float DeltaTime)
 	KnockBackDir.Normalize();
 
 	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
+	this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 
 	CurrentDirection = GetDirectionToTargetLocation(PlayerLocation);
 

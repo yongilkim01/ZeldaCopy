@@ -84,7 +84,8 @@ private:
 
 	UEngineWinImage* CollisionImage = nullptr;
 	USpriteRenderer* SpriteRenderer = nullptr;
-	UCollision2D* CollisionComponent = nullptr;
+	UCollision2D* BodyCollisionComp = nullptr;
+	UCollision2D* MoveCollisionComp = nullptr;
 
 	std::vector<UCollision2D*> AttackCollisions;
 

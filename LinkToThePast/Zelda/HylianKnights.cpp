@@ -17,6 +17,7 @@ AHylianKnights::AHylianKnights()
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("HylianKnightMoveDown.png");
 		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
+		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
 		SpriteRenderer->SetSpriteScale(3.0f);
 		SpriteRenderer->CreateAnimation("Idle_Down", "HylianKnightMoveDown.png", 0, 0, 0.1f);
 
@@ -36,7 +37,7 @@ AHylianKnights::AHylianKnights()
 	{
 		CollisionComponent = CreateDefaultSubObject<UCollision2D>();
 		CollisionComponent->SetComponentLocation({ 0, 0 });
-		CollisionComponent->SetComponentScale({ 60, 75 });
+		CollisionComponent->SetComponentScale({ 80, 80 });
 		CollisionComponent->SetCollisionGroup(ECollisionGroup::EnemyBody);
 		CollisionComponent->SetCollisionType(ECollisionType::Rect);
 	}

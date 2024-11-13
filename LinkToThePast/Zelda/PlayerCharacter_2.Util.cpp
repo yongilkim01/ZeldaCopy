@@ -17,6 +17,18 @@ void APlayerCharacter::TakeDamage(int Damage, AEnemyCharacter* EnemyCharacter)
 
 	ChangeState(EPlayerState::KnockBack);
 
+	TimeEventer.PushEvent(0.0f, [this] ()
+		{
+			BodyCollisionComp->SetActive(false);
+		}
+	, false, false);
+
+	TimeEventer.PushEvent(1.0f, [this]()
+		{
+			BodyCollisionComp->SetActive(true);
+		}
+	, false, false);
+
 	//if (CurrentHP < 0)
 	//{
 	//	PrevPlayerState = CurPlayerState;

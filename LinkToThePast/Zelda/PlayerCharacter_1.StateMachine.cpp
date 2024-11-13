@@ -211,6 +211,8 @@ void APlayerCharacter::Move(float DeltaTime)
 		if (Color != UColor::PINK)
 		{
 			AddActorLocation(MoveDir * DeltaTime * Speed);
+			this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
+			
 		}
 
 		if (Color == UColor::ROOM_UPSTAIRS && CurRoom->GetIsSecondFloor())
@@ -219,7 +221,7 @@ void APlayerCharacter::Move(float DeltaTime)
 			CurRoom->SetCulWinImageTo2F();
 			this->CurRoomFloor = ERoomFloor::FLOOR_2F;
 			this->CollisionImage = CurRoom->GetColWinImage2F();
-			this->SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::PLAYER) + 100);
+			this->SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ));
 		}
 		else if (Color == UColor::ROOM_DOWNSTAIRS && CurRoom->GetIsSecondFloor())
 		{
@@ -227,7 +229,7 @@ void APlayerCharacter::Move(float DeltaTime)
 			CurRoom->SetCulWinImageTo1F();
 			this->CurRoomFloor = ERoomFloor::FLOOR_1F;
 			this->CollisionImage = CurRoom->GetColWinImage1F();
-			SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::PLAYER));
+			SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ));
 		}
 	}
 
