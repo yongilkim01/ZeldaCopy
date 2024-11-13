@@ -26,8 +26,6 @@ void AEnemyCharacter::Tick(float DeltaTime)
 
 	if (this->DeathEffect != nullptr && GetDeathEffectAnimationIsEnd() == false) return;
 
-	PrintEnemyDebugInfo();
-
 	switch (CurEnemyState)
 	{
 	case EEnemyState::Patrol:
@@ -102,10 +100,4 @@ float AEnemyCharacter::GetDistanceToTargetLocation(FVector2D TargetLocation)
 bool AEnemyCharacter::GetDeathEffectAnimationIsEnd()
 {
 	return this->DeathEffect->GetAnimationIsEnd();
-}
-
-void AEnemyCharacter::PrintEnemyDebugInfo()
-{
-	UEngineDebug::CoreOutPutString("Enemy HP : " + std::to_string(this->CurrentHP));
-	UEngineDebug::CoreOutPutString("Enemy Speed : " + std::to_string(this->Speed));
 }

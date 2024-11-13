@@ -18,6 +18,7 @@ enum class ECollisionGroup
 	PlayerBody,
 	PlayerAttack,
 	EnemyBody,
+	EnemyAttack,
 };
 
 enum class ERoomFloor

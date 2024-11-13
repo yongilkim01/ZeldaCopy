@@ -56,9 +56,12 @@ void UCollision2D::ComponentTick(float _DeltaTime)
 	}
 }
 
-bool UCollision2D::Collision(int OtherCollisionGroup, std::vector<AActor*>& ResultActors, unsigned int Limite)
+bool UCollision2D::Collision(int _OtherCollisionGroup, std::vector<AActor*>& _Result, FVector2D _NextPos, unsigned int  _Limite)
 {
-	std::list<class UCollision2D*>& OtherCollisions = GetActor()->GetWorld()->Collisions[OtherCollisionGroup];
+	// 내가 xxxx 그룹이랑 충돌하는거죠.
+	// 모든 충돌체를 한곳에 모아놓는게 Level
+
+	std::list<class UCollision2D*>& OtherCollisions = GetActor()->GetWorld()->Collisions[_OtherCollisionGroup];
 
 	std::list<class UCollision2D*>::iterator StartIter = OtherCollisions.begin();
 	std::list<class UCollision2D*>::iterator EndIter = OtherCollisions.end();
@@ -66,28 +69,32 @@ bool UCollision2D::Collision(int OtherCollisionGroup, std::vector<AActor*>& Resu
 	for (; StartIter != EndIter; ++StartIter)
 	{
 		UCollision2D* ThisCollision = this;
-		UCollision2D* TargetCollision = *StartIter;
+		UCollision2D* DestCollision = *StartIter;
+		// 
+		FTransform ThisTrans = ThisCollision->GetActorTransform();
+		FTransform DestTrans = DestCollision->GetActorTransform();
 
-		FTransform ThisTransform = ThisCollision->GetActorTransform();
-		FTransform TargetTransform = TargetCollision->GetActorTransform();
+		ThisTrans.Location += _NextPos;
 
-		ECollisionType ThisCollisionType = ThisCollision->CollisionType;
-		ECollisionType TargetCollisionType = TargetCollision->CollisionType;
+		ECollisionType ThisType = ThisCollision->CollisionType;
+		ECollisionType DestType = DestCollision->CollisionType;
 
-		bool Result = FTransform::Collision(ThisCollisionType, ThisTransform, TargetCollisionType, TargetTransform);
+		bool Result = FTransform::Collision(ThisType, ThisTrans, DestType, DestTrans);
 
-		if (Result == true)
+		// 충돌 true
+		if (true == Result)
 		{
-			ResultActors.push_back(TargetCollision->GetActor());
-			--Limite;
+			_Result.push_back(DestCollision->GetActor());
+			--_Limite;
 
-			if (Limite == 0)
+			if (0 == _Limite)
 			{
-				return ResultActors.size() != 0;
+				return 0 != _Result.size();
 			}
 		}
 	}
-	return ResultActors.size() != 0;
+
+	return 0 != _Result.size();
 }
 
 bool UCollision2D::CollisionMap(UColor Color)

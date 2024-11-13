@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BaseCharacter.h" />
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="DungeonGameMode.h" />
     <ClInclude Include="Effect.h">
@@ -185,6 +186,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseCharacter.cpp" />
     <ClCompile Include="ContentsEnum.cpp" />
     <ClCompile Include="DungeonGameMode.cpp" />
     <ClCompile Include="Effect.cpp">
@@ -209,6 +211,7 @@
     </ClCompile>
     <ClCompile Include="HylianKnights_1.StateMachine.cpp" />
     <ClCompile Include="HylianKnights_2.Animation.cpp" />
+    <ClCompile Include="HylianKnights_3.Debug.cpp" />
     <ClCompile Include="PlayerCharacter.cpp">
       <SubType>
       </SubType>

@@ -10,8 +10,6 @@ void AHylianKnights::Patrol(float DeltaTime)
 {
 	AEnemyCharacter::Patrol(DeltaTime);
 
-	UEngineDebug::CoreOutPutString("Enemy State : Patrol");
-
 	if (this->TurningLocations[CurTurningIndex].DistanceTo(GetActorLocation()) < 10.0f)
 	{
 		// 순환을 위해서 현재 인덱스가 마지막 인덱스라면 0으로 초기화
@@ -44,8 +42,6 @@ void AHylianKnights::Patrol(float DeltaTime)
 	{
 		if (CurrentDirection == FVector2D::RIGHT)
 		{
-			UEngineDebug::CoreOutPutString("Enemy Direction : Right");
-
 			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + 200.0f &&
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - 200.0f)
 			{
@@ -55,8 +51,6 @@ void AHylianKnights::Patrol(float DeltaTime)
 		}
 		else if (CurrentDirection == FVector2D::LEFT)
 		{
-			UEngineDebug::CoreOutPutString("Enemy Direction : Left");
-
 			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + 200.0f &&
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - 200.0f)
 			{
@@ -66,8 +60,6 @@ void AHylianKnights::Patrol(float DeltaTime)
 		}
 		else if (CurrentDirection == FVector2D::UP)
 		{
-			UEngineDebug::CoreOutPutString("Enemy Direction : Up");
-
 			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + 200.0f &&
 				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - 200.0f &&
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y)
@@ -78,9 +70,6 @@ void AHylianKnights::Patrol(float DeltaTime)
 		}
 		else if (CurrentDirection == FVector2D::DOWN)
 		{
-			UEngineDebug::CoreOutPutString("Enemy Direction : Down");
-
-
 			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + 100.0f &&
 				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - 100.0f &&
 				GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y)
@@ -94,8 +83,6 @@ void AHylianKnights::Patrol(float DeltaTime)
 
 void AHylianKnights::Trace(float DeltaTime)
 {
-	UEngineDebug::CoreOutPutString("Enemy State : Trace");
-
 	AttackCoolTime += DeltaTime;
 
 	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();
@@ -119,8 +106,6 @@ void AHylianKnights::Trace(float DeltaTime)
 
 void AHylianKnights::Attack(float DeltaTime)
 {
-	UEngineDebug::CoreOutPutString("Enemy State : Attack");
-
 	if (AttackCoolTime > 1.0f)
 	{
 		AttackCoolTime = 0.0f;
@@ -170,8 +155,6 @@ void AHylianKnights::Attack(float DeltaTime)
 
 void AHylianKnights::KnockBack(float DeltaTime)
 {
-	UEngineDebug::CoreOutPutString("Enemy State : KnockBack");
-
 	if (KnockBackCnt > 30)
 	{
 		CurEnemyState = PrevEnemyState;

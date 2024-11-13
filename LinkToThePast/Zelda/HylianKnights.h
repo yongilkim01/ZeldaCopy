@@ -25,6 +25,7 @@ public:
 public:
 	void ChangeMoveAnimation(FVector2D Direction);
 	void ChangeHitAnimation(FVector2D Direction);
+	void PrintDebugInfo();
 
 protected:
 	virtual void BeginPlay() override;

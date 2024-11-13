@@ -53,11 +53,6 @@ APlayerCharacter::APlayerCharacter()
 		BodyCollisionComp->SetComponentScale({ 50, 80 });
 		BodyCollisionComp->SetCollisionGroup(ECollisionGroup::PlayerBody);
 
-		MoveCollisionComp = CreateDefaultSubObject<UCollision2D>();
-		MoveCollisionComp->SetComponentLocation({ 0, 10 });
-		MoveCollisionComp->SetComponentScale({ 50, 50 });
-		MoveCollisionComp->SetCollisionGroup(ECollisionGroup::PlayerBody);
-
 	}
 	{
 		// 공격 충돌 컴포넌트 생성

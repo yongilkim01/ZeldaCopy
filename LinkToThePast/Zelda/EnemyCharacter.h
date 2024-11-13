@@ -46,8 +46,6 @@ public:
 	float GetSpeed() { return this->Speed; }
 	bool GetDeathEffectAnimationIsEnd();
 
-	void PrintEnemyDebugInfo();
-
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;

@@ -48,25 +48,25 @@ AHylianKnights::AHylianKnights()
 		UCollision2D* RightAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		RightAttackCollision->SetComponentLocation({ 50, 0 });
 		RightAttackCollision->SetComponentScale({ 50, 80 });
-		RightAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		RightAttackCollision->SetCollisionGroup(ECollisionGroup::EnemyAttack);
 		AttackCollisions.push_back(RightAttackCollision);
 
 		UCollision2D* LeftAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		LeftAttackCollision->SetComponentLocation({ -50, 0 });
 		LeftAttackCollision->SetComponentScale({ 50, 80 });
-		LeftAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		LeftAttackCollision->SetCollisionGroup(ECollisionGroup::EnemyAttack);
 		AttackCollisions.push_back(LeftAttackCollision);
 
 		UCollision2D* DownAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		DownAttackCollision->SetComponentLocation({ 0, 50 });
 		DownAttackCollision->SetComponentScale({ 80, 50 });
-		DownAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		DownAttackCollision->SetCollisionGroup(ECollisionGroup::EnemyAttack);
 		AttackCollisions.push_back(DownAttackCollision);
 
 		UCollision2D* UpAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		UpAttackCollision->SetComponentLocation({ 0, -50 });
 		UpAttackCollision->SetComponentScale({ 80, 50 });
-		UpAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
+		UpAttackCollision->SetCollisionGroup(ECollisionGroup::EnemyAttack);
 		AttackCollisions.push_back(UpAttackCollision);
 
 	}
@@ -97,7 +97,7 @@ void AHylianKnights::Tick(float DeltaTime)
 {
 	AEnemyCharacter::Tick(DeltaTime);
 
-	UEngineDebug::CoreOutPutString("Attack Cool Time : " + std::to_string(this->AttackCoolTime));
+	PrintDebugInfo();
 }
 
 void AHylianKnights::TakeDamage(int Damage)

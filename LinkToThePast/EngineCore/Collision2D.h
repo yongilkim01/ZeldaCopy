@@ -40,13 +40,13 @@ public:
 	}
 	void SetCollisionGroup(int CollisionGroup) { this->CollisionGroup = CollisionGroup; }
 
-	template<typename EnumType>
-	AActor* CollisionOnce(EnumType OtherCollisionGroup)
-	{
 
+	template<typename EnumType>
+	AActor* CollisionOnce(EnumType _OtherCollisionGroup, FVector2D _NextPos = FVector2D::ZERO)
+	{
 		// 상대가 100개이다. 100개 
 		std::vector<AActor*> Result;
-		Collision(static_cast<int>(OtherCollisionGroup), Result, 1);
+		Collision(static_cast<int>(_OtherCollisionGroup), Result, _NextPos, 1);
 
 		if (true == Result.empty())
 		{
@@ -66,7 +66,8 @@ public:
 		return Result;
 	}
 
-	bool Collision(int OtherCollisionGroup, std::vector<AActor*>& ResultActors, unsigned int  Limite);
+	bool Collision(int _OtherCollisionGroup, std::vector<AActor*>& _Result, FVector2D _NextDir, unsigned int  _Limite);
+
 
 	void SetCollisionType(ECollisionType CollisionType)
 	{
