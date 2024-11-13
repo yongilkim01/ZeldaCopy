@@ -75,6 +75,8 @@ private:
 
 	void ScreenClear();
 	void DoubleBuffering();
+	void BeginPlayCheck();
+
 	void PushRenderer(class USpriteRenderer* Renderer);
 	void PushCollision(class UCollision2D* Collision);
 	void ChangeRenderOrder(class USpriteRenderer* Renderer, int PrevOrder);

@@ -49,6 +49,9 @@
     <ClInclude Include="EffectEnemyDeath.h">
       <Filter>2_Data\1_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>4_Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="HylianKnights_1.StateMachine.cpp">
       <Filter>2_Data\0_Enemy\HylianCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>4_Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

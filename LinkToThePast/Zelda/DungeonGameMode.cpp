@@ -5,6 +5,7 @@
 #include "RoomMove.h"
 #include "EnemyCharacter.h"
 #include "HylianKnights.h"
+#include "Fade.h"
 
 DungeonGameMode::DungeonGameMode()
 {
@@ -28,6 +29,11 @@ void DungeonGameMode::BeginPlay()
 	{
 		AHylianKnights* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnights>();
 		EnemyCharacter->SetActorLocation({ 2332, 1724 });
+	}
+
+	{
+		AFade* FadeActor = GetWorld()->SpawnActor<AFade>();
+		FadeActor->SetActorLocation({ 0, 0 });
 	}
 
 }

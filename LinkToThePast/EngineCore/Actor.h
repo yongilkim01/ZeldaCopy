@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
 #include <EngineBase/EngineMath.h>
+#include <EngineBase/TimeEvent.h>
 
 #include "EngineSprite.h"
 
@@ -55,6 +56,7 @@ public:
 	FVector2D GetActorLocation() { return Transform.Location; }
 
 protected:
+	UTimeEvent TimeEventer;
 
 private:
 	static void ComponentBeginPlay();

@@ -25,6 +25,9 @@
     <Filter Include="String">
       <UniqueIdentifier>{903fe1c3-0a79-434f-9fdb-392a0c6b5876}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{b6ef20d1-c0a5-41f0-9a07-03f28feb4f2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -66,6 +69,9 @@
     <ClCompile Include="FSMStateManager.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="TimeEvent.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h">
@@ -106,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="FSMStateManager.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeEvent.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
