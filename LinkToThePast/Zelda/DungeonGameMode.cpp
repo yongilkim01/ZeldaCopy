@@ -34,6 +34,7 @@ void DungeonGameMode::BeginPlay()
 	{
 		AFade* FadeActor = GetWorld()->SpawnActor<AFade>();
 		FadeActor->SetActorLocation({ 0, 0 });
+		FadeActor->FadeOut();
 	}
 
 }

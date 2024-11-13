@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
+class USpriteRenderer;
+
 /**
  *	Ό³Έν
  */
@@ -20,10 +22,19 @@ public:
 	AFade& operator=(const AFade& _Other) = delete;
 	AFade& operator=(AFade&& _Other) noexcept = delete;
 
+	void FadeIn();
+	void FadeOut();
+
 protected:
 
 private:
 	virtual void LevelChangeStart() override;
+	void FadeChange();
+
+	float FadeValue = 0.0f;
+	float FadeDir = 1.0f;
+
+	USpriteRenderer* BackSpriteRenderer = nullptr;
 
 };
 

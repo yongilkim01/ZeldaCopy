@@ -96,7 +96,14 @@ void USpriteRenderer::Render(float DeltaTime)
 
 	// Trans.Location -= 카메라포스
 
-	CurData.Image->CopyToTrans(BackBufferImage, Trans, CurData.Transform);
+	if (Alpha == 255)
+	{
+		CurData.Image->CopyToTrans(BackBufferImage, Trans, CurData.Transform);
+	}
+	else
+	{
+		CurData.Image->CopyToAlpha(BackBufferImage, Trans, CurData.Transform, Alpha);
+	}
 }
 
 void USpriteRenderer::BeginPlay()

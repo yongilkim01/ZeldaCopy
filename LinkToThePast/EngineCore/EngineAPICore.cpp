@@ -86,7 +86,9 @@ void UEngineAPICore::Tick()
 			CurLevel->LevelChangeEnd();
 		}
 		CurLevel = NextLevel;
+
 		NextLevel->LevelChangeStart();
+
 		NextLevel = nullptr;
 		// 델타타임이 지연될수 있으므로 델타타임을 초기화시켜주는것이 좋다.
 		DeltaTimer.TimeStart();
@@ -125,5 +127,5 @@ void UEngineAPICore::OpenLevel(std::string_view _LevelName)
 	}
 
 	// 최신 방식
-	CurLevel = FindIter->second;
+	NextLevel = FindIter->second;
 }

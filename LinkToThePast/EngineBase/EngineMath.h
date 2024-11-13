@@ -326,7 +326,7 @@ public:
 
 };
 
-class EngineMath
+class UEngineMath
 {
 public:
 	static FVector2D Lerp(FVector2D StartLocation, FVector2D EndLocation, float Distance)

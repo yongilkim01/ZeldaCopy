@@ -68,7 +68,7 @@ FVector2D AEnemyCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation
 	ResultDir.Normalize();
 	
 	// Up ¶Ç´Â Down
-	if (EngineMath::Abs(ResultDir.Y) > EngineMath::Abs(ResultDir.X))
+	if (UEngineMath::Abs(ResultDir.Y) > UEngineMath::Abs(ResultDir.X))
 	{
 		if (ResultDir.Y > 0.0f)
 		{

@@ -116,6 +116,33 @@ void UEngineWinImage::CopyToTrans(UEngineWinImage* _TargetImage, const FTransfor
 	);
 }
 
+void UEngineWinImage::CopyToAlpha(UEngineWinImage* TargetImage, const FTransform& RenderTransform, const FTransform& LTImageTransform, unsigned char Alpha)
+{
+	BLENDFUNCTION BLEND;
+	BLEND.BlendOp = AC_SRC_OVER;
+	BLEND.BlendFlags = 0;
+	BLEND.AlphaFormat = AC_SRC_ALPHA;
+	BLEND.SourceConstantAlpha = Alpha;
+
+	HDC CopyDC = ImageDC;
+	HDC TargetDC = TargetImage->ImageDC;
+	FVector2D LeftTop = RenderTransform.CenterLeftTop();
+
+	AlphaBlend(
+		TargetDC,
+		LeftTop.iX(),
+		LeftTop.iY(),
+		RenderTransform.Scale.iX(),
+		RenderTransform.Scale.iY(),
+		CopyDC,
+		LTImageTransform.Location.iX(),
+		LTImageTransform.Location.iY(),
+		LTImageTransform.Scale.iX(),
+		LTImageTransform.Scale.iY(),
+		BLEND
+	);
+}
+
 void UEngineWinImage::Load(UEngineWinImage* _TargetImage, std::string_view _Path)
 {
 	UEnginePath Path = _Path;

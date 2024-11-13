@@ -2,6 +2,7 @@
 #include "PlayerCharacter.h"
 #include "Room.h"
 #include "HylianKnights.h"
+#include "Fade.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -92,6 +93,15 @@ void APlayerCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	if (ARoomManageMode::IsMapMoving == true) return;
+
+	if (true == UEngineInput::GetInst().IsDown('F'))
+	{
+		AFade::Instance->FadeIn();
+	}
+	if (true == UEngineInput::GetInst().IsDown('G'))
+	{
+		AFade::Instance->FadeOut();
+	}
 
 	PrintDebugInfo(DeltaTime);
 

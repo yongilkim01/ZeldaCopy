@@ -31,6 +31,12 @@ public:
 		, const FTransform& RenderTrans
 		, const FTransform& LTImageTrans
 		, UColor Color = UColor(255, 0, 255, 0));
+	
+	void CopyToAlpha(UEngineWinImage* TargetImage
+		, const FTransform& RenderTransform
+		, const FTransform& LTImageTransform 
+		, unsigned char Alpha);
+
 	void Load(UEngineWinImage* TargetImage, std::string_view Path);
 
 	void Create(HDC DC) { ImageDC = DC; }
