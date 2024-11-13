@@ -306,7 +306,7 @@ void APlayerCharacter::KnockBack(float DeltaTime)
 		return;
 	}
 
-	FVector2D CurDir = GetDirectionToTargetLocation(KnockBackDir);
+	FVector2D KncokBackAnimationDir = GetDirectionToTargetLocation(KnockBackDir);
 
 	if (CurDir == FVector2D::RIGHT)
 	{
