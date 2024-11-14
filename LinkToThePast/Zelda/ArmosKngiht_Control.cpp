@@ -63,6 +63,8 @@ void AArmosKngiht_Control::Tick(float DeltaTime)
 
 void AArmosKngiht_Control::Set(float DeltaTime)
 {
+	BossForces.clear();
+
 	for (int i = 0; i < BossEnemies.size(); i++)
 	{
 		BossForces.push_back(RotateToDegree(
@@ -72,7 +74,7 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 
 		CurrentDegree += 60;
 	}
-	CurrentDegree = 30;
+	CurrentDegree = 20;
 
 	ChangeState(EControlState::MOVE);
 }
@@ -87,7 +89,7 @@ void AArmosKngiht_Control::Move(float DeltaTime)
 		}
 		else
 		{
-
+			MoveToTargetLocation(BossEnemies[i], BossForces[i], DeltaTime);
 		}
 	}
 }
@@ -107,6 +109,14 @@ bool AArmosKngiht_Control::CheckDistanceToTarget(FVector2D Location1, FVector2D 
 {
 
 	return Location1.DistanceTo(Location2) < 10.0f;
+}
+
+void AArmosKngiht_Control::MoveToTargetLocation(AActor* Actor, FVector2D TargetLocation, float DeltaTime)
+{
+	FVector2D MoveDir = TargetLocation - Actor->GetActorLocation();
+	MoveDir.Normalize();
+
+	Actor->AddActorLocation(MoveDir * this->Speed * DeltaTime);
 }
 
 void AArmosKngiht_Control::ChangeState(EControlState ControlState)

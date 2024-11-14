@@ -27,6 +27,7 @@ public:
 
 	FVector2D RotateToDegree(float Degree, FVector2D Location, float H);
 	bool CheckDistanceToTarget(FVector2D Location1, FVector2D Location2);
+	void MoveToTargetLocation(AActor* Actor, FVector2D TargetLocation, float DeltaTime);
 	void ChangeState(EControlState ControlState);
 
 protected:
@@ -42,6 +43,7 @@ private:
 	std::vector<AArmosKnight*> BossEnemies;
 	std::vector<FVector2D> BossForces;
 
-	float CurrentDegree = 30;
+	float CurrentDegree = 20;
+	float Speed = 300.0f;
 };
 
