@@ -37,47 +37,61 @@ void AArmosKngiht_Control::BeginPlay()
 		BossEnemies.push_back(ArmosKnight);
 
 	}
-
-	for (int i = 0; i < 6; i++)
-	{
-		BossEnemies[i]->SetActorLocation(RotateToDegree(
-			CurrentDegree,
-			WindowHalfSize,
-			150.0f));
-
-		//BossEnemies[i]->AddActorLocation(WindowHalfSize);
-		CurrentDegree += 60;
-
-		if (CurrentDegree >= 360)
-		{
-			CurrentDegree = 0;
-		}
-	}
 }
 
 void AArmosKngiht_Control::Tick(float DeltaTime)
 {
 	ABossCharacter::Tick(DeltaTime);
 
-	FVector2D WindowHalfSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half();
-
-	for (int i = 0; i < 6; i++)
+	switch (CurControlState)
 	{
-		BossEnemies[i]->SetActorLocation(RotateToDegree(
-			CurrentDegree,
-			WindowHalfSize,
-			150.0f));
-
-		//BossEnemies[i]->AddActorLocation(WindowHalfSize);
-		CurrentDegree += 30;
-
-		if (CurrentDegree >= 360)
-		{
-			CurrentDegree = 0;
-		}
+	case EControlState::SET:
+		Set(DeltaTime);
+		break;
+	case EControlState::MOVE:
+		Move(DeltaTime);
+		break;
+	default:
+		break;
 	}
 
 }
+
+/**
+ *	30    90    150    210    270    330
+ */
+
+void AArmosKngiht_Control::Set(float DeltaTime)
+{
+	for (int i = 0; i < BossEnemies.size(); i++)
+	{
+		BossForces.push_back(RotateToDegree(
+			CurrentDegree,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half(),
+			150.0f));
+
+		CurrentDegree += 60;
+	}
+	CurrentDegree = 30;
+
+	ChangeState(EControlState::MOVE);
+}
+
+void AArmosKngiht_Control::Move(float DeltaTime)
+{
+	for (int i = 0; i < BossEnemies.size(); i++)
+	{
+		if (true == CheckDistanceToTarget(BossEnemies[i]->GetActorLocation(), BossForces[i]))
+		{
+			ChangeState(EControlState::SET);
+		}
+		else
+		{
+
+		}
+	}
+}
+
 
 FVector2D AArmosKngiht_Control::RotateToDegree(float Degree, FVector2D Location, float H)
 {
@@ -87,4 +101,15 @@ FVector2D AArmosKngiht_Control::RotateToDegree(float Degree, FVector2D Location,
 	Result.Y = H * std::sin(RADIAN(Degree));
 
 	return Result + Location;
+}
+
+bool AArmosKngiht_Control::CheckDistanceToTarget(FVector2D Location1, FVector2D Location2)
+{
+
+	return Location1.DistanceTo(Location2) < 10.0f;
+}
+
+void AArmosKngiht_Control::ChangeState(EControlState ControlState)
+{
+	this->CurControlState = ControlState;
 }
