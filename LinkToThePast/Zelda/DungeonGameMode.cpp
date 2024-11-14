@@ -17,7 +17,7 @@ DungeonGameMode::~DungeonGameMode()
 
 void DungeonGameMode::BeginPlay()
 {
-	ARoomManageMode::BeginPlay();
+	AZeldaGameMode::BeginPlay();
 
 	RoomBeginPlay();
 	UIBeginPlay();
@@ -41,7 +41,7 @@ void DungeonGameMode::BeginPlay()
 
 void DungeonGameMode::Tick(float DeltaTime)
 {
-	ARoomManageMode::Tick(DeltaTime);
+	AZeldaGameMode::Tick(DeltaTime);
 }
 
 void DungeonGameMode::RoomBeginPlay()

@@ -1,8 +1,8 @@
 #pragma once
-#include "RoomManageMode.h"
+#include "ZeldaGameMode.h"
 
 // Ό³Έν :
-class DungeonGameMode : public ARoomManageMode
+class DungeonGameMode : public AZeldaGameMode
 {
 public:
 	// constrcuter destructer

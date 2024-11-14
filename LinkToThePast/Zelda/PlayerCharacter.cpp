@@ -99,7 +99,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (ARoomManageMode::IsMapMoving == true) return;
+	if (AZeldaGameMode::IsMapMoving == true) return;
 
 	if (true == UEngineInput::GetInst().IsDown('F'))
 	{

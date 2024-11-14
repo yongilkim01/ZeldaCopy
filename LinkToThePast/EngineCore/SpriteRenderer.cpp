@@ -16,70 +16,15 @@ USpriteRenderer::~USpriteRenderer()
 // SpriteRenderer : public URenderer
 // MeshRenderer : public URenderer
 // StaticMeshRenderer : public URenderer
-void USpriteRenderer::Render(float DeltaTime)
+void USpriteRenderer::Render(float _DeltaTime)
 {
-	// 일단 여기서 다 짠다.
-	if (nullptr != CurAnimation)
-	{
-		CurAnimation->IsEnd = false;
-		std::vector<int>& Indexs = CurAnimation->FrameIndex;
-		std::vector<float>& Times = CurAnimation->FrameTime;
-
-		Sprite = CurAnimation->Sprite;
-
-
-		CurAnimation->CurTime += DeltaTime;
-
-		float CurFrameTime = Times[CurAnimation->CurIndex];
-
-		//                           0.1 0.1 0.1
-		if (CurAnimation->CurTime > CurFrameTime)
-		{
-			CurAnimation->CurTime -= CurFrameTime;
-			++CurAnimation->CurIndex;
-
-			if (CurAnimation->Events.contains(CurAnimation->CurIndex))
-			{
-				CurAnimation->Events[CurAnimation->CurIndex]();
-			}
-
-			if (CurAnimation->CurIndex >= Indexs.size())
-			{
-				CurAnimation->IsEnd = true;
-			}
-
-			if (CurAnimation->CurIndex >= Indexs.size())
-			{
-				if (true == CurAnimation->Loop)
-				{
-					CurAnimation->CurIndex = 0;
-
-					if (CurAnimation->Events.contains(CurAnimation->CurIndex))
-					{
-						CurAnimation->Events[CurAnimation->CurIndex]();
-					}
-				}
-				else
-				{
-					CurAnimation->IsEnd = true;
-					--CurAnimation->CurIndex;
-				}
-			}
-
-		}
-
-
-		//         2 3 4           0
-		CurIndex = Indexs[CurAnimation->CurIndex];
-		// ++CurAnimation->CurIndex;
-	}
+	// 업데이트
 
 	if (nullptr == Sprite)
 	{
 		MSGASSERT("스프라이트가 세팅되지 않은 액터를 랜더링을 할수 없습니다.");
 		return;
 	}
-
 	UEngineWindow& MainWindow = UEngineAPICore::GetCore()->GetMainWindow();
 	UEngineWinImage* BackBufferImage = MainWindow.GetBackBuffer();
 	UEngineSprite::USpriteData CurData = Sprite->GetSpriteData(CurIndex);
@@ -88,13 +33,13 @@ void USpriteRenderer::Render(float DeltaTime)
 
 	ULevel* Level = GetActor()->GetWorld();
 
-	//Trans.Location = Trans.Location - Level->CameraPos;
-	if (IsCameraEffect == true)
+	if (true == IsCameraEffect)
 	{
 		Trans.Location = Trans.Location - (Level->CameraLocation * CameraEffectScale);
 	}
 
-	// Trans.Location -= 카메라포스
+	Trans.Location += Pivot;
+
 
 	if (Alpha == 255)
 	{
@@ -123,15 +68,74 @@ void USpriteRenderer::BeginPlay()
 void USpriteRenderer::ComponentTick(float _DeltaTime)
 {
 	Super::ComponentTick(_DeltaTime);
-}
 
-void USpriteRenderer::SetCameraEffectScale(float Effect)
-{
-	CameraEffectScale = Effect;
+	// 애니메이션 진행시키는 코드를 ComponentTick으로 옮겼다. 
+	if (nullptr != CurAnimation)
+	{
+		CurAnimation->IsEnd = false;
+		std::vector<int>& Indexs = CurAnimation->FrameIndex;
+		std::vector<float>& Times = CurAnimation->FrameTime;
+
+		Sprite = CurAnimation->Sprite;
+
+
+		CurAnimation->CurTime += _DeltaTime;
+
+		float CurFrameTime = Times[CurAnimation->CurIndex];
+
+		//                           0.1 0.1 0.1
+		if (CurAnimation->CurTime > CurFrameTime)
+		{
+
+			CurAnimation->CurTime -= CurFrameTime;
+			++CurAnimation->CurIndex;
+
+			if (CurAnimation->Events.contains(CurIndex))
+			{
+				CurAnimation->Events[CurIndex]();
+			}
+
+			// 애니메이션 앤드
+			if (CurAnimation->CurIndex >= Indexs.size())
+			{
+				CurAnimation->IsEnd = true;
+			}
+
+			if (CurAnimation->CurIndex >= Indexs.size())
+			{
+				if (true == CurAnimation->Loop)
+				{
+					CurAnimation->CurIndex = 0;
+
+					if (CurAnimation->Events.contains(CurIndex))
+					{
+						CurAnimation->Events[CurIndex]();
+					}
+				}
+				else
+				{
+					CurAnimation->IsEnd = true;
+					--CurAnimation->CurIndex;
+				}
+			}
+
+		}
+
+
+		//         2 3 4           0
+		CurIndex = Indexs[CurAnimation->CurIndex];
+		// ++CurAnimation->CurIndex;
+	}
+
 }
 
 void USpriteRenderer::SetSprite(std::string_view _Name, int _CurIndex /*= 0*/)
 {
+	// 싱글톤에 대해서 설명할때
+	// 값을 편하게 공유하기 위해서 사용하는 거라고 하면 틀렸다.
+	// 객체를 단 1개 만드는 패턴이라는 것을 잊지 마시고
+
+	// 액터가 만들어졌을때는 로드가 끝난 상황이어야 한다.
 	Sprite = UImageManager::GetInst().FindSprite(_Name);
 
 	if (nullptr == Sprite)
@@ -148,6 +152,14 @@ void USpriteRenderer::SetOrder(int _Order)
 	int PrevOrder = Order;
 
 	Order = _Order;
+
+	// PushRenderer 에서 나는 랜더 구조에 편입된다.
+	// 그런데 2번들어가는 버그가 보였다.
+	// 그래서 이걸 해서 일단ㅌ 막았다. 
+	if (PrevOrder == Order)
+	{
+		return;
+	}
 
 	// 동적으로 해야할때는 레벨이 세팅되어 있을 것이므로
 	// 레벨이 세팅되어 있다면 즉각 바꿔준다.
@@ -177,56 +189,56 @@ FVector2D USpriteRenderer::SetSpriteScale(float _Ratio /*= 1.0f*/, int _CurIndex
 }
 
 
-// 여러분들이 애니메이션을 하거나
-void USpriteRenderer::SetPivotType(PivotType _Type)
+void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, int _Start, int _End, float Time /*= 0.1f*/, bool _Loop /*= true*/)
 {
-	if (PivotType::Center == _Type)
+	if (_Start > _End)
 	{
-		Pivot = FVector2D::ZERO;
-		return;
-	}
-	if (nullptr == Sprite)
-	{
-		MSGASSERT("이미지를 기반으로한 피봇설정은 스프라이트가 세팅되지 않은 상태에서는 호출할수 없습니다");
-		return;
-	}
-	UEngineSprite::USpriteData CurData = Sprite->GetSpriteData(CurIndex);
-	switch (_Type)
-	{
-	case PivotType::Bot:
-		Pivot.X = 0.0f;
-		Pivot.Y -= CurData.Transform.Scale.Y * 0.5f;
-		break;
-	case PivotType::Top:
-		Pivot.X = 0.0f;
-		Pivot.Y += CurData.Transform.Scale.Y * 0.5f;
-		break;
-	default:
-		break;
-	}
-}
-
-void USpriteRenderer::CreateAnimation(std::string_view AnimationName, std::string_view SpriteName, int Start, int End, float Time /*= 0.1f*/, bool IsLoop /*= true*/)
-{
-	if (Start > End)
-	{
-		MSGASSERT("애니메이션에서 Start가 End보다 클수는 없습니다. " + std::string(AnimationName));
+		MSGASSERT("애니메이션에서 Start가 End보다 클수는 없습니다. " + std::string(_AnimationName));
 		return;
 	}
 
-	int Inter = (End - Start) + 1;
+	int Inter = 0;
 
 	std::vector<int> Indexs;
 	std::vector<float> Times;
 
-	for (size_t i = 0; i < Inter; i++)
+	if (_Start < _End)
 	{
-		Indexs.push_back(Start);
-		Times.push_back(Time);
-		++Start;
+		Inter = (_End - _Start) + 1;
+		for (size_t i = 0; i < Inter; i++)
+		{
+			Indexs.push_back(_Start);
+			Times.push_back(Time);
+			++_Start;
+		}
+
+	}
+	else
+	{
+		Inter = (_Start - _End) + 1;
+		for (size_t i = 0; i < Inter; i++)
+		{
+			Indexs.push_back(_End);
+			Times.push_back(Time);
+			++_End;
+		}
 	}
 
-	CreateAnimation(AnimationName, SpriteName, Indexs, Times, IsLoop);
+
+	CreateAnimation(_AnimationName, _SpriteName, Indexs, Times, _Loop);
+}
+
+
+void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, float _Frame, bool _Loop /*= true*/)
+{
+	std::vector<float> Times;
+
+	for (size_t i = 0; i < _Indexs.size(); i++)
+	{
+		Times.push_back(_Frame);
+	}
+
+	CreateAnimation(_AnimationName, _SpriteName, _Indexs, Times, _Loop);
 }
 
 void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, std::vector<float> _Frame, bool _Loop /*= true*/)
@@ -282,6 +294,7 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, bool _For
 
 	CurAnimation = &FrameAnimations[UpperName];
 	CurAnimation->Reset();
+	CurIndex = CurAnimation->FrameIndex[CurAnimation->CurIndex];
 
 	if (CurAnimation->Events.contains(CurAnimation->CurIndex))
 	{
@@ -289,16 +302,6 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, bool _For
 	}
 
 	Sprite = CurAnimation->Sprite;
-}
-
-void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, float _Frame, bool Loop)
-{
-	std::vector<float> Times;
-	for (size_t i = 0; i < _Indexs.size(); i++)
-	{
-		Times.push_back(_Frame);
-	}
-	CreateAnimation(_AnimationName, _SpriteName, _Indexs, Times, Loop);
 }
 
 
@@ -333,4 +336,41 @@ void USpriteRenderer::SetAnimationEvent(std::string_view _AnimationName, int _Fr
 
 	ChangeAnimation->Events[_Frame] += _Function;
 
+}
+
+void USpriteRenderer::SetCameraEffectScale(float _Effect)
+{
+	CameraEffectScale = _Effect;
+}
+
+// 여러분들이 애니메이션을 하거나
+void USpriteRenderer::SetPivotType(PivotType _Type)
+{
+	if (PivotType::Center == _Type)
+	{
+		Pivot = FVector2D::ZERO;
+		return;
+	}
+
+	if (nullptr == Sprite)
+	{
+		MSGASSERT("이미지를 기반으로한 피봇설정은 스프라이트가 세팅되지 않은 상태에서는 호출할수 없습니다");
+		return;
+	}
+
+	UEngineSprite::USpriteData CurData = Sprite->GetSpriteData(CurIndex);
+
+	switch (_Type)
+	{
+	case PivotType::Bot:
+		Pivot.X = 0.0f;
+		Pivot.Y -= CurData.Transform.Scale.Y * 0.5f;
+		break;
+	case PivotType::Top:
+		Pivot.X = 0.0f;
+		Pivot.Y += CurData.Transform.Scale.Y * 0.5f;
+		break;
+	default:
+		break;
+	}
 }

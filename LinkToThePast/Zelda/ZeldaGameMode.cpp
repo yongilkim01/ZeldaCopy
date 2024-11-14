@@ -1,5 +1,5 @@
 #include "PreCompile.h"
-#include "RoomManageMode.h"
+#include "ZeldaGameMode.h"
 #include "Room.h"
 #include "ContentsEnum.h"
 #include "PlayerCharacter.h"
@@ -17,25 +17,25 @@
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/SpriteRenderer.h>
 
-bool ARoomManageMode::IsMapMoving = false;
+bool AZeldaGameMode::IsMapMoving = false;
 
-ARoomManageMode::ARoomManageMode()
+AZeldaGameMode::AZeldaGameMode()
 {
 
 }
 
-ARoomManageMode::~ARoomManageMode()
+AZeldaGameMode::~AZeldaGameMode()
 {
 }
 
-void ARoomManageMode::BeginPlay()
+void AZeldaGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerCharacter = GetWorld()->GetPawn<APlayerCharacter>();
 
 }
 
-void ARoomManageMode::Tick(float DeltaTime)
+void AZeldaGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
@@ -62,23 +62,23 @@ void ARoomManageMode::Tick(float DeltaTime)
 }
 
 
-void ARoomManageMode::UIBeginPlay()
+void AZeldaGameMode::UIBeginPlay()
 {
 	UI = GetWorld()->SpawnActor<AUserInterface>();
 	UI->SetPlayer(this->PlayerCharacter);
 }
 
-void ARoomManageMode::UITick()
+void AZeldaGameMode::UITick()
 {
 
 }
 
-void ARoomManageMode::CheckStart()
+void AZeldaGameMode::CheckStart()
 {
 
 }
 
-void ARoomManageMode::CheckRoomMove()
+void AZeldaGameMode::CheckRoomMove()
 {
 	if (CurRoomDir != ERoomDirection::NONE)
 	{
@@ -163,7 +163,7 @@ void ARoomManageMode::CheckRoomMove()
 	}
 }
 
-void ARoomManageMode::MoveStart(ERoomDirection RoomMoveDirection)
+void AZeldaGameMode::MoveStart(ERoomDirection RoomMoveDirection)
 {
 	FVector2D MoveSize = FVector2D::ZERO;
 
@@ -201,13 +201,13 @@ void ARoomManageMode::MoveStart(ERoomDirection RoomMoveDirection)
 	CameraEndLocation = CameraStartLocation + MoveSize;
 }
 
-void ARoomManageMode::MoveRoom()
+void AZeldaGameMode::MoveRoom()
 {
-	ARoomManageMode::IsMapMoving = false;
+	AZeldaGameMode::IsMapMoving = false;
 
 	if (CurRoomDir != ERoomDirection::NONE)
 	{
-		ARoomManageMode::IsMapMoving = true;
+		AZeldaGameMode::IsMapMoving = true;
 		FVector2D CameraMovePosition = FVector2D::ZERO;
 
 		switch (CurRoomDir)
@@ -260,14 +260,14 @@ void ARoomManageMode::MoveRoom()
 	}
 }
 
-void ARoomManageMode::EndStart()
+void AZeldaGameMode::EndStart()
 {
 	RoomMoveState = ERoomMoveState::END;
 }
 
-void ARoomManageMode::EndRoomMove()
+void AZeldaGameMode::EndRoomMove()
 {
-	ARoomManageMode::IsMapMoving = false;
+	AZeldaGameMode::IsMapMoving = false;
 	CameraStartLocation = FVector2D::ZERO;
 	CameraEndLocation = FVector2D::ZERO;
 	RoomMoveState = ERoomMoveState::CHECK;
@@ -357,7 +357,7 @@ void ARoomManageMode::EndRoomMove()
 	CurRoomDir = ERoomDirection::NONE;
 }
 
-void ARoomManageMode::CreateRoomActor(std::string_view MapName, int StartRoomIndex)
+void AZeldaGameMode::CreateRoomActor(std::string_view MapName, int StartRoomIndex)
 {
 	for (size_t i = 0; i < RoomDataes.size(); i++)
 	{
@@ -376,7 +376,7 @@ void ARoomManageMode::CreateRoomActor(std::string_view MapName, int StartRoomInd
 	SetCurRoom(StartRoomIndex);
 }
 
-ARoom* ARoomManageMode::FindRoomToName(std::string_view RoomName)
+ARoom* AZeldaGameMode::FindRoomToName(std::string_view RoomName)
 {
 	for (size_t i = 0; i < Roomes.size(); i++)
 	{
@@ -389,13 +389,13 @@ ARoom* ARoomManageMode::FindRoomToName(std::string_view RoomName)
 	return nullptr;
 }
 
-void ARoomManageMode::SetCurRoom(int _Index)
+void AZeldaGameMode::SetCurRoom(int _Index)
 {
 	PlayerCharacter->SetCurRoom(Roomes[_Index]);
 	this->CurRoom = Roomes[_Index];
 }
 
-void ARoomManageMode::CheckCollisionRoom()
+void AZeldaGameMode::CheckCollisionRoom()
 {
 	if (Roomes.size() == 0)
 	{
@@ -415,7 +415,7 @@ void ARoomManageMode::CheckCollisionRoom()
 	}
 }
 
-bool ARoomManageMode::CheckPlayerInRoom(ARoom* CheckRoom)
+bool AZeldaGameMode::CheckPlayerInRoom(ARoom* CheckRoom)
 {
 	return (PlayerCharacter->GetActorLocation().iX() > CheckRoom->LeftTopPos.iX()
 		&& PlayerCharacter->GetActorLocation().iY() > CheckRoom->LeftTopPos.iY()

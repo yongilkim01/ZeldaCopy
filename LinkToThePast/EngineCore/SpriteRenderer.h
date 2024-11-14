@@ -1,11 +1,9 @@
 #pragma once
 #include "SceneComponent.h"
 #include "EngineSprite.h"
-
 #include <EngineBase/EngineDelegate.h>
-#include <EngineBase/EngineMath.h>
-
 #include <map>
+#include <EngineBase/EngineMath.h>
 
 enum class PivotType
 {
@@ -58,18 +56,6 @@ public:
 	void BeginPlay() override;
 	void ComponentTick(float _DeltaTime) override;
 
-	bool IsActive() override
-	{
-		// 랜더러는 자신을 가진 액터에게 종속된다.
-		// 부모도        true            true
-		return UObject::IsActive() && GetActor()->IsActive();
-	}
-	bool IsDestroy() override
-	{
-		// 부모도        true            true
-		return UObject::IsDestroy() || GetActor()->IsDestroy();
-	}
-
 	// int를 주는 함수들은 일반적으로 Enum으로 대체해서 넣고 싶을때가 많다.
 	// 그런데 그건 커텐츠 만드는 사람이 만드는 자신만의 enum일 것이기 때문에 
 	// 템플릿을 사용하여 어떤 enum이건 받게 만드는 방식을 선호한다.
@@ -85,26 +71,9 @@ public:
 	{
 		return Order;
 	}
-	std::string GetCurSpriteName()
-	{
-		return Sprite->GetName();
-	}
-
-	void SetCameraEffect(bool Value)
-	{
-		IsCameraEffect = Value;
-	}
-
-	void SetCameraEffectScale(float Effect);
-	void SetSprite(std::string_view Name, int CurIndex = 0);
-
 
 	FVector2D SetSpriteScale(float _Ratio = 1.0f, int _CurIndex = 0);
-	void SetPivot(FVector2D _Pivot)
-	{
-		Pivot = _Pivot;
-	}
-	void SetPivotType(PivotType _Type);
+
 
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, int _Start, int _End, float Time = 0.1f, bool _Loop = true);
 
@@ -115,47 +84,72 @@ public:
 	// _Loop = true면 반복 false면 마지막 프레임에서 정지
 	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, std::vector<float> _Frame, bool _Loop = true);
 
+	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, float _Frame, bool _Loop = true);
+
 	// 내가 Idle인데 Idle 바꾸라고 했다. 
 	void ChangeAnimation(std::string_view _AnimationName, bool _Force = false);
 
-	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<int> _Indexs, float _Frame, bool _Loop = true);
-
 	void SetAnimationEvent(std::string_view _AnimationName, int _Frame, std::function<void()> _Function);
 
+	std::string GetCurSpriteName()
+	{
+		return Sprite->GetName();
+	}
+
+	void SetCameraEffect(bool _Value)
+	{
+		IsCameraEffect = _Value;
+	}
+
+	void SetPivot(FVector2D _Pivot)
+	{
+		Pivot = _Pivot;
+	}
+
+	void SetPivotType(PivotType _Type);
+
+	void SetCameraEffectScale(float _Effect);
+	void SetSprite(std::string_view _Name, int _CurIndex = 0);
+
+	// 애니메이션이 실행되고 있다면.
+	// 그 애니메이션이 끝난 순간을 체크하고 싶은것.
 	bool IsCurAnimationEnd()
 	{
-		if (this->CurAnimation == nullptr) return false;
 		return CurAnimation->IsEnd;
 	}
+
 	// 0 완전투명 255면 불투명
-	void SetAlphaChar(unsigned char Value)
+	void SetAlphaChar(unsigned char _Value)
 	{
-		Alpha = Value;
+		Alpha = _Value;
 	}
-	void SetAlphafloat(float Value)
+
+	void SetAlphafloat(float _Value)
 	{
-		Value = UEngineMath::Clamp(Value, 0.0f, 1.0f);
+		_Value = UEngineMath::Clamp(_Value, 0.0f, 1.0f);
 		// 언제든지 쉽게 다른 차원의 값으로 변경될수 있다.
 		// 다이렉트가 색깔 단위를 0~1을 기준으로 하는 이유이다.
 		// 그래픽 라이브러리는 색깔을 데이터일 뿐이므로 이걸 언제든지
 		// 다른 데이터로 변환하는 일을 수행할때 0~1단위가 유리하기 때문에 0~1단위를 사용한다.
-		Alpha = static_cast<unsigned char>(Value * 255.0f);
+		Alpha = static_cast<unsigned char>(_Value * 255.0f);
 	}
 
 protected:
 
-public:
+private:
 	int Order = 0;
 	int CurIndex = 0;
 	bool IsCameraEffect = true;
 	float CameraEffectScale = 1.0f;
 
+	// 다이렉트는 모든 색상을 0~1.0f로 표현한다.
+	unsigned char Alpha = 255;
+
+	FVector2D Pivot = FVector2D::ZERO;
+
 	class UEngineSprite* Sprite = nullptr;
 
 	std::map<std::string, FrameAnimation> FrameAnimations;
 	FrameAnimation* CurAnimation = nullptr;
-	FVector2D Pivot = FVector2D::ZERO;
-
-	unsigned char Alpha = 255;
 };
 

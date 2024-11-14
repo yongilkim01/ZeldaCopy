@@ -174,7 +174,7 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="Room.h" />
-    <ClInclude Include="RoomManageMode.h" />
+    <ClInclude Include="ZeldaGameMode.h" />
     <ClInclude Include="RoomMove.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TitleGameMode.h" />
@@ -224,7 +224,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Room.cpp" />
-    <ClCompile Include="RoomManageMode.cpp" />
+    <ClCompile Include="ZeldaGameMode.cpp" />
     <ClCompile Include="RoomMove.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TitleGameMode.cpp" />

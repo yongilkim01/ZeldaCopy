@@ -23,7 +23,7 @@ void APlayerCharacter::TakeDamage(int Damage, AEnemyCharacter* EnemyCharacter)
 		}
 	, false, false);
 
-	TimeEventer.PushEvent(10.0f, [this]()
+	TimeEventer.PushEvent(1.0f, [this]()
 		{
 			BodyCollisionComp->SetActive(true);
 		}

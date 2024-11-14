@@ -13,7 +13,7 @@
     <ClInclude Include="DungeonGameMode.h">
       <Filter>1_GameMode\1_CastleDungeon</Filter>
     </ClInclude>
-    <ClInclude Include="RoomManageMode.h">
+    <ClInclude Include="ZeldaGameMode.h">
       <Filter>1_GameMode</Filter>
     </ClInclude>
     <ClInclude Include="ZeldaCore.h">
@@ -69,7 +69,7 @@
     <ClCompile Include="DungeonGameMode.cpp">
       <Filter>1_GameMode\1_CastleDungeon</Filter>
     </ClCompile>
-    <ClCompile Include="RoomManageMode.cpp">
+    <ClCompile Include="ZeldaGameMode.cpp">
       <Filter>1_GameMode</Filter>
     </ClCompile>
     <ClCompile Include="ZeldaCore.cpp">

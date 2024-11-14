@@ -10,7 +10,7 @@
 
 #include "PlayerCharacter.h"
 #include "TitleGameMode.h"
-#include "RoomManageMode.h"
+#include "ZeldaGameMode.h"
 #include "DungeonGameMode.h"
 
 UZeldaCore::UZeldaCore()

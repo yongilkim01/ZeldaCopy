@@ -44,21 +44,21 @@ class AUserInterface;
 /**
  *	룸 관리 게임 모드
  */
-class ARoomManageMode : public AGameMode
+class AZeldaGameMode : public AGameMode
 {
 
 public:
 	static bool IsMapMoving;
 
 	/** 생성자, 소멸자 */
-	ARoomManageMode();
-	~ARoomManageMode();
+	AZeldaGameMode();
+	~AZeldaGameMode();
 
 	/** 객체 값 복사 방지 */
-	ARoomManageMode(const ARoomManageMode& _Other) = delete;
-	ARoomManageMode(ARoomManageMode&& _Other) noexcept = delete;
-	ARoomManageMode& operator=(const ARoomManageMode& _Other) = delete;
-	ARoomManageMode& operator=(ARoomManageMode&& _Other) noexcept = delete;
+	AZeldaGameMode(const AZeldaGameMode& _Other) = delete;
+	AZeldaGameMode(AZeldaGameMode&& _Other) noexcept = delete;
+	AZeldaGameMode& operator=(const AZeldaGameMode& _Other) = delete;
+	AZeldaGameMode& operator=(AZeldaGameMode&& _Other) noexcept = delete;
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;

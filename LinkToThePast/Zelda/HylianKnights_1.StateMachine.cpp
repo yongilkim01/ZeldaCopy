@@ -106,18 +106,13 @@ void AHylianKnights::Trace(float DeltaTime)
 
 void AHylianKnights::Attack(float DeltaTime)
 {
-	if (AttackCoolTime > 1.0f)
-	{
-		AttackCoolTime = 0.0f;
-	}
-
 	if (GetDistanceToTargetLocation(this->PlayerCharacter->GetActorLocation()) > AttackRange)
 	{
 		CurEnemyState = EEnemyState::Trace;
 		return;
 	}
 
-	if (this->CurrentDirection == FVector2D::RIGHT && AttackCoolTime == 0.0f)
+	if (this->CurrentDirection == FVector2D::RIGHT)
 	{
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
@@ -125,7 +120,7 @@ void AHylianKnights::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurrentDirection == FVector2D::LEFT && AttackCoolTime == 0.0f)
+	else if (this->CurrentDirection == FVector2D::LEFT)
 	{
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
@@ -133,7 +128,7 @@ void AHylianKnights::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurrentDirection == FVector2D::DOWN && AttackCoolTime == 0.0f)
+	else if (this->CurrentDirection == FVector2D::DOWN)
 	{
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
@@ -141,7 +136,7 @@ void AHylianKnights::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurrentDirection == FVector2D::UP && AttackCoolTime == 0.0f)
+	else if (this->CurrentDirection == FVector2D::UP)
 	{
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
@@ -149,8 +144,6 @@ void AHylianKnights::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-
-	AttackCoolTime += DeltaTime;
 }
 
 void AHylianKnights::KnockBack(float DeltaTime)
