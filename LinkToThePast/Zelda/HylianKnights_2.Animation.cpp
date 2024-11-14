@@ -4,7 +4,7 @@
 #include <EngineCore/SpriteRenderer.h>
 
 
-void AHylianKnights::ChangeMoveAnimation(FVector2D Direction)
+void AHylianKnight::ChangeMoveAnimation(FVector2D Direction)
 {
 	if (Direction == FVector2D::RIGHT)
 	{
@@ -24,7 +24,7 @@ void AHylianKnights::ChangeMoveAnimation(FVector2D Direction)
 	}
 }
 
-void AHylianKnights::ChangeHitAnimation(FVector2D Direction)
+void AHylianKnight::ChangeHitAnimation(FVector2D Direction)
 {
 	if (Direction == FVector2D::RIGHT)
 	{

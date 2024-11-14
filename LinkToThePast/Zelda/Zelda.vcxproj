@@ -145,7 +145,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ArmosKnight.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BaseCharacter.h" />
+    <ClInclude Include="BossCharacter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BossGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="DungeonGameMode.h" />
     <ClInclude Include="Effect.h">
@@ -186,7 +198,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArmosKnight.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BaseCharacter.cpp" />
+    <ClCompile Include="BossCharacter.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BossGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentsEnum.cpp" />
     <ClCompile Include="DungeonGameMode.cpp" />
     <ClCompile Include="Effect.cpp">

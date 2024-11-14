@@ -7,18 +7,18 @@ class UCollision2D;
 /**
  *	설명
  */
-class AHylianKnights : public AEnemyCharacter
+class AHylianKnight : public AEnemyCharacter
 {
 public:
 	/** 생성자, 소멸자 */
-	AHylianKnights();
-	~AHylianKnights();
+	AHylianKnight();
+	~AHylianKnight();
 
 	/** 객체 값 복사 방지 */
-	AHylianKnights(const AHylianKnights& _Other) = delete;
-	AHylianKnights(AHylianKnights&& _Other) noexcept = delete;
-	AHylianKnights& operator=(const AHylianKnights& _Other) = delete;
-	AHylianKnights& operator=(AHylianKnights&& _Other) noexcept = delete;
+	AHylianKnight(const AHylianKnight& _Other) = delete;
+	AHylianKnight(AHylianKnight&& _Other) noexcept = delete;
+	AHylianKnight& operator=(const AHylianKnight& _Other) = delete;
+	AHylianKnight& operator=(AHylianKnight&& _Other) noexcept = delete;
 
 	virtual void TakeDamage(int Damage = 10) override;
 

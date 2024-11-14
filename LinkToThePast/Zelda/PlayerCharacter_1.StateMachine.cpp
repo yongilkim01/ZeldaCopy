@@ -260,7 +260,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 	if (this->CurDir == FVector2D::RIGHT)
 	{
 		IsAttack = true;
-		AHylianKnights* Result = dynamic_cast<AHylianKnights*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody));
+		AHylianKnight* Result = dynamic_cast<AHylianKnight*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody));
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10);
@@ -269,7 +269,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 	else if (this->CurDir == FVector2D::LEFT)
 	{
 		IsAttack = true;
-		AHylianKnights* Result = dynamic_cast<AHylianKnights*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody));
+		AHylianKnight* Result = dynamic_cast<AHylianKnight*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody));
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10);
@@ -278,7 +278,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 	else if (this->CurDir == FVector2D::DOWN)
 	{
 		IsAttack = true;
-		AHylianKnights* Result = dynamic_cast<AHylianKnights*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody));
+		AHylianKnight* Result = dynamic_cast<AHylianKnight*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody));
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10);
@@ -287,7 +287,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 	else if (this->CurDir == FVector2D::UP)
 	{
 		IsAttack = true;
-		AHylianKnights* Result = dynamic_cast<AHylianKnights*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody));
+		AHylianKnight* Result = dynamic_cast<AHylianKnight*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody));
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10);

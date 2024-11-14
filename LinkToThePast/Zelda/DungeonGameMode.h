@@ -2,12 +2,12 @@
 #include "ZeldaGameMode.h"
 
 // Ό³Έν :
-class DungeonGameMode : public AZeldaGameMode
+class ACastleDungeonGameMode : public AZeldaGameMode
 {
 public:
 	// constrcuter destructer
-	DungeonGameMode();
-	~DungeonGameMode();
+	ACastleDungeonGameMode();
+	~ACastleDungeonGameMode();
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
@@ -15,10 +15,10 @@ public:
 	void RoomBeginPlay();
 
 	// delete Function
-	DungeonGameMode(const DungeonGameMode& _Other) = delete;
-	DungeonGameMode(DungeonGameMode&& _Other) noexcept = delete;
-	DungeonGameMode& operator=(const DungeonGameMode& _Other) = delete;
-	DungeonGameMode& operator=(DungeonGameMode&& _Other) noexcept = delete;
+	ACastleDungeonGameMode(const ACastleDungeonGameMode& _Other) = delete;
+	ACastleDungeonGameMode(ACastleDungeonGameMode&& _Other) noexcept = delete;
+	ACastleDungeonGameMode& operator=(const ACastleDungeonGameMode& _Other) = delete;
+	ACastleDungeonGameMode& operator=(ACastleDungeonGameMode&& _Other) noexcept = delete;
 
 protected:
 

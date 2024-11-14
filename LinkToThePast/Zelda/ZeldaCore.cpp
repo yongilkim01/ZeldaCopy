@@ -12,6 +12,7 @@
 #include "TitleGameMode.h"
 #include "ZeldaGameMode.h"
 #include "DungeonGameMode.h"
+#include "BossGameMode.h"
 
 UZeldaCore::UZeldaCore()
 {
@@ -67,11 +68,12 @@ void UZeldaCore::BeginPlay()
 	// 이거 꼭 호출해줘야 합니다.
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 768, 672 });
 
-	UEngineAPICore::GetCore()->CreateLevel<DungeonGameMode, APlayerCharacter>("Play");
+	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
+	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 	//UEngineAPICore::GetCore()->CreateLevel<ARoomManageMode, APlayer>("Play");
 	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 
-	UEngineAPICore::GetCore()->OpenLevel("Play");
+	UEngineAPICore::GetCore()->OpenLevel("Boss");
 }
 
 void UZeldaCore::Tick()

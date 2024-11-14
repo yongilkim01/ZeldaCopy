@@ -11,7 +11,7 @@
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/Collision2D.h>
 
-AHylianKnights::AHylianKnights()
+AHylianKnight::AHylianKnight()
 {
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -74,11 +74,11 @@ AHylianKnights::AHylianKnights()
 	//DebugOn();
 }
 
-AHylianKnights::~AHylianKnights()
+AHylianKnight::~AHylianKnight()
 {
 }
 
-void AHylianKnights::BeginPlay()
+void AHylianKnight::BeginPlay()
 {
 	AEnemyCharacter::BeginPlay();
 
@@ -93,14 +93,14 @@ void AHylianKnights::BeginPlay()
 	AddTurningLocation(FVector2D(2332, 1974));
 }
 
-void AHylianKnights::Tick(float DeltaTime)
+void AHylianKnight::Tick(float DeltaTime)
 {
 	AEnemyCharacter::Tick(DeltaTime);
 
 	PrintDebugInfo();
 }
 
-void AHylianKnights::TakeDamage(int Damage)
+void AHylianKnight::TakeDamage(int Damage)
 {
 	if (CurEnemyState == EEnemyState::KnockBack) return;
 	CurrentHP -= Damage;

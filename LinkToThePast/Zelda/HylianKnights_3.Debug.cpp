@@ -5,7 +5,7 @@
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
 
-void AHylianKnights::PrintDebugInfo()
+void AHylianKnight::PrintDebugInfo()
 {
 	UEngineDebug::CoreOutPutString("//////////////////////////// Enemy Debug ////////////////////////////");
 	UEngineDebug::CoreOutPutString("Enemy location : " + GetActorLocation().ToString());

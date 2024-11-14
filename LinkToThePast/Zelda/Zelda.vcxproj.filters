@@ -55,6 +55,15 @@
     <ClInclude Include="BaseCharacter.h">
       <Filter>2_Data\0_Object</Filter>
     </ClInclude>
+    <ClInclude Include="BossGameMode.h">
+      <Filter>1_GameMode\2_Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossCharacter.h">
+      <Filter>2_Data\1_Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmosKnight.h">
+      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -129,6 +138,15 @@
     <ClCompile Include="HylianKnights_3.Debug.cpp">
       <Filter>2_Data\1_Enemy\HylianCastle</Filter>
     </ClCompile>
+    <ClCompile Include="BossGameMode.cpp">
+      <Filter>1_GameMode\2_Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossCharacter.cpp">
+      <Filter>2_Data\1_Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmosKnight.cpp">
+      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="0_PlayerCharacter">
@@ -172,6 +190,9 @@
     </Filter>
     <Filter Include="2_Data\3_Room">
       <UniqueIdentifier>{6f4636bb-8c0c-4ba6-8648-b6dfa9839376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\2_Boss">
+      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

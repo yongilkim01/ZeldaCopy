@@ -7,15 +7,15 @@
 #include "HylianKnights.h"
 #include "Fade.h"
 
-DungeonGameMode::DungeonGameMode()
+ACastleDungeonGameMode::ACastleDungeonGameMode()
 {
 }
 
-DungeonGameMode::~DungeonGameMode()
+ACastleDungeonGameMode::~ACastleDungeonGameMode()
 {
 }
 
-void DungeonGameMode::BeginPlay()
+void ACastleDungeonGameMode::BeginPlay()
 {
 	AZeldaGameMode::BeginPlay();
 
@@ -23,11 +23,9 @@ void DungeonGameMode::BeginPlay()
 	UIBeginPlay();
 
 	CheckCollisionRoom();
-	//PlayerCharacter->SetCurRoom(Roomes[0]);
-	//this->CurRoom = Roomes[0];
 
 	{
-		AHylianKnights* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnights>();
+		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
 		EnemyCharacter->SetActorLocation({ 2332, 1724 });
 	}
 
@@ -39,12 +37,12 @@ void DungeonGameMode::BeginPlay()
 
 }
 
-void DungeonGameMode::Tick(float DeltaTime)
+void ACastleDungeonGameMode::Tick(float DeltaTime)
 {
 	AZeldaGameMode::Tick(DeltaTime);
 }
 
-void DungeonGameMode::RoomBeginPlay()
+void ACastleDungeonGameMode::RoomBeginPlay()
 {
 	Roomes.reserve(10);
 	RoomDataes.reserve(10);

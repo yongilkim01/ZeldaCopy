@@ -6,7 +6,7 @@
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/SpriteRenderer.h>
 
-void AHylianKnights::Patrol(float DeltaTime)
+void AHylianKnight::Patrol(float DeltaTime)
 {
 	AEnemyCharacter::Patrol(DeltaTime);
 
@@ -81,7 +81,7 @@ void AHylianKnights::Patrol(float DeltaTime)
 	}
 }
 
-void AHylianKnights::Trace(float DeltaTime)
+void AHylianKnight::Trace(float DeltaTime)
 {
 	AttackCoolTime += DeltaTime;
 
@@ -104,7 +104,7 @@ void AHylianKnights::Trace(float DeltaTime)
 	}
 }
 
-void AHylianKnights::Attack(float DeltaTime)
+void AHylianKnight::Attack(float DeltaTime)
 {
 	if (GetDistanceToTargetLocation(this->PlayerCharacter->GetActorLocation()) > AttackRange)
 	{
@@ -146,7 +146,7 @@ void AHylianKnights::Attack(float DeltaTime)
 	}
 }
 
-void AHylianKnights::KnockBack(float DeltaTime)
+void AHylianKnight::KnockBack(float DeltaTime)
 {
 	if (KnockBackCnt > 30)
 	{

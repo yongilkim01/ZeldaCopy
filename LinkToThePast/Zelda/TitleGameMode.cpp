@@ -29,7 +29,7 @@ void ATitleGameMode::Tick(float _DeltaTime)
 
 	if (true == UEngineInput::GetInst().IsDown('R'))
 	{
-		UEngineAPICore::GetCore()->OpenLevel("Play");
+		UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
 	}
 
 }
