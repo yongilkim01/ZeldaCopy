@@ -5,6 +5,10 @@
 // FVector4D xyzw
 // FVector4D == FVector;
 
+#define PI 3.141592
+#define RADIAN(DEGREE) DEGREE * (PI / 180.0f)
+ 
+
 class FVector2D
 {
 public:
