@@ -145,6 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ArmosKngiht_Control.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ArmosKnight.h">
       <SubType>
       </SubType>
@@ -198,6 +202,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArmosKngiht_Control.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ArmosKnight.cpp">
       <SubType>
       </SubType>

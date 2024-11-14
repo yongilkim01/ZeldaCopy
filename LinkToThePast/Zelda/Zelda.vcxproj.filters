@@ -64,6 +64,9 @@
     <ClInclude Include="ArmosKnight.h">
       <Filter>2_Data\1_Enemy\HylianCastle</Filter>
     </ClInclude>
+    <ClInclude Include="ArmosKngiht_Control.h">
+      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -145,6 +148,9 @@
       <Filter>2_Data\1_Enemy</Filter>
     </ClCompile>
     <ClCompile Include="ArmosKnight.cpp">
+      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmosKngiht_Control.cpp">
       <Filter>2_Data\1_Enemy\HylianCastle</Filter>
     </ClCompile>
   </ItemGroup>

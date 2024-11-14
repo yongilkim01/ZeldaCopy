@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "BossGameMode.h"
-#include "HylianKnights.h"
+#include "ArmosKngiht_Control.h"
 
 #include <EngineCore/EngineAPICore.h>
 
@@ -24,8 +24,8 @@ void ABossGameMode::BeginPlay()
 
 	{
 		FVector2D WindowHalfSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half();
-		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
-		EnemyCharacter->SetActorLocation(WindowHalfSize);
+		AArmosKngiht_Control* Control = GetWorld()->SpawnActor<AArmosKngiht_Control>();
+		Control->SetActorLocation(WindowHalfSize);
 	}
 
 }

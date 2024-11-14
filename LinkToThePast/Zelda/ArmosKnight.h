@@ -1,22 +1,25 @@
 #pragma once
+#include "BossCharacter.h"
 
 /**
  *	설명
  */
-class ArmosKnight
+class AArmosKnight : public ABossCharacter
 {
 public:
 	/** 생성자, 소멸자 */
-	ArmosKnight();
-	~ArmosKnight();
+	AArmosKnight();
+	~AArmosKnight();
 
 	/** 객체 값 복사 방지 */
-	ArmosKnight(const ArmosKnight& _Other) = delete;
-	ArmosKnight(ArmosKnight&& _Other) noexcept = delete;
-	ArmosKnight& operator=(const ArmosKnight& _Other) = delete;
-	ArmosKnight& operator=(ArmosKnight&& _Other) noexcept = delete;
+	AArmosKnight(const AArmosKnight& _Other) = delete;
+	AArmosKnight(AArmosKnight&& _Other) noexcept = delete;
+	AArmosKnight& operator=(const AArmosKnight& _Other) = delete;
+	AArmosKnight& operator=(AArmosKnight&& _Other) noexcept = delete;
 
 protected:
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 private:
 
