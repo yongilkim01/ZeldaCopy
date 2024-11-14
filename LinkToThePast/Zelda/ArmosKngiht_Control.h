@@ -26,9 +26,10 @@ public:
 	AArmosKngiht_Control& operator=(AArmosKngiht_Control&& _Other) noexcept = delete;
 
 	FVector2D RotateToDegree(float Degree, FVector2D Location, float H);
-	bool CheckDistanceToTarget(FVector2D Location1, FVector2D Location2);
+	bool CheckDistanceToTarget();
 	void MoveToTargetLocation(AActor* Actor, FVector2D TargetLocation, float DeltaTime);
 	void ChangeState(EControlState ControlState);
+	void MoveForcesNextIndex();
 
 protected:
 	virtual void BeginPlay() override;
@@ -45,5 +46,6 @@ private:
 
 	float CurrentDegree = 20;
 	float Speed = 300.0f;
+	int PaddingIndex = 0;
 };
 

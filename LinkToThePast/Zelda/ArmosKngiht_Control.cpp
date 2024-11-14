@@ -37,6 +37,20 @@ void AArmosKngiht_Control::BeginPlay()
 		BossEnemies.push_back(ArmosKnight);
 
 	}
+
+	BossForces.clear();
+
+	for (int i = 0; i < BossEnemies.size(); i++)
+	{
+		BossForces.push_back(RotateToDegree(
+			CurrentDegree,
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half(),
+			150.0f));
+
+		CurrentDegree += 60;
+	}
+
+	ChangeState(EControlState::MOVE);
 }
 
 void AArmosKngiht_Control::Tick(float DeltaTime)
@@ -63,18 +77,7 @@ void AArmosKngiht_Control::Tick(float DeltaTime)
 
 void AArmosKngiht_Control::Set(float DeltaTime)
 {
-	BossForces.clear();
-
-	for (int i = 0; i < BossEnemies.size(); i++)
-	{
-		BossForces.push_back(RotateToDegree(
-			CurrentDegree,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half(),
-			150.0f));
-
-		CurrentDegree += 60;
-	}
-	CurrentDegree = 20;
+	MoveForcesNextIndex();
 
 	ChangeState(EControlState::MOVE);
 }
@@ -83,9 +86,10 @@ void AArmosKngiht_Control::Move(float DeltaTime)
 {
 	for (int i = 0; i < BossEnemies.size(); i++)
 	{
-		if (true == CheckDistanceToTarget(BossEnemies[i]->GetActorLocation(), BossForces[i]))
+		if (true == CheckDistanceToTarget())
 		{
 			ChangeState(EControlState::SET);
+			return;
 		}
 		else
 		{
@@ -105,10 +109,16 @@ FVector2D AArmosKngiht_Control::RotateToDegree(float Degree, FVector2D Location,
 	return Result + Location;
 }
 
-bool AArmosKngiht_Control::CheckDistanceToTarget(FVector2D Location1, FVector2D Location2)
+bool AArmosKngiht_Control::CheckDistanceToTarget()
 {
-
-	return Location1.DistanceTo(Location2) < 10.0f;
+	for (int i = 0; i < BossEnemies.size(); i++)
+	{
+		if (BossEnemies[i]->GetActorLocation().DistanceTo(BossForces[i]) > 10.0f)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void AArmosKngiht_Control::MoveToTargetLocation(AActor* Actor, FVector2D TargetLocation, float DeltaTime)
@@ -122,4 +132,15 @@ void AArmosKngiht_Control::MoveToTargetLocation(AActor* Actor, FVector2D TargetL
 void AArmosKngiht_Control::ChangeState(EControlState ControlState)
 {
 	this->CurControlState = ControlState;
+}
+
+void AArmosKngiht_Control::MoveForcesNextIndex()
+{
+	FVector2D LastForce = BossForces[BossForces.size() - 1];
+	for (int i = 0; i < BossForces.size() - 1; i++)
+	{
+		// TODO: 앞으로 인덱스 이동 구현 예정
+		BossForces[i + 1] = BossForces[i];
+	}
+	BossForces[0] = LastForce;
 }
