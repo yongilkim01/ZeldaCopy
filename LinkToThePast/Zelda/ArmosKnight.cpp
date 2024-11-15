@@ -35,10 +35,38 @@ void AArmosKnight::BeginPlay()
 {
 	ABossCharacter::BeginPlay();
 
+	CurJumpPower = FVector2D::UP * 100.0f;
+
 }
 
-void AArmosKnight::Tick(float DeltaTime)
+void AArmosKnight::Tick(float _DeltaTime)
 {
-	ABossCharacter::Tick(DeltaTime);
+	ABossCharacter::Tick(_DeltaTime);
+
+	// 지정해준 위치로 가고
+	{
+		FVector2D MoveDir = TargetLoc - GetActorLocation();
+		MoveDir.Normalize();
+		AddActorLocation(MoveDir * 300.0f * _DeltaTime);
+	}
+
+	{
+		// 중력
+		CurJumpPower += FVector2D::DOWN * 2000.0f * _DeltaTime;
+		SpriteRenderer->AddComponentLocation(CurJumpPower * _DeltaTime);
+
+		if (0.0f <= SpriteRenderer->GetComponentLocation().Y)
+		{
+			CurJumpPower = FVector2D::UP * 500.0f;
+		}
+
+	}
 }
+
+
+
+
+
+
+
 

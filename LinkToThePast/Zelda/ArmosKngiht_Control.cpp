@@ -63,6 +63,13 @@ void AArmosKngiht_Control::Tick(float DeltaTime)
 		break;
 	}
 
+	//
+	for (int i = 0; i < BossEnemies.size(); i++)
+	{
+		BossEnemies[i]->SetTargetLocation(BossForces[i]);
+
+	}
+
 }
 
 /**
@@ -267,7 +274,7 @@ void AArmosKngiht_Control::MoveToTargetLocation(AActor* Actor, FVector2D TargetL
 	FVector2D MoveDir = TargetLocation - Actor->GetActorLocation();
 	MoveDir.Normalize();
 
-	Actor->AddActorLocation(MoveDir * this->Speed * DeltaTime);
+	//Actor->AddActorLocation(MoveDir * this->Speed * DeltaTime);
 }
 
 void AArmosKngiht_Control::ChangeState(EControlState ControlState)
