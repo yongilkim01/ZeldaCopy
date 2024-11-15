@@ -2,10 +2,11 @@
 #include "BossCharacter.h"
 #include<list>
 
+
 enum class EControlState
 {
 	SET,
-	MOVE,
+	MOVE
 };
 
 class AArmosKnight;
@@ -26,10 +27,15 @@ public:
 	AArmosKngiht_Control& operator=(AArmosKngiht_Control&& _Other) noexcept = delete;
 
 	FVector2D RotateToDegree(float Degree, FVector2D Location, float H);
+	FVector2D RotateToRadian(float Radian, FVector2D Location, float H);
 	bool CheckDistanceToTarget();
 	void MoveToTargetLocation(AActor* Actor, FVector2D TargetLocation, float DeltaTime);
 	void ChangeState(EControlState ControlState);
 	void MoveForcesNextIndex();
+	FVector2D GetRotateLocation(FVector2D Location, float Degree);
+	
+	void SetPhase1Location();
+	void PrintDebugInfo();
 
 protected:
 	virtual void BeginPlay() override;
@@ -41,11 +47,15 @@ private:
 
 	EControlState CurControlState = EControlState::SET;
 
+
 	std::vector<AArmosKnight*> BossEnemies;
 	std::vector<FVector2D> BossForces;
 
 	float CurrentDegree = 20;
-	float Speed = 300.0f;
+	float Speed = 200.0f;
 	int PaddingIndex = 0;
+	int CurPhase = 0;
+	float PhaseTime = 0.0f;
+	int MoveCallCount = 0;
 };
 

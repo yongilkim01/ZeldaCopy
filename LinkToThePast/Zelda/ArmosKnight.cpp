@@ -12,7 +12,7 @@ AArmosKnight::AArmosKnight()
 		SpriteRenderer->SetSprite("HylianKnightMoveDown.png");
 		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
 		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
-		SpriteRenderer->SetSpriteScale(1.5f);
+		SpriteRenderer->SetSpriteScale(3.0f);
 		SpriteRenderer->CreateAnimation("Idle", "ArmosKnightIdle.png", 0, 0, 0.1f);
 
 		SpriteRenderer->ChangeAnimation("Idle");
