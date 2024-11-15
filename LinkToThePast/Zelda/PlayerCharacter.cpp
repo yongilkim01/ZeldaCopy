@@ -12,6 +12,9 @@
 
 APlayerCharacter::APlayerCharacter()
 {
+	Super::BeginPlay();
+
+	EffectSoundPlayer = UEngineSound::Play("sword_beam.wav");
 	//SetActorLocation({ 2158, 1801 });
 	SetActorLocation({ 220, 220 });
 	{

@@ -72,6 +72,9 @@
     <ClCompile Include="TimeEvent.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="EngineResources.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="TimeEvent.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineResources.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

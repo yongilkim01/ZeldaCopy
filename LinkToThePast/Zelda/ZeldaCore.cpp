@@ -24,20 +24,38 @@ UZeldaCore::~UZeldaCore()
 
 void UZeldaCore::BeginPlay()
 {
-	UEngineDirectory Dir;
-	if (false == Dir.MoveParentToDirectory("Resources"))
+	// 이미지로드
 	{
-		MSGASSERT("리소스 폴더를 찾지 못했습니다.");
-		return;
+		UEngineDirectory Dir;
+		if (false == Dir.MoveParentToDirectory("Resources"))
+		{
+			MSGASSERT("리소스 폴더를 찾지 못했습니다.");
+			return;
+		}
+		Dir.Append("Image");
+		std::vector<UEngineFile> ImageFiles = Dir.GetAllFile();
+		for (size_t i = 0; i < ImageFiles.size(); i++)
+		{
+			std::string FilePath = ImageFiles[i].GetPathToString();
+			UImageManager::GetInst().Load(FilePath);
+		}
 	}
 
-	// 모든 파일 다 얻어낸다음
-	std::vector<UEngineFile> ImageFiles = Dir.GetAllFile();
-
-	for (size_t i = 0; i < ImageFiles.size(); i++)
+	// 사운드 로드
 	{
-		std::string FilePath = ImageFiles[i].GetPathToString();
-		UImageManager::GetInst().Load(FilePath);
+		UEngineDirectory Dir;
+		if (false == Dir.MoveParentToDirectory("Resources"))
+		{
+			MSGASSERT("리소스 폴더를 찾지 못했습니다.");
+			return;
+		}
+		Dir.Append("Sound");
+		std::vector<UEngineFile> ImageFiles = Dir.GetAllFile();
+		for (size_t i = 0; i < ImageFiles.size(); i++)
+		{
+			std::string FilePath = ImageFiles[i].GetPathToString();
+			UEngineSound::Load(FilePath);
+		}
 	}
 
 	UImageManager::GetInst().CuttingSprite("LinkMoveDown.png", { 64, 64 });

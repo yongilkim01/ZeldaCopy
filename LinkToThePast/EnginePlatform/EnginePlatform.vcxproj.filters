@@ -16,6 +16,9 @@
     <ClInclude Include="EngineWinDebug.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="EngineSound.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PreCompile.cpp">
@@ -32,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="EngineWinDebug.cpp">
       <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSound.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,21 +73,17 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ThirdParty\FMOD\bin\Release\fmod.dll">
-      <Filter>ThirdParty\FMOD\Bin\Release</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="ThirdParty\FMOD\bin\Release\fmod_vc.lib">
-      <Filter>ThirdParty\FMOD\Bin\Release</Filter>
-    </Library>
-  </ItemGroup>
-  <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\FMOD\bin\Debug\fmodL_vc.lib">
       <Filter>ThirdParty\FMOD\Bin\Debug</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\FMOD\bin\Debug\fmodL.dll">
       <Filter>ThirdParty\FMOD\Bin\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FMOD\bin\Release\fmod.dll">
+      <Filter>ThirdParty\FMOD\Bin\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FMOD\bin\Release\fmod_vc.lib">
+      <Filter>ThirdParty\FMOD\Bin\Release</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

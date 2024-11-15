@@ -254,6 +254,8 @@ void APlayerCharacter::Move(float DeltaTime)
 
 void APlayerCharacter::Attack(float DeltaTime)
 {
+	EffectSoundPlayer.On();
+
 	SetCameraLocationToPlayer();
 	if (IsAttack == true) return;
 

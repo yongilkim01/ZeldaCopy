@@ -2,6 +2,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineCore/ImageManager.h>
 #include <EngineCore/Collision2D.h>
+#include <EnginePlatform/EngineSound.h>
 
 #include "ContentsEnum.h"
 
@@ -86,6 +87,7 @@ private:
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* BodyCollisionComp = nullptr;
 	UCollision2D* MoveCollisionComp = nullptr;
+	USoundPlayer EffectSoundPlayer;
 
 	std::vector<UCollision2D*> AttackCollisions;
 
