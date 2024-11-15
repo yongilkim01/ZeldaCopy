@@ -254,7 +254,7 @@ void APlayerCharacter::Move(float DeltaTime)
 
 void APlayerCharacter::Attack(float DeltaTime)
 {
-	EffectSoundPlayer.On();
+	EffectSoundPlayer = UEngineSound::Play("sword_beam.wav");
 
 	SetCameraLocationToPlayer();
 	if (IsAttack == true) return;
