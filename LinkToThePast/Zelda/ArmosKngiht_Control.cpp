@@ -45,7 +45,7 @@ void AArmosKngiht_Control::BeginPlay()
 		BossForces.push_back(RotateToDegree(
 			CurrentDegree,
 			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half(),
-			150.0f));
+			180.0f));
 
 		CurrentDegree += 60;
 	}
@@ -136,11 +136,11 @@ void AArmosKngiht_Control::ChangeState(EControlState ControlState)
 
 void AArmosKngiht_Control::MoveForcesNextIndex()
 {
-	FVector2D LastForce = BossForces[BossForces.size() - 1];
+	FVector2D ForstForce = BossForces[0];
 	for (int i = 0; i < BossForces.size() - 1; i++)
 	{
 		// TODO: 앞으로 인덱스 이동 구현 예정
-		BossForces[i + 1] = BossForces[i];
+		BossForces[i] = BossForces[i + 1];
 	}
-	BossForces[0] = LastForce;
+	BossForces[BossForces.size() -  1] = ForstForce;
 }

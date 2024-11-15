@@ -1,9 +1,11 @@
 #include "PreCompile.h"
 #include "PlayerCharacter.h"
 #include "Room.h"
+#include "BossGameMode.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EnginePlatform/EngineInput.h>
+#include <EngineCore/EngineAPICore.h>
 
 void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 {
@@ -52,5 +54,15 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	{
 		if (IsDebug() == true) DebugOff();
 		else if (IsDebug() == false) DebugOn();
+	}
+	if (true == UEngineInput::GetInst().IsDown(VK_F2))
+	{
+		UEngineDebug::SwitchIsDebug();
+	}
+	if (true == UEngineInput::GetInst().IsDown(VK_F3))
+	{
+		// static½è´Ù. 
+		UEngineAPICore::GetCore()->ResetLevel<ABossGameMode, APlayerCharacter>("Boss2");
+		UEngineAPICore::GetCore()->OpenLevel("Boss2");
 	}
 }

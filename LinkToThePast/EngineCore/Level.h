@@ -1,10 +1,11 @@
 #pragma once
 #include "GameMode.h"
+#include <EngineBase/Object.h>
 
 /**
 * 
 */
-class ULevel
+class ULevel : public UObject
 {
 public:
 	friend class UCollision2D;

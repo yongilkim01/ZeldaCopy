@@ -68,6 +68,11 @@ void AActor::Tick(float DeltaTime)
 	std::list<class UActorComponent*>::iterator EndIter = Components.end();
 	for (; StartIter != EndIter; ++StartIter)
 	{
+		if (false == (*StartIter)->IsActive())
+		{
+			continue;
+		}
+
 		(*StartIter)->ComponentTick(DeltaTime);
 	}
 }
