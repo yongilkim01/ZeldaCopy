@@ -39,7 +39,10 @@ public:
 	}
 
 	/** Boss Enemy 공통 메소드 */
-	virtual void TakeDamage(int Damage) override;
+	virtual void TakeDamage(int Damage, ABaseCharacter* Character) override;
+
+	/** Armos knight 메소드 */
+	void PrintDebugInfo();
 
 protected:
 	virtual void BeginPlay() override;

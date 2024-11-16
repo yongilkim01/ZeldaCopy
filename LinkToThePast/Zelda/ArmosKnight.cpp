@@ -4,6 +4,7 @@
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
+#include <EngineCore/EngineCoreDebug.h>
 
 AArmosKnight::AArmosKnight()
 {
@@ -32,7 +33,7 @@ AArmosKnight::~AArmosKnight()
 }
 
 
-void AArmosKnight::TakeDamage(int Damage)
+void AArmosKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 {
 	ChangeState(EBossState::KNOCKBACK);
 }
@@ -50,6 +51,8 @@ void AArmosKnight::BeginPlay()
 void AArmosKnight::Tick(float DeltaTime)
 {
 	ABossCharacter::Tick(DeltaTime);
+
+	PrintDebugInfo();
 
 	switch (CurBossState)
 	{
@@ -90,9 +93,22 @@ void AArmosKnight::Knockback(float DetlaTime)
 {
 }
 
+void AArmosKnight::PrintDebugInfo()
+{
+	UEngineDebug::CoreOutPutString("///////////////////////// Armos knight Debug /////////////////////////");
 
-
-
-
-
-
+	switch (CurBossState)
+	{
+	case EBossState::NONE:
+		UEngineDebug::CoreOutPutString("Armos knight state : NONE");
+		break;
+	case EBossState::MOVE:
+		UEngineDebug::CoreOutPutString("Armos knight state : MOVE");
+		break;
+	case EBossState::KNOCKBACK:
+		UEngineDebug::CoreOutPutString("Armos knight state : KNOCKBACK");
+		break;
+	default:
+		break;
+	}
+}

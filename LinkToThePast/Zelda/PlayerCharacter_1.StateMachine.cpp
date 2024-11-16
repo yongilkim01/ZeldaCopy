@@ -2,6 +2,7 @@
 #include "PlayerCharacter.h"
 #include "Room.h"
 #include "HylianKnights.h"
+#include "BaseCharacter.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -262,37 +263,37 @@ void APlayerCharacter::Attack(float DeltaTime)
 	if (this->CurDir == FVector2D::RIGHT)
 	{
 		IsAttack = true;
-		AHylianKnight* Result = dynamic_cast<AHylianKnight*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody));
+		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10);
+			Result->TakeDamage(10, this);
 		}
 	}
 	else if (this->CurDir == FVector2D::LEFT)
 	{
 		IsAttack = true;
-		AHylianKnight* Result = dynamic_cast<AHylianKnight*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody));
+		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10);
+			Result->TakeDamage(10, this);
 		}
 	}
 	else if (this->CurDir == FVector2D::DOWN)
 	{
 		IsAttack = true;
-		AHylianKnight* Result = dynamic_cast<AHylianKnight*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody));
+		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10);
+			Result->TakeDamage(10, this);
 		}
 	}
 	else if (this->CurDir == FVector2D::UP)
 	{
 		IsAttack = true;
-		AHylianKnight* Result = dynamic_cast<AHylianKnight*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody));
+		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10);
+			Result->TakeDamage(10, this);
 		}
 	}
 }

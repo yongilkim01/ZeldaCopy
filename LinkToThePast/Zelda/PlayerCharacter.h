@@ -1,9 +1,9 @@
 #pragma once
-#include <EngineCore/Actor.h>
 #include <EngineCore/ImageManager.h>
 #include <EngineCore/Collision2D.h>
 #include <EnginePlatform/EngineSound.h>
 
+#include "BaseCharacter.h"
 #include "ContentsEnum.h"
 
 class ARoom;
@@ -22,7 +22,7 @@ enum class EPlayerState
 /**
  *	플레이어 캐릭터 클래스
  */
-class APlayerCharacter : public AActor
+class APlayerCharacter : public ABaseCharacter
 {
 public:
 	/** 생성자, 소멸자 */
@@ -51,7 +51,7 @@ public:
 	void KnockBack(float DeltaTime);
 	void EndAttack();
 	void ChangeState(EPlayerState ChangeState);
-	void TakeDamage(int Damage, AEnemyCharacter* EnemyCharacter);
+	virtual void TakeDamage(int Damage, ABaseCharacter* EnemyCharacter) override;
 
 	void SetCollisionImage(std::string_view CollisionImageName);
 

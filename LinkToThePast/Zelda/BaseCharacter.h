@@ -15,7 +15,7 @@ public:
 	ABaseCharacter& operator=(ABaseCharacter&& _Other) noexcept = delete;
 
 	/** 캐릭터 가상 메소드 */
-	virtual void TakeDamage(int Damage) {}
+	virtual void TakeDamage(int Damage, ABaseCharacter* Character) {}
 
 	/** 캐릭터 공통 메소드 */
 	void AddCharacterLocation(FVector2D Location);

@@ -20,7 +20,7 @@ public:
 	AHylianKnight& operator=(const AHylianKnight& _Other) = delete;
 	AHylianKnight& operator=(AHylianKnight&& _Other) noexcept = delete;
 
-	virtual void TakeDamage(int Damage = 10) override;
+	virtual void TakeDamage(int Damage, ABaseCharacter* Character) override;
 
 public:
 	void ChangeMoveAnimation(FVector2D Direction);

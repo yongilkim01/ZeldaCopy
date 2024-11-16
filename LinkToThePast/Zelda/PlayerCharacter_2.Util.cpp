@@ -5,14 +5,14 @@
 
 #include <EngineCore/EngineAPICore.h>
 
-void APlayerCharacter::TakeDamage(int Damage, AEnemyCharacter* EnemyCharacter)
+void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 {
 	if (CurPlayerState == EPlayerState::KnockBack) return;
 
 	CurrentHP -= Damage;
 
-	this->KnockBackDir = GetActorLocation() - EnemyCharacter->GetActorLocation();
-	this->CurDir = GetDirectionToTargetLocation(EnemyCharacter->GetActorLocation());
+	this->KnockBackDir = GetActorLocation() - Character->GetActorLocation();
+	this->CurDir = GetDirectionToTargetLocation(Character->GetActorLocation());
 	KnockBackDir.Normalize();
 
 	ChangeState(EPlayerState::KnockBack);

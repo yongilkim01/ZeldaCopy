@@ -100,7 +100,7 @@ void AHylianKnight::Tick(float DeltaTime)
 	PrintDebugInfo();
 }
 
-void AHylianKnight::TakeDamage(int Damage)
+void AHylianKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 {
 	if (CurEnemyState == EEnemyState::KnockBack) return;
 	CurrentHP -= Damage;
