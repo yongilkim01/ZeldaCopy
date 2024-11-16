@@ -17,12 +17,12 @@ AEnemyCharacter::~AEnemyCharacter()
 
 void AEnemyCharacter::BeginPlay()
 {
-	Super::BeginPlay();
+	ABaseCharacter::BeginPlay();
 }
 
 void AEnemyCharacter::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+	ABaseCharacter::Tick(DeltaTime);
 
 	if (this->DeathEffect != nullptr && GetDeathEffectAnimationIsEnd() == false) return;
 

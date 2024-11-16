@@ -11,11 +11,11 @@ ABossCharacter::~ABossCharacter()
 
 void ABossCharacter::BeginPlay()
 {
-	Super::BeginPlay();
+	ABaseCharacter::BeginPlay();
 }
 
 void ABossCharacter::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+	ABaseCharacter::Tick(DeltaTime);
 }
 

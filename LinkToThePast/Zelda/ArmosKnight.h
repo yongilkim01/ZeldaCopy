@@ -1,6 +1,13 @@
 #pragma once
 #include "BossCharacter.h"
 
+enum class EBossState
+{
+	NONE,
+	MOVE,
+	KNOCKBACK
+};
+
 /**
  *	설명
  */
@@ -17,22 +24,35 @@ public:
 	AArmosKnight& operator=(const AArmosKnight& _Other) = delete;
 	AArmosKnight& operator=(AArmosKnight&& _Other) noexcept = delete;
 
+	/** 상태(State) 메소드 */
+	void Move(float DeltaTime);
+	void Knockback(float DeltaTime);
+
+	/** 겟, 셋 메소드 */
 	void SetTargetLocation(FVector2D Location)
 	{
 		this->TargetLoc = Location;
 	}
+	void ChangeState(EBossState BossState)
+	{
+		this->CurBossState = BossState;
+	}
+
+	/** Boss Enemy 공통 메소드 */
+	virtual void TakeDamage(int Damage) override;
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	EBossState CurBossState = EBossState::NONE;
+
 	FVector2D HitPower = FVector2D::ZERO;
 	FVector2D TargetLoc = FVector2D::ZERO;
-
 	FVector2D ComLoc = FVector2D::ZERO;
+	FVector2D CurJumpPower = FVector2D::ZERO;
 
-	FVector2D CurJumpPower;
 	float JumpSpeed = 100.0f;
 	float CurDir = -1.0f;
 

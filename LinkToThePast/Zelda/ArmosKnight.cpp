@@ -8,14 +8,14 @@
 AArmosKnight::AArmosKnight()
 {
 	{
-		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		SpriteRenderer->SetSprite("HylianKnightMoveDown.png");
-		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
-		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
-		SpriteRenderer->SetSpriteScale(3.0f);
-		SpriteRenderer->CreateAnimation("Idle", "ArmosKnightIdle.png", 0, 0, 0.1f);
+		SpriteComponent = CreateDefaultSubObject<USpriteRenderer>();
+		SpriteComponent->SetSprite("HylianKnightMoveDown.png");
+		SpriteComponent->SetComponentScale(FVector2D(1.0f, 1.0f));
+		SpriteComponent->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
+		SpriteComponent->SetSpriteScale(3.0f);
+		SpriteComponent->CreateAnimation("Idle", "ArmosKnightIdle.png", 0, 0, 0.1f);
 
-		SpriteRenderer->ChangeAnimation("Idle");
+		SpriteComponent->ChangeAnimation("Idle");
 
 	}
 	{
@@ -31,38 +31,64 @@ AArmosKnight::~AArmosKnight()
 {
 }
 
+
+void AArmosKnight::TakeDamage(int Damage)
+{
+	ChangeState(EBossState::KNOCKBACK);
+}
+
 void AArmosKnight::BeginPlay()
 {
 	ABossCharacter::BeginPlay();
 
 	CurJumpPower = FVector2D::UP * 100.0f;
+	ChangeState(EBossState::MOVE);
+	
 
 }
 
-void AArmosKnight::Tick(float _DeltaTime)
+void AArmosKnight::Tick(float DeltaTime)
 {
-	ABossCharacter::Tick(_DeltaTime);
+	ABossCharacter::Tick(DeltaTime);
 
-	// 지정해준 위치로 가고
+	switch (CurBossState)
+	{
+	case EBossState::MOVE:
+		Move(DeltaTime);
+		break;
+	case EBossState::KNOCKBACK:
+		Knockback(DeltaTime);
+		break;
+	default:
+		break;
+	}
+}
+
+
+void AArmosKnight::Move(float DeltaTime)
+{
+	// 관리자가 지정해준 위치로 이동
 	{
 		FVector2D MoveDir = TargetLoc - GetActorLocation();
 		MoveDir.Normalize();
-		AddActorLocation(MoveDir * 300.0f * _DeltaTime);
+		AddActorLocation(MoveDir * 300.0f * DeltaTime);
 	}
-
+	// 자체 점프
 	{
 		// 중력
-		CurJumpPower += FVector2D::DOWN * 2000.0f * _DeltaTime;
-		SpriteRenderer->AddComponentLocation(CurJumpPower * _DeltaTime);
+		CurJumpPower += FVector2D::DOWN * 2000.0f * DeltaTime;
+		SpriteComponent->AddComponentLocation(CurJumpPower * DeltaTime);
 
-		if (0.0f <= SpriteRenderer->GetComponentLocation().Y)
+		if (0.0f <= SpriteComponent->GetComponentLocation().Y)
 		{
 			CurJumpPower = FVector2D::UP * 500.0f;
 		}
-
 	}
 }
 
+void AArmosKnight::Knockback(float DetlaTime)
+{
+}
 
 
 

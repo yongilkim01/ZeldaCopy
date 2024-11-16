@@ -1,5 +1,5 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include "BaseCharacter.h"
 
 class USpriteRenderer;
 class UCollision2D;
@@ -7,7 +7,7 @@ class UCollision2D;
 /**
  *	설명
  */
-class ABossCharacter : public AActor
+class ABossCharacter : public ABaseCharacter
 {
 public:
 	/** 생성자, 소멸자 */
@@ -22,21 +22,23 @@ public:
 
 	void SetCurDir(FVector2D Dir)
 	{
-		this->CurrentDirection = Dir;
+		this->CurDir = Dir;
 	}
 	FVector2D GetCurDir()
 	{
-		return this->CurrentDirection;
+		return this->CurDir;
 	}
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	USpriteRenderer* SpriteRenderer = nullptr;
+	USpriteRenderer* SpriteComponent = nullptr;
 	UCollision2D* CollisionComponent = nullptr;
 
+	FVector2D CurDir = FVector2D::ZERO;
+
 private:
-	FVector2D CurrentDirection = FVector2D::ZERO;
+
 };
 

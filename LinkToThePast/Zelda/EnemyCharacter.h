@@ -1,5 +1,5 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include "BaseCharacter.h"
 
 class APlayerCharacter;
 class AEffectEnemyDeath;
@@ -16,7 +16,7 @@ enum class EEnemyState
 /**
  *	설명
  */
-class AEnemyCharacter : public AActor
+class AEnemyCharacter : public ABaseCharacter
 {
 public:
 	/** 생성자, 소멸자 */
@@ -28,8 +28,6 @@ public:
 	AEnemyCharacter(AEnemyCharacter&& _Other) noexcept = delete;
 	AEnemyCharacter& operator=(const AEnemyCharacter& _Other) = delete;
 	AEnemyCharacter& operator=(AEnemyCharacter&& _Other) noexcept = delete;
-
-	virtual void TakeDamage(int Damage = 10) {}
 	
 	float CheckDistanceToPlayer();
 	bool IsRangeToPlayer();
@@ -42,11 +40,10 @@ public:
 
 	EEnemyState GetCurEnemyState() { return this->CurEnemyState; }
 	void SetCurEnemyState(EEnemyState EnemyState) { this->CurEnemyState = EnemyState; }
-	void SetSpeed(float Speed) { this->Speed = Speed; }
-	float GetSpeed() { return this->Speed; }
 	bool GetDeathEffectAnimationIsEnd();
 
 protected:
+	/** 액터 가상함수 */
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
@@ -65,10 +62,7 @@ protected:
 	EEnemyState PrevEnemyState = EEnemyState::Patrol;
 
 	int CurTurningIndex = 0;
-	int MaxHP = 100;
-	int CurrentHP = 40;
 	float DetectionRange = 200.0f;
-	float Speed = 80.0f;
 	float AttackRange = 80.0f;
 	float AttackCoolTime = 0.0f;
 

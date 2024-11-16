@@ -37,12 +37,6 @@
     <ClInclude Include="Room.h">
       <Filter>2_Data\3_Room</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyCharacter.h">
-      <Filter>2_Data\1_Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="HylianKnights.h">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>2_Data\2_Effect</Filter>
     </ClInclude>
@@ -58,14 +52,20 @@
     <ClInclude Include="BossGameMode.h">
       <Filter>1_GameMode\2_Boss</Filter>
     </ClInclude>
-    <ClInclude Include="BossCharacter.h">
-      <Filter>2_Data\1_Enemy</Filter>
+    <ClInclude Include="HylianKnights.h">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClInclude>
     <ClInclude Include="ArmosKnight.h">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
+      <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
     </ClInclude>
     <ClInclude Include="ArmosKngiht_Control.h">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
+      <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
+    </ClInclude>
+    <ClInclude Include="BossCharacter.h">
+      <Filter>2_Data\1_Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyCharacter.h">
+      <Filter>2_Data\1_Enemy\Basic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -105,12 +105,6 @@
     <ClCompile Include="Room.cpp">
       <Filter>2_Data\3_Room</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyCharacter.cpp">
-      <Filter>2_Data\1_Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="HylianKnights.cpp">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerCharacter_1.StateMachine.cpp">
       <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
@@ -119,12 +113,6 @@
     </ClCompile>
     <ClCompile Include="EffectEnemyDeath.cpp">
       <Filter>2_Data\2_Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="HylianKnights_2.Animation.cpp">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
-    </ClCompile>
-    <ClCompile Include="HylianKnights_1.StateMachine.cpp">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
     </ClCompile>
     <ClCompile Include="Fade.cpp">
       <Filter>4_Util</Filter>
@@ -138,20 +126,32 @@
     <ClCompile Include="BaseCharacter.cpp">
       <Filter>2_Data\0_Object</Filter>
     </ClCompile>
-    <ClCompile Include="HylianKnights_3.Debug.cpp">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
-    </ClCompile>
     <ClCompile Include="BossGameMode.cpp">
       <Filter>1_GameMode\2_Boss</Filter>
     </ClCompile>
-    <ClCompile Include="BossCharacter.cpp">
-      <Filter>2_Data\1_Enemy</Filter>
+    <ClCompile Include="HylianKnights.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="HylianKnights_1.StateMachine.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="HylianKnights_2.Animation.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="HylianKnights_3.Debug.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="ArmosKnight.cpp">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
+      <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="ArmosKngiht_Control.cpp">
-      <Filter>2_Data\1_Enemy\HylianCastle</Filter>
+      <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="BossCharacter.cpp">
+      <Filter>2_Data\1_Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyCharacter.cpp">
+      <Filter>2_Data\1_Enemy\Basic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,9 +188,6 @@
     <Filter Include="2_Data\1_Enemy">
       <UniqueIdentifier>{81acc3ac-1612-4237-9e7a-32b77baf0c86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Data\1_Enemy\HylianCastle">
-      <UniqueIdentifier>{d7d9ee7a-a119-4a77-b568-6c923a15a663}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Data\2_Effect">
       <UniqueIdentifier>{c447c80b-86a9-485a-b498-5f1c6112b233}</UniqueIdentifier>
     </Filter>
@@ -199,6 +196,18 @@
     </Filter>
     <Filter Include="1_GameMode\2_Boss">
       <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\1_Enemy\Boss">
+      <UniqueIdentifier>{f3c5ff46-6223-4d01-94a3-e8abfecbd59f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\1_Enemy\Boss\HyruleCastle">
+      <UniqueIdentifier>{fcd8d2f6-06b1-42e7-ae70-8dd68258da68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\1_Enemy\Basic">
+      <UniqueIdentifier>{b8605d6f-b149-4f6a-a628-50b70ccf9811}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\1_Enemy\Basic\HyruleCastle">
+      <UniqueIdentifier>{ecad5478-fd92-4eb1-ba17-373459691ac6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
