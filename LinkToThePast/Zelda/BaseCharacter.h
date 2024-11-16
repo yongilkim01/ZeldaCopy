@@ -16,6 +16,7 @@ public:
 
 	/** 캐릭터 가상 메소드 */
 	virtual void TakeDamage(int Damage, ABaseCharacter* Character) {}
+	virtual void Death() {}
 
 	/** 캐릭터 공통 메소드 */
 	void AddCharacterLocation(FVector2D Location);

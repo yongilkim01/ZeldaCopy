@@ -16,7 +16,9 @@ AArmosKnight::AArmosKnight()
 		SpriteComponent->SetSpriteScale(3.0f);
 		SpriteComponent->CreateAnimation("Move", "ArmosKnightIdle.png", 0, 0, 0.1f);
 		SpriteComponent->CreateAnimation("Hit", "ArmosKnightHit.png", 0, 7, 0.0011f);
-		SpriteComponent->CreateAnimation("Death", "ArmosKnightDeath.png", 0, 7, 0.0011f);
+		SpriteComponent->CreateAnimation("Death", "ArmosKnightDeath.png", 0, 4, 0.1f);
+
+		SpriteComponent->SetAnimationEvent("Death", 4, std::bind(&AArmosKnight::Death, this));
 
 		SpriteComponent->ChangeAnimation("Move");
 
@@ -45,11 +47,18 @@ void AArmosKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 
 	if (CurrentHP <= 0)
 	{
-		CurBossState = EBossState::KNOCKBACK;
+		SpriteComponent->ChangeAnimation("Death", true);
+		ChangeState(EBossState::NONE);
+		return;
 	}
 
 	CurBossState = EBossState::KNOCKBACK;
 	SpriteComponent->ChangeAnimation("Hit");
+}
+
+void AArmosKnight::Death()
+{
+	Destroy();
 }
 
 void AArmosKnight::BeginPlay()

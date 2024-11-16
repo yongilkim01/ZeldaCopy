@@ -24,6 +24,10 @@ public:
 	AArmosKnight& operator=(const AArmosKnight& _Other) = delete;
 	AArmosKnight& operator=(AArmosKnight&& _Other) noexcept = delete;
 
+	/** Bass Character 공통 메소드 */
+	virtual void TakeDamage(int Damage, ABaseCharacter* Character) override;
+	virtual void Death() override;
+
 	/** 상태(State) 메소드 */
 	void Move(float DeltaTime);
 	void Knockback(float DeltaTime);
@@ -37,9 +41,6 @@ public:
 	{
 		this->CurBossState = BossState;
 	}
-
-	/** Boss Enemy 공통 메소드 */
-	virtual void TakeDamage(int Damage, ABaseCharacter* Character) override;
 
 	/** Armos knight 메소드 */
 	void PrintDebugInfo();
