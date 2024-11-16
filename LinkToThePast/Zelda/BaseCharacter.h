@@ -19,6 +19,10 @@ public:
 
 	/** 캐릭터 공통 메소드 */
 	void AddCharacterLocation(FVector2D Location);
+	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
+	FVector2D GetNormalDirectionToTargetLocation(FVector2D TargetLocation);
+	FVector2D GetNormalDirectionToThisLocation(FVector2D TargetLocation);
+	float GetDistanceToTargetLocation(FVector2D TargetLocation);
 
 	/** 게터/세터 메소드 */
 	void SetSpeed(float Speed) { this->Speed = Speed; }

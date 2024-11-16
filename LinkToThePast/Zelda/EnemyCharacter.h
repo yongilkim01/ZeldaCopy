@@ -35,9 +35,6 @@ public:
 	{
 		this->TurningLocations.push_back(Location);
 	}
-	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
-	float GetDistanceToTargetLocation(FVector2D TargetLocation);
-
 	EEnemyState GetCurEnemyState() { return this->CurEnemyState; }
 	void SetCurEnemyState(EEnemyState EnemyState) { this->CurEnemyState = EnemyState; }
 	bool GetDeathEffectAnimationIsEnd();

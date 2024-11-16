@@ -50,14 +50,16 @@ protected:
 
 private:
 	EBossState CurBossState = EBossState::NONE;
+	ABaseCharacter* TargetCharacter = nullptr;
 
+	FVector2D CurrentDirection = FVector2D::ZERO;
 	FVector2D HitPower = FVector2D::ZERO;
 	FVector2D TargetLoc = FVector2D::ZERO;
 	FVector2D ComLoc = FVector2D::ZERO;
 	FVector2D CurJumpPower = FVector2D::ZERO;
 
 	float JumpSpeed = 100.0f;
-	float CurDir = -1.0f;
 
+	int KnockBackCount = 0;
 };
 

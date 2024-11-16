@@ -26,6 +26,7 @@ AArmosKnight::AArmosKnight()
 		CollisionComponent->SetCollisionGroup(ECollisionGroup::EnemyBody);
 		CollisionComponent->SetCollisionType(ECollisionType::Rect);
 	}
+	DebugOn();
 }
 
 AArmosKnight::~AArmosKnight()
@@ -35,7 +36,17 @@ AArmosKnight::~AArmosKnight()
 
 void AArmosKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 {
-	ChangeState(EBossState::KNOCKBACK);
+	if (CurBossState == EBossState::KNOCKBACK) return;
+
+	CurrentHP -= Damage;
+	TargetCharacter = Character;
+
+	if (CurrentHP <= 0)
+	{
+		CurBossState = EBossState::KNOCKBACK;
+	}
+
+	CurBossState = EBossState::KNOCKBACK;
 }
 
 void AArmosKnight::BeginPlay()
@@ -89,14 +100,53 @@ void AArmosKnight::Move(float DeltaTime)
 	}
 }
 
-void AArmosKnight::Knockback(float DetlaTime)
+void AArmosKnight::Knockback(float DeltaTime)
 {
+	if (KnockBackCount > 60 || TargetCharacter == nullptr)
+	{
+		//CurBossState = PrevEnemyState;
+		KnockBackCount = 0;
+		ChangeState(EBossState::MOVE);
+		//if (CurrentHP <= 0)
+		//{
+		//	DeathEffect = GetWorld()->SpawnActor<AEffectEnemyDeath>();
+		//	DeathEffect->SetActorLocation(GetActorLocation());
+		//	DeathEffect->SetOwnerActor(this);
+		//}
+
+		return;
+	}
+
+	FVector2D PlayerLocation = this->TargetCharacter->GetActorLocation();
+
+	AddActorLocation(GetNormalDirectionToThisLocation(PlayerLocation) * DeltaTime * 1000.0f);
+
+	CurDir = GetNormalDirectionToTargetLocation(PlayerLocation);
+
+	KnockBackCount++;
+
+	// 자체 점프
+	{
+		// 중력
+		CurJumpPower += FVector2D::DOWN * 2000.0f * DeltaTime;
+		SpriteComponent->AddComponentLocation(CurJumpPower * DeltaTime);
+
+		if (0.0f <= SpriteComponent->GetComponentLocation().Y)
+		{
+			CurJumpPower = FVector2D::UP * 500.0f;
+		}
+	}
 }
 
 void AArmosKnight::PrintDebugInfo()
 {
 	UEngineDebug::CoreOutPutString("///////////////////////// Armos knight Debug /////////////////////////");
+	UEngineDebug::CoreOutPutString("Kncok back count : " + std::to_string(KnockBackCount));
 
+	if (TargetCharacter != nullptr)
+	{
+		UEngineDebug::CoreOutPutString("Target location : " + TargetCharacter->GetActorLocation().ToString());
+	}
 	switch (CurBossState)
 	{
 	case EBossState::NONE:

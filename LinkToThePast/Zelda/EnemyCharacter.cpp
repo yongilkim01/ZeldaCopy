@@ -60,43 +60,6 @@ bool AEnemyCharacter::IsRangeToPlayer()
 	return (CheckDistanceToPlayer()) < DetectionRange;
 }
 
-FVector2D AEnemyCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
-{
-	FVector2D ResultDir = TargetLocation - GetActorLocation();
-	ResultDir.Normalize();
-	
-	// Up 또는 Down
-	if (UEngineMath::Abs(ResultDir.Y) > UEngineMath::Abs(ResultDir.X))
-	{
-		if (ResultDir.Y > 0.0f)
-		{
-			return FVector2D::DOWN;
-		}
-		else
-		{
-			return FVector2D::UP;
-		}
-	}
-	else // Right 또는 Left
-	{
-		if (ResultDir.X > 0.0f)
-		{
-			return FVector2D::RIGHT;
-		}
-		else
-		{
-			return FVector2D::LEFT;
-		}
-	}
-
-	return FVector2D::ZERO;
-}
-
-float AEnemyCharacter::GetDistanceToTargetLocation(FVector2D TargetLocation)
-{
-	return GetActorLocation().DistanceTo(TargetLocation);
-}
-
 bool AEnemyCharacter::GetDeathEffectAnimationIsEnd()
 {
 	return this->DeathEffect->GetAnimationIsEnd();
