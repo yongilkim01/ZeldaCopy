@@ -29,7 +29,6 @@ public:
 	FVector2D RotateToDegree(float Degree, FVector2D Location, float H);
 	FVector2D RotateToRadian(float Radian, FVector2D Location, float H);
 	bool CheckDistanceToTarget();
-	void MoveToTargetLocation(AActor* Actor, FVector2D TargetLocation, float DeltaTime);
 	void ChangeState(EControlState ControlState);
 	void MoveForcesNextIndex();
 	FVector2D GetRotateLocation(FVector2D Location, float Degree);

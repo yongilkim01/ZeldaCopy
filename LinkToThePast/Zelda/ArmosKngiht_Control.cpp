@@ -92,8 +92,7 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 			CurrentDegree += 60;
 		}
 	}
-
-	else if (CurPhase == 2)
+	else if (CurPhase == 3)
 	{
 		BossForces.clear();
 
@@ -107,7 +106,7 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 			CurrentDegree += 60;
 		}
 	}
-	else if (CurPhase == 3)
+	else if (CurPhase == 5)
 	{
 		BossForces.clear();
 
@@ -121,7 +120,7 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 			CurrentDegree += 60;
 		}
 	}
-	else if (CurPhase == 4)
+	else if (CurPhase == 6)
 	{
 		BossForces.clear();
 
@@ -132,7 +131,7 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 		BossForces.push_back({ 528, 144 });
 		BossForces.push_back({ 624, 144 });
 	}
-	else if (CurPhase == 5)
+	else if (CurPhase == 7)
 	{
 		BossForces.clear();
 
@@ -149,91 +148,73 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 
 void AArmosKngiht_Control::Move(float DeltaTime)
 {
+	// 큰 원으로 이동
 	if (CurPhase == 1)
 	{
-		for (int i = 0; i < BossEnemies.size(); i++)
+		if (PhaseTime >= 1.2f)
 		{
-			if (true == CheckDistanceToTarget())
-			{
-				MoveForcesNextIndex();
-			}
-			else
-			{
-				MoveToTargetLocation(BossEnemies[i], BossForces[i], DeltaTime);
-			}
+			CurPhase++;
+			PhaseTime = 0.0f;
 		}
 	}
+	// 큰 원을 회전
 	else if (CurPhase == 2)
 	{
-		for (int i = 0; i < BossEnemies.size(); i++)
+		if (PhaseTime >= 0.6f)
 		{
-			if (true == CheckDistanceToTarget())
-			{
-				PhaseTime = 0.0f;
-				CurPhase++;
-				MoveCallCount = 0;
-				ChangeState(EControlState::SET);
-				return;
-			}
-			else
-			{
-				MoveToTargetLocation(BossEnemies[i], BossForces[i], DeltaTime);
-			}
+			PhaseTime = 0.0f;
+			MoveForcesNextIndex();
+			return;
 		}
 	}
+	// 작은 원으로 이동
 	else if (CurPhase == 3)
 	{
-		for (int i = 0; i < BossEnemies.size(); i++)
+		if (PhaseTime >= 0.4f)
 		{
-			if (true == CheckDistanceToTarget())
-			{
-				PhaseTime = 0.0f;
-				CurPhase++;
-				MoveCallCount = 0;
-				ChangeState(EControlState::SET);
-				return;
-			}
-			else
-			{
-				MoveToTargetLocation(BossEnemies[i], BossForces[i], DeltaTime);
-			}
+			CurPhase++;
+			PhaseTime = 0.0f;
 		}
 	}
-	else if(CurPhase == 4)
+	// 작은 원을 회전
+	else if (CurPhase == 4)
 	{
-		for (int i = 0; i < BossEnemies.size(); i++)
+		if (PhaseTime >= 0.6f)
 		{
-			if (true == CheckDistanceToTarget())
-			{
-				PhaseTime = 0.0f;
-				CurPhase++;
-				MoveCallCount = 0;
-				ChangeState(EControlState::SET);
-				return;
-			}
-			else
-			{
-				MoveToTargetLocation(BossEnemies[i], BossForces[i], DeltaTime);
-			}
+			PhaseTime = 0.0f;
+			MoveForcesNextIndex();
+			return;
 		}
 	}
+	// 큰 원으로 이동
 	else if (CurPhase == 5)
 	{
-		for (int i = 0; i < BossEnemies.size(); i++)
+		if (PhaseTime >= 0.8f)
 		{
-			if (true == CheckDistanceToTarget())
-			{
-				PhaseTime = 0.0f;
-				CurPhase = 1;
-				MoveCallCount = 0;
-				ChangeState(EControlState::SET);
-			}
-			else
-			{
-				MoveToTargetLocation(BossEnemies[i], BossForces[i], DeltaTime);
-			}
+			CurPhase++;
+			PhaseTime = 0.0f;
 		}
 	}
+	// 상단 1횡 6열로 이동
+	else if (CurPhase == 6)
+	{
+		if (PhaseTime >= 2.0f)
+		{
+			CurPhase++;
+			PhaseTime = 0.0f;
+		}
+	}
+	// 하단 1횡 6열로 이동
+	else if (CurPhase == 7)
+	{
+		if (PhaseTime >= 1.5f)
+		{
+			CurPhase = 1;
+			PhaseTime = 0.0f;
+		}
+	}
+	ChangeState(EControlState::SET);
+
 }
 
 
@@ -261,20 +242,15 @@ bool AArmosKngiht_Control::CheckDistanceToTarget()
 {
 	for (int i = 0; i < BossEnemies.size(); i++)
 	{
-		if (BossEnemies[i]->GetActorLocation().DistanceTo(BossForces[i]) > 1.0f)
+		if (BossEnemies[i] != nullptr)
 		{
-			return false;
+			if (BossEnemies[i]->GetActorLocation().DistanceTo(BossForces[i]) > 1.0f)
+			{
+				return false;
+			}
 		}
 	}
 	return true;
-}
-
-void AArmosKngiht_Control::MoveToTargetLocation(AActor* Actor, FVector2D TargetLocation, float DeltaTime)
-{
-	FVector2D MoveDir = TargetLocation - Actor->GetActorLocation();
-	MoveDir.Normalize();
-
-	//Actor->AddActorLocation(MoveDir * this->Speed * DeltaTime);
 }
 
 void AArmosKngiht_Control::ChangeState(EControlState ControlState)
@@ -284,38 +260,62 @@ void AArmosKngiht_Control::ChangeState(EControlState ControlState)
 
 void AArmosKngiht_Control::MoveForcesNextIndex()
 {
-	if (CurPhase == 1 || CurPhase == 2)
+	FVector2D ForstForce = BossForces[0];
+	for (int i = 0; i < BossForces.size() - 1; i++)
 	{
-		FVector2D ForstForce = BossForces[0];
-		for (int i = 0; i < BossForces.size() - 1; i++)
-		{
-			// TODO: 앞으로 인덱스 이동 구현 예정
-			BossForces[i] = BossForces[i + 1];
-		}
-		BossForces[BossForces.size() - 1] = ForstForce;
-		MoveCallCount++;
-
-		if (CurPhase == 1)
-		{
-			if (MoveCallCount == 6)
-			{
-				PhaseTime = 0.0f;
-				CurPhase++;
-				MoveCallCount = 0;
-				ChangeState(EControlState::SET);
-			}
-		}
-		else
-		{
-			if (MoveCallCount == 3)
-			{
-				PhaseTime = 0.0f;
-				CurPhase++;
-				MoveCallCount = 0;
-				ChangeState(EControlState::SET);
-			}
-		}
+	// TODO: 앞으로 인덱스 이동 구현 예정
+		BossForces[i] = BossForces[i + 1];
 	}
+	BossForces[BossForces.size() - 1] = ForstForce;
+	MoveCallCount++;
+
+	if (MoveCallCount == 6 && CurPhase == 2)
+	{
+		PhaseTime = 0.0f;
+		CurPhase++;
+		MoveCallCount = 0;
+		ChangeState(EControlState::SET);
+	}
+	if (MoveCallCount == 2 && CurPhase == 4)
+	{
+		PhaseTime = 0.0f;
+		CurPhase++;
+		MoveCallCount = 0;
+		ChangeState(EControlState::SET);
+	}
+	 
+	//if (CurPhase == 1 || CurPhase == 2)
+	//{
+	//	FVector2D ForstForce = BossForces[0];
+	//	for (int i = 0; i < BossForces.size() - 1; i++)
+	//	{
+	//		// TODO: 앞으로 인덱스 이동 구현 예정
+	//		BossForces[i] = BossForces[i + 1];
+	//	}
+	//	BossForces[BossForces.size() - 1] = ForstForce;
+	//	MoveCallCount++;
+
+	//	if (CurPhase == 1)
+	//	{
+	//		if (MoveCallCount == 6)
+	//		{
+	//			PhaseTime = 0.0f;
+	//			CurPhase++;
+	//			MoveCallCount = 0;
+	//			ChangeState(EControlState::SET);
+	//		}
+	//	}
+	//	else
+	//	{
+	//		if (MoveCallCount == 3)
+	//		{
+	//			PhaseTime = 0.0f;
+	//			CurPhase++;
+	//			MoveCallCount = 0;
+	//			ChangeState(EControlState::SET);
+	//		}
+	//	}
+	//}
 }
 
 FVector2D AArmosKngiht_Control::GetRotateLocation(FVector2D Location, float Degree)
