@@ -14,9 +14,11 @@ AArmosKnight::AArmosKnight()
 		SpriteComponent->SetComponentScale(FVector2D(1.0f, 1.0f));
 		SpriteComponent->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
 		SpriteComponent->SetSpriteScale(3.0f);
-		SpriteComponent->CreateAnimation("Idle", "ArmosKnightIdle.png", 0, 0, 0.1f);
+		SpriteComponent->CreateAnimation("Move", "ArmosKnightIdle.png", 0, 0, 0.1f);
+		SpriteComponent->CreateAnimation("Hit", "ArmosKnightHit.png", 0, 7, 0.0011f);
+		SpriteComponent->CreateAnimation("Death", "ArmosKnightDeath.png", 0, 7, 0.0011f);
 
-		SpriteComponent->ChangeAnimation("Idle");
+		SpriteComponent->ChangeAnimation("Move");
 
 	}
 	{
@@ -47,6 +49,7 @@ void AArmosKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 	}
 
 	CurBossState = EBossState::KNOCKBACK;
+	SpriteComponent->ChangeAnimation("Hit");
 }
 
 void AArmosKnight::BeginPlay()
@@ -102,11 +105,13 @@ void AArmosKnight::Move(float DeltaTime)
 
 void AArmosKnight::Knockback(float DeltaTime)
 {
-	if (KnockBackCount > 60 || TargetCharacter == nullptr)
+	if (KnockBackCount > 50 || TargetCharacter == nullptr)
 	{
 		//CurBossState = PrevEnemyState;
 		KnockBackCount = 0;
 		ChangeState(EBossState::MOVE);
+		SpriteComponent->ChangeAnimation("Move");
+
 		//if (CurrentHP <= 0)
 		//{
 		//	DeathEffect = GetWorld()->SpawnActor<AEffectEnemyDeath>();
@@ -119,9 +124,7 @@ void AArmosKnight::Knockback(float DeltaTime)
 
 	FVector2D PlayerLocation = this->TargetCharacter->GetActorLocation();
 
-	AddActorLocation(GetNormalDirectionToThisLocation(PlayerLocation) * DeltaTime * 1000.0f);
-
-	CurDir = GetNormalDirectionToTargetLocation(PlayerLocation);
+	AddActorLocation(TargetCharacter->GetCurDirection() * DeltaTime * 1000.0f);
 
 	KnockBackCount++;
 

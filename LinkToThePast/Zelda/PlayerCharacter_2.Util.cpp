@@ -12,7 +12,7 @@ void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 	CurrentHP -= Damage;
 
 	this->KnockBackDir = GetActorLocation() - Character->GetActorLocation();
-	this->CurDir = GetDirectionToTargetLocation(Character->GetActorLocation());
+	SetCurDirection(GetDirectionToTargetLocation(Character->GetActorLocation()));
 	KnockBackDir.Normalize();
 
 	ChangeState(EPlayerState::KnockBack);

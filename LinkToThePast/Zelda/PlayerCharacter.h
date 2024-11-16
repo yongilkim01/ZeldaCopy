@@ -95,7 +95,6 @@ private:
 	EPlayerState PrevPlayerState = EPlayerState::Idle;
 
 	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
-	FVector2D CurDir = FVector2D::DOWN;
 	FVector2D MoveDir = FVector2D::ZERO;
 	FVector2D GravityForce = FVector2D::ZERO;
 	FVector2D KnockBackDir = FVector2D::ZERO;

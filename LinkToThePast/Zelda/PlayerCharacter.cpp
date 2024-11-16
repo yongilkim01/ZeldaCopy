@@ -96,6 +96,8 @@ void APlayerCharacter::BeginPlay()
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1);
 	GetWorld()->SetCameraToMainPawn(false);
+
+	SetCurDirection(FVector2D::DOWN);
 }
 
 void APlayerCharacter::Tick(float DeltaTime)

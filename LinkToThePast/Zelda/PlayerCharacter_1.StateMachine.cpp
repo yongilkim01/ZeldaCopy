@@ -35,19 +35,19 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 
 void APlayerCharacter::StartIdle()
 {
-	if (CurDir == FVector2D::RIGHT)
+	if (GetCurDirection() == FVector2D::RIGHT)
 	{
 		SpriteRenderer->ChangeAnimation("Idle_Right");
 	}
-	else if (CurDir == FVector2D::LEFT)
+	else if (GetCurDirection() == FVector2D::LEFT)
 	{
 		SpriteRenderer->ChangeAnimation("Idle_Left");
 	}
-	else if (CurDir == FVector2D::UP)
+	else if (GetCurDirection() == FVector2D::UP)
 	{
 		SpriteRenderer->ChangeAnimation("Idle_Up");
 	}
-	else if (CurDir == FVector2D::DOWN)
+	else if (GetCurDirection() == FVector2D::DOWN)
 	{
 		SpriteRenderer->ChangeAnimation("Idle_Down");
 	}
@@ -60,19 +60,19 @@ void APlayerCharacter::StartIdle()
 
 void APlayerCharacter::StartMove()
 {
-	if (CurDir == FVector2D::RIGHT)
+	if (GetCurDirection() == FVector2D::RIGHT)
 	{
 		SpriteRenderer->ChangeAnimation("Run_Right", true);
 	}
-	else if (CurDir == FVector2D::LEFT)
+	else if (GetCurDirection() == FVector2D::LEFT)
 	{
 		SpriteRenderer->ChangeAnimation("Run_Left", true);
 	}
-	else if (CurDir == FVector2D::UP)
+	else if (GetCurDirection() == FVector2D::UP)
 	{
 		SpriteRenderer->ChangeAnimation("Run_Up", true);
 	}
-	else if (CurDir == FVector2D::DOWN)
+	else if (GetCurDirection() == FVector2D::DOWN)
 	{
 		SpriteRenderer->ChangeAnimation("Run_Down", true);
 	}
@@ -87,19 +87,19 @@ void APlayerCharacter::StartMove()
 
 void APlayerCharacter::StartAttack()
 {
-	if (CurDir == FVector2D::RIGHT)
+	if (GetCurDirection() == FVector2D::RIGHT)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Right", true);
 	}
-	else if (CurDir == FVector2D::LEFT)
+	else if (GetCurDirection() == FVector2D::LEFT)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Left", true);
 	}
-	else if (CurDir == FVector2D::UP)
+	else if (GetCurDirection() == FVector2D::UP)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Up", true);
 	}
-	else if (CurDir == FVector2D::DOWN)
+	else if (GetCurDirection() == FVector2D::DOWN)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Down", true);
 	}
@@ -123,25 +123,25 @@ void APlayerCharacter::Idle(float DeltaTime)
 
 	if (UEngineInput::GetInst().IsPress('A') == true)
 	{
-		CurDir = FVector2D::LEFT;
+		SetCurDirection(FVector2D::LEFT);
 		ChangeState(EPlayerState::Move);
 		return;
 	}
 	else if (UEngineInput::GetInst().IsPress('D') == true)
 	{
-		CurDir = FVector2D::RIGHT;
+		SetCurDirection(FVector2D::RIGHT);
 		ChangeState(EPlayerState::Move);
 		return;
 	}
 	else if (UEngineInput::GetInst().IsPress('W') == true)
 	{
-		CurDir = FVector2D::UP;
+		SetCurDirection(FVector2D::UP);
 		ChangeState(EPlayerState::Move);
 		return;
 	}
 	else if (UEngineInput::GetInst().IsPress('S') == true)
 	{
-		CurDir = FVector2D::DOWN;
+		SetCurDirection(FVector2D::DOWN);
 		ChangeState(EPlayerState::Move);
 		return;
 	}
@@ -161,42 +161,42 @@ void APlayerCharacter::Move(float DeltaTime)
 	if (UEngineInput::GetInst().IsPress('D') == true
 		&& MoveDir != FVector2D::RIGHT)
 	{
-		CurDir = FVector2D::RIGHT;
+		SetCurDirection(FVector2D::RIGHT);
 		MoveDir += FVector2D::RIGHT;
 	}
 	else if (UEngineInput::GetInst().IsPress('A') == true
 		&& MoveDir != FVector2D::LEFT)
 	{
-		CurDir = FVector2D::LEFT;
+		SetCurDirection(FVector2D::LEFT);
 		MoveDir += FVector2D::LEFT;
 	}
 
 	if (UEngineInput::GetInst().IsPress('S') == true
 		&& MoveDir != FVector2D::DOWN)
 	{
-		CurDir = FVector2D::DOWN;
+		SetCurDirection(FVector2D::DOWN);
 		MoveDir += FVector2D::DOWN;
 	}
 	else if (UEngineInput::GetInst().IsPress('W') == true
 		&& MoveDir != FVector2D::UP)
 	{
-		CurDir = FVector2D::UP;
+		SetCurDirection(FVector2D::UP);
 		MoveDir += FVector2D::UP;
 	}
 
-	if (CurDir == FVector2D::RIGHT)
+	if (GetCurDirection() == FVector2D::RIGHT)
 	{
 		SpriteRenderer->ChangeAnimation("Run_Right");
 	}
-	else if (CurDir == FVector2D::LEFT)
+	else if (GetCurDirection() == FVector2D::LEFT)
 	{
 		SpriteRenderer->ChangeAnimation("Run_Left");
 	}
-	else if (CurDir == FVector2D::UP)
+	else if (GetCurDirection() == FVector2D::UP)
 	{
 		SpriteRenderer->ChangeAnimation("Run_Up");
 	}
-	else if (CurDir == FVector2D::DOWN)
+	else if (GetCurDirection() == FVector2D::DOWN)
 	{
 		SpriteRenderer->ChangeAnimation("Run_Down");
 	}
@@ -260,7 +260,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 	SetCameraLocationToPlayer();
 	if (IsAttack == true) return;
 
-	if (this->CurDir == FVector2D::RIGHT)
+	if (GetCurDirection() == FVector2D::RIGHT)
 	{
 		IsAttack = true;
 		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody));
@@ -269,7 +269,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurDir == FVector2D::LEFT)
+	else if (GetCurDirection() == FVector2D::LEFT)
 	{
 		IsAttack = true;
 		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody));
@@ -278,7 +278,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurDir == FVector2D::DOWN)
+	else if (GetCurDirection() == FVector2D::DOWN)
 	{
 		IsAttack = true;
 		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody));
@@ -287,7 +287,7 @@ void APlayerCharacter::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurDir == FVector2D::UP)
+	else if (GetCurDirection() == FVector2D::UP)
 	{
 		IsAttack = true;
 		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody));
@@ -313,19 +313,19 @@ void APlayerCharacter::KnockBack(float DeltaTime)
 
 	FVector2D KncokBackAnimationDir = GetDirectionToTargetLocation(KnockBackDir);
 
-	if (CurDir == FVector2D::RIGHT)
+	if (GetCurDirection() == FVector2D::RIGHT)
 	{
 		SpriteRenderer->ChangeAnimation("KnockBack_Right");
 	}
-	else if (CurDir == FVector2D::LEFT)
+	else if (GetCurDirection() == FVector2D::LEFT)
 	{
 		SpriteRenderer->ChangeAnimation("KnockBack_Left");
 	}
-	else if (CurDir == FVector2D::UP)
+	else if (GetCurDirection() == FVector2D::UP)
 	{
 		SpriteRenderer->ChangeAnimation("KnockBack_Up");
 	}
-	else if (CurDir == FVector2D::DOWN)
+	else if (GetCurDirection() == FVector2D::DOWN)
 	{
 		SpriteRenderer->ChangeAnimation("KnockBack_Down");
 	}

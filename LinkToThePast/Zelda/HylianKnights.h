@@ -42,6 +42,5 @@ private:
 
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* CollisionComponent = nullptr;
-	FVector2D CurrentDirection = FVector2D::ZERO;
 };
 

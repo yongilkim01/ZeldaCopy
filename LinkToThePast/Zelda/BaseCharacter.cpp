@@ -59,6 +59,38 @@ FVector2D ABaseCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
 	return FVector2D::ZERO;
 }
 
+FVector2D ABaseCharacter::GetDirectionToThisLocation(FVector2D TargetLocation)
+{
+	FVector2D ResultDir = GetActorLocation() - TargetLocation;
+	ResultDir.Normalize();
+
+	// Up 또는 Down
+	if (UEngineMath::Abs(ResultDir.Y) > UEngineMath::Abs(ResultDir.X))
+	{
+		if (ResultDir.Y > 0.0f)
+		{
+			return FVector2D::DOWN;
+		}
+		else
+		{
+			return FVector2D::UP;
+		}
+	}
+	else // Right 또는 Left
+	{
+		if (ResultDir.X > 0.0f)
+		{
+			return FVector2D::RIGHT;
+		}
+		else
+		{
+			return FVector2D::LEFT;
+		}
+	}
+
+	return FVector2D::ZERO;
+}
+
 FVector2D ABaseCharacter::GetNormalDirectionToTargetLocation(FVector2D TargetLocation)
 {
 	FVector2D ResultDir = TargetLocation - GetActorLocation();

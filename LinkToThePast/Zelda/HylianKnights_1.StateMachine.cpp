@@ -21,8 +21,8 @@ void AHylianKnight::Patrol(float DeltaTime)
 		{
 			this->CurTurningIndex++;
 		}
-		this->CurrentDirection = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
-		ChangeMoveAnimation(CurrentDirection);
+		SetCurDirection(GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]));
+		ChangeMoveAnimation(GetCurDirection());
 	}
 	else
 	{
@@ -34,13 +34,13 @@ void AHylianKnight::Patrol(float DeltaTime)
 
 		AddActorLocation(MoveDir * DeltaTime * Speed);
 		this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
-		this->CurrentDirection = GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]);
-		ChangeMoveAnimation(CurrentDirection);
+		SetCurDirection(GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]));
+		ChangeMoveAnimation(GetCurDirection());
 	}
 
 	if (IsRangeToPlayer())
 	{
-		if (CurrentDirection == FVector2D::RIGHT)
+		if (GetCurDirection() == FVector2D::RIGHT)
 		{
 			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + 200.0f &&
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - 200.0f)
@@ -49,7 +49,7 @@ void AHylianKnight::Patrol(float DeltaTime)
 			}
 
 		}
-		else if (CurrentDirection == FVector2D::LEFT)
+		else if (GetCurDirection() == FVector2D::LEFT)
 		{
 			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + 200.0f &&
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - 200.0f)
@@ -58,7 +58,7 @@ void AHylianKnight::Patrol(float DeltaTime)
 			}
 
 		}
-		else if (CurrentDirection == FVector2D::UP)
+		else if (GetCurDirection() == FVector2D::UP)
 		{
 			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + 200.0f &&
 				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - 200.0f &&
@@ -68,7 +68,7 @@ void AHylianKnight::Patrol(float DeltaTime)
 			}
 
 		}
-		else if (CurrentDirection == FVector2D::DOWN)
+		else if (GetCurDirection() == FVector2D::DOWN)
 		{
 			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + 100.0f &&
 				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - 100.0f &&
@@ -94,9 +94,9 @@ void AHylianKnight::Trace(float DeltaTime)
 	AddActorLocation(TraceDir * DeltaTime * GetSpeed());
 	this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 
-	CurrentDirection = GetDirectionToTargetLocation(PlayerLocation);
+	SetCurDirection(GetDirectionToTargetLocation(PlayerLocation));
 
-	ChangeMoveAnimation(CurrentDirection);
+	ChangeMoveAnimation(GetCurDirection());
 
 	if (GetDistanceToTargetLocation(PlayerLocation) < AttackRange)
 	{
@@ -112,7 +112,7 @@ void AHylianKnight::Attack(float DeltaTime)
 		return;
 	}
 
-	if (this->CurrentDirection == FVector2D::RIGHT)
+	if (GetCurDirection() == FVector2D::RIGHT)
 	{
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
@@ -120,7 +120,7 @@ void AHylianKnight::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurrentDirection == FVector2D::LEFT)
+	else if (GetCurDirection() == FVector2D::LEFT)
 	{
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
@@ -128,7 +128,7 @@ void AHylianKnight::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurrentDirection == FVector2D::DOWN)
+	else if (GetCurDirection() == FVector2D::DOWN)
 	{
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
@@ -136,7 +136,7 @@ void AHylianKnight::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
-	else if (this->CurrentDirection == FVector2D::UP)
+	else if (GetCurDirection() == FVector2D::UP)
 	{
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
@@ -172,9 +172,9 @@ void AHylianKnight::KnockBack(float DeltaTime)
 	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
 	this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 
-	CurrentDirection = GetDirectionToTargetLocation(PlayerLocation);
+	SetCurDirection(GetDirectionToTargetLocation(PlayerLocation));
 
-	ChangeHitAnimation(CurrentDirection);
+	ChangeHitAnimation(GetCurDirection());
 
 	KnockBackCnt++;
 }

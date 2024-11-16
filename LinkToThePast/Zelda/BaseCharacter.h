@@ -20,13 +20,29 @@ public:
 	/** 캐릭터 공통 메소드 */
 	void AddCharacterLocation(FVector2D Location);
 	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
+	FVector2D GetDirectionToThisLocation(FVector2D TargetLocation);
 	FVector2D GetNormalDirectionToTargetLocation(FVector2D TargetLocation);
 	FVector2D GetNormalDirectionToThisLocation(FVector2D TargetLocation);
 	float GetDistanceToTargetLocation(FVector2D TargetLocation);
 
 	/** 게터/세터 메소드 */
-	void SetSpeed(float Speed) { this->Speed = Speed; }
-	float GetSpeed() { return this->Speed; }
+	void SetSpeed(float Speed) 
+	{ 
+		this->Speed = Speed;
+	}
+	float GetSpeed() 
+	{ 
+		return this->Speed; 
+	}
+
+	void SetCurDirection(FVector2D Direction)
+	{
+		CurDirection = Direction;
+	}
+	FVector2D GetCurDirection()
+	{
+		return CurDirection;
+	}
 
 protected:
 	/** 액터 가상 메소드 */
@@ -38,5 +54,5 @@ protected:
 	float Speed = 80.0f;
 
 private:
-
+	FVector2D CurDirection = FVector2D::ZERO;
 };
