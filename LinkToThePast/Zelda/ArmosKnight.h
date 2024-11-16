@@ -1,11 +1,14 @@
 #pragma once
 #include "BossCharacter.h"
 
+class AArmosKngiht_Control;
+
 enum class EBossState
 {
 	NONE,
 	MOVE,
-	KNOCKBACK
+	KNOCKBACK,
+	BERSERK,
 };
 
 /**
@@ -37,12 +40,21 @@ public:
 	{
 		this->TargetLoc = Location;
 	}
-	void ChangeState(EBossState BossState)
+	void SetManager(AArmosKngiht_Control* Manager)
 	{
-		this->CurBossState = BossState;
+		this->Manager = Manager;
+	}
+	void SetManageIndex(int Index)
+	{
+		this->ManageIndex = Index;
+	}
+	int GetManageIndex()
+	{
+		return this->ManageIndex;
 	}
 
 	/** Armos knight ¸Þ¼Òµå */
+	void ChangeState(EBossState BossState);
 	void PrintDebugInfo();
 
 protected:
@@ -50,6 +62,8 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	AArmosKngiht_Control* Manager = nullptr;
+
 	EBossState CurBossState = EBossState::NONE;
 	ABaseCharacter* TargetCharacter = nullptr;
 
@@ -61,5 +75,6 @@ private:
 	float JumpSpeed = 100.0f;
 
 	int KnockBackCount = 0;
+	int ManageIndex = 0;
 };
 

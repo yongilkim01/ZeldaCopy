@@ -28,12 +28,11 @@ public:
 
 	FVector2D RotateToDegree(float Degree, FVector2D Location, float H);
 	FVector2D RotateToRadian(float Radian, FVector2D Location, float H);
-	bool CheckDistanceToTarget();
 	void ChangeState(EControlState ControlState);
 	void MoveForcesNextIndex();
 	FVector2D GetRotateLocation(FVector2D Location, float Degree);
+	void DestoryArmosKnight(AArmosKnight* ArmosKnight);
 	
-	void SetPhase1Location();
 	void PrintDebugInfo();
 
 protected:
@@ -41,20 +40,21 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+
 	void Set(float DeltaTime);
 	void Move(float DeltaTime);
 
 	EControlState CurControlState = EControlState::SET;
 
-
-	std::vector<AArmosKnight*> BossEnemies;
+	std::list<AArmosKnight*> BossEnemies;
 	std::vector<FVector2D> BossForces;
 
 	float CurrentDegree = 20;
 	float Speed = 200.0f;
 	int PaddingIndex = 0;
-	int CurPhase = 0;
+	int CurPhase = 1;
 	float PhaseTime = 0.0f;
 	int MoveCallCount = 0;
+	int AliveCount = 6;
 };
 

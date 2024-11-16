@@ -28,13 +28,12 @@ void AArmosKngiht_Control::BeginPlay()
 	BossForces.push_back({ 380, 340 });
 	BossForces.push_back({ 525, 340 });
 
-	FVector2D WindowHalfSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half();
-
 	for (int i = 0; i < 6; i++)
 	{
 		AArmosKnight* ArmosKnight = GetWorld()->SpawnActor<AArmosKnight>();
-		ArmosKnight->SetActorLocation(WindowHalfSize);
 		ArmosKnight->SetActorLocation(BossForces[i]);
+		ArmosKnight->SetManager(this);
+		ArmosKnight->SetManageIndex(i);
 		BossEnemies.push_back(ArmosKnight);
 
 	}
@@ -63,13 +62,15 @@ void AArmosKngiht_Control::Tick(float DeltaTime)
 		break;
 	}
 
-	//
-	for (int i = 0; i < BossEnemies.size(); i++)
+	std::list<AArmosKnight*>::iterator StartIter = BossEnemies.begin();
+	std::list<AArmosKnight*>::iterator EndIter = BossEnemies.end();
+
+	for (; StartIter != EndIter; ++StartIter)
 	{
-		BossEnemies[i]->SetTargetLocation(BossForces[i]);
-
+		AArmosKnight* CurArmosKnight = *StartIter;
+		int ManageIndex = CurArmosKnight->GetManageIndex();
+		CurArmosKnight->SetTargetLocation(BossForces[ManageIndex]);
 	}
-
 }
 
 /**
@@ -82,7 +83,7 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 	{
 		BossForces.clear();
 
-		for (int i = 0; i < BossEnemies.size(); i++)
+		for (int i = 0; i < 6; i++)
 		{
 			BossForces.push_back(RotateToDegree(
 				CurrentDegree,
@@ -96,7 +97,7 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 	{
 		BossForces.clear();
 
-		for (int i = 0; i < BossEnemies.size(); i++)
+		for (int i = 0; i < 6; i++)
 		{
 			BossForces.push_back(RotateToDegree(
 				CurrentDegree,
@@ -110,7 +111,7 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 	{
 		BossForces.clear();
 
-		for (int i = 0; i < BossEnemies.size(); i++)
+		for (int i = 0; i < 6; i++)
 		{
 			BossForces.push_back(RotateToDegree(
 				CurrentDegree,
@@ -238,21 +239,6 @@ FVector2D AArmosKngiht_Control::RotateToRadian(float Radian, FVector2D Location,
 	return Result + Location;
 }
 
-bool AArmosKngiht_Control::CheckDistanceToTarget()
-{
-	for (int i = 0; i < BossEnemies.size(); i++)
-	{
-		if (BossEnemies[i] != nullptr)
-		{
-			if (BossEnemies[i]->GetActorLocation().DistanceTo(BossForces[i]) > 1.0f)
-			{
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
 void AArmosKngiht_Control::ChangeState(EControlState ControlState)
 {
 	this->CurControlState = ControlState;
@@ -283,39 +269,6 @@ void AArmosKngiht_Control::MoveForcesNextIndex()
 		MoveCallCount = 0;
 		ChangeState(EControlState::SET);
 	}
-	 
-	//if (CurPhase == 1 || CurPhase == 2)
-	//{
-	//	FVector2D ForstForce = BossForces[0];
-	//	for (int i = 0; i < BossForces.size() - 1; i++)
-	//	{
-	//		// TODO: 앞으로 인덱스 이동 구현 예정
-	//		BossForces[i] = BossForces[i + 1];
-	//	}
-	//	BossForces[BossForces.size() - 1] = ForstForce;
-	//	MoveCallCount++;
-
-	//	if (CurPhase == 1)
-	//	{
-	//		if (MoveCallCount == 6)
-	//		{
-	//			PhaseTime = 0.0f;
-	//			CurPhase++;
-	//			MoveCallCount = 0;
-	//			ChangeState(EControlState::SET);
-	//		}
-	//	}
-	//	else
-	//	{
-	//		if (MoveCallCount == 3)
-	//		{
-	//			PhaseTime = 0.0f;
-	//			CurPhase++;
-	//			MoveCallCount = 0;
-	//			ChangeState(EControlState::SET);
-	//		}
-	//	}
-	//}
 }
 
 FVector2D AArmosKngiht_Control::GetRotateLocation(FVector2D Location, float Degree)
@@ -323,9 +276,22 @@ FVector2D AArmosKngiht_Control::GetRotateLocation(FVector2D Location, float Degr
 	return FVector2D();
 }
 
-void AArmosKngiht_Control::SetPhase1Location()
+void AArmosKngiht_Control::DestoryArmosKnight(AArmosKnight* ArmosKnight)
 {
+	ArmosKnight->Destroy();
+	BossEnemies.remove(ArmosKnight);
 
+	if (BossEnemies.size() == 1)
+	{
+		std::list<AArmosKnight*>::iterator StartIter = BossEnemies.begin();
+		std::list<AArmosKnight*>::iterator EndIter = BossEnemies.end();
+
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			AArmosKnight* CurArmosKnight = *StartIter;
+			CurArmosKnight->ChangeState(EBossState::BERSERK);
+		}
+	}
 }
 
 void AArmosKngiht_Control::PrintDebugInfo()

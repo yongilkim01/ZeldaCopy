@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "ArmosKnight.h"
+#include "ArmosKngiht_Control.h"
 #include "ContentsEnum.h"
 
 #include <EngineCore/SpriteRenderer.h>
@@ -17,6 +18,7 @@ AArmosKnight::AArmosKnight()
 		SpriteComponent->CreateAnimation("Move", "ArmosKnightIdle.png", 0, 0, 0.1f);
 		SpriteComponent->CreateAnimation("Hit", "ArmosKnightHit.png", 0, 7, 0.0011f);
 		SpriteComponent->CreateAnimation("Death", "ArmosKnightDeath.png", 0, 4, 0.1f);
+		SpriteComponent->CreateAnimation("Berserk", "ArmosKnightBerserk.png", 0, 0, 0.1f);
 
 		SpriteComponent->SetAnimationEvent("Death", 4, std::bind(&AArmosKnight::Death, this));
 
@@ -31,6 +33,8 @@ AArmosKnight::AArmosKnight()
 		CollisionComponent->SetCollisionType(ECollisionType::Rect);
 	}
 	DebugOn();
+	
+	CurrentHP = 10;
 }
 
 AArmosKnight::~AArmosKnight()
@@ -58,7 +62,7 @@ void AArmosKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 
 void AArmosKnight::Death()
 {
-	Destroy();
+	Manager->DestoryArmosKnight(this);
 }
 
 void AArmosKnight::BeginPlay()
@@ -121,13 +125,6 @@ void AArmosKnight::Knockback(float DeltaTime)
 		ChangeState(EBossState::MOVE);
 		SpriteComponent->ChangeAnimation("Move");
 
-		//if (CurrentHP <= 0)
-		//{
-		//	DeathEffect = GetWorld()->SpawnActor<AEffectEnemyDeath>();
-		//	DeathEffect->SetActorLocation(GetActorLocation());
-		//	DeathEffect->SetOwnerActor(this);
-		//}
-
 		return;
 	}
 
@@ -148,6 +145,27 @@ void AArmosKnight::Knockback(float DeltaTime)
 			CurJumpPower = FVector2D::UP * 500.0f;
 		}
 	}
+}
+
+void AArmosKnight::ChangeState(EBossState BossState)
+{
+	switch (BossState)
+	{
+	case EBossState::NONE:
+		break;
+	case EBossState::MOVE:
+		break;
+	case EBossState::KNOCKBACK:
+		break;
+	case EBossState::BERSERK:
+		SpriteComponent->ChangeAnimation("Berserk");
+		break;
+	default:
+		break;
+	}
+
+	this->CurBossState = BossState;
+
 }
 
 void AArmosKnight::PrintDebugInfo()
