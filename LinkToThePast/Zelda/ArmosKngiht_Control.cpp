@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "ArmosKngiht_Control.h"
+#include "PlayerCharacter.h"
 #include "ArmosKnight.h"
 
 #include <EngineCore/EngineAPICore.h>
@@ -33,6 +34,7 @@ void AArmosKngiht_Control::BeginPlay()
 		AArmosKnight* ArmosKnight = GetWorld()->SpawnActor<AArmosKnight>();
 		ArmosKnight->SetActorLocation(BossForces[i]);
 		ArmosKnight->SetManager(this);
+		ArmosKnight->SetPlayerCharacter(PlayerCharacter);
 		ArmosKnight->SetManageIndex(i);
 		BossEnemies.push_back(ArmosKnight);
 
@@ -69,7 +71,10 @@ void AArmosKngiht_Control::Tick(float DeltaTime)
 	{
 		AArmosKnight* CurArmosKnight = *StartIter;
 		int ManageIndex = CurArmosKnight->GetManageIndex();
-		CurArmosKnight->SetTargetLocation(BossForces[ManageIndex]);
+		if (CurArmosKnight->GetIsManage())
+		{
+			CurArmosKnight->SetTargetLocation(BossForces[ManageIndex]);
+		}
 	}
 }
 
@@ -289,7 +294,7 @@ void AArmosKngiht_Control::DestoryArmosKnight(AArmosKnight* ArmosKnight)
 		for (; StartIter != EndIter; ++StartIter)
 		{
 			AArmosKnight* CurArmosKnight = *StartIter;
-			CurArmosKnight->ChangeState(EBossState::BERSERK);
+			CurArmosKnight->ChangeState(EBossState::BERSERK_WAIT);
 		}
 	}
 }

@@ -2,6 +2,7 @@
 #include "ArmosKnight.h"
 #include "ArmosKngiht_Control.h"
 #include "ContentsEnum.h"
+#include "PlayerCharacter.h"
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
@@ -47,7 +48,6 @@ void AArmosKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 	if (CurBossState == EBossState::KNOCKBACK) return;
 
 	CurrentHP -= Damage;
-	TargetCharacter = Character;
 
 	if (CurrentHP <= 0)
 	{
@@ -89,6 +89,15 @@ void AArmosKnight::Tick(float DeltaTime)
 	case EBossState::KNOCKBACK:
 		Knockback(DeltaTime);
 		break;
+	case EBossState::BERSERK_WAIT:
+		BerserkWait(DeltaTime);
+		break;
+	case EBossState::BERSERK_MOVE:
+		BerserkMove(DeltaTime);
+		break;
+	case EBossState::BERSERK_ATTACK:
+		BerserkAttack(DeltaTime);
+		break;
 	default:
 		break;
 	}
@@ -99,7 +108,7 @@ void AArmosKnight::Move(float DeltaTime)
 {
 	// 관리자가 지정해준 위치로 이동
 	{
-		FVector2D MoveDir = TargetLoc - GetActorLocation();
+		FVector2D MoveDir = TargetLocation - GetActorLocation();
 		MoveDir.Normalize();
 		AddActorLocation(MoveDir * 300.0f * DeltaTime);
 	}
@@ -147,6 +156,47 @@ void AArmosKnight::Knockback(float DeltaTime)
 	}
 }
 
+void AArmosKnight::BerserkWait(float DeltaTime)
+{
+	CoolTime += DeltaTime;
+
+	if (CoolTime >= 1.5f)
+	{
+		CoolTime = 0.0f;
+		ChangeState(EBossState::BERSERK_MOVE);
+		TargetLocation = TargetCharacter->GetActorLocation() - FVector2D(0.0f, 150.0f);
+	}
+}
+
+void AArmosKnight::BerserkMove(float DeltaTime)
+{
+	// 관리자가 지정해준 위치로 이동
+	{
+		FVector2D MoveDir = TargetLocation - GetActorLocation();
+		MoveDir.Normalize();
+		AddActorLocation(MoveDir * 700.0f * DeltaTime);
+		
+		if (GetActorLocation().DistanceTo(TargetLocation) <  5.0f)
+		{
+			SetActorLocation(TargetLocation + FVector2D(0.0f, 150.0f));
+			SpriteComponent->SetComponentLocation({ 0.0f, -150.0f });
+			ChangeState(EBossState::BERSERK_ATTACK);
+			TargetLocation = FVector2D::ZERO;
+		}
+	}
+}
+
+void AArmosKnight::BerserkAttack(float DeltaTime)
+{
+	SpriteComponent->AddComponentLocation(FVector2D::DOWN * 1500.0f * DeltaTime);
+
+	if (SpriteComponent->GetComponentLocation().DistanceTo(TargetLocation) < 5.0f)
+	{
+		SpriteComponent->SetComponentLocation(TargetLocation);
+		ChangeState(EBossState::BERSERK_WAIT);
+	}
+}
+
 void AArmosKnight::ChangeState(EBossState BossState)
 {
 	switch (BossState)
@@ -157,8 +207,14 @@ void AArmosKnight::ChangeState(EBossState BossState)
 		break;
 	case EBossState::KNOCKBACK:
 		break;
-	case EBossState::BERSERK:
+	case EBossState::BERSERK_WAIT:
 		SpriteComponent->ChangeAnimation("Berserk");
+		SpriteComponent->SetComponentLocation({ 0.0f, 0.0f });
+		this->IsManage = false;
+		break;
+	case EBossState::BERSERK_MOVE:
+		break;
+	case EBossState::BERSERK_ATTACK:
 		break;
 	default:
 		break;

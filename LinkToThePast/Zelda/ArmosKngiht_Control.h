@@ -10,6 +10,7 @@ enum class EControlState
 };
 
 class AArmosKnight;
+class APlayerCharacter;
 /**
  *	Ό³Έν
  */
@@ -32,6 +33,11 @@ public:
 	void MoveForcesNextIndex();
 	FVector2D GetRotateLocation(FVector2D Location, float Degree);
 	void DestoryArmosKnight(AArmosKnight* ArmosKnight);
+
+	void SetPlayerCharacter(APlayerCharacter* PlayerCharacter)
+	{
+		this->PlayerCharacter = PlayerCharacter;
+	}
 	
 	void PrintDebugInfo();
 
@@ -45,6 +51,7 @@ private:
 	void Move(float DeltaTime);
 
 	EControlState CurControlState = EControlState::SET;
+	APlayerCharacter* PlayerCharacter = nullptr;
 
 	std::list<AArmosKnight*> BossEnemies;
 	std::vector<FVector2D> BossForces;

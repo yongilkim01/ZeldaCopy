@@ -2,13 +2,16 @@
 #include "BossCharacter.h"
 
 class AArmosKngiht_Control;
+class APlayerCharacter;
 
 enum class EBossState
 {
 	NONE,
 	MOVE,
 	KNOCKBACK,
-	BERSERK,
+	BERSERK_WAIT,
+	BERSERK_MOVE,
+	BERSERK_ATTACK,
 };
 
 /**
@@ -34,11 +37,14 @@ public:
 	/** 상태(State) 메소드 */
 	void Move(float DeltaTime);
 	void Knockback(float DeltaTime);
+	void BerserkWait(float DeltaTime);
+	void BerserkMove(float DeltaTime);
+	void BerserkAttack(float DeltaTime);
 
 	/** 겟, 셋 메소드 */
 	void SetTargetLocation(FVector2D Location)
 	{
-		this->TargetLoc = Location;
+		this->TargetLocation = Location;
 	}
 	void SetManager(AArmosKngiht_Control* Manager)
 	{
@@ -51,6 +57,14 @@ public:
 	int GetManageIndex()
 	{
 		return this->ManageIndex;
+	}
+	void SetPlayerCharacter(APlayerCharacter* PlayerChracter)
+	{
+		TargetCharacter = PlayerChracter;
+	}
+	bool GetIsManage()
+	{
+		return IsManage;
 	}
 
 	/** Armos knight 메소드 */
@@ -65,16 +79,19 @@ private:
 	AArmosKngiht_Control* Manager = nullptr;
 
 	EBossState CurBossState = EBossState::NONE;
-	ABaseCharacter* TargetCharacter = nullptr;
+	APlayerCharacter* TargetCharacter = nullptr;
 
 	FVector2D HitPower = FVector2D::ZERO;
-	FVector2D TargetLoc = FVector2D::ZERO;
+	FVector2D TargetLocation = FVector2D::ZERO;
 	FVector2D ComLoc = FVector2D::ZERO;
 	FVector2D CurJumpPower = FVector2D::ZERO;
 
 	float JumpSpeed = 100.0f;
+	float CoolTime = 0.0f;
 
 	int KnockBackCount = 0;
 	int ManageIndex = 0;
+
+	bool IsManage = true;
 };
 
