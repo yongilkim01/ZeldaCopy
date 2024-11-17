@@ -43,3 +43,8 @@ void AHylianKnight::ChangeHitAnimation(FVector2D Direction)
 		this->SpriteRenderer->ChangeAnimation("Hit_Down");
 	}
 }
+
+void AHylianKnight::EndFallAnimation()
+{
+	Destroy();
+}

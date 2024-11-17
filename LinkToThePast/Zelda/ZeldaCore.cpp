@@ -77,6 +77,7 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveDown.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightHit.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("HylianKnightFall.png", { 64, 64 });
 
 	UImageManager::GetInst().CuttingSprite("ArmosKnightHit.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("ArmosKnightDeath.png", { 64, 64 });

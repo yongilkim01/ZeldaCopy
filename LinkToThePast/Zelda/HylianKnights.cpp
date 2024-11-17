@@ -31,6 +31,10 @@ AHylianKnight::AHylianKnight()
 		SpriteRenderer->CreateAnimation("Hit_Up", "HylianKnightHit.png", 12, 15, 0.05f);
 		SpriteRenderer->CreateAnimation("Hit_Down", "HylianKnightHit.png", 0, 3, 0.05f);
 
+		SpriteRenderer->CreateAnimation("Fall", "HylianKnightFall.png", 0, 3, 0.3f);
+
+		SpriteRenderer->SetAnimationEvent("Fall", 3, std::bind(&AHylianKnight::EndFallAnimation, this));
+
 		SpriteRenderer->ChangeAnimation("Move_Down");
 
 	}
@@ -84,13 +88,6 @@ void AHylianKnight::BeginPlay()
 
 	// TODO: Test code
 	this->PlayerCharacter = GetWorld()->GetPawn<APlayerCharacter>();
-
-	// Set base parameter
-	SetSpeed(150.0f);
-
-	// Set turning locations
-	AddTurningLocation(FVector2D(2332, 1724));
-	AddTurningLocation(FVector2D(2332, 1974));
 }
 
 void AHylianKnight::Tick(float DeltaTime)
@@ -112,4 +109,11 @@ void AHylianKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 	}
 	PrevEnemyState = CurEnemyState;
 	CurEnemyState = EEnemyState::KnockBack;
+}
+
+void AHylianKnight::Fall()
+{
+	SetCurEnemyState(EEnemyState::Fall);
+	SpriteRenderer->ChangeAnimation("Fall", true);
+
 }

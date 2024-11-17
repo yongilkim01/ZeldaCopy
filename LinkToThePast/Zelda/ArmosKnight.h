@@ -33,6 +33,7 @@ public:
 	/** Bass Character 공통 메소드 */
 	virtual void TakeDamage(int Damage, ABaseCharacter* Character) override;
 	virtual void Death() override;
+	virtual void Fall() override;
 
 	/** 상태(State) 메소드 */
 	void Move(float DeltaTime);

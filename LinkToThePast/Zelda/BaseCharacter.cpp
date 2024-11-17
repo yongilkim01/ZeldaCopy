@@ -32,12 +32,14 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 
 	if (CollisionImage != nullptr)
 	{
+		UColor CenterColor = CollisionImage->GetColor(CheckLocation, UColor::PINK);
 		UColor LeftTopColor = CollisionImage->GetColor(CheckLocation + FVector2D{-CollisionSize.X, 0.0f}, UColor::PINK);
 		UColor LeftBottomColor = CollisionImage->GetColor(CheckLocation + FVector2D{ -CollisionSize.X, CollisionSize.Y }, UColor::PINK);
 		UColor RightTopColor = CollisionImage->GetColor(CheckLocation + FVector2D{ CollisionSize.X, 0.0f}, UColor::PINK);
 		UColor RightBottomColor = CollisionImage->GetColor(CheckLocation + FVector2D{ CollisionSize.X, CollisionSize.Y }, UColor::PINK);
 
-		if (LeftTopColor != UColor::PINK &&
+		if (CenterColor != UColor::PINK &&
+			LeftTopColor != UColor::PINK &&
 			LeftBottomColor != UColor::PINK &&
 			RightTopColor != UColor::PINK &&
 			RightBottomColor != UColor::PINK)
@@ -45,8 +47,19 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 			AddActorLocation(MoveDirection);
 		}
 
+		//if (CenterColor == UColor::FALL &&
+		//	LeftTopColor == UColor::FALL &&
+		//	LeftBottomColor == UColor::FALL &&
+		//	RightTopColor == UColor::FALL &&
+		//	RightBottomColor == UColor::FALL)
+		//{
+		//	this->Fall();
+		//	return;
+		//}
+
 		if (CurRoom->GetIsSecondFloor() && 
-			(LeftTopColor == UColor::ROOM_UPSTAIRS ||
+			(CenterColor == UColor::ROOM_UPSTAIRS ||
+			LeftTopColor == UColor::ROOM_UPSTAIRS ||
 			LeftBottomColor == UColor::ROOM_UPSTAIRS ||
 			RightTopColor == UColor::ROOM_UPSTAIRS ||
 			RightBottomColor == UColor::ROOM_UPSTAIRS))
@@ -56,7 +69,8 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 			this->CollisionImage = CurRoom->GetColWinImage2F();
 		}
 		else if (CurRoom->GetIsSecondFloor() &&
-			(LeftTopColor == UColor::ROOM_DOWNSTAIRS ||
+			(CenterColor == UColor::ROOM_DOWNSTAIRS ||
+			LeftTopColor == UColor::ROOM_DOWNSTAIRS ||
 			LeftBottomColor == UColor::ROOM_DOWNSTAIRS ||
 			RightTopColor == UColor::ROOM_DOWNSTAIRS ||
 			RightBottomColor == UColor::ROOM_DOWNSTAIRS))

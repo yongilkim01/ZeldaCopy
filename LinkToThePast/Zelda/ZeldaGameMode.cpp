@@ -96,9 +96,9 @@ void AZeldaGameMode::CheckRoomMove()
 		// 현재 플레이어의 위치에 있는 콜리전 색상
 		UColor Color = RoomWinImage->GetColor(PlayerLocation);
 
-		//UEngineDebug::CoreOutPutString("Current RGB : " + Color.ToString());
-		//UEngineDebug::CoreOutPutString("Current Room Name : " + CurRoom->GetName());
-		//UEngineDebug::CoreOutPutString("Current Room Collision Name : " + RoomWinImage->GetName());
+		UEngineDebug::CoreOutPutString("Current RGB : " + Color.ToString());
+		UEngineDebug::CoreOutPutString("Current Room Name : " + CurRoom->GetName());
+		UEngineDebug::CoreOutPutString("Current Room Collision Name : " + RoomWinImage->GetName());
 
 		if (Color == UColor::ROOM_RIGHT)
 		{
@@ -217,7 +217,7 @@ void AZeldaGameMode::MoveRoom()
 		case ERoomDirection::RIGHT_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
-			PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(0.3f, 0.0f));
+			//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(0.3f, 0.0f));
 			if (CameraMovePosition.iX() > CameraEndLocation.iX())
 			{
 				EndStart();
@@ -228,7 +228,7 @@ void AZeldaGameMode::MoveRoom()
 		case ERoomDirection::LEFT_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(-CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
-			PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(-0.3f, 0.0f));
+			//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(-0.3f, 0.0f));
 			if (CameraMovePosition.iX() < CameraEndLocation.iX())
 			{
 				EndStart();
@@ -294,7 +294,7 @@ void AZeldaGameMode::EndRoomMove()
 		MoveSize = {
 			DirectMoveDistance,
 			0.0f};
-		//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::LEFT:
 		MoveSize = {
@@ -312,7 +312,7 @@ void AZeldaGameMode::EndRoomMove()
 		MoveSize = {
 			-DirectMoveDistance,
 			0.0f};
-		//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::UP:
 		MoveSize = {

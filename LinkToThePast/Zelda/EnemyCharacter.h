@@ -11,6 +11,7 @@ enum class EEnemyState
 	Attack,
 	KnockBack,
 	Trace,
+	Fall,
 };
 
 /**

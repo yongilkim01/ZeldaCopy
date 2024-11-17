@@ -104,7 +104,7 @@ protected:
 	ERoomMoveState RoomMoveState = ERoomMoveState::CHECK;
 
 private:
-	const float CameraMoveSpeed = 1.0f;
+	const float CameraMoveSpeed = 2.0f;
 	const float RoomSizeRatio = 1.4f;
 	const float RoomMovePadding = 15.0f;
 	const float DirectMoveDistance = 100.0f;

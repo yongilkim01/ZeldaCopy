@@ -22,6 +22,7 @@ public:
 	/** 캐릭터 가상 메소드 */
 	virtual void TakeDamage(int Damage, ABaseCharacter* Character) {}
 	virtual void Death() {}
+	virtual void Fall() {}
 
 	/** 캐릭터 공통 메소드 */
 	void AddCharacterLocation(FVector2D MoveDirection);
@@ -78,10 +79,10 @@ protected:
 	int MaxHP = 100;
 	int CurrentHP = 40;
 	float Speed = 80.0f;
+	FVector2D CollisionSize = { 20.0f, 30.0f };
 
 private:
 	FVector2D CurDirection = FVector2D::ZERO;
-	FVector2D CollisionSize = { 30.0f, 30.0f };
 
 	ARoom* CurRoom = nullptr;
 	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;

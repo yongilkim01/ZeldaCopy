@@ -14,7 +14,7 @@ APlayerCharacter::APlayerCharacter()
 {
 	Super::BeginPlay();
 
-	SetActorLocation({ 2158, 1801 });
+	SetActorLocation({ 2080, 1544 });
 	//SetActorLocation({ 220, 220 });
 	{
 		// 스프라이트 컴포넌트 생성
@@ -87,7 +87,7 @@ APlayerCharacter::APlayerCharacter()
 
 	}
 	{
-		SetSpeed(500.0f);
+		SetSpeed(250.0f);
 	}
 }
 

@@ -21,10 +21,12 @@ public:
 	AHylianKnight& operator=(AHylianKnight&& _Other) noexcept = delete;
 
 	virtual void TakeDamage(int Damage, ABaseCharacter* Character) override;
+	virtual void Fall() override;
 
 public:
 	void ChangeMoveAnimation(FVector2D Direction);
 	void ChangeHitAnimation(FVector2D Direction);
+	void EndFallAnimation();
 	void PrintDebugInfo();
 
 protected:

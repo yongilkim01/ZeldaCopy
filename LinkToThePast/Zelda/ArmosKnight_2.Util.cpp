@@ -31,6 +31,10 @@ void AArmosKnight::Death()
 	Manager->DestoryArmosKnight(this);
 }
 
+void AArmosKnight::Fall()
+{
+}
+
 void AArmosKnight::AddBossComponentLocation(FVector2D Location)
 {
 	SpriteRenderer->AddComponentLocation(Location);

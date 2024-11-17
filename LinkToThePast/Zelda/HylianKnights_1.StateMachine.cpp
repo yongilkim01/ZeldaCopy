@@ -2,6 +2,7 @@
 #include "HylianKnights.h"
 #include "PlayerCharacter.h"
 #include "EffectEnemyDeath.h"
+#include "Room.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/SpriteRenderer.h>
@@ -148,7 +149,7 @@ void AHylianKnight::Attack(float DeltaTime)
 
 void AHylianKnight::KnockBack(float DeltaTime)
 {
-	if (KnockBackCnt > 30)
+	if (KnockBackCnt > 100)
 	{
 		CurEnemyState = PrevEnemyState;
 		KnockBackCnt = 0;
@@ -170,7 +171,28 @@ void AHylianKnight::KnockBack(float DeltaTime)
 	KnockBackDir.Normalize();
 
 	AddCharacterLocation(KnockBackDir * DeltaTime * 1000.0f);
-	this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
+
+	FVector2D CheckLocation = GetActorLocation();
+	CheckLocation -= GetCurRoom()->GetActorLocation();
+
+	if (GetCollisionImage() != nullptr)
+	{
+		UColor CenterColor = GetCollisionImage()->GetColor(CheckLocation, UColor::PINK);
+		UColor LeftTopColor = GetCollisionImage()->GetColor(CheckLocation + FVector2D{ -CollisionSize.X, 0.0f }, UColor::PINK);
+		UColor LeftBottomColor = GetCollisionImage()->GetColor(CheckLocation + FVector2D{ -CollisionSize.X, CollisionSize.Y }, UColor::PINK);
+		UColor RightTopColor = GetCollisionImage()->GetColor(CheckLocation + FVector2D{ CollisionSize.X, 0.0f }, UColor::PINK);
+		UColor RightBottomColor = GetCollisionImage()->GetColor(CheckLocation + FVector2D{ CollisionSize.X, CollisionSize.Y }, UColor::PINK);
+
+		if (CenterColor == UColor::FALL &&
+			LeftTopColor == UColor::FALL &&
+			LeftBottomColor == UColor::FALL &&
+			RightTopColor == UColor::FALL &&
+			RightBottomColor == UColor::FALL)
+		{
+			this->Fall();
+			return;
+		}
+	}
 
 	SetCurDirection(GetDirectionToTargetLocation(PlayerLocation));
 
