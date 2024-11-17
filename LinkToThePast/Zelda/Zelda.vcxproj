@@ -210,6 +210,9 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ArmosKnight_1.StateMachine.cpp" />
+    <ClCompile Include="ArmosKnight_2.Util.cpp" />
+    <ClCompile Include="ArmosKnight_3.Debug.cpp" />
     <ClCompile Include="BaseCharacter.cpp" />
     <ClCompile Include="BossCharacter.cpp">
       <SubType>

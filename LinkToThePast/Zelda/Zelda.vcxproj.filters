@@ -153,6 +153,15 @@
     <ClCompile Include="EnemyCharacter.cpp">
       <Filter>2_Data\1_Enemy\Basic</Filter>
     </ClCompile>
+    <ClCompile Include="ArmosKnight_1.StateMachine.cpp">
+      <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmosKnight_2.Util.cpp">
+      <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmosKnight_3.Debug.cpp">
+      <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="0_PlayerCharacter">

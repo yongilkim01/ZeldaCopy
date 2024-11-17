@@ -11,28 +11,36 @@
 AArmosKnight::AArmosKnight()
 {
 	{
-		SpriteComponent = CreateDefaultSubObject<USpriteRenderer>();
-		SpriteComponent->SetSprite("HylianKnightMoveDown.png");
-		SpriteComponent->SetComponentScale(FVector2D(1.0f, 1.0f));
-		SpriteComponent->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
-		SpriteComponent->SetSpriteScale(3.0f);
-		SpriteComponent->CreateAnimation("Move", "ArmosKnightIdle.png", 0, 0, 0.1f);
-		SpriteComponent->CreateAnimation("Hit", "ArmosKnightHit.png", 0, 7, 0.0011f);
-		SpriteComponent->CreateAnimation("Death", "ArmosKnightDeath.png", 0, 4, 0.1f);
-		SpriteComponent->CreateAnimation("Berserk", "ArmosKnightBerserk.png", 0, 0, 0.1f);
+		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		SpriteRenderer->SetSprite("HylianKnightMoveDown.png");
+		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
+		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
+		SpriteRenderer->SetSpriteScale(3.0f);
+		SpriteRenderer->CreateAnimation("Move", "ArmosKnightIdle.png", 0, 0, 0.1f);
+		SpriteRenderer->CreateAnimation("Hit", "ArmosKnightHit.png", 0, 7, 0.0011f);
+		SpriteRenderer->CreateAnimation("Death", "ArmosKnightDeath.png", 0, 4, 0.1f);
+		SpriteRenderer->CreateAnimation("Berserk", "ArmosKnightBerserk.png", 0, 0, 0.1f);
 
-		SpriteComponent->SetAnimationEvent("Death", 4, std::bind(&AArmosKnight::Death, this));
+		SpriteRenderer->SetAnimationEvent("Death", 4, std::bind(&AArmosKnight::Death, this));
 
-		SpriteComponent->ChangeAnimation("Move");
+		SpriteRenderer->ChangeAnimation("Move");
 
 	}
 	{
-		CollisionComponent = CreateDefaultSubObject<UCollision2D>();
-		CollisionComponent->SetComponentLocation({ 0, 0 });
-		CollisionComponent->SetComponentScale({ 80, 80 });
-		CollisionComponent->SetCollisionGroup(ECollisionGroup::EnemyBody);
-		CollisionComponent->SetCollisionType(ECollisionType::Rect);
+		HitCollision = CreateDefaultSubObject<UCollision2D>();
+		HitCollision->SetComponentLocation({ 0, 0 });
+		HitCollision->SetComponentScale({ 80, 80 });
+		HitCollision->SetCollisionGroup(ECollisionGroup::EnemyBody);
+		HitCollision->SetCollisionType(ECollisionType::Rect);
 	}
+
+	{
+		AttackCollision = CreateDefaultSubObject<UCollision2D>();
+		AttackCollision->SetComponentScale({ 100, 100 });
+		AttackCollision->SetCollisionGroup(ECollisionGroup::EnemyAttack);
+		AttackCollision->SetCollisionType(ECollisionType::Rect);
+	}
+
 	DebugOn();
 	
 	CurrentHP = 10;
@@ -42,36 +50,12 @@ AArmosKnight::~AArmosKnight()
 {
 }
 
-
-void AArmosKnight::TakeDamage(int Damage, ABaseCharacter* Character)
-{
-	if (CurBossState == EBossState::KNOCKBACK) return;
-
-	CurrentHP -= Damage;
-
-	if (CurrentHP <= 0)
-	{
-		SpriteComponent->ChangeAnimation("Death", true);
-		ChangeState(EBossState::NONE);
-		return;
-	}
-
-	CurBossState = EBossState::KNOCKBACK;
-	SpriteComponent->ChangeAnimation("Hit");
-}
-
-void AArmosKnight::Death()
-{
-	Manager->DestoryArmosKnight(this);
-}
-
 void AArmosKnight::BeginPlay()
 {
 	ABossCharacter::BeginPlay();
 
 	CurJumpPower = FVector2D::UP * 100.0f;
 	ChangeState(EBossState::MOVE);
-	
 
 }
 
@@ -79,7 +63,7 @@ void AArmosKnight::Tick(float DeltaTime)
 {
 	ABossCharacter::Tick(DeltaTime);
 
-	PrintDebugInfo();
+	//PrintDebugInfo();
 
 	switch (CurBossState)
 	{
@@ -97,152 +81,6 @@ void AArmosKnight::Tick(float DeltaTime)
 		break;
 	case EBossState::BERSERK_ATTACK:
 		BerserkAttack(DeltaTime);
-		break;
-	default:
-		break;
-	}
-}
-
-
-void AArmosKnight::Move(float DeltaTime)
-{
-	// 관리자가 지정해준 위치로 이동
-	{
-		FVector2D MoveDir = TargetLocation - GetActorLocation();
-		MoveDir.Normalize();
-		AddActorLocation(MoveDir * 300.0f * DeltaTime);
-	}
-	// 자체 점프
-	{
-		// 중력
-		CurJumpPower += FVector2D::DOWN * 2000.0f * DeltaTime;
-		SpriteComponent->AddComponentLocation(CurJumpPower * DeltaTime);
-
-		if (0.0f <= SpriteComponent->GetComponentLocation().Y)
-		{
-			CurJumpPower = FVector2D::UP * 500.0f;
-		}
-	}
-}
-
-void AArmosKnight::Knockback(float DeltaTime)
-{
-	if (KnockBackCount > 50 || TargetCharacter == nullptr)
-	{
-		//CurBossState = PrevEnemyState;
-		KnockBackCount = 0;
-		ChangeState(EBossState::MOVE);
-		SpriteComponent->ChangeAnimation("Move");
-
-		return;
-	}
-
-	FVector2D PlayerLocation = this->TargetCharacter->GetActorLocation();
-
-	AddActorLocation(TargetCharacter->GetCurDirection() * DeltaTime * 1000.0f);
-
-	KnockBackCount++;
-
-	// 자체 점프
-	{
-		// 중력
-		CurJumpPower += FVector2D::DOWN * 2000.0f * DeltaTime;
-		SpriteComponent->AddComponentLocation(CurJumpPower * DeltaTime);
-
-		if (0.0f <= SpriteComponent->GetComponentLocation().Y)
-		{
-			CurJumpPower = FVector2D::UP * 500.0f;
-		}
-	}
-}
-
-void AArmosKnight::BerserkWait(float DeltaTime)
-{
-	CoolTime += DeltaTime;
-
-	if (CoolTime >= 1.5f)
-	{
-		CoolTime = 0.0f;
-		ChangeState(EBossState::BERSERK_MOVE);
-		TargetLocation = TargetCharacter->GetActorLocation() - FVector2D(0.0f, 150.0f);
-	}
-}
-
-void AArmosKnight::BerserkMove(float DeltaTime)
-{
-	// 관리자가 지정해준 위치로 이동
-	{
-		FVector2D MoveDir = TargetLocation - GetActorLocation();
-		MoveDir.Normalize();
-		AddActorLocation(MoveDir * 700.0f * DeltaTime);
-		
-		if (GetActorLocation().DistanceTo(TargetLocation) <  5.0f)
-		{
-			SetActorLocation(TargetLocation + FVector2D(0.0f, 150.0f));
-			SpriteComponent->SetComponentLocation({ 0.0f, -150.0f });
-			ChangeState(EBossState::BERSERK_ATTACK);
-			TargetLocation = FVector2D::ZERO;
-		}
-	}
-}
-
-void AArmosKnight::BerserkAttack(float DeltaTime)
-{
-	SpriteComponent->AddComponentLocation(FVector2D::DOWN * 1500.0f * DeltaTime);
-
-	if (SpriteComponent->GetComponentLocation().DistanceTo(TargetLocation) < 5.0f)
-	{
-		SpriteComponent->SetComponentLocation(TargetLocation);
-		ChangeState(EBossState::BERSERK_WAIT);
-	}
-}
-
-void AArmosKnight::ChangeState(EBossState BossState)
-{
-	switch (BossState)
-	{
-	case EBossState::NONE:
-		break;
-	case EBossState::MOVE:
-		break;
-	case EBossState::KNOCKBACK:
-		break;
-	case EBossState::BERSERK_WAIT:
-		SpriteComponent->ChangeAnimation("Berserk");
-		SpriteComponent->SetComponentLocation({ 0.0f, 0.0f });
-		this->IsManage = false;
-		break;
-	case EBossState::BERSERK_MOVE:
-		break;
-	case EBossState::BERSERK_ATTACK:
-		break;
-	default:
-		break;
-	}
-
-	this->CurBossState = BossState;
-
-}
-
-void AArmosKnight::PrintDebugInfo()
-{
-	UEngineDebug::CoreOutPutString("///////////////////////// Armos knight Debug /////////////////////////");
-	UEngineDebug::CoreOutPutString("Kncok back count : " + std::to_string(KnockBackCount));
-
-	if (TargetCharacter != nullptr)
-	{
-		UEngineDebug::CoreOutPutString("Target location : " + TargetCharacter->GetActorLocation().ToString());
-	}
-	switch (CurBossState)
-	{
-	case EBossState::NONE:
-		UEngineDebug::CoreOutPutString("Armos knight state : NONE");
-		break;
-	case EBossState::MOVE:
-		UEngineDebug::CoreOutPutString("Armos knight state : MOVE");
-		break;
-	case EBossState::KNOCKBACK:
-		UEngineDebug::CoreOutPutString("Armos knight state : KNOCKBACK");
 		break;
 	default:
 		break;

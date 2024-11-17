@@ -69,6 +69,9 @@ public:
 
 	/** Armos knight ¸Þ¼Òµå */
 	void ChangeState(EBossState BossState);
+	void AddBossComponentLocation(FVector2D Location);
+	void SetBossComponentLocation(FVector2D Location);
+	void CheckAttackCollision();
 	void PrintDebugInfo();
 
 protected:
@@ -79,6 +82,7 @@ private:
 	AArmosKngiht_Control* Manager = nullptr;
 
 	EBossState CurBossState = EBossState::NONE;
+	EBossState PrevBossState = EBossState::NONE;
 	APlayerCharacter* TargetCharacter = nullptr;
 
 	FVector2D HitPower = FVector2D::ZERO;

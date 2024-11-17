@@ -295,6 +295,7 @@ void AArmosKngiht_Control::DestoryArmosKnight(AArmosKnight* ArmosKnight)
 		{
 			AArmosKnight* CurArmosKnight = *StartIter;
 			CurArmosKnight->ChangeState(EBossState::BERSERK_WAIT);
+			CurArmosKnight->SetCurrentHP(50);
 		}
 	}
 }

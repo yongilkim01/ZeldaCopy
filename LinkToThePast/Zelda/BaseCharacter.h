@@ -35,7 +35,6 @@ public:
 	{ 
 		return this->Speed; 
 	}
-
 	void SetCurDirection(FVector2D Direction)
 	{
 		CurDirection = Direction;
@@ -44,7 +43,10 @@ public:
 	{
 		return CurDirection;
 	}
-
+	void SetCurrentHP(int HP)
+	{
+		this->CurrentHP = HP;
+	}
 protected:
 	/** 액터 가상 메소드 */
 	virtual void BeginPlay() override;

@@ -24,8 +24,9 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	USpriteRenderer* SpriteComponent = nullptr;
-	UCollision2D* CollisionComponent = nullptr;
+	USpriteRenderer* SpriteRenderer = nullptr;
+	UCollision2D* HitCollision = nullptr;
+	UCollision2D* AttackCollision = nullptr;
 
 
 private:
