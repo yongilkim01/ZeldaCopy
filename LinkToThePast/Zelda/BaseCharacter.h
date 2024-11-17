@@ -30,7 +30,7 @@ public:
 	FVector2D GetNormalDirectionToTargetLocation(FVector2D TargetLocation);
 	FVector2D GetNormalDirectionToThisLocation(FVector2D TargetLocation);
 	float GetDistanceToTargetLocation(FVector2D TargetLocation);
-	void SetCurRoom(ARoom* Room);
+	void SetCurRoom(ARoom* Room, bool IsPlayer);
 	void SetCollisionImage(std::string_view CollisionImageName);
 
 	/** 게터/세터 메소드 */
@@ -66,6 +66,10 @@ public:
 	{
 		return this->CurRoomFloor;
 	}
+	UEngineWinImage* GetCollisionImage()
+	{
+		return this->CollisionImage;
+	}
 protected:
 	/** 액터 가상 메소드 */
 	virtual void BeginPlay() override;
@@ -75,13 +79,12 @@ protected:
 	int CurrentHP = 40;
 	float Speed = 80.0f;
 
-	UEngineWinImage* CollisionImage = nullptr;
-
 private:
 	FVector2D CurDirection = FVector2D::ZERO;
 	FVector2D CollisionSize = { 30.0f, 30.0f };
 
 	ARoom* CurRoom = nullptr;
 	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
+	UEngineWinImage* CollisionImage = nullptr;
 
 };

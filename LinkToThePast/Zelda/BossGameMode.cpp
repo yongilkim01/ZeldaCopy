@@ -25,6 +25,7 @@ void ABossGameMode::BeginPlay()
 	{
 		FVector2D WindowHalfSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half();
 		AArmosKngiht_Control* Control = GetWorld()->SpawnActor<AArmosKngiht_Control>();
+		Control->SetCurRoom(Roomes[0], false);
 		Control->SetPlayerCharacter(PlayerCharacter);
 		Control->SetActorLocation(WindowHalfSize);
 	}

@@ -83,11 +83,11 @@ void APlayerCharacter::PlayerGroundCheck(FVector2D _MovePos)
 {
 	IsMove = false;
 	IsGround = false;
-	if (nullptr != CollisionImage)
+	if (nullptr != GetCollisionImage())
 	{
 		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
 		FVector2D NextPos = GetActorLocation() + _MovePos;
-		UColor Color = CollisionImage->GetColor(NextPos, UColor::BLACK);
+		UColor Color = GetCollisionImage()->GetColor(NextPos, UColor::BLACK);
 		if (Color == UColor::WHITE)
 		{
 			IsMove = true;

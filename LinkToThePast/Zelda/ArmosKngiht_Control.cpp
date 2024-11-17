@@ -2,6 +2,7 @@
 #include "ArmosKngiht_Control.h"
 #include "PlayerCharacter.h"
 #include "ArmosKnight.h"
+#include "Room.h"
 
 #include <EngineCore/EngineAPICore.h>
 #include <EngineBase/EngineMath.h>
@@ -36,6 +37,7 @@ void AArmosKngiht_Control::BeginPlay()
 		ArmosKnight->SetManager(this);
 		ArmosKnight->SetPlayerCharacter(PlayerCharacter);
 		ArmosKnight->SetManageIndex(i);
+		ArmosKnight->SetCurRoom(GetCurRoom(), false);
 		BossEnemies.push_back(ArmosKnight);
 
 	}

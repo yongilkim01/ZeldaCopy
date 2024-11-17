@@ -391,7 +391,7 @@ ARoom* AZeldaGameMode::FindRoomToName(std::string_view RoomName)
 
 void AZeldaGameMode::SetCurRoom(int _Index)
 {
-	PlayerCharacter->SetCurRoom(Roomes[_Index]);
+	PlayerCharacter->SetCurRoom(Roomes[_Index], true);
 	this->CurRoom = Roomes[_Index];
 }
 
@@ -407,7 +407,7 @@ void AZeldaGameMode::CheckCollisionRoom()
 	{
 		if (CheckPlayerInRoom(Roomes[i]))
 		{
-			PlayerCharacter->SetCurRoom(Roomes[i]);
+			PlayerCharacter->SetCurRoom(Roomes[i], true);
 			this->CurRoom = Roomes[i];
 			return;
 

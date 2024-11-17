@@ -27,7 +27,7 @@ void AArmosKnight::Move(float DeltaTime)
 
 void AArmosKnight::Knockback(float DeltaTime)
 {
-	if (KnockBackCount > 50 || TargetCharacter == nullptr)
+	if (KnockBackCount > 150 || TargetCharacter == nullptr)
 	{
 		//CurBossState = PrevEnemyState;
 		KnockBackCount = 0;
@@ -37,8 +37,7 @@ void AArmosKnight::Knockback(float DeltaTime)
 
 	FVector2D PlayerLocation = this->TargetCharacter->GetActorLocation();
 
-	AddActorLocation(TargetCharacter->GetCurDirection() * DeltaTime * 1000.0f);
-
+	AddCharacterLocation(TargetCharacter->GetCurDirection() * DeltaTime * 1000.0f);
 	KnockBackCount++;
 
 	// 자체 점프

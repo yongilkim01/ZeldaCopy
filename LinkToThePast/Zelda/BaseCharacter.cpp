@@ -69,7 +69,7 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 	}
 }
 
-void ABaseCharacter::SetCurRoom(ARoom* Room)
+void ABaseCharacter::SetCurRoom(ARoom* Room, bool IsPlayer)
 {
 	if (this->CurRoom != nullptr)
 	{
@@ -79,7 +79,11 @@ void ABaseCharacter::SetCurRoom(ARoom* Room)
 	}
 
 	this->CurRoom = Room;
-	this->CurRoom->SetPlayer(this);
+
+	if(true == IsPlayer)
+	{
+		this->CurRoom->SetPlayer(this);
+	}
 
 	if (CurRoom->GetIsSecondFloor())
 	{

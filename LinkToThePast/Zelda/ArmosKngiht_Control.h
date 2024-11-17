@@ -11,6 +11,7 @@ enum class EControlState
 
 class AArmosKnight;
 class APlayerCharacter;
+class ARoom;
 /**
  *	Ό³Έν
  */
