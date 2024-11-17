@@ -19,13 +19,13 @@ void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 
 	TimeEventer.PushEvent(0.0f, [this] ()
 		{
-			BodyCollisionComp->SetActive(false);
+			HitCollision->SetActive(false);
 		}
 	, false, false);
 
 	TimeEventer.PushEvent(1.0f, [this]()
 		{
-			BodyCollisionComp->SetActive(true);
+			HitCollision->SetActive(true);
 		}
 	, false, false);
 
@@ -37,40 +37,6 @@ void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 
 	//PrevPlayerState = CurPlayerState;
 	//CurPlayerState = EPlayerState::KnockBack;
-}
-
-void APlayerCharacter::SetCurRoom(ARoom* Room)
-{
-	if (this->CurRoom != nullptr)
-	{
-		this->CurRoom->SetPlayer(nullptr);
-		this->CurRoom = nullptr;
-		this->CollisionImage = nullptr;
-	}
-
-	this->CurRoom = Room;
-	this->CurRoom->SetPlayer(this);
-
-	if (CurRoom->GetIsSecondFloor())
-	{
-		switch (CurRoomFloor)
-		{
-		case ERoomFloor::FLOOR_1F:
-			SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
-			CurRoom->SetCulWinImageTo1F();
-			break;
-		case ERoomFloor::FLOOR_2F:
-			SetCollisionImage(CurRoom->GetColWinImage2F()->GetName());
-			CurRoom->SetCulWinImageTo2F();
-			break;
-		default:
-			break;
-		}
-	}
-	else
-	{
-		SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
-	}
 }
 
 FVector2D APlayerCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
@@ -150,11 +116,6 @@ void APlayerCharacter::RunSoundPlay()
 
 }
 
-void APlayerCharacter::SetCollisionImage(std::string_view CollisionImageName)
-{
-	CollisionImage = UImageManager::GetInst().FindImage(CollisionImageName);
-}
-
 void APlayerCharacter::SetPlayerStateToIdle()
 {
 	SpriteRenderer->ChangeAnimation("Idle_Down");
@@ -163,25 +124,25 @@ void APlayerCharacter::SetPlayerStateToIdle()
 
 void APlayerCharacter::SetCameraLocationToPlayer()
 {
-	if (CurRoom != nullptr)
+	if (GetCurRoom() != nullptr)
 	{
 		FVector2D CameraMovePos = GetTransform().Location + GetWorld()->GetCameraPivot();
 
-		if (CameraMovePos.iX() < CurRoom->LeftTopPos.iX())
+		if (CameraMovePos.iX() < GetCurRoom()->LeftTopPos.iX())
 		{
-			CameraMovePos.X = CurRoom->LeftTopPos.X;
+			CameraMovePos.X = GetCurRoom()->LeftTopPos.X;
 		}
-		if (CameraMovePos.iY() < CurRoom->LeftTopPos.iY())
+		if (CameraMovePos.iY() < GetCurRoom()->LeftTopPos.iY())
 		{
-			CameraMovePos.Y = CurRoom->LeftTopPos.Y;
+			CameraMovePos.Y = GetCurRoom()->LeftTopPos.Y;
 		}
-		if (CurRoom->RightBottomPos.iX() < CameraMovePos.iX() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X)
+		if (GetCurRoom()->RightBottomPos.iX() < CameraMovePos.iX() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X)
 		{
-			CameraMovePos.X = CurRoom->RightBottomPos.X - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X;
+			CameraMovePos.X = GetCurRoom()->RightBottomPos.X - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X;
 		}
-		if (CurRoom->RightBottomPos.iY() < CameraMovePos.iY() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y)
+		if (GetCurRoom()->RightBottomPos.iY() < CameraMovePos.iY() + UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y)
 		{
-			CameraMovePos.Y = CurRoom->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
+			CameraMovePos.Y = GetCurRoom()->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
 		}
 
 		GetWorld()->SetCameraPos(CameraMovePos);

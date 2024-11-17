@@ -203,36 +203,41 @@ void APlayerCharacter::Move(float DeltaTime)
 
 	MoveDir.Normal();
 
-	if (CollisionImage != nullptr)
-	{
-		// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
-		FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
-		NextPos -= CurRoom->GetActorLocation();
-		UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
-		if (Color != UColor::PINK)
-		{
-			AddActorLocation(MoveDir * DeltaTime * Speed);
-			this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
-			
-		}
+	AddCharacterLocation(MoveDir * DeltaTime * Speed);
 
-		if (Color == UColor::ROOM_UPSTAIRS && CurRoom->GetIsSecondFloor())
-		{
-			//AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
-			CurRoom->SetCulWinImageTo2F();
-			this->CurRoomFloor = ERoomFloor::FLOOR_2F;
-			this->CollisionImage = CurRoom->GetColWinImage2F();
-			this->SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ));
-		}
-		else if (Color == UColor::ROOM_DOWNSTAIRS && CurRoom->GetIsSecondFloor())
-		{
-			//AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
-			CurRoom->SetCulWinImageTo1F();
-			this->CurRoomFloor = ERoomFloor::FLOOR_1F;
-			this->CollisionImage = CurRoom->GetColWinImage1F();
-			SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ));
-		}
-	}
+	//FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
+	//NextPos -= GetCurRoom()->GetActorLocation();
+
+	//if (CollisionImage != nullptr)
+	//{
+	//	// 픽셀충돌에서 제일 중요한건 애초에 박히지 않는것이다.
+	//	FVector2D NextPos = GetActorLocation() + MoveDir * DeltaTime * Speed;
+	//	NextPos -= CurRoom->GetActorLocation();
+	//	UColor Color = CollisionImage->GetColor(NextPos, UColor::PINK);
+	//	if (Color != UColor::PINK)
+	//	{
+	//		AddActorLocation(MoveDir * DeltaTime * Speed);
+	//		this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
+	//		
+	//	}
+
+	//	if (Color == UColor::ROOM_UPSTAIRS && CurRoom->GetIsSecondFloor())
+	//	{
+	//		//AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+	//		CurRoom->SetCulWinImageTo2F();
+	//		this->CurRoomFloor = ERoomFloor::FLOOR_2F;
+	//		this->CollisionImage = CurRoom->GetColWinImage2F();
+	//		this->SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ));
+	//	}
+	//	else if (Color == UColor::ROOM_DOWNSTAIRS && CurRoom->GetIsSecondFloor())
+	//	{
+	//		//AddActorLocation(MoveDir * DeltaTime * (Speed * 0.5f));
+	//		CurRoom->SetCulWinImageTo1F();
+	//		this->CurRoomFloor = ERoomFloor::FLOOR_1F;
+	//		this->CollisionImage = CurRoom->GetColWinImage1F();
+	//		SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ));
+	//	}
+	//}
 
 	MoveDir = FVector2D::ZERO;
 

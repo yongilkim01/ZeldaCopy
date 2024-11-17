@@ -6,6 +6,7 @@
 #include <EnginePlatform/EngineInput.h>
 #include "ContentsEnum.h"
 #include "PlayerCharacter.h"
+#include "BaseCharacter.h"
 #include "RoomMove.h"
 
 ARoom::ARoom()
@@ -122,11 +123,11 @@ void ARoom::CreateEnvSprite(std::string_view SpriteName)
 	EnvSpriteRenderer->SetComponentLocation(FVector2D(1008 + 72, 410 + 250));
 }
 
-void ARoom::SetPlayer(APlayerCharacter* PlayerCharacter)
+void ARoom::SetPlayer(ABaseCharacter* PlayerCharacter)
 {
 	if (PlayerCharacter == nullptr) return;
 
-	this->PlayerCharacter = PlayerCharacter;
+	this->PlayerCharacter = dynamic_cast<APlayerCharacter*>(PlayerCharacter);
 }
 
 void ARoom::PlayerLinkCheck()

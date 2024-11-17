@@ -1,5 +1,10 @@
 #pragma once
+#include "ContentsEnum.h"
+
 #include <EngineCore/Actor.h>
+
+class ARoom;
+class UEngineWinImage;
 
 class ABaseCharacter : public AActor
 {
@@ -19,12 +24,14 @@ public:
 	virtual void Death() {}
 
 	/** 캐릭터 공통 메소드 */
-	void AddCharacterLocation(FVector2D Location);
+	void AddCharacterLocation(FVector2D MoveDirection);
 	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
 	FVector2D GetDirectionToThisLocation(FVector2D TargetLocation);
 	FVector2D GetNormalDirectionToTargetLocation(FVector2D TargetLocation);
 	FVector2D GetNormalDirectionToThisLocation(FVector2D TargetLocation);
 	float GetDistanceToTargetLocation(FVector2D TargetLocation);
+	void SetCurRoom(ARoom* Room);
+	void SetCollisionImage(std::string_view CollisionImageName);
 
 	/** 게터/세터 메소드 */
 	void SetSpeed(float Speed) 
@@ -47,6 +54,18 @@ public:
 	{
 		this->CurrentHP = HP;
 	}
+	ARoom* GetCurRoom()
+	{
+		return CurRoom;
+	}
+	void SetRoomFloor(ERoomFloor RoomFloor)
+	{
+		this->CurRoomFloor = RoomFloor;
+	}
+	ERoomFloor GetRoomFloor()
+	{
+		return this->CurRoomFloor;
+	}
 protected:
 	/** 액터 가상 메소드 */
 	virtual void BeginPlay() override;
@@ -56,6 +75,13 @@ protected:
 	int CurrentHP = 40;
 	float Speed = 80.0f;
 
+	UEngineWinImage* CollisionImage = nullptr;
+
 private:
 	FVector2D CurDirection = FVector2D::ZERO;
+	FVector2D CollisionSize = { 30.0f, 30.0f };
+
+	ARoom* CurRoom = nullptr;
+	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
+
 };

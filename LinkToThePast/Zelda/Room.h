@@ -9,6 +9,8 @@
 class USpriteRenderer;
 class URoomMove;
 class UEngineWinImage;
+class ABaseCharacter;
+class APlayerCharacter;
 
 /**
  *	방 구조를 나타내는 클래스
@@ -29,7 +31,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void PlayerLinkCheck();
-	void SetPlayer(class APlayerCharacter* PlayerCharacter);
+	void SetPlayer(ABaseCharacter* PlayerCharacter);
 
 	void SetRoomSprite(
 		std::string_view SpriteName, 

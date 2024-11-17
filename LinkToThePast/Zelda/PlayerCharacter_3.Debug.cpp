@@ -22,7 +22,7 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 
 	//UEngineDebug::CoreOutPutString("KncokBack DeltaTime: " + std::to_string(KnockBackTime));
 
-	if (true == BodyCollisionComp->IsActive())
+	if (true == HitCollision->IsActive())
 	{
 		UEngineDebug::CoreOutPutString("Player body collision still alive");
 	}

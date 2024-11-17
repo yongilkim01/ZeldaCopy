@@ -53,8 +53,6 @@ public:
 	void ChangeState(EPlayerState ChangeState);
 	virtual void TakeDamage(int Damage, ABaseCharacter* EnemyCharacter) override;
 
-	void SetCollisionImage(std::string_view CollisionImageName);
-
 	void RunSoundPlay();
 
 	void PrintDebugInfo(float DeltaTime);
@@ -62,16 +60,6 @@ public:
 
 	void SetCameraLocationToPlayer();
 
-	void SetCurRoom(ARoom* Room);
-	ARoom* GetCurRoom() { return CurRoom; }
-	void SetRoomFloor(ERoomFloor RoomFloor)
-	{
-		this->CurRoomFloor = RoomFloor;
-	}
-	ERoomFloor GetRoomFloor()
-	{
-		return this->CurRoomFloor;
-	}
 	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
 
 	void PlayerCameraCheck();
@@ -81,12 +69,8 @@ public:
 protected:
 
 private:
-	ARoom* CurRoom = nullptr;
-
-	UEngineWinImage* CollisionImage = nullptr;
 	USpriteRenderer* SpriteRenderer = nullptr;
-	UCollision2D* BodyCollisionComp = nullptr;
-	UCollision2D* MoveCollisionComp = nullptr;
+	UCollision2D* HitCollision = nullptr;
 	USoundPlayer EffectSoundPlayer;
 
 	std::vector<UCollision2D*> AttackCollisions;
@@ -94,19 +78,14 @@ private:
 	EPlayerState CurPlayerState = EPlayerState::Idle;
 	EPlayerState PrevPlayerState = EPlayerState::Idle;
 
-	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
 	FVector2D MoveDir = FVector2D::ZERO;
 	FVector2D GravityForce = FVector2D::ZERO;
 	FVector2D KnockBackDir = FVector2D::ZERO;
 
-	float Speed = 250.0f;
 	int MySpriteIndex = 0;
 	int IsGround = false;
 	bool IsMove = false;
 	bool IsAttack = false;
 	float KnockBackTime = 0.0f;
-
-	int MaxHP = 100;
-	int CurrentHP = 40;
 };
 

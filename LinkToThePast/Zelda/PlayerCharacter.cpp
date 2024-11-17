@@ -51,10 +51,10 @@ APlayerCharacter::APlayerCharacter()
 	}
 	{
 		// 충돌 컴포넌트 생성
-		BodyCollisionComp = CreateDefaultSubObject<UCollision2D>();
-		BodyCollisionComp->SetComponentLocation({ 0, 0 });
-		BodyCollisionComp->SetComponentScale({ 50, 80 });
-		BodyCollisionComp->SetCollisionGroup(ECollisionGroup::PlayerBody);
+		HitCollision = CreateDefaultSubObject<UCollision2D>();
+		HitCollision->SetComponentLocation({ 0, 0 });
+		HitCollision->SetComponentScale({ 50, 80 });
+		HitCollision->SetCollisionGroup(ECollisionGroup::PlayerBody);
 
 	}
 	{
@@ -85,6 +85,9 @@ APlayerCharacter::APlayerCharacter()
 		UpAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(UpAttackCollision);
 
+	}
+	{
+		SetSpeed(500.0f);
 	}
 }
 

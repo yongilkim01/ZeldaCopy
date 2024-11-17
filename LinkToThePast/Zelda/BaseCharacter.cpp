@@ -1,5 +1,8 @@
 #include "PreCompile.h"
 #include "BaseCharacter.h"
+#include "Room.h"
+
+#include <EngineCore/SpriteRenderer.h>
 
 ABaseCharacter::ABaseCharacter()
 {
@@ -22,9 +25,87 @@ void ABaseCharacter::Tick(float DeltaTime)
 }
 
 
-void ABaseCharacter::AddCharacterLocation(FVector2D Location)
+void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 {
+	FVector2D CheckLocation = GetActorLocation() + MoveDirection;
+	CheckLocation -= GetCurRoom()->GetActorLocation();
 
+	if (CollisionImage != nullptr)
+	{
+		UColor LeftTopColor = CollisionImage->GetColor(CheckLocation + FVector2D{-CollisionSize.X, 0.0f}, UColor::PINK);
+		UColor LeftBottomColor = CollisionImage->GetColor(CheckLocation + FVector2D{ -CollisionSize.X, CollisionSize.Y }, UColor::PINK);
+		UColor RightTopColor = CollisionImage->GetColor(CheckLocation + FVector2D{ CollisionSize.X, 0.0f}, UColor::PINK);
+		UColor RightBottomColor = CollisionImage->GetColor(CheckLocation + FVector2D{ CollisionSize.X, CollisionSize.Y }, UColor::PINK);
+
+		if (LeftTopColor != UColor::PINK &&
+			LeftBottomColor != UColor::PINK &&
+			RightTopColor != UColor::PINK &&
+			RightBottomColor != UColor::PINK)
+		{
+			AddActorLocation(MoveDirection);
+		}
+
+		if (CurRoom->GetIsSecondFloor() && 
+			(LeftTopColor == UColor::ROOM_UPSTAIRS ||
+			LeftBottomColor == UColor::ROOM_UPSTAIRS ||
+			RightTopColor == UColor::ROOM_UPSTAIRS ||
+			RightBottomColor == UColor::ROOM_UPSTAIRS))
+		{
+			CurRoom->SetCulWinImageTo2F();
+			this->CurRoomFloor = ERoomFloor::FLOOR_2F;
+			this->CollisionImage = CurRoom->GetColWinImage2F();
+		}
+		else if (CurRoom->GetIsSecondFloor() &&
+			(LeftTopColor == UColor::ROOM_DOWNSTAIRS ||
+			LeftBottomColor == UColor::ROOM_DOWNSTAIRS ||
+			RightTopColor == UColor::ROOM_DOWNSTAIRS ||
+			RightBottomColor == UColor::ROOM_DOWNSTAIRS))
+		{
+			CurRoom->SetCulWinImageTo1F();
+			this->CurRoomFloor = ERoomFloor::FLOOR_1F;
+			this->CollisionImage = CurRoom->GetColWinImage1F();
+			//SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ));
+		}
+	}
+}
+
+void ABaseCharacter::SetCurRoom(ARoom* Room)
+{
+	if (this->CurRoom != nullptr)
+	{
+		this->CurRoom->SetPlayer(nullptr);
+		this->CurRoom = nullptr;
+		this->CollisionImage = nullptr;
+	}
+
+	this->CurRoom = Room;
+	this->CurRoom->SetPlayer(this);
+
+	if (CurRoom->GetIsSecondFloor())
+	{
+		switch (CurRoomFloor)
+		{
+		case ERoomFloor::FLOOR_1F:
+			SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+			CurRoom->SetCulWinImageTo1F();
+			break;
+		case ERoomFloor::FLOOR_2F:
+			SetCollisionImage(CurRoom->GetColWinImage2F()->GetName());
+			CurRoom->SetCulWinImageTo2F();
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+	}
+}
+
+void ABaseCharacter::SetCollisionImage(std::string_view CollisionImageName)
+{
+	CollisionImage = UImageManager::GetInst().FindImage(CollisionImageName);
 }
 
 FVector2D ABaseCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
