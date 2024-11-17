@@ -34,7 +34,7 @@ void AHylianKnight::Patrol(float DeltaTime)
 		MoveDir.Normalize();
 
 		AddCharacterLocation(MoveDir * DeltaTime * Speed);
-		this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
+		//this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 		SetCurDirection(GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]));
 		ChangeMoveAnimation(GetCurDirection());
 	}
@@ -93,7 +93,7 @@ void AHylianKnight::Trace(float DeltaTime)
 	TraceDir.Normalize();
 
 	AddCharacterLocation(TraceDir * DeltaTime * GetSpeed());
-	this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
+	//this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 
 	SetCurDirection(GetDirectionToTargetLocation(PlayerLocation));
 

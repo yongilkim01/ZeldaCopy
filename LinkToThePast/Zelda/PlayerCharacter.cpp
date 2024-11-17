@@ -21,7 +21,7 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("LinkMoveDown.png");
 		SpriteRenderer->SetSpriteScale(3.0f);
-		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
+		//SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
 
 		// 局聪皋捞记 积己
 		SpriteRenderer->CreateAnimation("Run_Right", "LinkMoveRight.png", 1, 8, 0.04f);
@@ -89,6 +89,7 @@ APlayerCharacter::APlayerCharacter()
 	}
 	{
 		SetSpeed(250.0f);
+		CollisionSize = { 10.0f, 30.0f };
 	}
 }
 
@@ -106,7 +107,7 @@ void APlayerCharacter::BeginPlay()
 
 void APlayerCharacter::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+	ABaseCharacter::Tick(DeltaTime);
 
 	if (AZeldaGameMode::IsMapMoving == true) return;
 

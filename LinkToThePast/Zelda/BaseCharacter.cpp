@@ -120,16 +120,17 @@ void ABaseCharacter::SetCharacterRenderOrder()
 {
 	if (nullptr != GetCurRoom())
 	{
+		int FloorOrder = 0;
 		if (ERoomFloor::FLOOR_1F == GetCurRoom()->GetCuRoomFloor())
 		{
-			int FirstFloorObjOrder = static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ);
-			int Padding = GetActorLocation().iY() - GetCurRoom()->GetActorLocation().iY();
-			this->SpriteRenderer->SetOrder(FirstFloorObjOrder + Padding);
+			FloorOrder = static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ);
 		}
 		else
 		{
-
+			FloorOrder = static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ);
 		}
+		int Padding = GetActorLocation().iY() - GetCurRoom()->GetActorLocation().iY();
+		this->SpriteRenderer->SetOrder(FloorOrder + Padding);
 	}
 }
 
