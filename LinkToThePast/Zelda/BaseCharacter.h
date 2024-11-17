@@ -33,6 +33,7 @@ public:
 	float GetDistanceToTargetLocation(FVector2D TargetLocation);
 	void SetCurRoom(ARoom* Room, bool IsPlayer);
 	void SetCollisionImage(std::string_view CollisionImageName);
+	void SetCharacterRenderOrder();
 
 	/** 게터/세터 메소드 */
 	void SetSpeed(float Speed) 
@@ -80,6 +81,8 @@ protected:
 	int CurrentHP = 40;
 	float Speed = 80.0f;
 	FVector2D CollisionSize = { 20.0f, 30.0f };
+
+	USpriteRenderer* SpriteRenderer = nullptr;
 
 private:
 	FVector2D CurDirection = FVector2D::ZERO;

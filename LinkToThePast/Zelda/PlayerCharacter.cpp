@@ -55,6 +55,7 @@ APlayerCharacter::APlayerCharacter()
 		HitCollision->SetComponentLocation({ 0, 0 });
 		HitCollision->SetComponentScale({ 50, 80 });
 		HitCollision->SetCollisionGroup(ECollisionGroup::PlayerBody);
+		HitCollision->SetActive(false);
 
 	}
 	{

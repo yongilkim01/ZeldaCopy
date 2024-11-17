@@ -23,7 +23,7 @@ void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 		}
 	, false, false);
 
-	TimeEventer.PushEvent(1.0f, [this]()
+	TimeEventer.PushEvent(3.0f, [this]()
 		{
 			HitCollision->SetActive(true);
 		}

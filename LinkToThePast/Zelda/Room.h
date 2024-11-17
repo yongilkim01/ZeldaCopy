@@ -61,6 +61,11 @@ public:
 	
 	bool GetIsSecondFloor() { return this->IsSecondFloor; }
 	void SetIsSecondFloor(bool IsSecondFloor) { this->IsSecondFloor = IsSecondFloor; }
+	
+	ERoomFloor GetCuRoomFloor()
+	{
+		return this->CurFloor;
+	}
 
 	void AddEnvSprite(USpriteRenderer* SpriteRender)
 	{

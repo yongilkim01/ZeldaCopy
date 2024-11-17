@@ -42,7 +42,6 @@ private:
 	int KnockBackCnt = 0;
 	float Speed = 100.0f;
 
-	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* CollisionComponent = nullptr;
 };
 

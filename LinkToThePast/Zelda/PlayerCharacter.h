@@ -69,7 +69,6 @@ public:
 protected:
 
 private:
-	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* HitCollision = nullptr;
 	USoundPlayer EffectSoundPlayer;
 

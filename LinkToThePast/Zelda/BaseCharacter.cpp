@@ -22,6 +22,8 @@ void ABaseCharacter::BeginPlay()
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	SetCharacterRenderOrder();
 }
 
 
@@ -46,17 +48,6 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 		{
 			AddActorLocation(MoveDirection);
 		}
-
-		//if (CenterColor == UColor::FALL &&
-		//	LeftTopColor == UColor::FALL &&
-		//	LeftBottomColor == UColor::FALL &&
-		//	RightTopColor == UColor::FALL &&
-		//	RightBottomColor == UColor::FALL)
-		//{
-		//	this->Fall();
-		//	return;
-		//}
-
 		if (CurRoom->GetIsSecondFloor() && 
 			(CenterColor == UColor::ROOM_UPSTAIRS ||
 			LeftTopColor == UColor::ROOM_UPSTAIRS ||
@@ -78,7 +69,6 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 			CurRoom->SetCulWinImageTo1F();
 			this->CurRoomFloor = ERoomFloor::FLOOR_1F;
 			this->CollisionImage = CurRoom->GetColWinImage1F();
-			//SpriteRenderer->SetOrder(static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ));
 		}
 	}
 }
@@ -124,6 +114,23 @@ void ABaseCharacter::SetCurRoom(ARoom* Room, bool IsPlayer)
 void ABaseCharacter::SetCollisionImage(std::string_view CollisionImageName)
 {
 	CollisionImage = UImageManager::GetInst().FindImage(CollisionImageName);
+}
+
+void ABaseCharacter::SetCharacterRenderOrder()
+{
+	if (nullptr != GetCurRoom())
+	{
+		if (ERoomFloor::FLOOR_1F == GetCurRoom()->GetCuRoomFloor())
+		{
+			int FirstFloorObjOrder = static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ);
+			int Padding = GetActorLocation().iY() - GetCurRoom()->GetActorLocation().iY();
+			this->SpriteRenderer->SetOrder(FirstFloorObjOrder + Padding);
+		}
+		else
+		{
+
+		}
+	}
 }
 
 FVector2D ABaseCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
