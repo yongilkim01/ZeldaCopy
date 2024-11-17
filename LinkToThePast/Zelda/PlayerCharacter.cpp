@@ -14,8 +14,8 @@ APlayerCharacter::APlayerCharacter()
 {
 	Super::BeginPlay();
 
-	//SetActorLocation({ 2158, 1801 });
-	SetActorLocation({ 220, 220 });
+	SetActorLocation({ 2158, 1801 });
+	//SetActorLocation({ 220, 220 });
 	{
 		// 스프라이트 컴포넌트 생성
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();

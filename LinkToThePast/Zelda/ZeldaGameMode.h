@@ -41,6 +41,7 @@ public:
 class ARoom;
 class URoomMove;
 class AUserInterface;
+class ABaseCharacter;
 
 /**
  *	룸 관리 게임 모드
@@ -83,6 +84,7 @@ public:
 	void EndRoomMove();
 
 	bool CheckPlayerInRoom(ARoom* CheckRoom);
+	void CheckCharacterInRoom(ABaseCharacter* Character);
 	void CheckCollisionRoom();
 
 protected:

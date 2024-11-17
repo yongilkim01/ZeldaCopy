@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "HylianKnights.h"
+#include "Room.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EnginePlatform/EngineInput.h>
@@ -13,6 +14,11 @@ void AHylianKnight::PrintDebugInfo()
 	UEngineDebug::CoreOutPutString("Enemy cool time : " + std::to_string(this->AttackCoolTime));
 
 	UEngineDebug::CoreOutPutString("Enemy order : " + std::to_string(this->SpriteRenderer->GetOrder()));
+
+	if (GetCurRoom() != nullptr)
+	{
+		UEngineDebug::CoreOutPutString("Cur room : " + GetCurRoom()->GetName());
+	}
 
 	switch (CurEnemyState)
 	{

@@ -19,6 +19,10 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 
 	UEngineDebug::CoreOutPutString("Player hp : " + std::to_string(this->CurrentHP));
 	UEngineDebug::CoreOutPutString("Player order : " + std::to_string(this->SpriteRenderer->GetOrder()));
+	if (GetCurRoom() != nullptr)
+	{
+		UEngineDebug::CoreOutPutString("Cur room : " + GetCurRoom()->GetName());
+	}
 
 	//UEngineDebug::CoreOutPutString("KncokBack DeltaTime: " + std::to_string(KnockBackTime));
 

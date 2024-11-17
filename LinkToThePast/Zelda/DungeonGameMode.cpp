@@ -27,6 +27,8 @@ void ACastleDungeonGameMode::BeginPlay()
 	{
 		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
 		EnemyCharacter->SetActorLocation({ 2332, 1724 });
+		CheckCharacterInRoom(EnemyCharacter);
+
 	}
 
 	{

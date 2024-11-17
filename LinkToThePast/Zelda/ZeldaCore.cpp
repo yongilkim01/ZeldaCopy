@@ -94,7 +94,7 @@ void UZeldaCore::BeginPlay()
 	//UEngineAPICore::GetCore()->CreateLevel<ARoomManageMode, APlayer>("Play");
 	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 
-	UEngineAPICore::GetCore()->OpenLevel("Boss");
+	UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
 }
 
 void UZeldaCore::Tick()

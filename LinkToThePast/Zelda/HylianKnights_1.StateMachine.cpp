@@ -32,7 +32,7 @@ void AHylianKnight::Patrol(float DeltaTime)
 		FVector2D MoveDir = TurningLocation - CurEnemyLocation;
 		MoveDir.Normalize();
 
-		AddActorLocation(MoveDir * DeltaTime * Speed);
+		AddCharacterLocation(MoveDir * DeltaTime * Speed);
 		this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 		SetCurDirection(GetDirectionToTargetLocation(this->TurningLocations[CurTurningIndex]));
 		ChangeMoveAnimation(GetCurDirection());
@@ -91,7 +91,7 @@ void AHylianKnight::Trace(float DeltaTime)
 	FVector2D TraceDir = PlayerLocation - EnemeyLocation;
 	TraceDir.Normalize();
 
-	AddActorLocation(TraceDir * DeltaTime * GetSpeed());
+	AddCharacterLocation(TraceDir * DeltaTime * GetSpeed());
 	this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 
 	SetCurDirection(GetDirectionToTargetLocation(PlayerLocation));
@@ -169,7 +169,7 @@ void AHylianKnight::KnockBack(float DeltaTime)
 	FVector2D KnockBackDir = EnemeyLocation - PlayerLocation;
 	KnockBackDir.Normalize();
 
-	AddActorLocation(KnockBackDir * DeltaTime * 1000.0f);
+	AddCharacterLocation(KnockBackDir * DeltaTime * 1000.0f);
 	this->SpriteRenderer->SetOrder(this->SpriteRenderer->GetOrder() + (GetActorLocation().iY() / 100));
 
 	SetCurDirection(GetDirectionToTargetLocation(PlayerLocation));

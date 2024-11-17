@@ -422,3 +422,25 @@ bool AZeldaGameMode::CheckPlayerInRoom(ARoom* CheckRoom)
 		&& PlayerCharacter->GetActorLocation().iX() < CheckRoom->RightBottomPos.iX()
 		&& PlayerCharacter->GetActorLocation().iY() < CheckRoom->RightBottomPos.iY());
 }
+
+void AZeldaGameMode::CheckCharacterInRoom(ABaseCharacter* Character)
+{
+	if (Roomes.size() == 0)
+	{
+		MSGASSERT("초기화 된 룸이 없습니다.");
+		return;
+	}
+
+	for (int i = 0; i < Roomes.size(); i++)
+	{
+		if (Character->GetActorLocation().iX() > Roomes[i]->LeftTopPos.iX()
+			&& Character->GetActorLocation().iY() > Roomes[i]->LeftTopPos.iY()
+			&& Character->GetActorLocation().iX() < Roomes[i]->RightBottomPos.iX()
+			&& Character->GetActorLocation().iY() < Roomes[i]->RightBottomPos.iY())
+		{
+			Character->SetCurRoom(Roomes[i], false);
+			return;
+
+		}
+	}
+}
