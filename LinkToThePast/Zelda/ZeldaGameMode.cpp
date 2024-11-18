@@ -131,6 +131,11 @@ void AZeldaGameMode::CheckRoomMove()
 			CurRoomDir = ERoomDirection::RIGHT_DIRECT;
 			MoveStart(CurRoomDir);
 		}
+		else if (Color == UColor::ROOM_RIGHT_SMALL)
+		{
+			CurRoomDir = ERoomDirection::RIGHT_SMALL;
+			MoveStart(CurRoomDir);
+		}
 		else if (Color == UColor::ROOM_LEFT)
 		{
 			CurRoomDir = ERoomDirection::LEFT;
@@ -144,6 +149,11 @@ void AZeldaGameMode::CheckRoomMove()
 		else if (Color == UColor::ROOM_LEFT_DIRECT)
 		{
 			CurRoomDir = ERoomDirection::LEFT_DIRECT;
+			MoveStart(CurRoomDir);
+		}
+		else if (Color == UColor::ROOM_LEFT_SMALL)
+		{
+			CurRoomDir = ERoomDirection::LEFT_SMALL;
 			MoveStart(CurRoomDir);
 		}
 		else if (Color == UColor::ROOM_UP)
@@ -190,11 +200,13 @@ void AZeldaGameMode::MoveStart(ERoomDirection RoomMoveDirection)
 	case ERoomDirection::RIGHT:
 	case ERoomDirection::RIGHT_2F:
 	case ERoomDirection::RIGHT_DIRECT:
+	case ERoomDirection::RIGHT_SMALL:
 		MoveSize = { UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X, 0.0f };
 		break;
 	case ERoomDirection::LEFT:
 	case ERoomDirection::LEFT_2F:
 	case ERoomDirection::LEFT_DIRECT:
+	case ERoomDirection::LEFT_SMALL:
 		MoveSize = { (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().X * -1.0f), 0.0f };
 		break;
 	case ERoomDirection::UP:
@@ -231,6 +243,7 @@ void AZeldaGameMode::MoveRoom()
 		case ERoomDirection::RIGHT:
 		case ERoomDirection::RIGHT_2F:
 		case ERoomDirection::RIGHT_DIRECT:
+		case ERoomDirection::RIGHT_SMALL:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
 			//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(0.3f, 0.0f));
@@ -242,6 +255,7 @@ void AZeldaGameMode::MoveRoom()
 		case ERoomDirection::LEFT:
 		case ERoomDirection::LEFT_2F:
 		case ERoomDirection::LEFT_DIRECT:
+		case ERoomDirection::LEFT_SMALL:
 			CameraMovePosition = GetWorld()->GetCameraPos() + FVector2D(-CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraPos(CameraMovePosition);
 			//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(-0.3f, 0.0f));
@@ -312,6 +326,12 @@ void AZeldaGameMode::EndRoomMove()
 			0.0f};
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
+	case ERoomDirection::RIGHT_SMALL:
+		MoveSize = {
+			SmallMoveDistance,
+			0.0f };
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
 	case ERoomDirection::LEFT:
 		MoveSize = {
 			( (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f) - RoomMovePadding, 
@@ -328,6 +348,12 @@ void AZeldaGameMode::EndRoomMove()
 		MoveSize = {
 			-DirectMoveDistance,
 			0.0f};
+		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
+		break;
+	case ERoomDirection::LEFT_SMALL:
+		MoveSize = {
+			-SmallMoveDistance,
+			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::UP:

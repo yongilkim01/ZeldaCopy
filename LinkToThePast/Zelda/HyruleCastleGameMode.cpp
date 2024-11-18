@@ -68,7 +68,7 @@ void AHyruleCastleGameMode::RoomBeginPlay()
 	this->Roomes[3]->GetColSpriteRenderer2F()->SetSprite("Castle4Collision2F.png");
 	FVector2D ColMap2Scale = this->Roomes[3]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[3]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
-	this->Roomes[3]->CreateEnvSprite("Castle4Bridge.png", FVector2D(528, 423), FVector2D(192, 456));
+	this->Roomes[3]->CreateEnvSprite("Castle4Bridge.png", FVector2D(528, 384), FVector2D(192, 552));
 
 	this->Roomes[4]->SetIsSecondFloor(true);
 	this->Roomes[4]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
@@ -81,6 +81,8 @@ void AHyruleCastleGameMode::RoomBeginPlay()
 	this->Roomes[5]->GetColSpriteRenderer2F()->SetSprite("Castle6Collision2F.png");
 	FVector2D ColMap4Scale = this->Roomes[5]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[5]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap4Scale.Half());
+	this->Roomes[5]->CreateEnvSprite("Castle6Bridge.png", FVector2D(261, 336), FVector2D(243, 192));
+
 
 	//this->Roomes[0]->SetIsSecondFloor(true);
 	//this->Roomes[0]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon1Collision2F.png");

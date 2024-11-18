@@ -22,6 +22,8 @@ enum class ERoomDirection
 	LEFT_DIRECT,
 	UP_DIRECT,
 	DOWN_DIRECT,
+	RIGHT_SMALL,
+	LEFT_SMALL
 };
 
 enum class ERoomMoveState
@@ -108,4 +110,5 @@ private:
 	const float RoomSizeRatio = 1.4f;
 	const float RoomMovePadding = 15.0f;
 	const float DirectMoveDistance = 100.0f;
+	const float SmallMoveDistance = 260.0f;
 };

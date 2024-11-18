@@ -440,6 +440,9 @@ public:
 	static const UColor ROOM_RIGHT_DIRECT;
 	static const UColor ROOM_LEFT_DIRECT;
 
+	static const UColor ROOM_RIGHT_SMALL;
+	static const UColor ROOM_LEFT_SMALL;
+
 	static const UColor ROOM_UPSTAIRS;
 	static const UColor ROOM_DOWNSTAIRS;
 
