@@ -184,6 +184,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="HyruleCastleGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayerCharacter.h">
       <SubType>
       </SubType>
@@ -247,6 +251,10 @@
     <ClCompile Include="HylianKnights_1.StateMachine.cpp" />
     <ClCompile Include="HylianKnights_2.Animation.cpp" />
     <ClCompile Include="HylianKnights_3.Debug.cpp" />
+    <ClCompile Include="HyruleCastleGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerCharacter.cpp">
       <SubType>
       </SubType>

@@ -11,7 +11,7 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClInclude>
     <ClInclude Include="DungeonGameMode.h">
-      <Filter>1_GameMode\1_CastleDungeon</Filter>
+      <Filter>1_GameMode\2_CastleDungeon</Filter>
     </ClInclude>
     <ClInclude Include="ZeldaGameMode.h">
       <Filter>1_GameMode</Filter>
@@ -50,7 +50,7 @@
       <Filter>2_Data\0_Object</Filter>
     </ClInclude>
     <ClInclude Include="BossGameMode.h">
-      <Filter>1_GameMode\2_Boss</Filter>
+      <Filter>1_GameMode\3_Boss</Filter>
     </ClInclude>
     <ClInclude Include="HylianKnights.h">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
@@ -67,6 +67,9 @@
     <ClInclude Include="EnemyCharacter.h">
       <Filter>2_Data\1_Enemy\Basic</Filter>
     </ClInclude>
+    <ClInclude Include="HyruleCastleGameMode.h">
+      <Filter>1_GameMode\1_HyruleCastle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -79,7 +82,7 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClCompile>
     <ClCompile Include="DungeonGameMode.cpp">
-      <Filter>1_GameMode\1_CastleDungeon</Filter>
+      <Filter>1_GameMode\2_CastleDungeon</Filter>
     </ClCompile>
     <ClCompile Include="ZeldaGameMode.cpp">
       <Filter>1_GameMode</Filter>
@@ -127,7 +130,7 @@
       <Filter>2_Data\0_Object</Filter>
     </ClCompile>
     <ClCompile Include="BossGameMode.cpp">
-      <Filter>1_GameMode\2_Boss</Filter>
+      <Filter>1_GameMode\3_Boss</Filter>
     </ClCompile>
     <ClCompile Include="HylianKnights.cpp">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
@@ -162,6 +165,9 @@
     <ClCompile Include="ArmosKnight_3.Debug.cpp">
       <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
     </ClCompile>
+    <ClCompile Include="HyruleCastleGameMode.cpp">
+      <Filter>1_GameMode\1_HyruleCastle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="0_PlayerCharacter">
@@ -169,9 +175,6 @@
     </Filter>
     <Filter Include="1_GameMode">
       <UniqueIdentifier>{606cc5fd-8d3c-4a88-a913-0af6e09697f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_GameMode\1_CastleDungeon">
-      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
     </Filter>
     <Filter Include="1_GameMode\0_Title">
       <UniqueIdentifier>{53746ae9-6613-472c-b0e2-570371b0fb90}</UniqueIdentifier>
@@ -203,9 +206,6 @@
     <Filter Include="2_Data\3_Room">
       <UniqueIdentifier>{6f4636bb-8c0c-4ba6-8648-b6dfa9839376}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_GameMode\2_Boss">
-      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Data\1_Enemy\Boss">
       <UniqueIdentifier>{f3c5ff46-6223-4d01-94a3-e8abfecbd59f}</UniqueIdentifier>
     </Filter>
@@ -217,6 +217,15 @@
     </Filter>
     <Filter Include="2_Data\1_Enemy\Basic\HyruleCastle">
       <UniqueIdentifier>{ecad5478-fd92-4eb1-ba17-373459691ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\3_Boss">
+      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\2_CastleDungeon">
+      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\1_HyruleCastle">
+      <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

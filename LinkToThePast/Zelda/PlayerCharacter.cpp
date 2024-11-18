@@ -14,8 +14,13 @@ APlayerCharacter::APlayerCharacter()
 {
 	Super::BeginPlay();
 
-	SetActorLocation({ 2080, 1544 });
+	//SetActorLocation({ 2080, 1544 });
+	
+	// Dungeon start location
 	//SetActorLocation({ 220, 220 });
+
+	// Castle start location
+	SetActorLocation({ 350, 350 });
 	{
 		// 스프라이트 컴포넌트 생성
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();

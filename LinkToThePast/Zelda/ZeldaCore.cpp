@@ -1,18 +1,19 @@
 #include "PreCompile.h"
 #include "ZeldaCore.h"
 
+#include "PlayerCharacter.h"
+#include "ZeldaGameMode.h"
+#include "TitleGameMode.h"
+#include "DungeonGameMode.h"
+#include "HyruleCastleGameMode.h"
+#include "BossGameMode.h"
+
 #include <EngineBase/EngineDirectory.h>
 #include <EngineBase/EngineDebug.h>
 #include <EngineBase/EngineFile.h>
 
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/ImageManager.h>
-
-#include "PlayerCharacter.h"
-#include "TitleGameMode.h"
-#include "ZeldaGameMode.h"
-#include "DungeonGameMode.h"
-#include "BossGameMode.h"
 
 UZeldaCore::UZeldaCore()
 {
@@ -92,10 +93,10 @@ void UZeldaCore::BeginPlay()
 
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
-	//UEngineAPICore::GetCore()->CreateLevel<ARoomManageMode, APlayer>("Play");
+	UEngineAPICore::GetCore()->CreateLevel<AHyruleCastleGameMode, APlayerCharacter>("Castle");
 	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 
-	UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
+	UEngineAPICore::GetCore()->OpenLevel("Castle");
 }
 
 void UZeldaCore::Tick()
