@@ -113,14 +113,14 @@ void ARoom::SetCulWinImageTo2F()
 	CurColSpriteRenderer = ColSpriteRenderer2F;
 }
 
-void ARoom::CreateEnvSprite(std::string_view SpriteName)
+void ARoom::CreateEnvSprite(std::string_view SpriteName, FVector2D Location, FVector2D Size)
 {
 	USpriteRenderer* EnvSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 	EnvSpriteRenderer->SetOrder(ERenderOrder::SECOND_FLOOR);
 	EnvSpriteRenderer->SetSprite(SpriteName);
 	FVector2D EnvScale = EnvSpriteRenderer->SetSpriteScale(1.0f);
 	EnvSpriteRenderer->SetComponentLocation(EnvScale.Half());
-	EnvSpriteRenderer->SetComponentLocation(FVector2D(1008 + 72, 410 + 250));
+	EnvSpriteRenderer->SetComponentLocation(Location + Size.Half());
 }
 
 void ARoom::SetPlayer(ABaseCharacter* PlayerCharacter)
