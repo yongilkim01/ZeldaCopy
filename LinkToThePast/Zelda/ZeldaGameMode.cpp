@@ -85,8 +85,28 @@ void AZeldaGameMode::CheckRoomMove()
 		return;
 	}
 
+	UEngineWinImage* RoomWinImage = nullptr;
+
+	if (CurRoom->GetIsSecondFloor())
+	{
+		switch (PlayerCharacter->GetCurRoomFloor())
+		{
+		case ERoomFloor::FLOOR_1F:
+			RoomWinImage = CurRoom->GetColWinImage1F();
+			break;
+		case ERoomFloor::FLOOR_2F:
+			RoomWinImage = CurRoom->GetColWinImage2F();
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		RoomWinImage = CurRoom->GetColWinImage1F();
+	}
+
 	// 현재 룸의 콜리전 이미지를 가져온다
-	UEngineWinImage* RoomWinImage = CurRoom->GetColWinImage1F();
 	CurRoomDir = ERoomDirection::NONE;
 	
 	if (RoomWinImage != nullptr)

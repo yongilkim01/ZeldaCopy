@@ -60,11 +60,11 @@ public:
 	{
 		return CurRoom;
 	}
-	void SetRoomFloor(ERoomFloor RoomFloor)
+	void SetCurRoomFloor(ERoomFloor RoomFloor)
 	{
 		this->CurRoomFloor = RoomFloor;
 	}
-	ERoomFloor GetRoomFloor()
+	ERoomFloor GetCurRoomFloor()
 	{
 		return this->CurRoomFloor;
 	}

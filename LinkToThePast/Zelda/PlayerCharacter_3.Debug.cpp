@@ -2,6 +2,7 @@
 #include "PlayerCharacter.h"
 #include "Room.h"
 #include "BossGameMode.h"
+#include "ContentsEnum.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EnginePlatform/EngineInput.h>
@@ -35,6 +36,17 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 		UEngineDebug::CoreOutPutString("Player body collision dead");
 	}
 
+	switch (GetCurRoomFloor())
+	{
+	case ERoomFloor::FLOOR_1F:
+		UEngineDebug::CoreOutPutString("Current floor : 1F");
+		break;
+	case ERoomFloor::FLOOR_2F:
+		UEngineDebug::CoreOutPutString("Current floor : 2F");
+		break;
+	default:
+		break;
+	}
 
 	switch (CurPlayerState)
 	{
