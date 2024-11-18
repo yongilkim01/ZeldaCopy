@@ -7,6 +7,7 @@
 #include <EngineCore/EngineCoreDebug.h>
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
+#include <EngineBase/EngineMath.h>
 
 void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 {
@@ -17,6 +18,15 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	//UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
 	//UEngineDebug::CoreOutPutString("Player Room Name : " + CurRoom->GetName());
 	//UEngineDebug::CoreOutPutString("Player Room Collision Name : " + this->CollisionImage->GetName());
+
+			// 현재 플레이어의 위치
+	FVector2D PlayerLocation = GetActorLocation() - GetCurRoom()->GetActorLocation();
+	// 현재 플레이어의 위치에 있는 콜리전 색상
+	UColor Color = GetCollisionImage()->GetColor(PlayerLocation);
+
+	UEngineDebug::CoreOutPutString("Current RGB : " + Color.ToString());
+	UEngineDebug::CoreOutPutString("Current Room Name : " + GetCurRoom()->GetName());
+	UEngineDebug::CoreOutPutString("Current Room Collision Name : " + GetCollisionImage()->GetName());
 
 	UEngineDebug::CoreOutPutString("Player hp : " + std::to_string(this->CurrentHP));
 	UEngineDebug::CoreOutPutString("Player order : " + std::to_string(this->SpriteRenderer->GetOrder()));

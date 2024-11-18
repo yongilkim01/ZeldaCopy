@@ -116,10 +116,6 @@ void AZeldaGameMode::CheckRoomMove()
 		// 현재 플레이어의 위치에 있는 콜리전 색상
 		UColor Color = RoomWinImage->GetColor(PlayerLocation);
 
-		UEngineDebug::CoreOutPutString("Current RGB : " + Color.ToString());
-		UEngineDebug::CoreOutPutString("Current Room Name : " + CurRoom->GetName());
-		UEngineDebug::CoreOutPutString("Current Room Collision Name : " + RoomWinImage->GetName());
-
 		if (Color == UColor::ROOM_RIGHT)
 		{
 			CurRoomDir = ERoomDirection::RIGHT;
