@@ -82,6 +82,12 @@
     <ClInclude Include="StatueStone.h">
       <Filter>2_Data\4_Environment</Filter>
     </ClInclude>
+    <ClInclude Include="CastleKnight.h">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyKnight.h">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -147,15 +153,6 @@
     <ClCompile Include="HylianKnights.cpp">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClCompile>
-    <ClCompile Include="HylianKnights_1.StateMachine.cpp">
-      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
-    </ClCompile>
-    <ClCompile Include="HylianKnights_2.Animation.cpp">
-      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
-    </ClCompile>
-    <ClCompile Include="HylianKnights_3.Debug.cpp">
-      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
-    </ClCompile>
     <ClCompile Include="ArmosKnight.cpp">
       <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
     </ClCompile>
@@ -191,6 +188,21 @@
     </ClCompile>
     <ClCompile Include="StatueStone.cpp">
       <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="CastleKnight.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyKnight.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyKnight_1.StateMachine.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyKnight_2.Animation.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyKnight_3.Debug.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

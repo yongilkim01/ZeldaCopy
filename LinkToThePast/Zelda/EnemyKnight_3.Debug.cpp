@@ -1,12 +1,12 @@
 #include "PreCompile.h"
-#include "HylianKnights.h"
+#include "EnemyKnight.h"
 #include "Room.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
 
-void AHylianKnight::PrintDebugInfo()
+void AEnemyKnight::PrintDebugInfo()
 {
 	UEngineDebug::CoreOutPutString("//////////////////////////// Enemy Debug ////////////////////////////");
 	UEngineDebug::CoreOutPutString("Enemy location : " + GetActorLocation().ToString());

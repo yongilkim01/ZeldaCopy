@@ -1,10 +1,10 @@
 #include "PreCompile.h"
-#include "HylianKnights.h"
+#include "EnemyKnight.h"
 
 #include <EngineCore/SpriteRenderer.h>
 
 
-void AHylianKnight::ChangeMoveAnimation(FVector2D Direction)
+void AEnemyKnight::ChangeMoveAnimation(FVector2D Direction)
 {
 	if (Direction == FVector2D::RIGHT)
 	{
@@ -24,7 +24,7 @@ void AHylianKnight::ChangeMoveAnimation(FVector2D Direction)
 	}
 }
 
-void AHylianKnight::ChangeHitAnimation(FVector2D Direction)
+void AEnemyKnight::ChangeHitAnimation(FVector2D Direction)
 {
 	if (Direction == FVector2D::RIGHT)
 	{
@@ -44,7 +44,7 @@ void AHylianKnight::ChangeHitAnimation(FVector2D Direction)
 	}
 }
 
-void AHylianKnight::EndFallAnimation()
+void AEnemyKnight::EndFallAnimation()
 {
 	Destroy();
 }

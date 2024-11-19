@@ -1,5 +1,5 @@
 #include "PreCompile.h"
-#include "HylianKnights.h"
+#include "EnemyKnight.h"
 #include "PlayerCharacter.h"
 #include "EffectEnemyDeath.h"
 #include "Room.h"
@@ -7,7 +7,7 @@
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/SpriteRenderer.h>
 
-void AHylianKnight::Patrol(float DeltaTime)
+void AEnemyKnight::Patrol(float DeltaTime)
 {
 	AEnemyCharacter::Patrol(DeltaTime);
 
@@ -82,7 +82,7 @@ void AHylianKnight::Patrol(float DeltaTime)
 	}
 }
 
-void AHylianKnight::Trace(float DeltaTime)
+void AEnemyKnight::Trace(float DeltaTime)
 {
 	AttackCoolTime += DeltaTime;
 
@@ -105,7 +105,7 @@ void AHylianKnight::Trace(float DeltaTime)
 	}
 }
 
-void AHylianKnight::Attack(float DeltaTime)
+void AEnemyKnight::Attack(float DeltaTime)
 {
 	if (GetDistanceToTargetLocation(this->PlayerCharacter->GetActorLocation()) > AttackRange)
 	{
@@ -147,7 +147,7 @@ void AHylianKnight::Attack(float DeltaTime)
 	}
 }
 
-void AHylianKnight::KnockBack(float DeltaTime)
+void AEnemyKnight::KnockBack(float DeltaTime)
 {
 	if (KnockBackCnt > 100)
 	{

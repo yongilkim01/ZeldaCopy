@@ -1,5 +1,5 @@
 #include "PreCompile.h"
-#include "HylianKnights.h"
+#include "CastleKnight.h"
 #include "PlayerCharacter.h"
 #include "ContentsEnum.h"
 #include "EffectEnemyDeath.h"
@@ -11,7 +11,7 @@
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/Collision2D.h>
 
-AHylianKnight::AHylianKnight()
+ACastleKnight::ACastleKnight()
 {
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -33,7 +33,7 @@ AHylianKnight::AHylianKnight()
 
 		SpriteRenderer->CreateAnimation("Fall", "HylianKnightFall.png", 0, 3, 0.3f);
 
-		SpriteRenderer->SetAnimationEvent("Fall", 3, std::bind(&AHylianKnight::EndFallAnimation, this));
+		SpriteRenderer->SetAnimationEvent("Fall", 3, std::bind(&ACastleKnight::EndFallAnimation, this));
 
 		SpriteRenderer->ChangeAnimation("Move_Down");
 
@@ -78,17 +78,17 @@ AHylianKnight::AHylianKnight()
 	//DebugOn();
 }
 
-AHylianKnight::~AHylianKnight()
+ACastleKnight::~ACastleKnight()
 {
 }
 
-void AHylianKnight::BeginPlay()
+void ACastleKnight::BeginPlay()
 {
 	AEnemyKnight::BeginPlay();
 
 }
 
-void AHylianKnight::Tick(float DeltaTime)
+void ACastleKnight::Tick(float DeltaTime)
 {
 	AEnemyKnight::Tick(DeltaTime);
 
