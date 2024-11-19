@@ -4,6 +4,7 @@
 #include "EnemyCharacter.h"
 #include "HylianKnights.h"
 #include "Room.h"
+#include "LevelMove.h"
 
 
 AHyruleCastleGameMode::AHyruleCastleGameMode()
@@ -21,6 +22,9 @@ void AHyruleCastleGameMode::BeginPlay()
 	// 룸 객체와 UI들들 초기화
 	RoomBeginPlay();
 	UIBeginPlay();
+
+	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
+	LevelMove1->SetActorLocation({ 1532, 273 });
 
 	// 플레이어의 위치에 존재하는 룸 객체를 플레이어의 현재룸으로 설정
 	CheckCollisionRoom();

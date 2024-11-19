@@ -70,6 +70,9 @@
     <ClInclude Include="HyruleCastleGameMode.h">
       <Filter>1_GameMode\1_HyruleCastle</Filter>
     </ClInclude>
+    <ClInclude Include="LevelMove.h">
+      <Filter>4_Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -167,6 +170,9 @@
     </ClCompile>
     <ClCompile Include="HyruleCastleGameMode.cpp">
       <Filter>1_GameMode\1_HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelMove.cpp">
+      <Filter>4_Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
