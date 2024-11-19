@@ -17,7 +17,7 @@ public:
 	ABossGameMode& operator=(ABossGameMode&& _Other) noexcept = delete;
 
 public:
-	void RoomBeginPlay();
+	void BeginPlayRoomActor();
 
 protected:
 	virtual void BeginPlay() override;

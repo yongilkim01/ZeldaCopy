@@ -22,8 +22,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	/** 젤다 게임모드 상속 메소드 */
-	void RoomBeginPlay();
+	void BeginPlayRoomActor();
 	virtual void BeginPlayEnvActor() override;
+	virtual void BeginPlayEnemyActor() override;
 protected:
 
 private:

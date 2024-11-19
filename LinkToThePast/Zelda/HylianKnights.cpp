@@ -75,6 +75,9 @@ AHylianKnight::AHylianKnight()
 
 	}
 
+	CollisionSize = { 10.0f, 30.0f };
+
+
 	//DebugOn();
 }
 

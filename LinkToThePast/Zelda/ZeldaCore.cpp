@@ -80,6 +80,11 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("HylianKnightHit.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightFall.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("CastleKnightMoveRight.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("CastleKnightMoveLeft.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("CastleKnightMoveUp.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("CastleKnightMoveDown.png", { 64, 64 });
+
 	UImageManager::GetInst().CuttingSprite("ArmosKnightHit.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("ArmosKnightDeath.png", { 64, 64 });
 

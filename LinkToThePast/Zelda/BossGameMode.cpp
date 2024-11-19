@@ -17,7 +17,7 @@ void ABossGameMode::BeginPlay()
 {
 	AZeldaGameMode::BeginPlay();
 
-	RoomBeginPlay();
+	BeginPlayRoomActor();
 	UIBeginPlay();
 
 	CheckCollisionRoom();
@@ -37,7 +37,7 @@ void ABossGameMode::Tick(float DeltaTime)
 	AZeldaGameMode::Tick(DeltaTime);
 }
 
-void ABossGameMode::RoomBeginPlay()
+void ABossGameMode::BeginPlayRoomActor()
 {
 	Roomes.reserve(10);
 	RoomDataes.reserve(10);

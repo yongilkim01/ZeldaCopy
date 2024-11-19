@@ -9,6 +9,7 @@
 #include "StatueFire.h"
 #include "StatueStone.h"
 #include "ContentsEnum.h"
+#include "CastleKnight.h"
 
 
 AHyruleCastleGameMode::AHyruleCastleGameMode()
@@ -24,7 +25,7 @@ void AHyruleCastleGameMode::BeginPlay()
 	AZeldaGameMode::BeginPlay();
 
 	// 룸 객체와 UI들들 초기화
-	RoomBeginPlay();
+	BeginPlayRoomActor();
 	UIBeginPlay();
 
 	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
@@ -34,20 +35,7 @@ void AHyruleCastleGameMode::BeginPlay()
 	FadeActor->SetActorLocation({ 0, 0 });
 
 	BeginPlayEnvActor();
-
-	// 플레이어의 위치에 존재하는 룸 객체를 플레이어의 현재룸으로 설정
-
-	// 에너미 객체 생성
-	{
-		//AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
-		//EnemyCharacter->SetActorLocation({ 2332, 1724 });
-		//EnemyCharacter->SetSpeed(150.0f);
-		//EnemyCharacter->AddTurningLocation(FVector2D(2332, 1974));
-		//EnemyCharacter->AddTurningLocation(FVector2D(2332, 1724));
-
-		//CheckCharacterInRoom(EnemyCharacter);
-
-	}
+	BeginPlayEnemyActor();
 }
 
 void AHyruleCastleGameMode::Tick(float DeltaTime)
@@ -57,7 +45,7 @@ void AHyruleCastleGameMode::Tick(float DeltaTime)
 	CheckCollisionRoom();
 }
 
-void AHyruleCastleGameMode::RoomBeginPlay()
+void AHyruleCastleGameMode::BeginPlayRoomActor()
 {
 	Roomes.reserve(10);
 	RoomDataes.reserve(10);
@@ -153,4 +141,47 @@ void AHyruleCastleGameMode::BeginPlayEnvActor()
 		StatueStone6->SetActorLocation({ 765 + 1200, 1554 + 648 });
 		StatueStone6->SetCurRoom(Roomes[4]);
 	}
+}
+
+void AHyruleCastleGameMode::BeginPlayEnemyActor()
+{
+	ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
+	EnemyCharacter->SetActorLocation({ 1358, 2449 });
+	EnemyCharacter->SetSpeed(100.0f);
+	EnemyCharacter->AddTurningLocation(FVector2D(1358, 2449));
+	EnemyCharacter->AddTurningLocation(FVector2D(1547, 2449));
+	EnemyCharacter->AddTurningLocation(FVector2D(1547, 2216));
+	EnemyCharacter->AddTurningLocation(FVector2D(1358, 2216));
+
+	CheckCharacterInRoom(EnemyCharacter);
+
+
+	ACastleKnight* EnemyCharacter2 = GetWorld()->SpawnActor<ACastleKnight>();
+	EnemyCharacter2->SetActorLocation({ 1681, 2384 });
+	EnemyCharacter2->SetSpeed(100.0f);
+	EnemyCharacter2->AddTurningLocation(FVector2D(1680, 2384));
+	EnemyCharacter2->AddTurningLocation(FVector2D(1680, 2241));
+	EnemyCharacter2->AddTurningLocation(FVector2D(1460, 2241));
+	EnemyCharacter2->AddTurningLocation(FVector2D(1460, 2100));
+	EnemyCharacter2->AddTurningLocation(FVector2D(1460, 2241));
+	EnemyCharacter2->AddTurningLocation(FVector2D(1680, 2241));
+	EnemyCharacter2->AddTurningLocation(FVector2D(1680, 2384));
+
+	CheckCharacterInRoom(EnemyCharacter2);
+
+	ACastleKnight* EnemyCharacter3 = GetWorld()->SpawnActor<ACastleKnight>();
+	EnemyCharacter3->SetActorLocation({ 1640, 2200 });
+	EnemyCharacter3->SetSpeed(100.0f);
+	EnemyCharacter3->AddTurningLocation(FVector2D(1640, 2200));
+	EnemyCharacter3->AddTurningLocation(FVector2D(1480, 2200));
+
+	CheckCharacterInRoom(EnemyCharacter3);
+
+	AHylianKnight* EnemyCharacter4 = GetWorld()->SpawnActor<AHylianKnight>();
+	EnemyCharacter4->SetActorLocation({ 160, 1880 });
+	EnemyCharacter4->SetSpeed(100.0f);
+	EnemyCharacter4->AddTurningLocation(FVector2D(160, 1880));
+	EnemyCharacter4->AddTurningLocation(FVector2D(160, 2800));
+	EnemyCharacter4->SetCurRoomFloor(ERoomFloor::FLOOR_2F);
+	CheckCharacterInRoom(EnemyCharacter4);
 }

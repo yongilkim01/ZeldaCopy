@@ -19,12 +19,12 @@ ACastleKnight::ACastleKnight()
 		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
 		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
 		SpriteRenderer->SetSpriteScale(3.0f);
-		SpriteRenderer->CreateAnimation("Idle_Down", "HylianKnightMoveDown.png", 0, 0, 0.1f);
+		SpriteRenderer->CreateAnimation("Idle_Down", "CastleKnightMoveDown.png", 0, 0, 0.1f);
 
-		SpriteRenderer->CreateAnimation("Move_Right", "HylianKnightMoveRight.png", 0, 2, 0.3f);
-		SpriteRenderer->CreateAnimation("Move_Left", "HylianKnightMoveLeft.png", 0, 2, 0.3f);
-		SpriteRenderer->CreateAnimation("Move_Up", "HylianKnightMoveUp.png", 0, 2, 0.3f);
-		SpriteRenderer->CreateAnimation("Move_Down", "HylianKnightMoveDown.png", 0, 2, 0.3f);
+		SpriteRenderer->CreateAnimation("Move_Right", "CastleKnightMoveRight.png", 0, 2, 0.3f);
+		SpriteRenderer->CreateAnimation("Move_Left", "CastleKnightMoveLeft.png", 0, 2, 0.3f);
+		SpriteRenderer->CreateAnimation("Move_Up", "CastleKnightMoveUp.png", 0, 2, 0.3f);
+		SpriteRenderer->CreateAnimation("Move_Down", "CastleKnightMoveDown.png", 0, 2, 0.3f);
 
 		SpriteRenderer->CreateAnimation("Hit_Right", "HylianKnightHit.png", 4, 7, 0.05f);
 		SpriteRenderer->CreateAnimation("Hit_Left", "HylianKnightHit.png", 8, 11, 0.05f);
@@ -75,6 +75,7 @@ ACastleKnight::ACastleKnight()
 
 	}
 
+	CollisionSize = { 10.0f, 30.0f };
 	//DebugOn();
 }
 

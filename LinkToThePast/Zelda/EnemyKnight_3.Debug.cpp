@@ -13,11 +13,14 @@ void AEnemyKnight::PrintDebugInfo()
 	UEngineDebug::CoreOutPutString("Enemy hp : " + std::to_string(this->CurrentHP));
 	UEngineDebug::CoreOutPutString("Enemy cool time : " + std::to_string(this->AttackCoolTime));
 
+
 	UEngineDebug::CoreOutPutString("Enemy order : " + std::to_string(this->SpriteRenderer->GetOrder()));
 
 	if (GetCurRoom() != nullptr)
 	{
 		UEngineDebug::CoreOutPutString("Cur room : " + GetCurRoom()->GetName());
+		UEngineDebug::CoreOutPutString("Current Room Collision Name : " + GetCollisionImage()->GetName());
+
 	}
 
 	switch (CurEnemyState)

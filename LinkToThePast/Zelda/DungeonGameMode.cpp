@@ -19,7 +19,7 @@ void ACastleDungeonGameMode::BeginPlay()
 {
 	AZeldaGameMode::BeginPlay();
 
-	RoomBeginPlay();
+	BeginPlayRoomActor();
 	UIBeginPlay();
 
 	CheckCollisionRoom();
@@ -61,7 +61,7 @@ void ACastleDungeonGameMode::Tick(float DeltaTime)
 	CheckCollisionRoom();
 }
 
-void ACastleDungeonGameMode::RoomBeginPlay()
+void ACastleDungeonGameMode::BeginPlayRoomActor()
 {
 	Roomes.reserve(10);
 	RoomDataes.reserve(10);
