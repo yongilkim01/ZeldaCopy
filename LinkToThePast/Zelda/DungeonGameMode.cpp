@@ -93,7 +93,7 @@ void ACastleDungeonGameMode::RoomBeginPlay()
 	this->Roomes[7]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon8Collision2F.png");
 	FVector2D ColMap8Scale = this->Roomes[7]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[7]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap8Scale.Half());
-	this->Roomes[7]->CreateEnvSprite("CastleDungeon8Bridge.png", FVector2D(1008, 410), FVector2D(144, 500));
+	this->Roomes[7]->CreateEnvSprite("CastleDungeon8Bridge.png", FVector2D(1008, 410), FVector2D(144, 500), ERenderOrder::SECOND_FLOOR);
 	
 }
 

@@ -301,6 +301,9 @@ void AZeldaGameMode::EndRoomMove()
 	CameraStartLocation = FVector2D::ZERO;
 	CameraEndLocation = FVector2D::ZERO;
 	RoomMoveState = ERoomMoveState::CHECK;
+
+	float RightLeftPadding = 160.0f;
+	float UpDownPadding = 180.0f;
 	
 	FVector2D MoveSize = FVector2D::ZERO;
 
@@ -310,7 +313,7 @@ void AZeldaGameMode::EndRoomMove()
 		break;
 	case ERoomDirection::RIGHT:
 		MoveSize = { 
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X + RoomMovePadding, 
+			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X + RoomMovePadding - RightLeftPadding,
 			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
@@ -328,13 +331,13 @@ void AZeldaGameMode::EndRoomMove()
 		break;
 	case ERoomDirection::RIGHT_SMALL:
 		MoveSize = {
-			SmallMoveDistance,
+			SmallMoveDistance - RightLeftPadding,
 			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::LEFT:
 		MoveSize = {
-			( (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f) - RoomMovePadding, 
+			( (UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().X) * -1.0f) - RoomMovePadding + RightLeftPadding,
 			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
@@ -352,20 +355,20 @@ void AZeldaGameMode::EndRoomMove()
 		break;
 	case ERoomDirection::LEFT_SMALL:
 		MoveSize = {
-			-SmallMoveDistance,
+			-SmallMoveDistance + RightLeftPadding,
 			0.0f };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::UP:
 		MoveSize = {
 			0.0f, 
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f };
+			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) + UpDownPadding };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::UP_2F:
 		MoveSize = {
 			0.0f,
-			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) * RoomSizeRatio };
+			((UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * -1.0f) * RoomSizeRatio) + UpDownPadding };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::UP_DIRECT:
@@ -377,13 +380,13 @@ void AZeldaGameMode::EndRoomMove()
 	case ERoomDirection::DOWN:
 		MoveSize = {
 			0.0f,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y };
+			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y) - UpDownPadding };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);	
 		break;
 	case ERoomDirection::DOWN_2F:
 		MoveSize = { 
 			0.0f,
-			UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio };
+			(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half().Y * RoomSizeRatio ) - UpDownPadding };
 		PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + MoveSize);
 		break;
 	case ERoomDirection::DOWN_DIRECT	:

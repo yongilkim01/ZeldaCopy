@@ -8,6 +8,7 @@
 #include "Fade.h"
 #include "StatueFire.h"
 #include "StatueStone.h"
+#include "ContentsEnum.h"
 
 
 AHyruleCastleGameMode::AHyruleCastleGameMode()
@@ -70,32 +71,51 @@ void AHyruleCastleGameMode::RoomBeginPlay()
 
 	CreateRoomActor("Castle", 0);
 
+	this->Roomes[0]->CreateEnvSprite("Castle1Door1.png", FVector2D(285, 1389), FVector2D(195, 165), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[0]->CreateEnvSprite("Castle1Door2.png", FVector2D(624, 324), FVector2D(81, 174), ERenderOrder::FIRST_FLOOR_OBJ);
+
+	this->Roomes[1]->CreateEnvSprite("Castle2Door1.png", FVector2D(0, 255), FVector2D(141, 288), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[1]->CreateEnvSprite("Castle2Door2.png", FVector2D(1395, 300), FVector2D(140, 219), ERenderOrder::FIRST_FLOOR_OBJ);
+
 	this->Roomes[2]->SetIsSecondFloor(true);
 	this->Roomes[2]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
 	this->Roomes[2]->GetColSpriteRenderer2F()->SetSprite("Castle3Collision2F.png");
 	FVector2D ColMap1Scale = this->Roomes[2]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[2]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap1Scale.Half());
+	this->Roomes[2]->CreateEnvSprite("Castle3Door1.png", FVector2D(57, 252), FVector2D(84, 270), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[2]->CreateEnvSprite("Castle3Door2.png", FVector2D(288, 1389), FVector2D(195, 165), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[2]->CreateEnvSprite("Castle3Door3.png", FVector2D(635, 1458), FVector2D(268, 96), ERenderOrder::SECOND_FLOOR_OBJ);
 
 	this->Roomes[3]->SetIsSecondFloor(true);
 	this->Roomes[3]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
 	this->Roomes[3]->GetColSpriteRenderer2F()->SetSprite("Castle4Collision2F.png");
 	FVector2D ColMap2Scale = this->Roomes[3]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[3]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
-	this->Roomes[3]->CreateEnvSprite("Castle4Bridge.png", FVector2D(528, 384), FVector2D(192, 552));
+	this->Roomes[3]->CreateEnvSprite("Castle4Bridge.png", FVector2D(528, 384), FVector2D(192, 552), ERenderOrder::SECOND_FLOOR);
+	this->Roomes[3]->CreateEnvSprite("Castle4Door1.png", FVector2D(288, 0), FVector2D(194, 168), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[3]->CreateEnvSprite("Castle4Door2.png", FVector2D(655, 0), FVector2D(212, 96), ERenderOrder::SECOND_FLOOR_OBJ);
+	this->Roomes[3]->CreateEnvSprite("Castle4Door3.png", FVector2D(0, 669), FVector2D(144, 195), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[3]->CreateEnvSprite("Castle4Door4.png", FVector2D(183, 1440), FVector2D(396, 96), ERenderOrder::SECOND_FLOOR_OBJ);
 
 	this->Roomes[4]->SetIsSecondFloor(true);
 	this->Roomes[4]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
 	this->Roomes[4]->GetColSpriteRenderer2F()->SetSprite("Castle5Collision2F.png");
 	FVector2D ColMap3Scale = this->Roomes[4]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[4]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap3Scale.Half());
-	this->Roomes[4]->CreateEnvSprite("Castle5Door1.png", FVector2D(0, 645), FVector2D(141, 243));
+	this->Roomes[4]->CreateEnvSprite("Castle5Door1.png", FVector2D(0, 645), FVector2D(141, 243), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[4]->CreateEnvSprite("Castle5Door2.png", FVector2D(1395, 653), FVector2D(81, 235), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[4]->CreateEnvSprite("Castle5Door3.png", FVector2D(688, 0), FVector2D(160, 96), ERenderOrder::SECOND_FLOOR_OBJ);
+	this->Roomes[4]->CreateEnvSprite("Castle5Door4.png", FVector2D(0, 318), FVector2D(69, 135), ERenderOrder::SECOND_FLOOR_OBJ);
 
 	this->Roomes[5]->SetIsSecondFloor(true);
 	this->Roomes[5]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
 	this->Roomes[5]->GetColSpriteRenderer2F()->SetSprite("Castle6Collision2F.png");
 	FVector2D ColMap4Scale = this->Roomes[5]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[5]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap4Scale.Half());
-	this->Roomes[5]->CreateEnvSprite("Castle6Bridge.png", FVector2D(261, 336), FVector2D(243, 192));
+	this->Roomes[5]->CreateEnvSprite("Castle6Bridge.png", FVector2D(261, 336), FVector2D(243, 192), ERenderOrder::SECOND_FLOOR);
+	this->Roomes[5]->CreateEnvSprite("Castle6Door1.png", FVector2D(624, 687), FVector2D(141, 165), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[5]->CreateEnvSprite("Castle6Door2.png", FVector2D(696, 273), FVector2D(69, 225), ERenderOrder::SECOND_FLOOR_OBJ);
+	this->Roomes[5]->CreateEnvSprite("Castle6Door3.png", FVector2D(288, 0), FVector2D(189, 165), ERenderOrder::FIRST_FLOOR_OBJ);
 }
 
 void AHyruleCastleGameMode::BeginPlayEnvActor()

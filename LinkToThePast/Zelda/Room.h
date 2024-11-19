@@ -72,7 +72,7 @@ public:
 		EnvSprites.push_back(SpriteRender);
 	}
 
-	void CreateEnvSprite(std::string_view SpriteName, FVector2D Location, FVector2D Size);
+	void CreateEnvSprite(std::string_view SpriteName, FVector2D Location, FVector2D Size, ERenderOrder Floor);
 
 	FVector2D RoomSize = FVector2D::ZERO;
 	FVector2D LeftTopPos = FVector2D::ZERO;
