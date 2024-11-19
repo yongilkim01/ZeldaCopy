@@ -6,6 +6,8 @@
 #include "Room.h"
 #include "LevelMove.h"
 #include "Fade.h"
+#include "StatueFire.h"
+#include "StatueStone.h"
 
 
 AHyruleCastleGameMode::AHyruleCastleGameMode()
@@ -29,6 +31,8 @@ void AHyruleCastleGameMode::BeginPlay()
 
 	AFade* FadeActor = GetWorld()->SpawnActor<AFade>();
 	FadeActor->SetActorLocation({ 0, 0 });
+
+	BeginPlayEnvActor();
 
 	// 플레이어의 위치에 존재하는 룸 객체를 플레이어의 현재룸으로 설정
 
@@ -84,6 +88,7 @@ void AHyruleCastleGameMode::RoomBeginPlay()
 	this->Roomes[4]->GetColSpriteRenderer2F()->SetSprite("Castle5Collision2F.png");
 	FVector2D ColMap3Scale = this->Roomes[4]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[4]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap3Scale.Half());
+	this->Roomes[4]->CreateEnvSprite("Castle5Door1.png", FVector2D(0, 645), FVector2D(141, 243));
 
 	this->Roomes[5]->SetIsSecondFloor(true);
 	this->Roomes[5]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
@@ -91,23 +96,41 @@ void AHyruleCastleGameMode::RoomBeginPlay()
 	FVector2D ColMap4Scale = this->Roomes[5]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
 	this->Roomes[5]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap4Scale.Half());
 	this->Roomes[5]->CreateEnvSprite("Castle6Bridge.png", FVector2D(261, 336), FVector2D(243, 192));
+}
 
+void AHyruleCastleGameMode::BeginPlayEnvActor()
+{
+	{
+		AStatueFire* StatueFire = GetWorld()->SpawnActor<AStatueFire>();
+		StatueFire->SetActorLocation({ 765 + 672, 1554 + 744 });
+		StatueFire->SetCurRoom(Roomes[4]);
 
-	//this->Roomes[0]->SetIsSecondFloor(true);
-	//this->Roomes[0]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon1Collision2F.png");
+		AStatueFire* StatueFire2 = GetWorld()->SpawnActor<AStatueFire>();
+		StatueFire2->SetActorLocation({ 765 + 816, 1554 + 744 });
+		StatueFire2->SetCurRoom(Roomes[4]);
 
+		AStatueStone* StatueStone1 = GetWorld()->SpawnActor<AStatueStone>();
+		StatueStone1->SetActorLocation({ 765 + 288, 1554 + 648 });
+		StatueStone1->SetCurRoom(Roomes[4]);
 
-	//this->Roomes[1]->SetIsSecondFloor(true);
-	//this->Roomes[1]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
-	//this->Roomes[1]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon2Collision2F.png");
-	//FVector2D ColMap2Scale = this->Roomes[1]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
-	//this->Roomes[1]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
+		AStatueStone* StatueStone2 = GetWorld()->SpawnActor<AStatueStone>();
+		StatueStone2->SetActorLocation({ 765 + 384, 1554 + 648 });
+		StatueStone2->SetCurRoom(Roomes[4]);
 
+		AStatueStone* StatueStone3 = GetWorld()->SpawnActor<AStatueStone>();
+		StatueStone3->SetActorLocation({ 765 + 480, 1554 + 648 });
+		StatueStone3->SetCurRoom(Roomes[4]);
 
-	//this->Roomes[7]->SetIsSecondFloor(true);
-	//this->Roomes[7]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
-	//this->Roomes[7]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon8Collision2F.png");
-	//FVector2D ColMap8Scale = this->Roomes[7]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
-	//this->Roomes[7]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap8Scale.Half());
-	//this->Roomes[7]->CreateEnvSprite("CastleDungeon8Bridge.png");
+		AStatueStone* StatueStone4 = GetWorld()->SpawnActor<AStatueStone>();
+		StatueStone4->SetActorLocation({ 765 + 1008, 1554 + 648 });
+		StatueStone4->SetCurRoom(Roomes[4]);
+
+		AStatueStone* StatueStone5 = GetWorld()->SpawnActor<AStatueStone>();
+		StatueStone5->SetActorLocation({ 765 + 1104, 1554 + 648 });
+		StatueStone5->SetCurRoom(Roomes[4]);
+
+		AStatueStone* StatueStone6 = GetWorld()->SpawnActor<AStatueStone>();
+		StatueStone6->SetActorLocation({ 765 + 1200, 1554 + 648 });
+		StatueStone6->SetCurRoom(Roomes[4]);
+	}
 }

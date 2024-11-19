@@ -67,6 +67,8 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void BeginPlayEnvActor() {}
+
 	/** UI 관리 메소드 */
 	void UIBeginPlay();
 	void UITick();

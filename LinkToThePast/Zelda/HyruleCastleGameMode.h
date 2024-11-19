@@ -23,7 +23,7 @@ public:
 
 	/** 젤다 게임모드 상속 메소드 */
 	void RoomBeginPlay();
-
+	virtual void BeginPlayEnvActor() override;
 protected:
 
 private:

@@ -14,18 +14,6 @@ APlayerCharacter::APlayerCharacter()
 {
 	Super::BeginPlay();
 
-	//SetActorLocation({ 2080, 1544 });
-	
-	// Dungeon start location
-	//SetActorLocation({ 220, 220 });
-
-	// Castle start location
-	//SetActorLocation({ 350, 350 });
-
-	//SetActorLocation({ 1535, 375 });
-
-
-
 	{
 		// 스프라이트 컴포넌트 생성
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -98,7 +86,7 @@ APlayerCharacter::APlayerCharacter()
 
 	}
 	{
-		SetSpeed(250.0f);
+		SetSpeed(500.0f);
 		CollisionSize = { 10.0f, 30.0f };
 	}
 }
@@ -111,8 +99,6 @@ void APlayerCharacter::BeginPlay()
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1);
 	GetWorld()->SetCameraToMainPawn(false);
-
-	SetCurDirection(FVector2D::DOWN);
 }
 
 void APlayerCharacter::Tick(float DeltaTime)
@@ -120,15 +106,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 	ABaseCharacter::Tick(DeltaTime);
 
 	if (AZeldaGameMode::IsMapMoving == true) return;
-
-	if (true == UEngineInput::GetInst().IsDown('F'))
-	{
-		AFade::Instance->FadeIn();
-	}
-	if (true == UEngineInput::GetInst().IsDown('G'))
-	{
-		AFade::Instance->FadeOut();
-	}
 
 	PrintDebugInfo(DeltaTime);
 
@@ -159,7 +136,10 @@ void APlayerCharacter::LevelChangeStart()
 
 	if (LevelName == "HYRULECASTLE")
 	{
-		SetActorLocation({ 1535, 375 });
+		SetActorLocation({ 1533, 2894 });
+		SetCurDirection(FVector2D::UP);
+		//ChangeState(EPlayerState::Idle);
+
 	}
 	else
 	{

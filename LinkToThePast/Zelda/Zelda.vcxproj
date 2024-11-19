@@ -198,6 +198,18 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="Statue.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StatueFire.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StatueStone.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ZeldaGameMode.h" />
     <ClInclude Include="RoomMove.h" />
     <ClInclude Include="Text.h" />
@@ -275,6 +287,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="Statue.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StatueFire.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StatueStone.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ZeldaGameMode.cpp" />
     <ClCompile Include="RoomMove.cpp" />
     <ClCompile Include="Text.cpp" />

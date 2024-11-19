@@ -73,6 +73,15 @@
     <ClInclude Include="LevelMove.h">
       <Filter>4_Util</Filter>
     </ClInclude>
+    <ClInclude Include="Statue.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="StatueFire.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="StatueStone.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -174,6 +183,15 @@
     <ClCompile Include="LevelMove.cpp">
       <Filter>4_Util</Filter>
     </ClCompile>
+    <ClCompile Include="Statue.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="StatueFire.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="StatueStone.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="0_PlayerCharacter">
@@ -232,6 +250,9 @@
     </Filter>
     <Filter Include="1_GameMode\1_HyruleCastle">
       <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\4_Environment">
+      <UniqueIdentifier>{f74ede32-9f86-46ba-8e8c-84602ba8571b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
