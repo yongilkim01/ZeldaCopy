@@ -88,15 +88,22 @@ void UZeldaCore::BeginPlay()
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");
 
+	int width = GetSystemMetrics(SM_CXSCREEN);
+	int height = GetSystemMetrics(SM_CYSCREEN);
+
 	// 이거 꼭 호출해줘야 합니다.
-	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale({ 0, 0 }, { 768, 672 });
+	FVector2D WindowResolution = FVector2D(width, height);
+	FVector2D InitWindowScale = FVector2D( 768, 672 );
+
+	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale(WindowResolution.Half() - InitWindowScale.Half(), InitWindowScale);
+
 
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 	UEngineAPICore::GetCore()->CreateLevel<AHyruleCastleGameMode, APlayerCharacter>("HyruleCastle");
 	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 
-	UEngineAPICore::GetCore()->OpenLevel("HyruleCastle");
+	UEngineAPICore::GetCore()->OpenLevel("Boss");
 }
 
 void UZeldaCore::Tick()

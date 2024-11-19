@@ -74,7 +74,7 @@ FVector2D APlayerCharacter::GetDirectionToTargetLocation(FVector2D TargetLocatio
 void APlayerCharacter::PlayerCameraCheck()
 {
 	FVector2D WindowSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
-	GetWorld()->SetCameraPos(GetActorLocation() - WindowSize.Half());
+	GetWorld()->SetCameraLocation(GetActorLocation() - WindowSize.Half());
 
 	DebugOn();
 }
@@ -145,6 +145,6 @@ void APlayerCharacter::SetCameraLocationToPlayer()
 			CameraMovePos.Y = GetCurRoom()->RightBottomPos.Y - UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Y;
 		}
 
-		GetWorld()->SetCameraPos(CameraMovePos);
+		GetWorld()->SetCameraLocation(CameraMovePos);
 	}
 }

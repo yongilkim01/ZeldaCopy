@@ -54,6 +54,22 @@ public:
 			IsDestroyValue = true;
 		}
 	}
+
+	virtual void ReleaseTimeCheck(float DeltaTime)
+	{
+		if (false == IsDeathTimeCheck)
+		{
+			return;
+		}
+
+		CurDeathTime += DeltaTime;
+
+		if (DeathTime <= CurDeathTime)
+		{
+			IsDestroyValue = true;
+		}
+	}
+
 	// 모든 기능 정지.
 	// 얼음 외부에서 다른 객체가 풀어줘야 한다.
 	void SetActive(bool IsActive)

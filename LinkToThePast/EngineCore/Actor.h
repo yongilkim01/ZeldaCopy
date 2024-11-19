@@ -5,6 +5,8 @@
 
 #include "EngineSprite.h"
 
+class ULevel;
+
 // Ό³Έν :
 class AActor : public UObject
 {
@@ -49,11 +51,26 @@ public:
 
 	}
 
-	class ULevel* GetWorld() { return World; }
-	void SetActorLocation(FVector2D _Location) { Transform.Location = _Location; }
-	void AddActorLocation(FVector2D _Direction) { Transform.Location += _Direction; }
-	FTransform GetTransform() { return Transform; }
-	FVector2D GetActorLocation() { return Transform.Location; }
+	ULevel* GetWorld() 
+	{ 
+		return World; 
+	}
+	FVector2D GetActorLocation() 
+	{
+		return Transform.Location;
+	}
+	void SetActorLocation(FVector2D Location) 
+	{
+		Transform.Location = Location;
+	}
+	void AddActorLocation(FVector2D Direction) 
+	{
+		Transform.Location += Direction;
+	}
+	FTransform GetTransform() 
+	{ 
+		return Transform; 
+	}
 
 protected:
 	UTimeEvent TimeEventer;
@@ -63,7 +80,8 @@ private:
 	static bool IsNewActorCreate;
 	static std::list<class UActorComponent*> ComponentList;
 
-	void ReleaseCheck(float _DeltaTime) override;
+	virtual void ReleaseCheck(float _DeltaTime) override;
+	virtual void ReleaseTimeCheck(float _DeltaTime) override;
 
 	class ULevel* World = nullptr;
 	FTransform Transform;

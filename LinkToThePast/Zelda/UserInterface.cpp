@@ -26,6 +26,6 @@ void AUserInterface::Tick(float DeltaTime)
 
 	if (PlayerCharacter != nullptr)
 	{
-		SetActorLocation(GetWorld()->GetCameraPos() - GetWorld()->GetCameraPivot());
+		SetActorLocation(GetWorld()->GetCameraLocation() - GetWorld()->GetCameraPivot());
 	}
 }

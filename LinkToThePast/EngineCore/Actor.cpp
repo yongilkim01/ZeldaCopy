@@ -53,7 +53,7 @@ void AActor::Tick(float DeltaTime)
 	if (IsDebug() == true)
 	{
 		FVector2D ActorLocation = GetActorLocation();
-		FVector2D CameraLocation = GetWorld()->GetCameraPos();
+		FVector2D CameraLocation = GetWorld()->GetCameraLocation();
 
 		FTransform Transform;
 		Transform.Location = ActorLocation - CameraLocation;
@@ -86,6 +86,28 @@ void AActor::ReleaseCheck(float DeltaTime)
 	for (; StartIter != EndIter; )
 	{
 		UActorComponent* Component = *StartIter;
+		if (false == Component->IsDestroy())
+		{
+			Component->ReleaseCheck(DeltaTime);
+			++StartIter;
+			continue;
+		}
+		delete Component;
+		StartIter = Components.erase(StartIter);
+	}
+}
+
+void AActor::ReleaseTimeCheck(float DeltaTime)
+{
+	UObject::ReleaseTimeCheck(DeltaTime);
+
+	std::list<UActorComponent*>::iterator StartIter = Components.begin();
+	std::list<UActorComponent*>::iterator EndIter = Components.end();
+
+	for (; StartIter != EndIter;)
+	{
+		UActorComponent* Component = *StartIter;
+
 		if (false == Component->IsDestroy())
 		{
 			Component->ReleaseCheck(DeltaTime);
