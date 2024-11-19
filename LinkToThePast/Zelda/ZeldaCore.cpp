@@ -84,6 +84,8 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("ArmosKnightDeath.png", { 64, 64 });
 
 	UImageManager::GetInst().CuttingSprite("EnemyDeathEffect.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 700 });
+	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 700 });
 
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");

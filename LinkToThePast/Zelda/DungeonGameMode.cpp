@@ -57,6 +57,8 @@ void ACastleDungeonGameMode::BeginPlay()
 void ACastleDungeonGameMode::Tick(float DeltaTime)
 {
 	AZeldaGameMode::Tick(DeltaTime);
+
+	CheckCollisionRoom();
 }
 
 void ACastleDungeonGameMode::RoomBeginPlay()

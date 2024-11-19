@@ -5,6 +5,7 @@
 #include "HylianKnights.h"
 #include "Room.h"
 #include "LevelMove.h"
+#include "Fade.h"
 
 
 AHyruleCastleGameMode::AHyruleCastleGameMode()
@@ -26,8 +27,10 @@ void AHyruleCastleGameMode::BeginPlay()
 	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
 	LevelMove1->SetActorLocation({ 1532, 273 });
 
+	AFade* FadeActor = GetWorld()->SpawnActor<AFade>();
+	FadeActor->SetActorLocation({ 0, 0 });
+
 	// 플레이어의 위치에 존재하는 룸 객체를 플레이어의 현재룸으로 설정
-	CheckCollisionRoom();
 
 	// 에너미 객체 생성
 	{
@@ -45,6 +48,8 @@ void AHyruleCastleGameMode::BeginPlay()
 void AHyruleCastleGameMode::Tick(float DeltaTime)
 {
 	AZeldaGameMode::Tick(DeltaTime);
+
+	CheckCollisionRoom();
 }
 
 void AHyruleCastleGameMode::RoomBeginPlay()

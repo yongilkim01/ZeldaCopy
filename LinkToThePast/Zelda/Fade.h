@@ -25,6 +25,9 @@ public:
 	void FadeIn();
 	void FadeOut();
 
+	void FadeInEnd();
+	void FadeOutEnd();
+
 protected:
 
 private:
@@ -33,6 +36,8 @@ private:
 
 	float FadeValue = 0.0f;
 	float FadeDir = 1.0f;
+
+	bool IsFading = false;
 
 	USpriteRenderer* BackSpriteRenderer = nullptr;
 

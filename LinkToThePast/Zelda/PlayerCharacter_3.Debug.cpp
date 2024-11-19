@@ -14,6 +14,7 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / DeltaTime));
 	UEngineDebug::CoreOutPutString("//////////////////////////// Player Debug ////////////////////////////");
 	UEngineDebug::CoreOutPutString("Player location : " + GetActorLocation().ToString());
+	UEngineDebug::CoreOutPutString("Current world : " + GetWorld()->GetName());
 	//UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
 	//UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
 	//UEngineDebug::CoreOutPutString("Player Room Name : " + CurRoom->GetName());
@@ -88,7 +89,7 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	if (true == UEngineInput::GetInst().IsDown(VK_F3))
 	{
 		// static½è´Ù. 
-		UEngineAPICore::GetCore()->ResetLevel<ABossGameMode, APlayerCharacter>("Boss2");
-		UEngineAPICore::GetCore()->OpenLevel("Boss2");
+		UEngineAPICore::GetCore()->ResetLevel<ABossGameMode, APlayerCharacter>("Boss");
+		UEngineAPICore::GetCore()->OpenLevel("Boss");
 	}
 }

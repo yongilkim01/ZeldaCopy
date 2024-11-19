@@ -38,7 +38,7 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	void LevelChangeStart();
+	virtual void LevelChangeStart() override;
 	void LevelChangeEnd();
 
 	void StartIdle();

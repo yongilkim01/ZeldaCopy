@@ -1,10 +1,12 @@
 #include "PreCompile.h"
 #include "LevelMove.h"
 #include "ContentsEnum.h"
+#include "Fade.h"
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
 #include <EngineCore/EngineCoreDebug.h>
+#include <EngineCore/EngineAPICore.h>
 
 ALevelMove::ALevelMove()
 {
@@ -48,6 +50,8 @@ void ALevelMove::Tick(float DeltaTime)
 	if (nullptr != Result)
 	{
 		UEngineDebug::CoreOutPutString("플레이어 안에 들어옴");
+		// AFade::Instance->SetActorLocation(GetWorld()->GetPawn()->GetActorLocation());
+		AFade::Instance->FadeIn();
 	}
 }
 

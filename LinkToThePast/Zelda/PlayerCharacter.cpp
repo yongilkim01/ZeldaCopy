@@ -20,7 +20,12 @@ APlayerCharacter::APlayerCharacter()
 	//SetActorLocation({ 220, 220 });
 
 	// Castle start location
-	SetActorLocation({ 350, 350 });
+	//SetActorLocation({ 350, 350 });
+
+	//SetActorLocation({ 1535, 375 });
+
+
+
 	{
 		// 스프라이트 컴포넌트 생성
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -149,6 +154,18 @@ void APlayerCharacter::Tick(float DeltaTime)
 void APlayerCharacter::LevelChangeStart()
 {
 	Super::LevelChangeStart();
+
+	std::string LevelName = GetWorld()->GetName();
+
+	if (LevelName == "HYRULECASTLE")
+	{
+		SetActorLocation({ 1535, 375 });
+	}
+	else
+	{
+		SetActorLocation({ 2080, 1544 });
+	}
+	
 }
 
 void APlayerCharacter::LevelChangeEnd()
