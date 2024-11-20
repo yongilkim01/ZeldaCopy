@@ -12,9 +12,8 @@
 void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 {
 	UEngineDebug::CoreOutPutString("FPS : " + std::to_string(1.0f / DeltaTime));
-	UEngineDebug::CoreOutPutString("//////////////////////////// Player Debug ////////////////////////////");
-	UEngineDebug::CoreOutPutString("Player location : " + GetActorLocation().ToString());
-	UEngineDebug::CoreOutPutString("Current world : " + GetWorld()->GetName());
+	UEngineDebug::CoreOutPutString("Location : " + GetActorLocation().ToString(), GetDebugLocation(0));
+	UEngineDebug::CoreOutPutString("Level : " + GetWorld()->GetName(), GetDebugLocation(1));
 	//UEngineDebug::CoreOutPutString("PlayerScale : " + GetTransform().Scale.ToString());
 	//UEngineDebug::CoreOutPutString("PlayerLefTop : " + GetTransform().CenterLeftTop().ToString());
 	//UEngineDebug::CoreOutPutString("Player Room Name : " + CurRoom->GetName());
@@ -25,35 +24,30 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	// 현재 플레이어의 위치에 있는 콜리전 색상
 	UColor Color = GetCollisionImage()->GetColor(PlayerLocation);
 
-	UEngineDebug::CoreOutPutString("Current RGB : " + Color.ToString());
-	UEngineDebug::CoreOutPutString("Current Room Name : " + GetCurRoom()->GetName());
-	UEngineDebug::CoreOutPutString("Current Room Collision Name : " + GetCollisionImage()->GetName());
+	//UEngineDebug::CoreOutPutString("Current RGB : " + Color.ToString());
+	UEngineDebug::CoreOutPutString("Room : " + GetCurRoom()->GetName(), GetDebugLocation(2));
+	//UEngineDebug::CoreOutPutString("Current Room Collision Name : " + GetCollisionImage()->GetName(), GetNoneCameraLocation());
 
-	UEngineDebug::CoreOutPutString("Player hp : " + std::to_string(this->CurrentHP));
-	UEngineDebug::CoreOutPutString("Player order : " + std::to_string(this->SpriteRenderer->GetOrder()));
-	if (GetCurRoom() != nullptr)
-	{
-		UEngineDebug::CoreOutPutString("Cur room : " + GetCurRoom()->GetName());
-	}
-
+	UEngineDebug::CoreOutPutString("HP : " + std::to_string(this->CurrentHP), GetDebugLocation(3));
+	//UEngineDebug::CoreOutPutString("Player order : " + std::to_string(this->SpriteRenderer->GetOrder()));
 	//UEngineDebug::CoreOutPutString("KncokBack DeltaTime: " + std::to_string(KnockBackTime));
 
 	if (true == HitCollision->IsActive())
 	{
-		UEngineDebug::CoreOutPutString("Player body collision still alive");
+		UEngineDebug::CoreOutPutString("Collision : Alive", GetDebugLocation(4));
 	}
 	else
 	{
-		UEngineDebug::CoreOutPutString("Player body collision dead");
+		UEngineDebug::CoreOutPutString("Collision : Dead", GetDebugLocation(4));
 	}
 
 	switch (GetCurRoomFloor())
 	{
 	case ERoomFloor::FLOOR_1F:
-		UEngineDebug::CoreOutPutString("Current floor : 1F");
+		UEngineDebug::CoreOutPutString("Current floor : 1F", GetDebugLocation(5));
 		break;
 	case ERoomFloor::FLOOR_2F:
-		UEngineDebug::CoreOutPutString("Current floor : 2F");
+		UEngineDebug::CoreOutPutString("Current floor : 2F", GetDebugLocation(5));
 		break;
 	default:
 		break;
@@ -62,16 +56,16 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	switch (CurPlayerState)
 	{
 	case EPlayerState::Idle:
-		UEngineDebug::CoreOutPutString("Player Current State : Idle ");
+		UEngineDebug::CoreOutPutString("State : Idle ", GetDebugLocation(6));
 		break;
 	case EPlayerState::Move:
-		UEngineDebug::CoreOutPutString("Player Current State : Move ");
+		UEngineDebug::CoreOutPutString("State : Move ", GetDebugLocation(6));
 		break;
 	case EPlayerState::Attack:
-		UEngineDebug::CoreOutPutString("Player Current State : Attack ");
+		UEngineDebug::CoreOutPutString("State : Attack ", GetDebugLocation(6));
 		break;
 	case EPlayerState::KnockBack:
-		UEngineDebug::CoreOutPutString("Player Current State : KnockBack ");
+		UEngineDebug::CoreOutPutString("State : KnockBack ", GetDebugLocation(6));
 		break;
 	default:
 		break;
@@ -81,6 +75,8 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	{
 		if (IsDebug() == true) DebugOff();
 		else if (IsDebug() == false) DebugOn();
+
+		UEngineDebug::SwitchIsDebug();
 	}
 	if (true == UEngineInput::GetInst().IsDown(VK_F2))
 	{

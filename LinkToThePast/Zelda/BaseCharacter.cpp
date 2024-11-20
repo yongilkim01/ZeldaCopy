@@ -130,6 +130,12 @@ void ABaseCharacter::SetCharacterRenderOrder()
 	}
 }
 
+FVector2D ABaseCharacter::GetDebugLocation(int Index)
+{
+	FVector2D ResultLocation = GetNoneCameraLocation() + FVector2D(0.0f, DebugMsgLocY * Index);
+	return ResultLocation;
+}
+
 FVector2D ABaseCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
 {
 	FVector2D ResultDir = TargetLocation - GetActorLocation();

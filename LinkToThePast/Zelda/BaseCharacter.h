@@ -23,6 +23,7 @@ public:
 	virtual void TakeDamage(int Damage, ABaseCharacter* Character) {}
 	virtual void Death() {}
 	virtual void Fall() {}
+	virtual void Interact(ABaseCharacter* Chracter) {}
 
 	/** 캐릭터 공통 메소드 */
 	void AddCharacterLocation(FVector2D MoveDirection);
@@ -34,6 +35,7 @@ public:
 	void SetCurRoom(ARoom* Room, bool IsPlayer);
 	void SetCollisionImage(std::string_view CollisionImageName);
 	void SetCharacterRenderOrder();
+	FVector2D GetDebugLocation(int Index = 0);
 
 	/** 게터/세터 메소드 */
 	void SetSpeed(float Speed) 
@@ -90,5 +92,7 @@ private:
 	ARoom* CurRoom = nullptr;
 	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
 	UEngineWinImage* CollisionImage = nullptr;
+
+	float DebugMsgLocY = 20.0f;
 
 };

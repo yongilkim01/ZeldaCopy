@@ -109,3 +109,8 @@ void AActor::ReleaseTimeCheck(float _DeltaTime)
 		Component->ReleaseTimeCheck(_DeltaTime);
 	}
 }
+
+FVector2D AActor::GetNoneCameraLocation()
+{
+	return GetActorLocation() - GetWorld()->GetCameraLocation();
+}

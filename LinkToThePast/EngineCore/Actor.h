@@ -59,6 +59,10 @@ public:
 	{
 		return Transform.Location;
 	}
+
+	FVector2D GetNoneCameraLocation();
+
+
 	void SetActorLocation(FVector2D Location) 
 	{
 		Transform.Location = Location;

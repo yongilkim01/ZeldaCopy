@@ -141,9 +141,6 @@
     <ClCompile Include="PlayerCharacter_2.Util.cpp">
       <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerCharacter_3.Debug.cpp">
-      <Filter>0_PlayerCharacter</Filter>
-    </ClCompile>
     <ClCompile Include="BaseCharacter.cpp">
       <Filter>2_Data\0_Object</Filter>
     </ClCompile>
@@ -203,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="EnemyKnight_3.Debug.cpp">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCharacter_3.Debug.cpp">
+      <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
