@@ -10,6 +10,7 @@ class ARoom;
 class USpriteRenderer;
 class UEngineWinImage;
 class AEnemyCharacter;
+class AEventActor;
 
 enum class EPlayerState
 {
@@ -94,6 +95,8 @@ private:
 	FVector2D MoveDir = FVector2D::ZERO;
 	FVector2D GravityForce = FVector2D::ZERO;
 	FVector2D KnockBackDir = FVector2D::ZERO;
+
+	AEventActor* OwnedEventActor = nullptr;
 
 	int MySpriteIndex = 0;
 	int IsGround = false;

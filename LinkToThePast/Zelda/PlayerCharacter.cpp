@@ -42,10 +42,10 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("Attack_Up", "LinkAttackUp.png", 0, 4, 0.04f, false);
 		SpriteRenderer->CreateAnimation("Attack_Down", "LinkAttackDown.png", 0, 5, 0.04f, false);
 
-		SpriteRenderer->CreateAnimation("LiftRight", "LinkLiftRight.png", 0, 1, 0.4f, false);
-		SpriteRenderer->CreateAnimation("LieftLeft", "LinkLiftLeft.png", 0, 1, 0.4f, false);
-		SpriteRenderer->CreateAnimation("LiftUp", "LinkLiftUp.png", 0, 1, 0.4f, false);
-		SpriteRenderer->CreateAnimation("LiftDown", "LinkLiftDown.png", 0, 1, 0.4f, false);
+		SpriteRenderer->CreateAnimation("LiftRight", "LinkLiftRight.png", 0, 1, 0.1f, false);
+		SpriteRenderer->CreateAnimation("LiftLeft", "LinkLiftLeft.png", 0, 1, 0.1f, false);
+		SpriteRenderer->CreateAnimation("LiftUp", "LinkLiftUp.png", 0, 1, 0.1f, false);
+		SpriteRenderer->CreateAnimation("LiftDown", "LinkLiftDown.png", 0, 1, 0.1f, false);
 
 		SpriteRenderer->CreateAnimation("LiftIdleRight", "LinkLiftRight.png", 2, 2, 0.1f);
 		SpriteRenderer->CreateAnimation("LiftIdleLeft", "LinkLiftLeft.png", 2, 2, 0.1f);
@@ -64,7 +64,7 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayerCharacter::EndAttack, this));
 
 		SpriteRenderer->SetAnimationEvent("LiftRight", 1, std::bind(&APlayerCharacter::EndLift, this));
-		SpriteRenderer->SetAnimationEvent("LieftLeft", 1, std::bind(&APlayerCharacter::EndLift, this));
+		SpriteRenderer->SetAnimationEvent("LiftLeft", 1, std::bind(&APlayerCharacter::EndLift, this));
 		SpriteRenderer->SetAnimationEvent("LiftUp", 1, std::bind(&APlayerCharacter::EndLift, this));
 		SpriteRenderer->SetAnimationEvent("LiftDown", 1, std::bind(&APlayerCharacter::EndLift, this));
 	}

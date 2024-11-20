@@ -214,7 +214,7 @@ void APlayerCharacter::Idle(float DeltaTime)
 		CurPlayerState = EPlayerState::Attack;
 	}
 
-	if (UEngineInput::GetInst().IsPress('E') == true)
+	if (UEngineInput::GetInst().IsDown('E') == true)
 	{
 		ChangeState(EPlayerState::Interact);
 	}
@@ -402,10 +402,12 @@ void APlayerCharacter::Interact(float DetlaTime)
 {
 	ABaseCharacter::Interact(DetlaTime);
 
-	AEventActor* Result = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
-	if (nullptr != Result)
+	InteractCollision->SetActive(true);
+
+	OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
+	if (nullptr != OwnedEventActor)
 	{
-		Result->Interact(this);
+		OwnedEventActor->Interact(this);
 
 		if (GetCurDirection() == FVector2D::RIGHT)
 		{
@@ -423,7 +425,11 @@ void APlayerCharacter::Interact(float DetlaTime)
 		{
 			SpriteRenderer->ChangeAnimation("LiftDown");
 		}
+
+		InteractCollision->SetActive(false);
+		return;
 	}
+	ChangeState(EPlayerState::Idle);
 }
 
 void APlayerCharacter::KnockBack(float DeltaTime)
@@ -491,6 +497,12 @@ void APlayerCharacter::LiftIdle(float DeltaTime)
 	if (UEngineInput::GetInst().IsPress('E') == true)
 	{
 		// TODO : 던지는 상태로 전환
+		if (nullptr != OwnedEventActor && true == OwnedEventActor->GetIsControl())
+		{
+			OwnedEventActor->Throw();
+			OwnedEventActor = nullptr;
+			ChangeState(EPlayerState::Idle);
+		}
 	}
 }
 

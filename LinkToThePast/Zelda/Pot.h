@@ -1,6 +1,16 @@
 #pragma once
 #include "EventActor.h"
 
+class APlayerCharacter;
+
+enum class EPotState
+{
+	NONE,
+	LIFT,
+	FOLLOW,
+	THROW,
+};
+
 /**
  *	설명
  */
@@ -23,10 +33,25 @@ public:
 
 	/** 이벤트 액터 공통 메소드 */
 	virtual void Interact(ABaseCharacter* Character) override;
+	virtual void Throw() override;
+
+	/** 항아리 액터 상태 머신 메소드 */
+	void ChangeState(EPotState PotState);
+	
+	void StartFollow();
+	void StartThrow();
+
+	void Follow(float DeltaTime);
+	void Throw(float DeltaTime);
+
+	/** 항아리 액터 유틸 메소드 */
 
 protected:
 
 private:
+	EPotState CurPotState = EPotState::NONE;
+
+	APlayerCharacter* Owner = nullptr;
 
 };
 

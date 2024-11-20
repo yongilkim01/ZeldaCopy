@@ -25,14 +25,23 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DetlaTime) override;
 
-	/** 이벤트 액터 공통 메소드 */
+	/** 이벤트 액터 상속 메소드 */
 	virtual void Interact(ABaseCharacter* Character) {}
+	virtual void Throw() {}
 
+	/** 이벤트 액터 공통 메소드 */
+	void HoldToCharacter(FVector2D CharacterDirction);
+	bool GetIsControl()
+	{
+		return IsControl;
+	}
 protected:
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* Collision = nullptr;
+	FVector2D CurDirection = FVector2D::ZERO;
+
+	bool IsControl = false;
 
 private:
-
 };
 

@@ -2,6 +2,7 @@
 #include "ContentsEnum.h"
 
 #include <EngineCore/Actor.h>
+#include <EngineCore/SpriteRenderer.h>
 
 class ARoom;
 class UEngineWinImage;
@@ -74,6 +75,10 @@ public:
 	UEngineWinImage* GetCollisionImage()
 	{
 		return this->CollisionImage;
+	}
+	int GetSpriteOrder()
+	{
+		return SpriteRenderer->GetOrder();
 	}
 protected:
 	/** 액터 가상 메소드 */
