@@ -183,7 +183,8 @@ void APlayerCharacter::LevelChangeStart()
 	}
 	else
 	{
-		SetActorLocation({ 2080, 1544 });
+		//SetActorLocation({ 2080, 1544 });
+		SetActorLocation({ 486, 347 });
 	}
 	
 }

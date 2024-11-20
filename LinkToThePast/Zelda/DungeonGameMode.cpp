@@ -69,11 +69,10 @@ void ACastleDungeonGameMode::BeginPlayRoomActor()
 	RoomDataes.push_back({ { 0, 0 } ,{ 780, 720 } });			// Dungeon1	
 	RoomDataes.push_back({ { 0, 720 } ,{ 780, 760 } });			// Dungeon2
 	RoomDataes.push_back({ { 780, 720 } ,{ 760, 760 } });		// Dungeon3
-	RoomDataes.push_back({ { 1540, 720 } ,{ 1412, 760 } });		// Dungeon4
+	RoomDataes.push_back({ { 1546, 720 } ,{ 1406, 709 } });		// Dungeon4
 	RoomDataes.push_back({ { 1752, 0 } ,{ 1200, 720 } });		// Dungeon5
-	RoomDataes.push_back({ { 1546, 1480 } ,{ 1406, 620 } });	// Dungeon6
-	RoomDataes.push_back({ { 1546, 2100 } ,{ 1406, 824 } });	// Dungeon7
-	RoomDataes.push_back({ { 0, 1480 } ,{ 1546, 1444 } });		// Dungeon8
+	RoomDataes.push_back({ { 1546, 1429 } ,{ 1406, 1496 } });	// Dungeon6
+	RoomDataes.push_back({ { 0, 1480 } ,{ 1546, 1444 } });		// Dungeon7
 
 	CreateRoomActor("CastleDungeon", 0);
 
@@ -88,12 +87,12 @@ void ACastleDungeonGameMode::BeginPlayRoomActor()
 	this->Roomes[1]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
 
 
-	this->Roomes[7]->SetIsSecondFloor(true);
-	this->Roomes[7]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
-	this->Roomes[7]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon8Collision2F.png");
-	FVector2D ColMap8Scale = this->Roomes[7]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
-	this->Roomes[7]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap8Scale.Half());
-	this->Roomes[7]->CreateEnvSprite("CastleDungeon8Bridge.png", FVector2D(1008, 410), FVector2D(144, 500), ERenderOrder::SECOND_FLOOR);
+	this->Roomes[6]->SetIsSecondFloor(true);
+	this->Roomes[6]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
+	this->Roomes[6]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon7Collision2F.png");
+	FVector2D ColMap8Scale = this->Roomes[6]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
+	this->Roomes[6]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap8Scale.Half());
+	this->Roomes[6]->CreateEnvSprite("CastleDungeon7Bridge.png", FVector2D(1008, 410), FVector2D(144, 500), ERenderOrder::SECOND_FLOOR);
 	
 }
 
