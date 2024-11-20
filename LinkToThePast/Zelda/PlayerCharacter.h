@@ -18,6 +18,8 @@ enum class EPlayerState
 	Attack,
 	KnockBack,
 	Interact,
+	LiftIdle,
+	LiftMove,
 };
 
 /**
@@ -40,28 +42,33 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void StartInteract() override;
 	virtual void Interact(float DeltaTime) override;
-
+	virtual void TakeDamage(int Damage, ABaseCharacter* EnemyCharacter) override;
 	virtual void LevelChangeStart() override;
-	void LevelChangeEnd();
+	virtual void LevelChangeEnd() override;
 
 	void StartIdle();
 	void StartMove();
 	void StartAttack();
 	void StartKnockBack();
+	void StartLiftMove();
+	void StartLiftIdle();
+
 	void Idle(float DeltaTime);
 	void Move(float DeltaTime);
+	void LiftMove(float DeltaTime);
 	void Attack(float DeltaTime);
 	void KnockBack(float DeltaTime);
+	void LiftIdle(float DeltaTime);
+
 	void EndAttack();
+	void EndLift();
+
 	void ChangeState(EPlayerState ChangeState);
-	virtual void TakeDamage(int Damage, ABaseCharacter* EnemyCharacter) override;
 	void ChangePlayerDirection(FVector2D Dir);
 
 	void RunSoundPlay();
 
-	void PrintDebugInfo(float DeltaTime);
 	void SetPlayerStateToIdle();
-
 	void SetCameraLocationToPlayer();
 
 	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
@@ -69,6 +76,8 @@ public:
 	void PlayerCameraCheck();
 	void PlayerGroundCheck(FVector2D MovePos);
 	void Gravity(float _DeltaTime);
+
+	void PrintDebugInfo(float DeltaTime);
 
 protected:
 

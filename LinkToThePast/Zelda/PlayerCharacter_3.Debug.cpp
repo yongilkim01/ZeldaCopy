@@ -67,6 +67,15 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	case EPlayerState::KnockBack:
 		UEngineDebug::CoreOutPutString("State : KnockBack ", GetDebugLocation(6));
 		break;
+	case EPlayerState::Interact:
+		UEngineDebug::CoreOutPutString("State : Interact ", GetDebugLocation(6));
+		break;
+	case EPlayerState::LiftMove:
+		UEngineDebug::CoreOutPutString("State : LiftMove ", GetDebugLocation(6));
+		break;
+	case EPlayerState::LiftIdle:
+		UEngineDebug::CoreOutPutString("State : LiftIdle ", GetDebugLocation(6));
+		break;
 	default:
 		break;
 	}

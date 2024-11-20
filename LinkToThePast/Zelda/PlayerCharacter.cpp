@@ -26,6 +26,7 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("Run_Left", "LinkMoveLeft.png", 1, 8, 0.04f);
 		SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 8, 0.04f);
 		SpriteRenderer->CreateAnimation("Run_Down", "LinkMoveDown.png", 1, 8, 0.04f);
+
 		SpriteRenderer->CreateAnimation("Idle_Right", "LinkMoveRight.png", 0, 0, 0.1f);
 		SpriteRenderer->CreateAnimation("Idle_Left", "LinkMoveLeft.png", 0, 0, 0.1f);
 		SpriteRenderer->CreateAnimation("Idle_Up", "LinkMoveUp.png", 0, 0, 0.1f);
@@ -41,11 +42,31 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("Attack_Up", "LinkAttackUp.png", 0, 4, 0.04f, false);
 		SpriteRenderer->CreateAnimation("Attack_Down", "LinkAttackDown.png", 0, 5, 0.04f, false);
 
+		SpriteRenderer->CreateAnimation("LiftRight", "LinkLiftRight.png", 0, 1, 0.4f, false);
+		SpriteRenderer->CreateAnimation("LieftLeft", "LinkLiftLeft.png", 0, 1, 0.4f, false);
+		SpriteRenderer->CreateAnimation("LiftUp", "LinkLiftUp.png", 0, 1, 0.4f, false);
+		SpriteRenderer->CreateAnimation("LiftDown", "LinkLiftDown.png", 0, 1, 0.4f, false);
+
+		SpriteRenderer->CreateAnimation("LiftIdleRight", "LinkLiftRight.png", 2, 2, 0.1f);
+		SpriteRenderer->CreateAnimation("LiftIdleLeft", "LinkLiftLeft.png", 2, 2, 0.1f);
+		SpriteRenderer->CreateAnimation("LiftIdleUp", "LinkLiftUp.png", 2, 2, 0.1f);
+		SpriteRenderer->CreateAnimation("LiftIdleDown", "LinkLiftDown.png", 2, 2, 0.1f);
+
+		SpriteRenderer->CreateAnimation("LiftRunRight", "LinkLiftRight.png", 2, 4, 0.04f);
+		SpriteRenderer->CreateAnimation("LiftRunLeft", "LinkLiftLeft.png", 2, 4, 0.04f);
+		SpriteRenderer->CreateAnimation("LiftRunUp", "LinkLiftUp.png", 2, 7, 0.04f);
+		SpriteRenderer->CreateAnimation("LiftRunDown", "LinkLiftDown.png", 2, 7, 0.04f);
+
 		// 애니메이션 이벤트 바인드
 		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::EndAttack, this));
 		SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayerCharacter::EndAttack, this));
 		SpriteRenderer->SetAnimationEvent("Attack_Up", 4, std::bind(&APlayerCharacter::EndAttack, this));
 		SpriteRenderer->SetAnimationEvent("Attack_Down", 5, std::bind(&APlayerCharacter::EndAttack, this));
+
+		SpriteRenderer->SetAnimationEvent("LiftRight", 1, std::bind(&APlayerCharacter::EndLift, this));
+		SpriteRenderer->SetAnimationEvent("LieftLeft", 1, std::bind(&APlayerCharacter::EndLift, this));
+		SpriteRenderer->SetAnimationEvent("LiftUp", 1, std::bind(&APlayerCharacter::EndLift, this));
+		SpriteRenderer->SetAnimationEvent("LiftDown", 1, std::bind(&APlayerCharacter::EndLift, this));
 	}
 	{
 		// 충돌 컴포넌트 생성
@@ -97,7 +118,7 @@ APlayerCharacter::APlayerCharacter()
 		SetSpeed(500.0f);
 		CollisionSize = { 10.0f, 30.0f };
 	}
-	DebugOn();
+	//DebugOn();
 }
 
 void APlayerCharacter::BeginPlay()
@@ -134,6 +155,12 @@ void APlayerCharacter::Tick(float DeltaTime)
 		break;
 	case EPlayerState::Interact:
 		Interact(DeltaTime);
+		break;
+	case EPlayerState::LiftIdle:
+		LiftIdle(DeltaTime);
+		break;
+	case EPlayerState::LiftMove:
+		LiftMove(DeltaTime);
 		break;
 	default:
 		break;

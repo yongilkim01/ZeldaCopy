@@ -27,7 +27,7 @@ APot::APot()
 
 	}
 
-	DebugOn();
+	//DebugOn();
 }
 
 APot::~APot()

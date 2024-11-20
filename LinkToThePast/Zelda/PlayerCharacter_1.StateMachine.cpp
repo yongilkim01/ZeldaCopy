@@ -30,6 +30,12 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 	case EPlayerState::Interact:
 		StartInteract();
 		break;
+	case EPlayerState::LiftIdle:
+		StartLiftIdle();
+		break;
+	case EPlayerState::LiftMove:
+		StartLiftMove();
+		break;
 	default:
 		break;
 	}
@@ -119,6 +125,51 @@ void APlayerCharacter::StartAttack()
 void APlayerCharacter::StartKnockBack()
 {
 	CurPlayerState = EPlayerState::KnockBack;
+}
+
+void APlayerCharacter::StartLiftMove()
+{
+	if (GetCurDirection() == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRunRight");
+	}
+	else if (GetCurDirection() == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRunLeft");
+	}
+	else if (GetCurDirection() == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRunUp");
+	}
+	else if (GetCurDirection() == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRunDown");
+	}
+}
+
+void APlayerCharacter::StartLiftIdle()
+{
+	if (GetCurDirection() == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("LiftIdleRight");
+	}
+	else if (GetCurDirection() == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("LiftIdleLeft");
+	}
+	else if (GetCurDirection() == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("LiftIdleUp");
+	}
+	else if (GetCurDirection() == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("LiftIdleDown");
+	}
+	else
+	{
+		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+		return;
+	}
 }
 
 
@@ -239,6 +290,69 @@ void APlayerCharacter::Move(float DeltaTime)
 	}
 }
 
+void APlayerCharacter::LiftMove(float DeltaTime)
+{
+	SetCameraLocationToPlayer();
+
+	if (UEngineInput::GetInst().IsPress('D') == true
+		&& MoveDir != FVector2D::RIGHT)
+	{
+		ChangePlayerDirection(FVector2D::RIGHT);
+		MoveDir += FVector2D::RIGHT;
+	}
+	else if (UEngineInput::GetInst().IsPress('A') == true
+		&& MoveDir != FVector2D::LEFT)
+	{
+		ChangePlayerDirection(FVector2D::LEFT);
+		MoveDir += FVector2D::LEFT;
+	}
+
+	if (UEngineInput::GetInst().IsPress('S') == true
+		&& MoveDir != FVector2D::DOWN)
+	{
+		ChangePlayerDirection(FVector2D::DOWN);
+		MoveDir += FVector2D::DOWN;
+	}
+	else if (UEngineInput::GetInst().IsPress('W') == true
+		&& MoveDir != FVector2D::UP)
+	{
+		ChangePlayerDirection(FVector2D::UP);
+		MoveDir += FVector2D::UP;
+	}
+
+	if (GetCurDirection() == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRunRight");
+	}
+	else if (GetCurDirection() == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRunLeft");
+	}
+	else if (GetCurDirection() == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRunUp");
+	}
+	else if (GetCurDirection() == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRunDown");
+	}
+
+	MoveDir.Normal();
+
+	AddCharacterLocation(MoveDir * DeltaTime * Speed);
+
+	MoveDir = FVector2D::ZERO;
+
+	if (false == UEngineInput::GetInst().IsPress('A') &&
+		false == UEngineInput::GetInst().IsPress('D') &&
+		false == UEngineInput::GetInst().IsPress('W') &&
+		false == UEngineInput::GetInst().IsPress('S'))
+	{
+
+		ChangeState(EPlayerState::LiftIdle);
+	}
+}
+
 void APlayerCharacter::Attack(float DeltaTime)
 {
 	//EffectSoundPlayer = UEngineSound::Play("sword_beam.wav");
@@ -292,6 +406,23 @@ void APlayerCharacter::Interact(float DetlaTime)
 	if (nullptr != Result)
 	{
 		Result->Interact(this);
+
+		if (GetCurDirection() == FVector2D::RIGHT)
+		{
+			SpriteRenderer->ChangeAnimation("LiftRight");
+		}
+		else if (GetCurDirection() == FVector2D::LEFT)
+		{
+			SpriteRenderer->ChangeAnimation("LiftLeft");
+		}
+		else if (GetCurDirection() == FVector2D::UP)
+		{
+			SpriteRenderer->ChangeAnimation("LiftUp");
+		}
+		else if (GetCurDirection() == FVector2D::DOWN)
+		{
+			SpriteRenderer->ChangeAnimation("LiftDown");
+		}
 	}
 }
 
@@ -328,8 +459,49 @@ void APlayerCharacter::KnockBack(float DeltaTime)
 	}
 }
 
+void APlayerCharacter::LiftIdle(float DeltaTime)
+{
+	SetCameraLocationToPlayer();
+
+	if (UEngineInput::GetInst().IsPress('A') == true)
+	{
+		ChangePlayerDirection(FVector2D::LEFT);
+		ChangeState(EPlayerState::LiftMove);
+		return;
+	}
+	else if (UEngineInput::GetInst().IsPress('D') == true)
+	{
+		ChangePlayerDirection(FVector2D::RIGHT);
+		ChangeState(EPlayerState::LiftMove);
+		return;
+	}
+	else if (UEngineInput::GetInst().IsPress('W') == true)
+	{
+		ChangePlayerDirection(FVector2D::UP);
+		ChangeState(EPlayerState::LiftMove);
+		return;
+	}
+	else if (UEngineInput::GetInst().IsPress('S') == true)
+	{
+		ChangePlayerDirection(FVector2D::DOWN);
+		ChangeState(EPlayerState::LiftMove);
+		return;
+	}
+
+	if (UEngineInput::GetInst().IsPress('E') == true)
+	{
+		// TODO : 던지는 상태로 전환
+	}
+}
+
 void APlayerCharacter::EndAttack()
 {
 	IsAttack = false;
 	ChangeState(EPlayerState::Idle);
+}
+
+void APlayerCharacter::EndLift()
+{
+	UEngineDebug::CoreOutPutString("드는 애니메이션 종료");
+	ChangeState(EPlayerState::LiftIdle);
 }

@@ -73,6 +73,11 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("LinkKnockBackUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkKnockBackDown.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("LinkLiftRight.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkLiftLeft.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkLiftUp.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkLiftDown.png", { 64, 64 });
+
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveLeft.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveUp.png", { 64, 64 });
