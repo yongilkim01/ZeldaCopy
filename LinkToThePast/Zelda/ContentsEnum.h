@@ -20,6 +20,8 @@ enum class ECollisionGroup
 	EnemyBody,
 	EnemyAttack,
 	Potal,
+	EventTarget,
+	EventStart
 };
 
 enum class ERoomFloor

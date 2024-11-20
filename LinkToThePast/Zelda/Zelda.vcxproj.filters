@@ -73,20 +73,26 @@
     <ClInclude Include="LevelMove.h">
       <Filter>4_Util</Filter>
     </ClInclude>
-    <ClInclude Include="Statue.h">
-      <Filter>2_Data\4_Environment</Filter>
-    </ClInclude>
-    <ClInclude Include="StatueFire.h">
-      <Filter>2_Data\4_Environment</Filter>
-    </ClInclude>
-    <ClInclude Include="StatueStone.h">
-      <Filter>2_Data\4_Environment</Filter>
-    </ClInclude>
     <ClInclude Include="CastleKnight.h">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClInclude>
     <ClInclude Include="EnemyKnight.h">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClInclude>
+    <ClInclude Include="EventActor.h">
+      <Filter>2_Data\0_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StatueStone.h">
+      <Filter>2_Data\4_Environment\Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="Statue.h">
+      <Filter>2_Data\4_Environment\Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="StatueFire.h">
+      <Filter>2_Data\4_Environment\Statue</Filter>
+    </ClInclude>
+    <ClInclude Include="Pot.h">
+      <Filter>2_Data\4_Environment\Pot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -177,15 +183,6 @@
     <ClCompile Include="LevelMove.cpp">
       <Filter>4_Util</Filter>
     </ClCompile>
-    <ClCompile Include="Statue.cpp">
-      <Filter>2_Data\4_Environment</Filter>
-    </ClCompile>
-    <ClCompile Include="StatueFire.cpp">
-      <Filter>2_Data\4_Environment</Filter>
-    </ClCompile>
-    <ClCompile Include="StatueStone.cpp">
-      <Filter>2_Data\4_Environment</Filter>
-    </ClCompile>
     <ClCompile Include="CastleKnight.cpp">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClCompile>
@@ -203,6 +200,21 @@
     </ClCompile>
     <ClCompile Include="PlayerCharacter_3.Debug.cpp">
       <Filter>0_PlayerCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="EventActor.cpp">
+      <Filter>2_Data\0_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Statue.cpp">
+      <Filter>2_Data\4_Environment\Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="StatueFire.cpp">
+      <Filter>2_Data\4_Environment\Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="StatueStone.cpp">
+      <Filter>2_Data\4_Environment\Statue</Filter>
+    </ClCompile>
+    <ClCompile Include="Pot.cpp">
+      <Filter>2_Data\4_Environment\Pot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +277,12 @@
     </Filter>
     <Filter Include="2_Data\4_Environment">
       <UniqueIdentifier>{f74ede32-9f86-46ba-8e8c-84602ba8571b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\4_Environment\Statue">
+      <UniqueIdentifier>{d46f1de4-a048-4a6a-b608-6ab6d06752a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\4_Environment\Pot">
+      <UniqueIdentifier>{11515cce-5854-4f59-a7a6-3da0b1d1a059}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

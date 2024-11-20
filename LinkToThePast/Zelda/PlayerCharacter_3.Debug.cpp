@@ -73,9 +73,7 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 
 	if (UEngineInput::GetInst().IsPress('U') == true)
 	{
-		if (IsDebug() == true) DebugOff();
-		else if (IsDebug() == false) DebugOn();
-
+		DebugSwitch();
 		UEngineDebug::SwitchIsDebug();
 	}
 	if (true == UEngineInput::GetInst().IsDown(VK_F2))

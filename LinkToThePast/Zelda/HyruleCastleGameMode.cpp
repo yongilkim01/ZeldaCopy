@@ -1,15 +1,19 @@
 #include "PreCompile.h"
 #include "HyruleCastleGameMode.h"
+#include "ContentsEnum.h"
+
 #include "PlayerCharacter.h"
 #include "EnemyCharacter.h"
+#include "CastleKnight.h"
 #include "HylianKnights.h"
+
 #include "Room.h"
 #include "LevelMove.h"
 #include "Fade.h"
+
 #include "StatueFire.h"
 #include "StatueStone.h"
-#include "ContentsEnum.h"
-#include "CastleKnight.h"
+#include "Pot.h"
 
 
 AHyruleCastleGameMode::AHyruleCastleGameMode()
@@ -140,6 +144,11 @@ void AHyruleCastleGameMode::BeginPlayEnvActor()
 		AStatueStone* StatueStone6 = GetWorld()->SpawnActor<AStatueStone>();
 		StatueStone6->SetActorLocation({ 765 + 1200, 1554 + 648 });
 		StatueStone6->SetCurRoom(Roomes[4]);
+	}
+	{
+		APot* Pot1 = GetWorld()->SpawnActor<APot>();
+		Pot1->SetActorLocation({ 405, 305 });
+		//Pot1->SetCurRoom(Roomes[0]);
 	}
 }
 

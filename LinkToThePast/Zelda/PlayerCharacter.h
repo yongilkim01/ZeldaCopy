@@ -17,6 +17,7 @@ enum class EPlayerState
 	Move,
 	Attack,
 	KnockBack,
+	Interact,
 };
 
 /**
@@ -37,6 +38,8 @@ public:
 
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	virtual void StartInteract() override;
+	virtual void Interact(float DeltaTime) override;
 
 	virtual void LevelChangeStart() override;
 	void LevelChangeEnd();
@@ -52,6 +55,7 @@ public:
 	void EndAttack();
 	void ChangeState(EPlayerState ChangeState);
 	virtual void TakeDamage(int Damage, ABaseCharacter* EnemyCharacter) override;
+	void ChangePlayerDirection(FVector2D Dir);
 
 	void RunSoundPlay();
 
@@ -73,6 +77,7 @@ private:
 	USoundPlayer EffectSoundPlayer;
 
 	std::vector<UCollision2D*> AttackCollisions;
+	UCollision2D* InteractCollision = nullptr;
 
 	EPlayerState CurPlayerState = EPlayerState::Idle;
 	EPlayerState PrevPlayerState = EPlayerState::Idle;

@@ -39,6 +39,13 @@ void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 	//CurPlayerState = EPlayerState::KnockBack;
 }
 
+void APlayerCharacter::ChangePlayerDirection(FVector2D Dir)
+{
+	SetCurDirection(Dir);
+
+	InteractCollision->SetComponentLocation(Dir * 25.0f);
+}
+
 FVector2D APlayerCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)
 {
 	FVector2D ResultDir = TargetLocation - GetActorLocation();

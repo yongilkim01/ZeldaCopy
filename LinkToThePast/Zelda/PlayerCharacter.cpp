@@ -62,33 +62,42 @@ APlayerCharacter::APlayerCharacter()
 
 		UCollision2D* RightAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		RightAttackCollision->SetComponentLocation({ 50, 0 });
-		RightAttackCollision->SetComponentScale({ 70, 100 });
+		RightAttackCollision->SetComponentScale({ 5, 5 });
 		RightAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(RightAttackCollision);
 
 		UCollision2D* LeftAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		LeftAttackCollision->SetComponentLocation({ -50, 0 });
-		LeftAttackCollision->SetComponentScale({ 70,100 });
+		LeftAttackCollision->SetComponentScale({ 5,5 });
 		LeftAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(LeftAttackCollision);
 
 		UCollision2D* DownAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		DownAttackCollision->SetComponentLocation({ 0, 50 });
-		DownAttackCollision->SetComponentScale({ 100, 70 });
+		DownAttackCollision->SetComponentScale({ 5, 5 });
 		DownAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(DownAttackCollision);
 
 		UCollision2D* UpAttackCollision = CreateDefaultSubObject<UCollision2D>();
 		UpAttackCollision->SetComponentLocation({ 0, -50 });
-		UpAttackCollision->SetComponentScale({ 100, 70 });
+		UpAttackCollision->SetComponentScale({ 5, 5 });
 		UpAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		AttackCollisions.push_back(UpAttackCollision);
+
+	}
+	{
+		// 상호작용 컴포넌트 생성
+		InteractCollision = CreateDefaultSubObject<UCollision2D>();
+		InteractCollision->SetComponentLocation({ 0, 0 });
+		InteractCollision->SetComponentScale({ 25,25 });
+		InteractCollision->SetCollisionGroup(ECollisionGroup::EventStart);
 
 	}
 	{
 		SetSpeed(500.0f);
 		CollisionSize = { 10.0f, 30.0f };
 	}
+	DebugOn();
 }
 
 void APlayerCharacter::BeginPlay()
@@ -123,6 +132,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 	case EPlayerState::KnockBack:
 		KnockBack(DeltaTime);
 		break;
+	case EPlayerState::Interact:
+		Interact(DeltaTime);
+		break;
 	default:
 		break;
 	}
@@ -136,7 +148,8 @@ void APlayerCharacter::LevelChangeStart()
 
 	if (LevelName == "HYRULECASTLE")
 	{
-		SetActorLocation({ 1533, 2894 });
+		//SetActorLocation({ 1533, 2894 });
+		SetActorLocation({ 399, 342 });
 		SetCurDirection(FVector2D::UP);
 		//ChangeState(EPlayerState::Idle);
 

@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "HylianKnights.h"
 #include "BaseCharacter.h"
+#include "EventActor.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -25,6 +26,9 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 		break;
 	case EPlayerState::KnockBack:
 		StartKnockBack();
+		break;
+	case EPlayerState::Interact:
+		StartInteract();
 		break;
 	default:
 		break;
@@ -117,31 +121,37 @@ void APlayerCharacter::StartKnockBack()
 	CurPlayerState = EPlayerState::KnockBack;
 }
 
+
+void APlayerCharacter::StartInteract()
+{
+}
+
+
 void APlayerCharacter::Idle(float DeltaTime)
 {
 	SetCameraLocationToPlayer();
 
 	if (UEngineInput::GetInst().IsPress('A') == true)
 	{
-		SetCurDirection(FVector2D::LEFT);
+		ChangePlayerDirection(FVector2D::LEFT);
 		ChangeState(EPlayerState::Move);
 		return;
 	}
 	else if (UEngineInput::GetInst().IsPress('D') == true)
 	{
-		SetCurDirection(FVector2D::RIGHT);
+		ChangePlayerDirection(FVector2D::RIGHT);
 		ChangeState(EPlayerState::Move);
 		return;
 	}
 	else if (UEngineInput::GetInst().IsPress('W') == true)
 	{
-		SetCurDirection(FVector2D::UP);
+		ChangePlayerDirection(FVector2D::UP);
 		ChangeState(EPlayerState::Move);
 		return;
 	}
 	else if (UEngineInput::GetInst().IsPress('S') == true)
 	{
-		SetCurDirection(FVector2D::DOWN);
+		ChangePlayerDirection(FVector2D::DOWN);
 		ChangeState(EPlayerState::Move);
 		return;
 	}
@@ -152,6 +162,11 @@ void APlayerCharacter::Idle(float DeltaTime)
 		StartAttack();
 		CurPlayerState = EPlayerState::Attack;
 	}
+
+	if (UEngineInput::GetInst().IsPress('E') == true)
+	{
+		ChangeState(EPlayerState::Interact);
+	}
 }
 
 void APlayerCharacter::Move(float DeltaTime)
@@ -161,26 +176,26 @@ void APlayerCharacter::Move(float DeltaTime)
 	if (UEngineInput::GetInst().IsPress('D') == true
 		&& MoveDir != FVector2D::RIGHT)
 	{
-		SetCurDirection(FVector2D::RIGHT);
+		ChangePlayerDirection(FVector2D::RIGHT);
 		MoveDir += FVector2D::RIGHT;
 	}
 	else if (UEngineInput::GetInst().IsPress('A') == true
 		&& MoveDir != FVector2D::LEFT)
 	{
-		SetCurDirection(FVector2D::LEFT);
+		ChangePlayerDirection(FVector2D::LEFT);
 		MoveDir += FVector2D::LEFT;
 	}
 
 	if (UEngineInput::GetInst().IsPress('S') == true
 		&& MoveDir != FVector2D::DOWN)
 	{
-		SetCurDirection(FVector2D::DOWN);
+		ChangePlayerDirection(FVector2D::DOWN);
 		MoveDir += FVector2D::DOWN;
 	}
 	else if (UEngineInput::GetInst().IsPress('W') == true
 		&& MoveDir != FVector2D::UP)
 	{
-		SetCurDirection(FVector2D::UP);
+		ChangePlayerDirection(FVector2D::UP);
 		MoveDir += FVector2D::UP;
 	}
 
@@ -266,6 +281,17 @@ void APlayerCharacter::Attack(float DeltaTime)
 		{
 			Result->TakeDamage(10, this);
 		}
+	}
+}
+
+void APlayerCharacter::Interact(float DetlaTime)
+{
+	ABaseCharacter::Interact(DetlaTime);
+
+	AEventActor* Result = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
+	if (nullptr != Result)
+	{
+		Result->Interact(this);
 	}
 }
 

@@ -23,7 +23,8 @@ public:
 	virtual void TakeDamage(int Damage, ABaseCharacter* Character) {}
 	virtual void Death() {}
 	virtual void Fall() {}
-	virtual void Interact(ABaseCharacter* Chracter) {}
+	virtual void Interact(float DeltaTime) {}
+	virtual void StartInteract() {}
 
 	/** 캐릭터 공통 메소드 */
 	void AddCharacterLocation(FVector2D MoveDirection);
