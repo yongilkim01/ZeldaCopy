@@ -193,4 +193,12 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter4->AddTurningLocation(FVector2D(160, 2800));
 	EnemyCharacter4->SetCurRoomFloor(ERoomFloor::FLOOR_2F);
 	CheckCharacterInRoom(EnemyCharacter4);
+
+	ACastleKnight* EnemyCharacter5 = GetWorld()->SpawnActor<ACastleKnight>();
+	EnemyCharacter5->SetActorLocation({ 350, 592 });
+	EnemyCharacter5->SetSpeed(100.0f);
+	EnemyCharacter5->AddTurningLocation(FVector2D(350, 592));
+	EnemyCharacter5->AddTurningLocation(FVector2D(350, 892));
+
+	CheckCharacterInRoom(EnemyCharacter5);
 }

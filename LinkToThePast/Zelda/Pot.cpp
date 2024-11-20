@@ -167,6 +167,12 @@ void APot::DestoryEventActor()
 void APot::Throw(float DeltaTime)
 {
 	this->AddEventActorLocation(CurDirection * DeltaTime * 1000.0f);
+
+	ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(Collision->CollisionOnce(ECollisionGroup::EnemyBody));
+	if (nullptr != Result)
+	{
+		Result->TakeDamage(10, nullptr);
+	}
 }
 
 void APot::EndBreak()
