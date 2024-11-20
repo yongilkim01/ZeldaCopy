@@ -17,6 +17,14 @@ APot::APot()
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("Pot.png");
+
+		SpriteRenderer->CreateAnimation("Idle", "Pot.png", 0, 0, 0.05f, false);
+		SpriteRenderer->CreateAnimation("Break", "PotBreak.png", 0, 7, 0.05f, false);
+
+		SpriteRenderer->SetAnimationEvent("Break", 7, std::bind(&APot::EndBreak, this));
+
+		SpriteRenderer->ChangeAnimation("Idle");
+	
 		SpriteRenderer->SetSpriteScale(1.0f);
 
 	}
@@ -151,9 +159,19 @@ void APot::Throw()
 	ChangeState(EPotState::THROW);
 }
 
+void APot::DestoryEventActor()
+{
+	SpriteRenderer->ChangeAnimation("Break");
+}
+
 void APot::Throw(float DeltaTime)
 {
-	this->AddActorLocation(CurDirection * DeltaTime * 1000.0f);
+	this->AddEventActorLocation(CurDirection * DeltaTime * 1000.0f);
+}
+
+void APot::EndBreak()
+{
+	Destroy();
 }
 
 void APot::ChangeState(EPotState PotState)

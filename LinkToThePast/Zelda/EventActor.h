@@ -1,9 +1,13 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
+#include "ContentsEnum.h"
+
+class UEngineWinImage;
 class USpriteRenderer;
 class UCollision2D;
 class ABaseCharacter;
+class ARoom;
 
 /**
  *	설명
@@ -28,9 +32,18 @@ public:
 	/** 이벤트 액터 상속 메소드 */
 	virtual void Interact(ABaseCharacter* Character) {}
 	virtual void Throw() {}
+	virtual void DestoryEventActor() {}
 
 	/** 이벤트 액터 공통 메소드 */
 	void HoldToCharacter(FVector2D CharacterDirction);
+	void AddEventActorLocation(FVector2D Location);
+
+	/** 겟 셋 메소드 */
+	void SetCurRoom(ARoom* Room, ERoomFloor RoomFloor);
+	ARoom* GetCurRoom()
+	{
+		return CurRoom;
+	}
 	bool GetIsControl()
 	{
 		return IsControl;
@@ -43,5 +56,7 @@ protected:
 	bool IsControl = false;
 
 private:
+	ARoom* CurRoom = nullptr;
+	UEngineWinImage* CollisionImage = nullptr;
 };
 

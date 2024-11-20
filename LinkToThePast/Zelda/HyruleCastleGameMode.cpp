@@ -148,7 +148,7 @@ void AHyruleCastleGameMode::BeginPlayEnvActor()
 	{
 		APot* Pot1 = GetWorld()->SpawnActor<APot>();
 		Pot1->SetActorLocation({ 405, 305 });
-		//Pot1->SetCurRoom(Roomes[0]);
+		Pot1->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 	}
 }
 

@@ -34,6 +34,7 @@ public:
 	/** 이벤트 액터 공통 메소드 */
 	virtual void Interact(ABaseCharacter* Character) override;
 	virtual void Throw() override;
+	virtual void DestoryEventActor() override;
 
 	/** 항아리 액터 상태 머신 메소드 */
 	void ChangeState(EPotState PotState);
@@ -45,6 +46,7 @@ public:
 	void Throw(float DeltaTime);
 
 	/** 항아리 액터 유틸 메소드 */
+	void EndBreak();
 
 protected:
 

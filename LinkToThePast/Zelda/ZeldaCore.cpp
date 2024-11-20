@@ -93,6 +93,8 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("ArmosKnightHit.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("ArmosKnightDeath.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("PotBreak.png", { 64, 64 });
+
 	UImageManager::GetInst().CuttingSprite("EnemyDeathEffect.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 700 });
 	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 700 });

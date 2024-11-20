@@ -80,12 +80,11 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 		break;
 	}
 
-	if (UEngineInput::GetInst().IsPress('U') == true)
+	if (true == UEngineInput::GetInst().IsDown('1'))
 	{
 		DebugSwitch();
-		UEngineDebug::SwitchIsDebug();
 	}
-	if (true == UEngineInput::GetInst().IsDown(VK_F2))
+	if (true == UEngineInput::GetInst().IsDown('2'))
 	{
 		UEngineDebug::SwitchIsDebug();
 	}
@@ -94,5 +93,9 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 		// static½è´Ù. 
 		UEngineAPICore::GetCore()->ResetLevel<ABossGameMode, APlayerCharacter>("Boss");
 		UEngineAPICore::GetCore()->OpenLevel("Boss");
+	}
+	if (UEngineInput::GetInst().IsPress('T') == true)
+	{
+		//UEngineAPICore::GetCore()->SetTimeScale();
 	}
 }
