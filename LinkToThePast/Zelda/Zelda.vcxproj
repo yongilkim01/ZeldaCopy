@@ -208,6 +208,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerDataManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Pot.h">
       <SubType>
       </SubType>
@@ -226,12 +230,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="UIMagicBar.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ZeldaGameMode.h" />
     <ClInclude Include="RoomMove.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="TitleGameMode.h" />
     <ClInclude Include="TitleLogo.h" />
-    <ClInclude Include="UserInterface.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="ZeldaCore.h">
       <SubType>
       </SubType>
@@ -310,6 +318,10 @@
     <ClCompile Include="PlayerCharacter_1.StateMachine.cpp" />
     <ClCompile Include="PlayerCharacter_2.Util.cpp" />
     <ClCompile Include="PlayerCharacter_3.Debug.cpp" />
+    <ClCompile Include="PlayerDataManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Pot.cpp">
       <SubType>
       </SubType>
@@ -331,12 +343,16 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="UIMagicBar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ZeldaGameMode.cpp" />
     <ClCompile Include="RoomMove.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="TitleGameMode.cpp" />
     <ClCompile Include="TitleLogo.cpp" />
-    <ClCompile Include="UserInterface.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="ZeldaCore.cpp">
       <SubType>
       </SubType>

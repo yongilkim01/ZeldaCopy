@@ -3,7 +3,7 @@
 #include "Room.h"
 #include "ContentsEnum.h"
 #include "PlayerCharacter.h"
-#include "UserInterface.h"
+#include "UIManager.h"
 #include "RoomMove.h"
 #include "EnemyCharacter.h"
 
@@ -64,7 +64,7 @@ void AZeldaGameMode::Tick(float DeltaTime)
 
 void AZeldaGameMode::UIBeginPlay()
 {
-	UI = GetWorld()->SpawnActor<AUserInterface>();
+	UI = GetWorld()->SpawnActor<AUIManager>();
 	UI->SetPlayer(this->PlayerCharacter);
 }
 

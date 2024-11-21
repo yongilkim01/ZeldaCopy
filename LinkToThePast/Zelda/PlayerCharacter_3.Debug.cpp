@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "BossGameMode.h"
 #include "ContentsEnum.h"
+#include "PlayerDataManager.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EnginePlatform/EngineInput.h>
@@ -23,7 +24,7 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	UEngineDebug::CoreOutPutString("Level : " + GetWorld()->GetName(), GetDebugLocation(1));
 	UEngineDebug::CoreOutPutString("Room : " + GetCurRoom()->GetName(), GetDebugLocation(2));
 	UEngineDebug::CoreOutPutString("Collision : " + GetCollisionImage()->GetName(), GetDebugLocation(3));
-	UEngineDebug::CoreOutPutString("HP : " + std::to_string(this->CurrentHP), GetDebugLocation(4));
+	UEngineDebug::CoreOutPutString("HP : " + std::to_string(PlayerDataManager::GetInstance().GetHP()), GetDebugLocation(4));
 
 	if (true == HitCollision->IsActive())
 	{
@@ -87,8 +88,12 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 		UEngineAPICore::GetCore()->ResetLevel<ABossGameMode, APlayerCharacter>("Boss");
 		UEngineAPICore::GetCore()->OpenLevel("Boss");
 	}
-	if (UEngineInput::GetInst().IsPress('T') == true)
+	if (UEngineInput::GetInst().IsPress(VK_NUMPAD8) == true)
 	{
-		//UEngineAPICore::GetCore()->SetTimeScale();
+		PlayerDataManager::GetInstance().AddMagicGaguge(1);
+	}
+	if (UEngineInput::GetInst().IsPress(VK_NUMPAD2) == true)
+	{
+		PlayerDataManager::GetInstance().AddMagicGaguge(-1);
 	}
 }

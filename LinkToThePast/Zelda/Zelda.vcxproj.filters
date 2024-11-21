@@ -19,7 +19,7 @@
     <ClInclude Include="ZeldaCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="UserInterface.h">
+    <ClInclude Include="UIManager.h">
       <Filter>3_UI</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
@@ -94,6 +94,12 @@
     <ClInclude Include="Pot.h">
       <Filter>2_Data\4_Environment\Pot</Filter>
     </ClInclude>
+    <ClInclude Include="UIMagicBar.h">
+      <Filter>3_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDataManager.h">
+      <Filter>0_PlayerCharacter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -117,7 +123,7 @@
     <ClCompile Include="Text.cpp">
       <Filter>3_UI</Filter>
     </ClCompile>
-    <ClCompile Include="UserInterface.cpp">
+    <ClCompile Include="UIManager.cpp">
       <Filter>3_UI</Filter>
     </ClCompile>
     <ClCompile Include="ContentsEnum.cpp">
@@ -215,6 +221,12 @@
     </ClCompile>
     <ClCompile Include="Pot.cpp">
       <Filter>2_Data\4_Environment\Pot</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMagicBar.cpp">
+      <Filter>3_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDataManager.cpp">
+      <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

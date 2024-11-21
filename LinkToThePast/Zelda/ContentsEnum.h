@@ -10,6 +10,8 @@ enum class ERenderOrder
 	SECOND_FLOOR = 5000,
 	SECOND_FLOOR_OBJ = 6000,
 	UI = 10000,
+	UI_GAGE = 10001,
+	UI_FRAME = 10002,
 	FADE = 30000,
 };
 

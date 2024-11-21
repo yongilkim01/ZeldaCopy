@@ -2,6 +2,7 @@
 #include "PlayerCharacter.h"
 #include "Room.h"
 #include "HylianKnights.h"
+#include "PlayerDataManager.h"
 
 #include <EngineCore/EngineAPICore.h>
 
@@ -9,7 +10,7 @@ void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 {
 	if (CurPlayerState == EPlayerState::KnockBack) return;
 
-	CurrentHP -= Damage;
+	PlayerDataManager::GetInstance().AddHP(-Damage);
 
 	this->KnockBackDir = GetActorLocation() - Character->GetActorLocation();
 	SetCurDirection(GetDirectionToTargetLocation(Character->GetActorLocation()));

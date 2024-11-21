@@ -99,7 +99,6 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 700 });
 	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 700 });
 
-
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");
 
 	int width = GetSystemMetrics(SM_CXSCREEN);
@@ -111,11 +110,10 @@ void UZeldaCore::BeginPlay()
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale(WindowResolution.Half() - InitWindowScale.Half(), InitWindowScale);
 
-
+	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
+	UEngineAPICore::GetCore()->CreateLevel<AHyruleCastleGameMode, APlayerCharacter>("HyruleCastle");
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
-	UEngineAPICore::GetCore()->CreateLevel<AHyruleCastleGameMode, APlayerCharacter>("HyruleCastle");
-	//UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 
 	UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
 }

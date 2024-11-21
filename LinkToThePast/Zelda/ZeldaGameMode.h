@@ -42,7 +42,7 @@ public:
 
 class ARoom;
 class URoomMove;
-class AUserInterface;
+class AUIManager;
 class ABaseCharacter;
 
 /**
@@ -100,7 +100,7 @@ protected:
 	ARoom* CurRoom = nullptr;
 	std::vector<ARoom*> Roomes;
 	std::vector<URoomData> RoomDataes;
-	AUserInterface* UI = nullptr;
+	AUIManager* UI = nullptr;
 
 	// 새로운 변수
 	FVector2D CameraStartLocation = FVector2D::ZERO;
