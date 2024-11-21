@@ -6,6 +6,8 @@ class APlayerCharacter;
 class AUIMagicBar;
 class AUIHeartManager;
 class AUIRupeeManager;
+class AUIBombManager;
+class AUIArrowManager;
 
 /*
  *
@@ -38,5 +40,7 @@ private:
 	AUIMagicBar* MagicBar = nullptr;
 	AUIHeartManager* HeartManager = nullptr;
 	AUIRupeeManager* RupeeManager = nullptr;
+	AUIBombManager* BombManager = nullptr;
+	AUIArrowManager* ArrowManager = nullptr;
 };
 

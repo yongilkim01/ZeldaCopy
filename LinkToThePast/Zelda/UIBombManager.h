@@ -7,18 +7,18 @@ class USpriteRenderer;
 /**
  *	설명
  */
-class AUIRupeeManager : public AActor
+class AUIBombManager : public AActor
 {
 public:
 	/** 생성자, 소멸자 */
-	AUIRupeeManager();
-	~AUIRupeeManager();
+	AUIBombManager();
+	~AUIBombManager();
 
 	/** 객체 값 복사 방지 */
-	AUIRupeeManager(const AUIRupeeManager& _Other) = delete;
-	AUIRupeeManager(AUIRupeeManager&& _Other) noexcept = delete;
-	AUIRupeeManager& operator=(const AUIRupeeManager& _Other) = delete;
-	AUIRupeeManager& operator=(AUIRupeeManager&& _Other) noexcept = delete;
+	AUIBombManager(const AUIBombManager& _Other) = delete;
+	AUIBombManager(AUIBombManager&& _Other) noexcept = delete;
+	AUIBombManager& operator=(const AUIBombManager& _Other) = delete;
+	AUIBombManager& operator=(AUIBombManager&& _Other) noexcept = delete;
 
 	/** 액터 상속 메소드 */
 	virtual void BeginPlay() override;

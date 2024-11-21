@@ -109,6 +109,12 @@
     <ClInclude Include="UIRupeeManager.h">
       <Filter>3_UI</Filter>
     </ClInclude>
+    <ClInclude Include="UIBombManager.h">
+      <Filter>3_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIArrowManager.h">
+      <Filter>3_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -244,6 +250,12 @@
       <Filter>3_UI</Filter>
     </ClCompile>
     <ClCompile Include="UIRupeeManager.cpp">
+      <Filter>3_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBombManager.cpp">
+      <Filter>3_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIArrowManager.cpp">
       <Filter>3_UI</Filter>
     </ClCompile>
   </ItemGroup>

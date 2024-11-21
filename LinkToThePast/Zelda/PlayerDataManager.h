@@ -81,10 +81,55 @@ public:
 	void AddRupee(int Rupee)
 	{
 		CurrentRupee += Rupee;
+
+		if (CurrentRupee > MaxRupee)
+		{
+			CurrentRupee = MaxRupee;
+		}
+		else if (CurrentRupee < 0)
+		{
+			CurrentRupee = 0;
+		}
 	}
 	int GetRupee()
 	{
 		return CurrentRupee;
+	}
+
+	void AddBomb(int Bomb)
+	{
+		CurrentBomb += Bomb;
+
+		if (CurrentBomb > MaxBomb)
+		{
+			CurrentBomb = MaxBomb;
+		}
+		else if (CurrentBomb < 0)
+		{
+			CurrentBomb = 0;
+		}
+	}
+	int GetBomb()
+	{
+		return CurrentBomb;
+	}
+
+	void AddArrow(int Arrow)
+	{
+		CurrentArrow += Arrow;
+
+		if (CurrentArrow > MaxArrow)
+		{
+			CurrentArrow = MaxArrow;
+		}
+		else if (CurrentArrow < 0)
+		{
+			CurrentArrow = 0;
+		}
+	}
+	int GetArrow()
+	{
+		return CurrentArrow;
 	}
 
 protected:
@@ -101,5 +146,12 @@ private:
 	const int MaxMagicGauge = 105;
 
 	int CurrentRupee = 10;
+	int MaxRupee = 999;
+
+	int CurrentBomb = 3;
+	int MaxBomb = 99;
+
+	int CurrentArrow = 3;
+	int MaxArrow = 99;
 };
 

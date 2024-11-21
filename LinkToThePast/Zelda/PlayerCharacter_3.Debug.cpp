@@ -109,9 +109,13 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	if (UEngineInput::GetInst().IsDown(VK_UP) == true)
 	{
 		PlayerDataManager::GetInstance().AddRupee(1);
+		PlayerDataManager::GetInstance().AddBomb(1);
+		PlayerDataManager::GetInstance().AddArrow(1);
 	}
 	if (UEngineInput::GetInst().IsDown(VK_DOWN) == true)
 	{
 		PlayerDataManager::GetInstance().AddRupee(-1);
+		PlayerDataManager::GetInstance().AddBomb(-1);
+		PlayerDataManager::GetInstance().AddArrow(-1);
 	}
 }

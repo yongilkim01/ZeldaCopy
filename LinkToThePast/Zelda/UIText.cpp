@@ -25,7 +25,7 @@ void AUIText::InitText(FVector2D Size, int Count)
 		Renderer->SetComponentScale(TextScale);
 		Renderer->SetOrder(ERenderOrder::UI);
 		Renderer->SetCameraEffect(false);
-		Renderer->SetComponentLocation(FVector2D::ZERO + (Size * i));
+		Renderer->SetComponentLocation(FVector2D::ZERO + (Size * static_cast<float>(i)));
 		TextSprites.push_back(Renderer);
 	}
 
@@ -109,8 +109,8 @@ void AUIText::SetValue(int StrValue)
 	// 0000000000
 	// 2000
 	// 
-	int TextSpriteLastIndex = TextSprites.size() - 1;
-	for (int i = Number.size() - 1; i >= 0; i--)
+	int TextSpriteLastIndex = static_cast<int>(TextSprites.size())- 1;
+	for (int i = static_cast<int>(Number.size()) - 1; i >= 0; i--)
 	{
 		char Value = Number[i] - '0';
 		TextSprites[TextSpriteLastIndex]->SetSprite("HUDText.png", Value);

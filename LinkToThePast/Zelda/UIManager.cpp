@@ -5,6 +5,8 @@
 #include "UIMagicBar.h"
 #include "UIHeartManager.h"
 #include "UIRupeeManager.h"
+#include "UIBombManager.h"
+#include "UIArrowManager.h"
 
 #include "PlayerCharacter.h"
 
@@ -38,10 +40,20 @@ void AUIManager::BeginPlay()
 		HeartManager = GetWorld()->SpawnActor<AUIHeartManager>();
 		HeartManager->SetActorLocation(FVector2D(602, 81));
 	}
-	{
 
+	{
 		RupeeManager = GetWorld()->SpawnActor<AUIRupeeManager>();
 		RupeeManager->SetActorLocation(FVector2D(229, 69));
+	}
+
+	{
+		BombManager = GetWorld()->SpawnActor<AUIBombManager>();
+		BombManager->SetActorLocation(FVector2D(314, 69));
+	}
+
+	{
+		ArrowManager = GetWorld()->SpawnActor<AUIArrowManager>();
+		ArrowManager->SetActorLocation(FVector2D(386, 69));
 	}
 }
 
