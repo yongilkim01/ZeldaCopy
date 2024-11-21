@@ -2,6 +2,7 @@
 #include "UIManager.h"
 
 #include "UIMagicBar.h"
+#include "UIHeartManager.h"
 
 #include "ContentsEnum.h"
 #include "PlayerCharacter.h"
@@ -29,6 +30,9 @@ void AUIManager::BeginPlay()
 
 	MagicBar = GetWorld()->SpawnActor<AUIMagicBar>();
 	MagicBar->SetActorLocation(FVector2D(84, 117));
+
+	HeartManager = GetWorld()->SpawnActor<AUIHeartManager>();
+	HeartManager->SetActorLocation(FVector2D(602, 81));
 }
 
 void AUIManager::Tick(float DeltaTime)

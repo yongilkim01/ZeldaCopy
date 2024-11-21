@@ -4,6 +4,7 @@
 class USpriteRenderer;
 class APlayerCharacter;
 class AUIMagicBar;
+class AUIHeartManager;
 /*
  *
  */
@@ -33,5 +34,6 @@ private:
 	APlayerCharacter* PlayerCharacter = nullptr;
 
 	AUIMagicBar* MagicBar = nullptr;
+	AUIHeartManager* HeartManager = nullptr;
 };
 

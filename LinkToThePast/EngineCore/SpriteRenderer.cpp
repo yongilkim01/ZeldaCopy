@@ -19,6 +19,7 @@ USpriteRenderer::~USpriteRenderer()
 void USpriteRenderer::Render(float _DeltaTime)
 {
 	// 업데이트
+	TestDebugCheck();
 
 	if (nullptr == Sprite)
 	{
@@ -44,7 +45,6 @@ void USpriteRenderer::Render(float _DeltaTime)
 	PivotRealScale.X = std::floorf((0.5f - Pivot.X) * Trans.Scale.X);
 	PivotRealScale.Y = std::floorf((0.5f - Pivot.Y) * Trans.Scale.Y);
 	Trans.Location += PivotRealScale;
-
 
 	if (Alpha == 255)
 	{

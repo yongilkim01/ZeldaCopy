@@ -117,7 +117,7 @@ void AEnemyKnight::Attack(float DeltaTime)
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10, this);
+			Result->TakeDamage(1, this);
 		}
 	}
 	else if (GetCurDirection() == FVector2D::LEFT)
@@ -125,7 +125,7 @@ void AEnemyKnight::Attack(float DeltaTime)
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10, this);
+			Result->TakeDamage(1, this);
 		}
 	}
 	else if (GetCurDirection() == FVector2D::DOWN)
@@ -133,7 +133,7 @@ void AEnemyKnight::Attack(float DeltaTime)
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10, this);
+			Result->TakeDamage(1, this);
 		}
 	}
 	else if (GetCurDirection() == FVector2D::UP)
@@ -141,7 +141,7 @@ void AEnemyKnight::Attack(float DeltaTime)
 		APlayerCharacter* Result = dynamic_cast<APlayerCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::PlayerBody));
 		if (nullptr != Result)
 		{
-			Result->TakeDamage(10, this);
+			Result->TakeDamage(1, this);
 		}
 	}
 }

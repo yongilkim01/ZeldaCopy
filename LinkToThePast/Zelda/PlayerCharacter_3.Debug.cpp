@@ -96,4 +96,13 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	{
 		PlayerDataManager::GetInstance().AddMagicGaguge(-1);
 	}
+
+	if (UEngineInput::GetInst().IsDown(VK_NUMPAD6) == true)
+	{
+		PlayerDataManager::GetInstance().AddHP(1);
+	}
+	if (UEngineInput::GetInst().IsDown(VK_NUMPAD4) == true)
+	{
+		PlayerDataManager::GetInstance().AddHP(-1);
+	}
 }

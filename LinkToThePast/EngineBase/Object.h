@@ -101,6 +101,21 @@ public:
 	{
 		IsDebugValue = !IsDebugValue;
 	}
+
+	void TestDebugCheckOn()
+	{
+		TestDebugCheckValue = true;
+	}
+
+	void TestDebugCheck()
+	{
+		if (true == TestDebugCheckValue)
+		{
+			int a = 0;
+		}
+	}
+
+
 protected:
 
 private:
@@ -111,5 +126,6 @@ private:
 	float CurDeathTime = 0.0f;
 	std::string Name;
 	bool IsDebugValue = false;
+	bool TestDebugCheckValue = false;
 };
 

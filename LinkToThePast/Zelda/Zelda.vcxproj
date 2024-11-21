@@ -230,6 +230,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="UIHeartManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="UIMagicBar.h">
       <SubType>
       </SubType>
@@ -340,6 +344,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="StatueStone.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="UIHeartManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>

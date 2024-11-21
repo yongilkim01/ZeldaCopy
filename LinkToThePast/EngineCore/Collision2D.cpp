@@ -37,6 +37,8 @@ void UCollision2D::ComponentTick(float _DeltaTime)
 
 	if (true == IsDebug() || true == GetActor()->IsDebug())
 	{
+		TestDebugCheck();
+
 		// 현재 액터의 위치와 카메라 위치를 사용
 		FTransform ActorTransform = GetActorTransform();
 		FVector2D CameraPos = GetActor()->GetWorld()->GetCameraLocation();

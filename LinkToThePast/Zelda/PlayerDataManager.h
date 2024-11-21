@@ -35,10 +35,23 @@ public:
 	void AddHP(int Value)
 	{
 		CurrentHP += Value;
+
+		if (CurrentHP > MaxHP)
+		{
+			CurrentHP = MaxHP;
+		}
+		else if (CurrentHP < 0)
+		{
+			CurrentHP = 0;
+		}
 	}
 	float GetHPRatio()
 	{
 		return static_cast<float>(CurrentHP / MaxHP);
+	}
+	int GetMaxHP()
+	{
+		return MaxHP;
 	}
 	int GetMagicGauge()
 	{
@@ -73,8 +86,8 @@ private:
 
 	APlayerCharacter* Player = nullptr;
 
-	int CurrentHP = 100;
-	int MaxHP = 100;
+	int CurrentHP = 6;
+	int MaxHP = 6;
 
 	int CurrentMagicGauge = 105;
 	const int MaxMagicGauge = 105;
