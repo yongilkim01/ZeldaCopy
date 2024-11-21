@@ -185,6 +185,7 @@ void APlayerCharacter::LevelChangeStart()
 	{
 		//SetActorLocation({ 2080, 1544 });
 		SetActorLocation({ 486, 347 });
+		SetCurDirection(FVector2D::DOWN);
 	}
 	
 }

@@ -76,23 +76,57 @@ void ACastleDungeonGameMode::BeginPlayRoomActor()
 
 	CreateRoomActor("CastleDungeon", 0);
 
-	this->Roomes[0]->SetIsSecondFloor(true);
-	this->Roomes[0]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon1Collision2F.png");
+	{
+		this->Roomes[0]->SetIsSecondFloor(true);
+		this->Roomes[0]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon1Collision2F.png");
+		this->Roomes[0]->CreateEnvSprite("CastleDungeon1Door1.png", FVector2D(384, 0), FVector2D(267, 138), ERenderOrder::FIRST_FLOOR_OBJ);
+		this->Roomes[0]->CreateEnvSprite("CastleDungeon1Door2.png", FVector2D(246, 642), FVector2D(273, 78), ERenderOrder::SECOND_FLOOR_OBJ);
+	}
+	{
+		this->Roomes[1]->SetIsSecondFloor(true);
+		this->Roomes[1]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
+		this->Roomes[1]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon2Collision2F.png");
+		FVector2D ColMap2Scale = this->Roomes[1]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
+		this->Roomes[1]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
+		this->Roomes[1]->CreateEnvSprite("CastleDungeon2Door1.png", FVector2D(249, 0), FVector2D(270, 114), ERenderOrder::SECOND_FLOOR_OBJ);
+		this->Roomes[1]->CreateEnvSprite("CastleDungeon2Door2.png", FVector2D(624, 296), FVector2D(156, 210), ERenderOrder::FIRST_FLOOR_OBJ);
+		this->Roomes[1]->CreateEnvSprite("CastleDungeon2Door3.png", FVector2D(229, 618), FVector2D(323, 142), ERenderOrder::FIRST_FLOOR_OBJ);
 
+	}
+	{
+		this->Roomes[2]->CreateEnvSprite("CastleDungeon3Door1.png", FVector2D(0, 288), FVector2D(132, 236), ERenderOrder::FIRST_FLOOR_OBJ);
 
-	this->Roomes[1]->SetIsSecondFloor(true);
-	this->Roomes[1]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
-	this->Roomes[1]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon2Collision2F.png");
-	FVector2D ColMap2Scale = this->Roomes[1]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
-	this->Roomes[1]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
+	}
+	{
+		this->Roomes[3]->SetIsSecondFloor(true);
+		this->Roomes[3]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
+		this->Roomes[3]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon4Collision2F.png");
+		FVector2D ColMap2Scale = this->Roomes[3]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
+		this->Roomes[3]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
+		this->Roomes[3]->CreateEnvSprite("CastleDungeon4Door1.png", FVector2D(612, 0), FVector2D(313, 114), ERenderOrder::SECOND_FLOOR_OBJ);
 
+	}
+	{
+		this->Roomes[4]->CreateEnvSprite("CastleDungeon5Door1.png", FVector2D(371, 0), FVector2D(338, 138), ERenderOrder::SECOND_FLOOR_OBJ);
+		this->Roomes[4]->CreateEnvSprite("CastleDungeon5Door2.png", FVector2D(408, 642), FVector2D(298, 78), ERenderOrder::SECOND_FLOOR_OBJ);
 
-	this->Roomes[6]->SetIsSecondFloor(true);
-	this->Roomes[6]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
-	this->Roomes[6]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon7Collision2F.png");
-	FVector2D ColMap8Scale = this->Roomes[6]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
-	this->Roomes[6]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap8Scale.Half());
-	this->Roomes[6]->CreateEnvSprite("CastleDungeon7Bridge.png", FVector2D(1008, 410), FVector2D(144, 500), ERenderOrder::SECOND_FLOOR);
-	
+	}
+	{
+		this->Roomes[5]->SetIsSecondFloor(true);
+		this->Roomes[5]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
+		this->Roomes[5]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon6Collision2F.png");
+		FVector2D ColMap2Scale = this->Roomes[5]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
+		this->Roomes[5]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap2Scale.Half());
+	}
+	{
+		this->Roomes[6]->SetIsSecondFloor(true);
+		this->Roomes[6]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
+		this->Roomes[6]->GetColSpriteRenderer2F()->SetSprite("CastleDungeon7Collision2F.png");
+		FVector2D ColMap8Scale = this->Roomes[6]->GetColSpriteRenderer2F()->SetSpriteScale(1.0f);
+		this->Roomes[6]->GetColSpriteRenderer2F()->SetComponentLocation(ColMap8Scale.Half());
+		this->Roomes[6]->CreateEnvSprite("CastleDungeon7Bridge.png", FVector2D(1008, 410), FVector2D(144, 500), ERenderOrder::SECOND_FLOOR);
+		this->Roomes[6]->CreateEnvSprite("CastleDungeon7Door1.png", FVector2D(238, 0), FVector2D(311, 191), ERenderOrder::FIRST_FLOOR_OBJ);
+
+	}
 }
 
