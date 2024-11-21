@@ -103,6 +103,12 @@
     <ClInclude Include="UIHeartManager.h">
       <Filter>3_UI</Filter>
     </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>3_UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRupeeManager.h">
+      <Filter>3_UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -232,6 +238,12 @@
       <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="UIHeartManager.cpp">
+      <Filter>3_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>3_UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRupeeManager.cpp">
       <Filter>3_UI</Filter>
     </ClCompile>
   </ItemGroup>

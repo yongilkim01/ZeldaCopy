@@ -78,6 +78,14 @@ public:
 	{
 		return static_cast<float>(CurrentMagicGauge / MaxMagicGauge);
 	}
+	void AddRupee(int Rupee)
+	{
+		CurrentRupee += Rupee;
+	}
+	int GetRupee()
+	{
+		return CurrentRupee;
+	}
 
 protected:
 
@@ -91,5 +99,7 @@ private:
 
 	int CurrentMagicGauge = 105;
 	const int MaxMagicGauge = 105;
+
+	int CurrentRupee = 10;
 };
 

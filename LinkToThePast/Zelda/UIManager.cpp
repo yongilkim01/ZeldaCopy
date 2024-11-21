@@ -1,10 +1,11 @@
 #include "PreCompile.h"
 #include "UIManager.h"
+#include "ContentsEnum.h"
 
 #include "UIMagicBar.h"
 #include "UIHeartManager.h"
+#include "UIRupeeManager.h"
 
-#include "ContentsEnum.h"
 #include "PlayerCharacter.h"
 
 #include <EngineCore/EngineAPICore.h>
@@ -28,11 +29,20 @@ void AUIManager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MagicBar = GetWorld()->SpawnActor<AUIMagicBar>();
-	MagicBar->SetActorLocation(FVector2D(84, 117));
+	{
+		MagicBar = GetWorld()->SpawnActor<AUIMagicBar>();
+		MagicBar->SetActorLocation(FVector2D(84, 117));
+	}
 
-	HeartManager = GetWorld()->SpawnActor<AUIHeartManager>();
-	HeartManager->SetActorLocation(FVector2D(602, 81));
+	{
+		HeartManager = GetWorld()->SpawnActor<AUIHeartManager>();
+		HeartManager->SetActorLocation(FVector2D(602, 81));
+	}
+	{
+
+		RupeeManager = GetWorld()->SpawnActor<AUIRupeeManager>();
+		RupeeManager->SetActorLocation(FVector2D(229, 69));
+	}
 }
 
 void AUIManager::Tick(float DeltaTime)

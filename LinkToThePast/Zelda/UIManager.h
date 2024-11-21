@@ -5,6 +5,8 @@ class USpriteRenderer;
 class APlayerCharacter;
 class AUIMagicBar;
 class AUIHeartManager;
+class AUIRupeeManager;
+
 /*
  *
  */
@@ -35,5 +37,6 @@ private:
 
 	AUIMagicBar* MagicBar = nullptr;
 	AUIHeartManager* HeartManager = nullptr;
+	AUIRupeeManager* RupeeManager = nullptr;
 };
 

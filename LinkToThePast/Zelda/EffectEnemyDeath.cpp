@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "EffectEnemyDeath.h"
+#include "ContentsEnum.h"
 
 #include <EngineCore/SpriteRenderer.h>
 
@@ -9,6 +10,7 @@ AEffectEnemyDeath::AEffectEnemyDeath()
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("EnemyDeathEffect.png");
 		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
+		SpriteRenderer->SetOrder(ERenderOrder::UI);
 		SpriteRenderer->SetSpriteScale(3.0f);
 
 		SpriteRenderer->CreateAnimation("Enemy_Death", "EnemyDeathEffect.png", 0, 6, 0.2f);
