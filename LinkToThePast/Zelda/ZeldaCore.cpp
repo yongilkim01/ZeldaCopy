@@ -118,7 +118,7 @@ void UZeldaCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("HyruleCastle");
+	UEngineAPICore::GetCore()->OpenLevel("Boss");
 }
 
 void UZeldaCore::Tick()

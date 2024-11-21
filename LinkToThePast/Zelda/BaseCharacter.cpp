@@ -23,7 +23,10 @@ void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	SetCharacterRenderOrder();
+	if (SpriteRenderer != nullptr)
+	{
+		SetCharacterRenderOrder();
+	}
 }
 
 
