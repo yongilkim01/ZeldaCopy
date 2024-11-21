@@ -22,9 +22,6 @@
     <ClInclude Include="UIManager.h">
       <Filter>3_UI</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>3_UI</Filter>
-    </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>4_Util</Filter>
     </ClInclude>
@@ -94,26 +91,32 @@
     <ClInclude Include="Pot.h">
       <Filter>2_Data\4_Environment\Pot</Filter>
     </ClInclude>
-    <ClInclude Include="UIMagicBar.h">
-      <Filter>3_UI</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerDataManager.h">
       <Filter>0_PlayerCharacter</Filter>
     </ClInclude>
-    <ClInclude Include="UIHeartManager.h">
-      <Filter>3_UI</Filter>
+    <ClInclude Include="Text.h">
+      <Filter>3_UI\Data</Filter>
     </ClInclude>
     <ClInclude Include="UIText.h">
-      <Filter>3_UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIRupeeManager.h">
-      <Filter>3_UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIBombManager.h">
-      <Filter>3_UI</Filter>
+      <Filter>3_UI\Data</Filter>
     </ClInclude>
     <ClInclude Include="UIArrowManager.h">
-      <Filter>3_UI</Filter>
+      <Filter>3_UI\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBombManager.h">
+      <Filter>3_UI\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIHeartManager.h">
+      <Filter>3_UI\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIKeyManager.h">
+      <Filter>3_UI\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIMagicBar.h">
+      <Filter>3_UI\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRupeeManager.h">
+      <Filter>3_UI\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,9 +137,6 @@
     </ClCompile>
     <ClCompile Include="ZeldaCore.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>3_UI</Filter>
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>3_UI</Filter>
@@ -237,26 +237,32 @@
     <ClCompile Include="Pot.cpp">
       <Filter>2_Data\4_Environment\Pot</Filter>
     </ClCompile>
-    <ClCompile Include="UIMagicBar.cpp">
-      <Filter>3_UI</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerDataManager.cpp">
       <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="UIHeartManager.cpp">
-      <Filter>3_UI</Filter>
+    <ClCompile Include="Text.cpp">
+      <Filter>3_UI\Data</Filter>
     </ClCompile>
     <ClCompile Include="UIText.cpp">
-      <Filter>3_UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIRupeeManager.cpp">
-      <Filter>3_UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIBombManager.cpp">
-      <Filter>3_UI</Filter>
+      <Filter>3_UI\Data</Filter>
     </ClCompile>
     <ClCompile Include="UIArrowManager.cpp">
-      <Filter>3_UI</Filter>
+      <Filter>3_UI\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBombManager.cpp">
+      <Filter>3_UI\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UIHeartManager.cpp">
+      <Filter>3_UI\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UIKeyManager.cpp">
+      <Filter>3_UI\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UIMagicBar.cpp">
+      <Filter>3_UI\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRupeeManager.cpp">
+      <Filter>3_UI\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +331,12 @@
     </Filter>
     <Filter Include="2_Data\4_Environment\Pot">
       <UniqueIdentifier>{11515cce-5854-4f59-a7a6-3da0b1d1a059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_UI\Data">
+      <UniqueIdentifier>{2f4af14a-9bf8-4d33-8c4c-9d7494d8f2a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_UI\Manager">
+      <UniqueIdentifier>{302a2f42-4e84-45c1-95ab-ad26095054c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

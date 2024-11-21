@@ -132,6 +132,24 @@ public:
 		return CurrentArrow;
 	}
 
+	void AddKey(int Key)
+	{
+		CurrentKey += Key;
+
+		if (CurrentKey > MaxKey)
+		{
+			CurrentKey = MaxKey;
+		}
+		else if (CurrentKey < 0)
+		{
+			CurrentKey = 0;
+		}
+	}
+	int GetKey()
+	{
+		return CurrentKey;
+	}
+
 protected:
 
 private:
@@ -153,5 +171,8 @@ private:
 
 	int CurrentArrow = 3;
 	int MaxArrow = 99;
+
+	int CurrentKey = 3;
+	int MaxKey = 9;
 };
 

@@ -236,6 +236,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="UIKeyManager.h" />
     <ClInclude Include="UIMagicBar.h">
       <SubType>
       </SubType>
@@ -363,6 +364,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="UIKeyManager.cpp" />
     <ClCompile Include="UIMagicBar.cpp">
       <SubType>
       </SubType>

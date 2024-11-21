@@ -8,6 +8,7 @@ class AUIHeartManager;
 class AUIRupeeManager;
 class AUIBombManager;
 class AUIArrowManager;
+class AUIKeyManager;
 
 /*
  *
@@ -42,5 +43,6 @@ private:
 	AUIRupeeManager* RupeeManager = nullptr;
 	AUIBombManager* BombManager = nullptr;
 	AUIArrowManager* ArrowManager = nullptr;
+	AUIKeyManager* KeyManager = nullptr;
 };
 
