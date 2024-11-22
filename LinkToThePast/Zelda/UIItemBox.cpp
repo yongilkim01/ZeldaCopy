@@ -45,5 +45,9 @@ void AUIItemBox::BeginPlay()
 void AUIItemBox::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	int WeaponSelectIndex = PlayerDataManager::GetInstance().GetSelectWeapon();
+	std::string SpriteName = Player->GetWeaponUISpriteByIndex(WeaponSelectIndex);
+	ItemRenderer->SetSprite(SpriteName);
 }
 

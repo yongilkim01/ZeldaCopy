@@ -170,6 +170,15 @@ public:
 	void AddSelectWeapon(int Index)
 	{
 		this->CurrentSelectWeapon += Index;
+
+		if (CurrentSelectWeapon > MaxSelectWeapon)
+		{
+			CurrentSelectWeapon = MaxSelectWeapon;
+		}
+		else if (CurrentSelectWeapon < 0)
+		{
+			CurrentSelectWeapon = 0;
+		}
 	}
 
 protected:
@@ -203,5 +212,6 @@ private:
 	};
 
 	int CurrentSelectWeapon = 1;
+	int MaxSelectWeapon = 1;
 };
 
