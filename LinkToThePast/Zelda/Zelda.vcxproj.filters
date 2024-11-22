@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="PlayerCharacter.h">
-      <Filter>0_PlayerCharacter</Filter>
+      <Filter>1_GameMode\0_PlayerCharacter</Filter>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
       <Filter>1_GameMode\0_Title</Filter>
@@ -92,7 +92,7 @@
       <Filter>2_Data\4_Environment\Pot</Filter>
     </ClInclude>
     <ClInclude Include="PlayerDataManager.h">
-      <Filter>0_PlayerCharacter</Filter>
+      <Filter>1_GameMode\0_PlayerCharacter</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>3_UI\Data</Filter>
@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
-      <Filter>0_PlayerCharacter</Filter>
+      <Filter>1_GameMode\0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>1_GameMode\0_Title</Filter>
@@ -154,7 +154,7 @@
       <Filter>2_Data\3_Room</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCharacter_1.StateMachine.cpp">
-      <Filter>0_PlayerCharacter</Filter>
+      <Filter>1_GameMode\0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>2_Data\2_Effect</Filter>
@@ -166,7 +166,7 @@
       <Filter>4_Util</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCharacter_2.Util.cpp">
-      <Filter>0_PlayerCharacter</Filter>
+      <Filter>1_GameMode\0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="BaseCharacter.cpp">
       <Filter>2_Data\0_Object</Filter>
@@ -220,7 +220,7 @@
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCharacter_3.Debug.cpp">
-      <Filter>0_PlayerCharacter</Filter>
+      <Filter>1_GameMode\0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="EventActor.cpp">
       <Filter>2_Data\0_Object</Filter>
@@ -238,7 +238,7 @@
       <Filter>2_Data\4_Environment\Pot</Filter>
     </ClCompile>
     <ClCompile Include="PlayerDataManager.cpp">
-      <Filter>0_PlayerCharacter</Filter>
+      <Filter>1_GameMode\0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
       <Filter>3_UI\Data</Filter>
@@ -266,9 +266,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="0_PlayerCharacter">
-      <UniqueIdentifier>{52f9ad51-57de-47f3-a004-502d6249eeaf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_GameMode">
       <UniqueIdentifier>{606cc5fd-8d3c-4a88-a913-0af6e09697f2}</UniqueIdentifier>
     </Filter>
@@ -337,6 +334,9 @@
     </Filter>
     <Filter Include="3_UI\Manager">
       <UniqueIdentifier>{302a2f42-4e84-45c1-95ab-ad26095054c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\0_PlayerCharacter">
+      <UniqueIdentifier>{52f9ad51-57de-47f3-a004-502d6249eeaf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

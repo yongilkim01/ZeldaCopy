@@ -78,6 +78,16 @@ public:
 	FVector2D LeftTopPos = FVector2D::ZERO;
 	FVector2D RightBottomPos = FVector2D::ZERO;
 
+	void SetOnlySecondFloor(bool IsOnlySecondFloor)
+	{
+		this->IsOnlySecondFloor = IsOnlySecondFloor;
+	}
+
+	bool GetOnlySecondFloor()
+	{
+		return this->IsOnlySecondFloor;
+	}
+
 protected:
 
 private:
@@ -97,4 +107,5 @@ private:
 
 	bool IsSecondFloor = false;
 	bool IsDebugRenderMode = false;
+	bool IsOnlySecondFloor = false;
 };

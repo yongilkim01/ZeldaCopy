@@ -140,7 +140,7 @@ void ACastleDungeonGameMode::BeginPlayRoomActor()
 	{
 		this->Roomes[4]->CreateEnvSprite("CastleDungeon5Door1.png", FVector2D(371, 0), FVector2D(338, 138), ERenderOrder::SECOND_FLOOR_OBJ);
 		this->Roomes[4]->CreateEnvSprite("CastleDungeon5Door2.png", FVector2D(408, 642), FVector2D(298, 78), ERenderOrder::SECOND_FLOOR_OBJ);
-
+		this->Roomes[4]->SetOnlySecondFloor(true);
 	}
 	{
 		this->Roomes[5]->SetIsSecondFloor(true);

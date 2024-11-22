@@ -88,25 +88,35 @@ void ABaseCharacter::SetCurRoom(ARoom* Room, bool IsPlayer)
 		this->CurRoom->SetPlayer(this);
 	}
 
-	if (CurRoom->GetIsSecondFloor())
+	if (CurRoom->GetOnlySecondFloor())
 	{
-		switch (CurRoomFloor)
-		{
-		case ERoomFloor::FLOOR_1F:
-			SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
-			CurRoom->SetCulWinImageTo1F();
-			break;
-		case ERoomFloor::FLOOR_2F:
-			SetCollisionImage(CurRoom->GetColWinImage2F()->GetName());
-			CurRoom->SetCulWinImageTo2F();
-			break;
-		default:
-			break;
-		}
+		this->CurRoomFloor = ERoomFloor::FLOOR_2F;
+		SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+		CurRoom->SetCulWinImageTo1F();
 	}
+
 	else
 	{
-		SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+		if (CurRoom->GetIsSecondFloor())
+		{
+			switch (CurRoomFloor)
+			{
+			case ERoomFloor::FLOOR_1F:
+				SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+				CurRoom->SetCulWinImageTo1F();
+				break;
+			case ERoomFloor::FLOOR_2F:
+				SetCollisionImage(CurRoom->GetColWinImage2F()->GetName());
+				CurRoom->SetCulWinImageTo2F();
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+		}
 	}
 }
 
