@@ -15,6 +15,8 @@
 #include "StatueStone.h"
 #include "Pot.h"
 
+#include <EngineCore/EngineAPICore.h>
+
 
 AHyruleCastleGameMode::AHyruleCastleGameMode()
 {
@@ -32,11 +34,25 @@ void AHyruleCastleGameMode::BeginPlay()
 	BeginPlayRoomActor();
 	UIBeginPlay();
 
-	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
-	LevelMove1->SetActorLocation({ 1532, 273 });
-
 	AFade* FadeActor = GetWorld()->SpawnActor<AFade>();
+
+	FadeActor->GetBackSpriteRenderer()->SetAnimationEvent("FadeOut", 7, []()
+		{
+			int a = 0;
+		});
+
+	FadeActor->GetBackSpriteRenderer()->SetAnimationEvent("FadeIn", 7, []()
+		{
+			UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
+		});
+
+
 	FadeActor->SetActorLocation({ 0, 0 });
+	FadeActor->FadeOut();
+
+	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
+	LevelMove1->SetActorLocation({ 1532, 220 });
+	LevelMove1->SetFade(FadeActor);
 
 	BeginPlayEnvActor();
 	BeginPlayEnemyActor();

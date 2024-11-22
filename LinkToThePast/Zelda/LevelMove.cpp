@@ -23,12 +23,16 @@ ALevelMove::ALevelMove()
 	{
 		// 충돌 컴포넌트 생성
 		Collision = CreateDefaultSubObject<UCollision2D>();
-		Collision->SetComponentLocation({ 0, 0 });
-		Collision->SetComponentScale({ 50, 50 });
+		Collision->SetComponentLocation({ 0, -10 });
+		Collision->SetComponentScale({ 10, 10 });
 		Collision->SetCollisionGroup(ECollisionGroup::Potal);
 		Collision->SetActive(true);
 
 	}
+	{
+		//Fade = 
+	}
+
 	DebugOn();
 }
 
@@ -50,8 +54,6 @@ void ALevelMove::Tick(float DeltaTime)
 	if (nullptr != Result)
 	{
 		UEngineDebug::CoreOutPutString("플레이어 안에 들어옴");
-		// AFade::Instance->SetActorLocation(GetWorld()->GetPawn()->GetActorLocation());
-		AFade::Instance->FadeIn();
+		FadeActor->FadeIn();
 	}
 }
-

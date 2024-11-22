@@ -9,9 +9,6 @@ class USpriteRenderer;
 class AFade : public AActor
 {
 public:
-	static AFade* Instance;
-
-public:
 	/** 持失切, 社瑚切 */
 	AFade();
 	~AFade();
@@ -28,6 +25,12 @@ public:
 	void FadeInEnd();
 	void FadeOutEnd();
 
+	USpriteRenderer* GetBackSpriteRenderer()
+	{
+		return BackSpriteRenderer;
+	}
+
+
 protected:
 
 private:
@@ -40,6 +43,8 @@ private:
 	bool IsFading = false;
 
 	USpriteRenderer* BackSpriteRenderer = nullptr;
+
+	std::function<void()> EndFunction = nullptr;
 
 };
 

@@ -4,9 +4,6 @@
 #include <EngineCore/EngineAPICore.h>
 #include "ContentsEnum.h"
 
-
-AFade* AFade::Instance = nullptr;
-
 AFade::AFade()
 {
 	BackSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -63,7 +60,7 @@ void AFade::FadeInEnd()
 {
 	BackSpriteRenderer->ChangeAnimation("Black");
 	UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
-	TimeEventer.PushEvent(4.0f, std::bind(&AFade::FadeOut, this), false, false);
+	///TimeEventer.PushEvent(4.0f, std::bind(&AFade::FadeOut, this), false, false);
 }
 
 void AFade::FadeOutEnd()
@@ -74,5 +71,4 @@ void AFade::FadeOutEnd()
 
 void AFade::LevelChangeStart()
 {
-	Instance = this;
 }

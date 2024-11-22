@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="PlayerCharacter.h">
-      <Filter>1_GameMode\0_PlayerCharacter</Filter>
+      <Filter>0_PlayerCharacter</Filter>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
       <Filter>1_GameMode\0_Title</Filter>
@@ -11,16 +11,13 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClInclude>
     <ClInclude Include="DungeonGameMode.h">
-      <Filter>1_GameMode\2_CastleDungeon</Filter>
+      <Filter>1_GameMode\2_Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="ZeldaGameMode.h">
       <Filter>1_GameMode</Filter>
     </ClInclude>
     <ClInclude Include="ZeldaCore.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>3_UI</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>4_Util</Filter>
@@ -92,36 +89,39 @@
       <Filter>2_Data\4_Environment\Pot</Filter>
     </ClInclude>
     <ClInclude Include="PlayerDataManager.h">
-      <Filter>1_GameMode\0_PlayerCharacter</Filter>
+      <Filter>0_PlayerCharacter</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
-      <Filter>3_UI\Data</Filter>
+      <Filter>3_UI\1_Data</Filter>
     </ClInclude>
     <ClInclude Include="UIText.h">
-      <Filter>3_UI\Data</Filter>
+      <Filter>3_UI\1_Data</Filter>
     </ClInclude>
     <ClInclude Include="UIArrowManager.h">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClInclude>
     <ClInclude Include="UIBombManager.h">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClInclude>
     <ClInclude Include="UIHeartManager.h">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClInclude>
     <ClInclude Include="UIKeyManager.h">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClInclude>
     <ClInclude Include="UIMagicBar.h">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClInclude>
     <ClInclude Include="UIRupeeManager.h">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>3_UI\0_Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
-      <Filter>1_GameMode\0_PlayerCharacter</Filter>
+      <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>1_GameMode\0_Title</Filter>
@@ -130,16 +130,13 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClCompile>
     <ClCompile Include="DungeonGameMode.cpp">
-      <Filter>1_GameMode\2_CastleDungeon</Filter>
+      <Filter>1_GameMode\2_Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="ZeldaGameMode.cpp">
       <Filter>1_GameMode</Filter>
     </ClCompile>
     <ClCompile Include="ZeldaCore.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>3_UI</Filter>
     </ClCompile>
     <ClCompile Include="ContentsEnum.cpp">
       <Filter>4_Util</Filter>
@@ -154,7 +151,7 @@
       <Filter>2_Data\3_Room</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCharacter_1.StateMachine.cpp">
-      <Filter>1_GameMode\0_PlayerCharacter</Filter>
+      <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>2_Data\2_Effect</Filter>
@@ -166,7 +163,7 @@
       <Filter>4_Util</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCharacter_2.Util.cpp">
-      <Filter>1_GameMode\0_PlayerCharacter</Filter>
+      <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="BaseCharacter.cpp">
       <Filter>2_Data\0_Object</Filter>
@@ -220,7 +217,7 @@
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCharacter_3.Debug.cpp">
-      <Filter>1_GameMode\0_PlayerCharacter</Filter>
+      <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="EventActor.cpp">
       <Filter>2_Data\0_Object</Filter>
@@ -238,31 +235,34 @@
       <Filter>2_Data\4_Environment\Pot</Filter>
     </ClCompile>
     <ClCompile Include="PlayerDataManager.cpp">
-      <Filter>1_GameMode\0_PlayerCharacter</Filter>
+      <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
     <ClCompile Include="Text.cpp">
-      <Filter>3_UI\Data</Filter>
+      <Filter>3_UI\1_Data</Filter>
     </ClCompile>
     <ClCompile Include="UIText.cpp">
-      <Filter>3_UI\Data</Filter>
+      <Filter>3_UI\1_Data</Filter>
     </ClCompile>
     <ClCompile Include="UIArrowManager.cpp">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClCompile>
     <ClCompile Include="UIBombManager.cpp">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClCompile>
     <ClCompile Include="UIHeartManager.cpp">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClCompile>
     <ClCompile Include="UIKeyManager.cpp">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClCompile>
     <ClCompile Include="UIMagicBar.cpp">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
     </ClCompile>
     <ClCompile Include="UIRupeeManager.cpp">
-      <Filter>3_UI\Manager</Filter>
+      <Filter>3_UI\0_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>3_UI\0_Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +314,6 @@
     <Filter Include="1_GameMode\3_Boss">
       <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_GameMode\2_CastleDungeon">
-      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_GameMode\1_HyruleCastle">
       <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
     </Filter>
@@ -329,14 +326,20 @@
     <Filter Include="2_Data\4_Environment\Pot">
       <UniqueIdentifier>{11515cce-5854-4f59-a7a6-3da0b1d1a059}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3_UI\Data">
-      <UniqueIdentifier>{2f4af14a-9bf8-4d33-8c4c-9d7494d8f2a8}</UniqueIdentifier>
+    <Filter Include="2_Data\5_Item">
+      <UniqueIdentifier>{e0b73e6e-5c05-461b-a917-410b5dc989b8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3_UI\Manager">
+    <Filter Include="3_UI\0_Manager">
       <UniqueIdentifier>{302a2f42-4e84-45c1-95ab-ad26095054c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_GameMode\0_PlayerCharacter">
+    <Filter Include="3_UI\1_Data">
+      <UniqueIdentifier>{2f4af14a-9bf8-4d33-8c4c-9d7494d8f2a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_PlayerCharacter">
       <UniqueIdentifier>{52f9ad51-57de-47f3-a004-502d6249eeaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\2_Dungeon">
+      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
