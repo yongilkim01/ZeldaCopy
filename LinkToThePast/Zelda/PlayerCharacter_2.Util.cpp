@@ -3,8 +3,10 @@
 #include "Room.h"
 #include "HylianKnights.h"
 #include "PlayerDataManager.h"
+#include "WeaponItem.h"
 
 #include <EngineCore/EngineAPICore.h>
+#include <EngineCore/SpriteRenderer.h>
 
 void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 {
@@ -155,4 +157,9 @@ void APlayerCharacter::SetCameraLocationToPlayer()
 
 		GetWorld()->SetCameraLocation(CameraMovePos);
 	}
+}
+
+std::string APlayerCharacter::GetWeaponUISpriteByIndex(int Index)
+{
+	return WeaponItemes[Index]->GetUISpriteName();
 }

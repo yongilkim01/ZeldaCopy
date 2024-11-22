@@ -88,6 +88,7 @@ public:
 	{
 		return Lantern;
 	}
+	std::string GetWeaponUISpriteByIndex(int Index);
 
 protected:
 

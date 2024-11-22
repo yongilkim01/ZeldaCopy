@@ -32,9 +32,20 @@ public:
 	{
 		return this->Id;
 	}
+	USpriteRenderer* GetUISpriteRenderer()
+	{
+		return this->UISpriteRenderer;
+	}
+	
+	std::string GetUISpriteName()
+	{
+		return UISpriteName;
+	}
 
 protected:
 	USpriteRenderer* UISpriteRenderer = nullptr;
+	std::string UISpriteName;
+
 private:
 	int Id = 0;
 };

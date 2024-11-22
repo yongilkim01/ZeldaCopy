@@ -159,6 +159,10 @@ public:
 		return false;
 	}
 
+	int GetSelectWeapon()
+	{
+		return CurrentSelectWeapon;
+	}
 	void SetSelectWeapon(int Index)
 	{
 		this->CurrentSelectWeapon = Index;
@@ -198,6 +202,6 @@ private:
 		true
 	};
 
-	int CurrentSelectWeapon = 0;
+	int CurrentSelectWeapon = 1;
 };
 

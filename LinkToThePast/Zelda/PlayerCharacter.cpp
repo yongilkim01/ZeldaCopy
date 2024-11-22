@@ -4,6 +4,7 @@
 #include "HylianKnights.h"
 #include "Fade.h"
 #include "Lantern.h"
+#include "Bow.h"
 #include "PlayerDataManager.h"
 
 #include <EnginePlatform/EngineInput.h>
@@ -207,6 +208,13 @@ void APlayerCharacter::CreateItem()
 	Lantern->SetActorLocation(GetActorLocation());
 	WeaponItemes.push_back(Lantern);
 	Lantern->SetActive(
+		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1)
+	);
+
+	ABow* Bow = GetWorld()->SpawnActor<ABow>();
+	Bow->SetActorLocation(GetActorLocation());
+	WeaponItemes.push_back(Bow);
+	Bow->SetActive(
 		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1)
 	);
 }

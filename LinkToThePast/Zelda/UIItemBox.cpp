@@ -36,7 +36,9 @@ void AUIItemBox::BeginPlay()
 
 	Player = dynamic_cast<APlayerCharacter*>(GetWorld()->GetPawn());
 
-	PlayerDataManager::GetInstance();
+	int WeaponSelectIndex = PlayerDataManager::GetInstance().GetSelectWeapon();
+	std::string SpriteName = Player->GetWeaponUISpriteByIndex(WeaponSelectIndex);
+	ItemRenderer->SetSprite(SpriteName);
 
 }
 

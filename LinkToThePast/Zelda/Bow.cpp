@@ -1,14 +1,14 @@
 #include "PreCompile.h"
-#include "Lantern.h"
+#include "Bow.h"
 #include "ContentsEnum.h"
 
 #include <EngineCore/SpriteRenderer.h>
 
-ALantern::ALantern()
+ABow::ABow()
 {
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		SpriteRenderer->SetSprite("Lantern.png");
+		SpriteRenderer->SetSprite("Bow.png");
 		FVector2D SpriteScale = SpriteRenderer->SetSpriteScale(1.0f);
 		SpriteRenderer->SetComponentLocation(FVector2D::ZERO);
 		SpriteRenderer->SetComponentScale(SpriteScale);
@@ -16,8 +16,8 @@ ALantern::ALantern()
 	}
 	{
 		UISpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		UISpriteRenderer->SetSprite("UILantern.png");
-		UISpriteName = "UILantern.png";
+		UISpriteRenderer->SetSprite("UIBow.png");
+		UISpriteName = "UIBow.png";
 		FVector2D SpriteScale = UISpriteRenderer->SetSpriteScale(1.0f);
 		UISpriteRenderer->SetComponentLocation(FVector2D::ZERO);
 		UISpriteRenderer->SetComponentScale(SpriteScale);
@@ -26,16 +26,16 @@ ALantern::ALantern()
 	}
 }
 
-ALantern::~ALantern()
+ABow::~ABow()
 {
 }
 
-void ALantern::BeginPlay()
+void ABow::BeginPlay()
 {
 	AWeaponItem::BeginPlay();
 }
 
-void ALantern::Tick(float DeltaTime)
+void ABow::Tick(float DeltaTime)
 {
 	AWeaponItem::Tick(DeltaTime);
 	int a = 0;

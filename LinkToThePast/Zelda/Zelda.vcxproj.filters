@@ -130,6 +130,9 @@
     <ClInclude Include="UIItemBox.h">
       <Filter>3_UI\0_Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Bow.h">
+      <Filter>2_Data\5_Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -287,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="UIItemBox.cpp">
       <Filter>3_UI\0_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Bow.cpp">
+      <Filter>2_Data\5_Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
