@@ -6,6 +6,7 @@
 #include "EnemyCharacter.h"
 #include "HylianKnights.h"
 #include "Fade.h"
+#include "Pot.h"
 
 ACastleDungeonGameMode::ACastleDungeonGameMode()
 {
@@ -50,6 +51,36 @@ void ACastleDungeonGameMode::BeginPlay()
 		AFade* FadeActor = GetWorld()->SpawnActor<AFade>();
 		FadeActor->SetActorLocation({ 0, 0 });
 		FadeActor->FadeOut();
+	}
+
+	{
+		APot* Pot1 = GetWorld()->SpawnActor<APot>();
+		Pot1->SetActorLocation({ 2473, 2369 });
+		Pot1->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
+
+		APot* Pot2 = GetWorld()->SpawnActor<APot>();
+		Pot2->SetActorLocation({ 2161, 1985 });
+		Pot2->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
+
+		APot* Pot3 = GetWorld()->SpawnActor<APot>();
+		Pot3->SetActorLocation({ 2161, 1743 });
+		Pot3->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
+
+		//APot* Pot4 = GetWorld()->SpawnActor<APot>();
+		//Pot4->SetActorLocation({ 3117, 1289 });
+		//Pot4->SetCurRoom(Roomes[2], ERoomFloor::FLOOR_2F);
+
+		//APot* Pot5 = GetWorld()->SpawnActor<APot>();
+		//Pot5->SetActorLocation({ 3286, 2585 });
+		//Pot5->SetCurRoom(Roomes[3], ERoomFloor::FLOOR_2F);
+
+		//APot* Pot6 = GetWorld()->SpawnActor<APot>();
+		//Pot6->SetActorLocation({ 597, 1745 });
+		//Pot6->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_2F);
+
+		//APot* Pot7 = GetWorld()->SpawnActor<APot>();
+		//Pot7->SetActorLocation({ 165, 1745 });
+		//Pot7->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_2F);
 	}
 
 }

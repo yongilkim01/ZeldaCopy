@@ -145,10 +145,35 @@ void AHyruleCastleGameMode::BeginPlayEnvActor()
 		StatueStone6->SetActorLocation({ 765 + 1200, 1554 + 648 });
 		StatueStone6->SetCurRoom(Roomes[4]);
 	}
+
 	{
 		APot* Pot1 = GetWorld()->SpawnActor<APot>();
 		Pot1->SetActorLocation({ 405, 305 });
 		Pot1->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+
+		APot* Pot2 = GetWorld()->SpawnActor<APot>();
+		Pot2->SetActorLocation({ 453, 305 });
+		Pot2->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+
+		APot* Pot3 = GetWorld()->SpawnActor<APot>();
+		Pot3->SetActorLocation({ 2445, 185 });
+		Pot3->SetCurRoom(Roomes[2], ERoomFloor::FLOOR_2F);
+
+		APot* Pot4 = GetWorld()->SpawnActor<APot>();
+		Pot4->SetActorLocation({ 3117, 1289 });
+		Pot4->SetCurRoom(Roomes[2], ERoomFloor::FLOOR_2F);
+	
+		APot* Pot5 = GetWorld()->SpawnActor<APot>();
+		Pot5->SetActorLocation({ 3286, 2585 });
+		Pot5->SetCurRoom(Roomes[3], ERoomFloor::FLOOR_2F);
+
+		APot* Pot6 = GetWorld()->SpawnActor<APot>();
+		Pot6->SetActorLocation({ 597, 1745 });
+		Pot6->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_2F);
+
+		APot* Pot7 = GetWorld()->SpawnActor<APot>();
+		Pot7->SetActorLocation({ 165, 1745 });
+		Pot7->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_2F);
 	}
 }
 
