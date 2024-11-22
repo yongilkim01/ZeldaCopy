@@ -150,6 +150,24 @@ public:
 		return CurrentKey;
 	}
 
+	bool GetWeaponActiveToIndex(int Index)
+	{
+		if (0 <= Index && Index < 2)
+		{
+			return WeaponActive[Index];
+		}
+		return false;
+	}
+
+	void SetSelectWeapon(int Index)
+	{
+		this->CurrentSelectWeapon = Index;
+	}
+	void AddSelectWeapon(int Index)
+	{
+		this->CurrentSelectWeapon += Index;
+	}
+
 protected:
 
 private:
@@ -174,5 +192,12 @@ private:
 
 	int CurrentKey = 3;
 	int MaxKey = 9;
+
+	bool WeaponActive[2]  ={
+		true,
+		true
+	};
+
+	int CurrentSelectWeapon = 0;
 };
 

@@ -3,6 +3,8 @@
 #include "Room.h"
 #include "HylianKnights.h"
 #include "Fade.h"
+#include "Lantern.h"
+#include "PlayerDataManager.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -129,6 +131,10 @@ void APlayerCharacter::BeginPlay()
 	FVector2D Size = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize();
 	GetWorld()->SetCameraPivot(Size.Half() * -1);
 	GetWorld()->SetCameraToMainPawn(false);
+
+	{
+		CreateItem();
+	}
 }
 
 void APlayerCharacter::Tick(float DeltaTime)
@@ -193,4 +199,14 @@ void APlayerCharacter::LevelChangeStart()
 void APlayerCharacter::LevelChangeEnd()
 {
 	Super::LevelChangeEnd();
+}
+
+void APlayerCharacter::CreateItem()
+{
+	ALantern* Lantern = GetWorld()->SpawnActor<ALantern>();
+	Lantern->SetActorLocation(GetActorLocation());
+	WeaponItemes.push_back(Lantern);
+	Lantern->SetActive(
+		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1)
+	);
 }

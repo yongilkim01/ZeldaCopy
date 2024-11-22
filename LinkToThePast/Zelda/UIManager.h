@@ -9,6 +9,7 @@ class AUIRupeeManager;
 class AUIBombManager;
 class AUIArrowManager;
 class AUIKeyManager;
+class AUIItemBox;
 
 /*
  *
@@ -44,5 +45,6 @@ private:
 	AUIBombManager* BombManager = nullptr;
 	AUIArrowManager* ArrowManager = nullptr;
 	AUIKeyManager* KeyManager = nullptr;
+	AUIItemBox* ItemBoxManager = nullptr;
 };
 

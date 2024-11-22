@@ -54,7 +54,6 @@ AUIHeartManager::AUIHeartManager()
 		HeartSprite->SetActive(false);
 		HeartSprites.push_back(HeartSprite);
 
-
 		if (0 == i % 2)
 		{
 			HeartLocation += FVector2D(24.0f, 0.0f);

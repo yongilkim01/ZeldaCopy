@@ -8,6 +8,7 @@
 #include "UIBombManager.h"
 #include "UIArrowManager.h"
 #include "UIKeyManager.h"
+#include "UIItemBox.h"
 
 #include "PlayerCharacter.h"
 
@@ -57,10 +58,14 @@ void AUIManager::BeginPlay()
 		ArrowManager->SetActorLocation(FVector2D(386, 69));
 	}
 
-
 	{
 		KeyManager = GetWorld()->SpawnActor<AUIKeyManager>();
 		KeyManager->SetActorLocation(FVector2D(444, 69));
+	}
+
+	{
+		ItemBoxManager = GetWorld()->SpawnActor<AUIItemBox>();
+		ItemBoxManager->SetActorLocation(FVector2D(144, 93));
 	}
 }
 

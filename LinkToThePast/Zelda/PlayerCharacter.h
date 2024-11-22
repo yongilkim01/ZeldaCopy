@@ -11,6 +11,8 @@ class USpriteRenderer;
 class UEngineWinImage;
 class AEnemyCharacter;
 class AEventActor;
+class ALantern;
+class AWeaponItem;
 
 enum class EPlayerState
 {
@@ -47,6 +49,8 @@ public:
 	virtual void LevelChangeStart() override;
 	virtual void LevelChangeEnd() override;
 
+	void CreateItem();
+
 	void StartIdle();
 	void StartMove();
 	void StartAttack();
@@ -80,9 +84,18 @@ public:
 
 	void PrintDebugInfo(float DeltaTime);
 
+	ALantern* GetLantern()
+	{
+		return Lantern;
+	}
+
 protected:
 
 private:
+	std::vector<AWeaponItem*> WeaponItemes;
+
+	ALantern* Lantern = nullptr;
+
 	UCollision2D* HitCollision = nullptr;
 	USoundPlayer EffectSoundPlayer;
 
