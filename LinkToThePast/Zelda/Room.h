@@ -11,6 +11,7 @@ class URoomMove;
 class UEngineWinImage;
 class ABaseCharacter;
 class APlayerCharacter;
+class ADoor;
 
 /**
  *	방 구조를 나타내는 클래스
@@ -29,6 +30,8 @@ public:
 	ARoom& operator=(ARoom&& _Other) noexcept = delete;
 
 	virtual void Tick(float DeltaTime) override;
+
+	void AddDoor(FVector2D Location, FVector2D Type, ERoomFloor RoomFloor);
 
 	void PlayerLinkCheck();
 	void SetPlayer(ABaseCharacter* PlayerCharacter);
@@ -104,6 +107,7 @@ private:
 	ERoomFloor CurFloor = ERoomFloor::FLOOR_1F;
 
 	std::vector<USpriteRenderer*> EnvSprites;
+	std::vector<ADoor*> Doores;
 
 	bool IsSecondFloor = false;
 	bool IsDebugRenderMode = false;

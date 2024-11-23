@@ -380,11 +380,6 @@ void APlayerCharacter::Attack(float DeltaTime)
 	if (IsAttack == true) return;
 
 	IsAttack = true;
-	//ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollision->CollisionOnce(ECollisionGroup::EnemyBody));
-	//if (nullptr != Result)
-	//{
-	//	Result->TakeDamage(10, this);
-	//}
 
 	std::vector<AActor*> Results = AttackCollision->CollisionAll(ECollisionGroup::EnemyBody);
 
@@ -412,6 +407,19 @@ void APlayerCharacter::Interact(float DetlaTime)
 	InteractCollision->SetActive(true);
 
 	OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
+
+	//std::vector<AActor*> Results = AttackCollision->CollisionAll(ECollisionGroup::EnemyBody);
+
+	//for (int i = 0; i < Results.size(); i++)
+	//{
+	//	AEventActor* Result = dynamic_cast<ABaseCharacter*>(Results[i]);
+
+	//	if (nullptr != Result)
+	//	{
+	//		Result->TakeDamage(10, this);
+	//	}
+	//}
+
 	if (nullptr != OwnedEventActor)
 	{
 		int Result = OwnedEventActor->Interact(this);

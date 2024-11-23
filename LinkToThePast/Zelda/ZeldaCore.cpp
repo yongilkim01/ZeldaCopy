@@ -96,6 +96,7 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("PotBreak.png", { 64, 64 });
 
 	UImageManager::GetInst().CuttingSprite("Chest.png", { 48, 48 });
+	UImageManager::GetInst().CuttingSprite("DoorDown.png", { 96, 48 });
 
 	UImageManager::GetInst().CuttingSprite("EnemyDeathEffect.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FireEffect.png", { 64, 64 });
@@ -112,7 +113,7 @@ void UZeldaCore::BeginPlay()
 
 	// 이거 꼭 호출해줘야 합니다.
 	FVector2D WindowResolution = FVector2D(width, height);
-	FVector2D InitWindowScale = FVector2D( 768, 672 );
+	FVector2D InitWindowScale = FVector2D( 760, 672 );
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale(WindowResolution.Half() - InitWindowScale.Half(), InitWindowScale);
 

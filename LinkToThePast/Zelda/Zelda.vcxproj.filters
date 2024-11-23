@@ -139,6 +139,9 @@
     <ClInclude Include="Chest.h">
       <Filter>2_Data\4_Environment\Chest</Filter>
     </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>2_Data\4_Environment\Door</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -306,6 +309,9 @@
     <ClCompile Include="Chest.cpp">
       <Filter>2_Data\4_Environment\Chest</Filter>
     </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>2_Data\4_Environment\Door</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="1_GameMode">
@@ -385,6 +391,9 @@
     </Filter>
     <Filter Include="2_Data\4_Environment\Chest">
       <UniqueIdentifier>{c6c02b05-e417-4964-8bcd-bae7eee0d1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\4_Environment\Door">
+      <UniqueIdentifier>{3495bc6d-f3a9-4f6e-8026-887aa761aa29}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

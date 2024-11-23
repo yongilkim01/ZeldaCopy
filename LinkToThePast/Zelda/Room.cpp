@@ -8,6 +8,7 @@
 #include "PlayerCharacter.h"
 #include "BaseCharacter.h"
 #include "RoomMove.h"
+#include "Door.h"
 
 ARoom::ARoom()
 {
@@ -41,6 +42,7 @@ ARoom::ARoom()
 	CurrentCollisionWinImage = UImageManager::GetInst().FindImage(ColSpriteRenderer1F->GetCurSpriteName());
 
 	EnvSprites.reserve(10);
+	Doores.reserve(5);
 }
 
 ARoom::~ARoom()
@@ -60,6 +62,46 @@ void ARoom::Tick(float DeltaTime)
 	{
 		CurColSpriteRenderer->SetActive(IsDebugRenderMode);
 	}
+}
+
+void ARoom::AddDoor(FVector2D Location, FVector2D Type, ERoomFloor RoomFloor)
+{
+	ADoor* Door = GetWorld()->SpawnActor<ADoor>();
+	Door->SetActorLocation(GetActorLocation() + Location);
+
+	if (Type == FVector2D::RIGHT)
+	{
+		Door->SetDoorType(EDoorType::RIGHT);
+	}
+	else if (Type == FVector2D::LEFT)
+	{
+		Door->SetDoorType(EDoorType::LEFT);
+	}
+	else if (Type == FVector2D::UP)
+	{
+		Door->SetDoorType(EDoorType::UP);
+	}
+	else if (Type == FVector2D::DOWN)
+	{
+		Door->SetDoorType(EDoorType::DOWN);
+	}
+
+	int RenderOrder = 0;
+
+	switch (RoomFloor)
+	{
+	case ERoomFloor::FLOOR_1F:
+		RenderOrder = static_cast<int>(ERenderOrder::FIRST_FLOOR) + 1;
+		Door->SetDoorRenderOrder(RenderOrder);
+		break;
+	case ERoomFloor::FLOOR_2F:
+		RenderOrder = static_cast<int>(ERenderOrder::SECOND_FLOOR) + 2;
+		Door->SetDoorRenderOrder(RenderOrder);
+		break;
+	default:
+		break;
+	}
+
 }
 
 void ARoom::SetRoomSprite(std::string_view SpriteName, std::string_view CollisionSpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale /* = 3.0f */)
