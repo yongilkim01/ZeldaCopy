@@ -6,6 +6,13 @@ class APlayerCharacter;
 enum class EDoorType
 {
 	NONE,
+	KEYTYPE,
+	GIMMICK,
+};
+
+enum class EDoorDirection
+{
+	NONE,
 	RIGHT,
 	LEFT,
 	UP,
@@ -52,20 +59,17 @@ public:
 	void Open(float DeltaTime);
 
 	/** °Ù ¼Â ¸Þ¼Òµå */
-	void SetDoorType(EDoorType Type)
-	{
-		DoorType = Type;
-	}
-	EDoorType GetDoorType()
-	{
-		return DoorType;
-	}
+	void SetDoorDirection(EDoorDirection Direction);
+	EDoorDirection GetDoorDirection();
+	void SetDoorType(EDoorType Type);
+	EDoorType GetDoorType();
 	void SetDoorRenderOrder(int Order);
 
 protected:
 
 private:
 	EDoorState CurDoorState = EDoorState::NONE;
+	EDoorDirection DoorDirection = EDoorDirection::NONE;
 	EDoorType DoorType = EDoorType::NONE;
 
 	APlayerCharacter* Owner = nullptr;

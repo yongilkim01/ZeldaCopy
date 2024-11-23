@@ -9,6 +9,7 @@
 #include "Pot.h"
 #include "LevelMove.h"
 #include "Chest.h"
+#include "Door.h"
 #include <EngineCore/EngineAPICore.h>
 
 ACastleDungeonGameMode::ACastleDungeonGameMode()
@@ -139,7 +140,12 @@ void ACastleDungeonGameMode::BeginPlayRoomActor()
 		this->Roomes[4]->CreateEnvSprite("CastleDungeon5Door1.png", FVector2D(371, 0), FVector2D(338, 138), ERenderOrder::SECOND_FLOOR_OBJ);
 		this->Roomes[4]->CreateEnvSprite("CastleDungeon5Door2.png", FVector2D(408, 642), FVector2D(298, 78), ERenderOrder::SECOND_FLOOR_OBJ);
 		this->Roomes[4]->SetOnlySecondFloor(true);
-		this->Roomes[4]->AddDoor(FVector2D(504 + 48, 594 + 24), FVector2D::DOWN, ERoomFloor::FLOOR_2F);
+		this->Roomes[4]->AddDoor(
+			FVector2D(504 + 48, 594 + 24),
+			ERoomFloor::FLOOR_2F,
+			EDoorType::KEYTYPE,
+			EDoorState::CLOSE,
+			EDoorDirection::DOWN);
 	}
 	{
 		this->Roomes[5]->SetIsSecondFloor(true);

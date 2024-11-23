@@ -4,6 +4,7 @@
 #include "ContentsEnum.h"
 #include "BaseCharacter.h"
 #include "PlayerCharacter.h"
+#include "PlayerDataManager.h"
 
 #include <EngineBase/EngineDebug.h>
 
@@ -18,17 +19,35 @@ ADoor::ADoor()
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("DoorDown.png", 0);
 
-		SpriteRenderer->CreateAnimation("DoorDownClose", "DoorDown.png", 0, 0, 0.05f);
-		SpriteRenderer->CreateAnimation("DownDoorOpening", "DoorDown.png", 0, 2, 0.01f, false);
-		SpriteRenderer->CreateAnimation("DownDoorOpen", "DoorDown.png", 2, 2, 0.05f);
+		SpriteRenderer->CreateAnimation("KeyDownDoorClose", "DoorDown.png", 0, 0, 0.05f);
+		SpriteRenderer->CreateAnimation("KeyDownDoorOpening", "DoorDown.png", 0, 2, 0.1f, false);
+		SpriteRenderer->CreateAnimation("KeyDownDoorOpen", "DoorDown.png", 2, 2, 0.05f);
 
-		SpriteRenderer->SetAnimationEvent("DownDoorOpening", 2, [this]()
+		SpriteRenderer->CreateAnimation("GimmickUpDoorClose", "DoorDownUp2.png", 0, 0, 0.05f);
+		SpriteRenderer->CreateAnimation("GimmickUpDoorOpening", "DoorDownUp2.png", 0, 2, 0.1f, false);
+		SpriteRenderer->CreateAnimation("GimmickUpDoorOpen", "DoorDownUp2.png", 2, 2, 0.05f);
+
+		SpriteRenderer->CreateAnimation("GimmickDownDoorClose", "DoorDownUp2.png", 3, 3, 0.05f);
+		SpriteRenderer->CreateAnimation("GimmickDownDoorOpening", "DoorDownUp2.png", 3, 5, 0.1f, false);
+		SpriteRenderer->CreateAnimation("GimmickDownDoorOpen", "DoorDownUp2.png", 5, 5, 0.05f);
+
+		SpriteRenderer->SetAnimationEvent("KeyDownDoorOpening", 2, [this]()
 			{
-				SpriteRenderer->ChangeAnimation("DownDoorOpen");
+				SpriteRenderer->ChangeAnimation("KeyDownDoorOpen");
 				ImmuneCollision->SetActive(false);
 			});
 
-		SpriteRenderer->ChangeAnimation("DoorDownClose");
+		SpriteRenderer->SetAnimationEvent("GimmickUpDoorOpening", 2, [this]()
+			{
+				SpriteRenderer->ChangeAnimation("GimmickUpDoorOpen");
+				ImmuneCollision->SetActive(false);
+			});
+
+		SpriteRenderer->SetAnimationEvent("GimmickDownDoorOpening", 5, [this]()
+			{
+				SpriteRenderer->ChangeAnimation("GimmickDownDoorOpen");
+				ImmuneCollision->SetActive(false);
+			});
 
 		SpriteRenderer->SetSpriteScale(1.0f);
 
@@ -84,16 +103,20 @@ void ADoor::Tick(float DeltaTime)
 
 int ADoor::Interact(ABaseCharacter* Character)
 {
-	SpriteRenderer->SetOrder(Character->GetSpriteOrder() + 1);
-	Owner = dynamic_cast<APlayerCharacter*>(Character);
-
-	if (nullptr == Owner)
+	if (0 < PlayerDataManager::GetInstance().GetKey())
 	{
-		MSGASSERT("문의 캐릭터가 nullptr입니다.");
-		return 0;
-	}
+		PlayerDataManager::GetInstance().AddKey(-1);
+		SpriteRenderer->SetOrder(Character->GetSpriteOrder() + 1);
+		Owner = dynamic_cast<APlayerCharacter*>(Character);
 
-	ChangeState(EDoorState::OPEN);
+		if (nullptr == Owner)
+		{
+			MSGASSERT("문의 캐릭터가 nullptr입니다.");
+			return 0;
+		}
+
+		ChangeState(EDoorState::OPEN);
+	}
 
 	return 0;
 }
@@ -119,12 +142,86 @@ void ADoor::ChangeState(EDoorState DoorState)
 
 void ADoor::StartClose()
 {
-	SpriteRenderer->ChangeAnimation("DoorDownClose");
+	switch (DoorType)
+	{
+	case EDoorType::KEYTYPE:
+		switch (DoorDirection)
+		{
+		case EDoorDirection::RIGHT:
+			break;
+		case EDoorDirection::LEFT:
+			break;
+		case EDoorDirection::UP:
+			break;
+		case EDoorDirection::DOWN:
+			SpriteRenderer->ChangeAnimation("KeyDownDoorClose");
+			break;
+		default:
+			break;
+		}
+		break;
+	case EDoorType::GIMMICK:
+		switch (DoorDirection)
+		{
+		case EDoorDirection::RIGHT:
+			break;
+		case EDoorDirection::LEFT:
+			break;
+		case EDoorDirection::UP:
+			SpriteRenderer->ChangeAnimation("GimmickUpDoorClose");
+			break;
+		case EDoorDirection::DOWN:
+			SpriteRenderer->ChangeAnimation("GimmickDownDoorClose");
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void ADoor::StartOpen()
 {
-	SpriteRenderer->ChangeAnimation("DownDoorOpening");
+	switch (DoorType)
+	{
+	case EDoorType::KEYTYPE:
+		switch (DoorDirection)
+		{
+		case EDoorDirection::RIGHT:
+			break;
+		case EDoorDirection::LEFT:
+			break;
+		case EDoorDirection::UP:
+			break;
+		case EDoorDirection::DOWN:
+			SpriteRenderer->ChangeAnimation("KeyDownDoorOpening");
+			break;
+		default:
+			break;
+		}
+		break;
+	case EDoorType::GIMMICK:
+		switch (DoorDirection)
+		{
+		case EDoorDirection::RIGHT:
+			break;
+		case EDoorDirection::LEFT:
+			break;
+		case EDoorDirection::UP:
+			SpriteRenderer->ChangeAnimation("GimmickUpDoorOpening");
+			break;
+		case EDoorDirection::DOWN:
+			SpriteRenderer->ChangeAnimation("GimmickDownDoorOpening");
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void ADoor::Close(float DeltaTime)
@@ -137,8 +234,27 @@ void ADoor::Open(float DeltaTime)
 
 }
 
+void ADoor::SetDoorDirection(EDoorDirection Direction)
+{
+	DoorDirection = Direction;
+}
+
+EDoorDirection ADoor::GetDoorDirection()
+{
+	return DoorDirection;
+}
+
+void ADoor::SetDoorType(EDoorType Type)
+{
+	DoorType = Type;
+}
+
+EDoorType ADoor::GetDoorType()
+{
+	return DoorType;
+}
+
 void ADoor::SetDoorRenderOrder(int Order)
 {
 	this->SpriteRenderer->SetOrder(Order);
-
 }

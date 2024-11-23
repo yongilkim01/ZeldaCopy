@@ -64,27 +64,12 @@ void ARoom::Tick(float DeltaTime)
 	}
 }
 
-void ARoom::AddDoor(FVector2D Location, FVector2D Type, ERoomFloor RoomFloor)
+void ARoom::AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, EDoorState State, EDoorDirection Direction)
 {
 	ADoor* Door = GetWorld()->SpawnActor<ADoor>();
 	Door->SetActorLocation(GetActorLocation() + Location);
-
-	if (Type == FVector2D::RIGHT)
-	{
-		Door->SetDoorType(EDoorType::RIGHT);
-	}
-	else if (Type == FVector2D::LEFT)
-	{
-		Door->SetDoorType(EDoorType::LEFT);
-	}
-	else if (Type == FVector2D::UP)
-	{
-		Door->SetDoorType(EDoorType::UP);
-	}
-	else if (Type == FVector2D::DOWN)
-	{
-		Door->SetDoorType(EDoorType::DOWN);
-	}
+	Door->SetDoorDirection(Direction);
+	Door->SetDoorType(Type);
 
 	int RenderOrder = 0;
 
@@ -101,6 +86,8 @@ void ARoom::AddDoor(FVector2D Location, FVector2D Type, ERoomFloor RoomFloor)
 	default:
 		break;
 	}
+
+	Door->ChangeState(State);
 
 }
 

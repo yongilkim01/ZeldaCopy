@@ -5,13 +5,13 @@
 #include <EngineCore/SpriteRenderer.h>
 
 #include "ContentsEnum.h"
+#include "Door.h"
 
 class USpriteRenderer;
 class URoomMove;
 class UEngineWinImage;
 class ABaseCharacter;
 class APlayerCharacter;
-class ADoor;
 
 /**
  *	방 구조를 나타내는 클래스
@@ -31,7 +31,7 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	void AddDoor(FVector2D Location, FVector2D Type, ERoomFloor RoomFloor);
+	void AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, EDoorState State, EDoorDirection Direction);
 
 	void PlayerLinkCheck();
 	void SetPlayer(ABaseCharacter* PlayerCharacter);
