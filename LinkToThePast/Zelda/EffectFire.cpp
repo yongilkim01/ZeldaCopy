@@ -11,9 +11,9 @@ AEffectFire::AEffectFire()
 		SpriteRenderer->SetSprite("FireEffect.png");
 		SpriteRenderer->SetComponentScale(FVector2D(1.0f, 1.0f));
 		SpriteRenderer->SetOrder(ERenderOrder::UI);
-		SpriteRenderer->SetSpriteScale(3.0f);
+		SpriteRenderer->SetSpriteScale(1.0f);
 
-		SpriteRenderer->CreateAnimation("Fire", "FireEffect.png", 0, 3, 0.2f);
+		SpriteRenderer->CreateAnimation("Fire", "FireEffect.png", 0, 3, 0.08f);
 		SpriteRenderer->SetAnimationEvent("Fire", 3, [this]()
 			{
 				Destroy();

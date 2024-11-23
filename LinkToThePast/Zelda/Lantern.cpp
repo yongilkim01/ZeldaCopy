@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Lantern.h"
 #include "ContentsEnum.h"
+#include "PlayerCharacter.h"
 
 #include "EffectFire.h"
 
@@ -45,6 +46,8 @@ void ALantern::Tick(float DeltaTime)
 void ALantern::Action(float Tick)
 {
 	AEffectFire* FireEffect = GetWorld()->SpawnActor<AEffectFire>();
-	FireEffect->SetActorLocation(GetActorLocation());
+	FVector2D Direction = OwnerPlayer->GetCurDirection();
+	float DistanceToOwner = OwnerPlayer->GetChildDistance();
+	FireEffect->SetActorLocation(GetActorLocation() + (Direction * DistanceToOwner));
 }
 

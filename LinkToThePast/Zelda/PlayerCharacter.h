@@ -93,6 +93,11 @@ public:
 	}
 	std::string GetWeaponUISpriteByIndex(int Index);
 
+	float GetChildDistance()
+	{
+		return ChildDistance;
+	}
+
 protected:
 
 private:
@@ -120,5 +125,6 @@ private:
 	bool IsMove = false;
 	bool IsAttack = false;
 	float KnockBackTime = 0.0f;
+	float ChildDistance = 25.0f;
 };
 
