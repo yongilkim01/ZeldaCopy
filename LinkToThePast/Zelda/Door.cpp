@@ -25,7 +25,7 @@ ADoor::ADoor()
 		SpriteRenderer->SetAnimationEvent("DownDoorOpening", 2, [this]()
 			{
 				SpriteRenderer->ChangeAnimation("DownDoorOpen");
-				//ImmuneCollision->SetActive(false);
+				ImmuneCollision->SetActive(false);
 			});
 
 		SpriteRenderer->ChangeAnimation("DoorDownClose");

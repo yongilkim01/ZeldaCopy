@@ -53,6 +53,10 @@ public:
 	{
 		return IsControl;
 	}
+	bool GetIsEquipalbe()
+	{
+		return IsEquipable;
+	}
 protected:
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* Collision = nullptr;
@@ -60,6 +64,7 @@ protected:
 	FVector2D CurDirection = FVector2D::ZERO;
 
 	bool IsControl = false;
+	bool IsEquipable = false;
 
 private:
 	ARoom* CurRoom = nullptr;

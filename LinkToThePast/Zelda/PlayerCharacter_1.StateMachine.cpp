@@ -406,45 +406,53 @@ void APlayerCharacter::Interact(float DetlaTime)
 
 	InteractCollision->SetActive(true);
 
-	OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
+	//OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
 
-	//std::vector<AActor*> Results = AttackCollision->CollisionAll(ECollisionGroup::EnemyBody);
+	std::vector<AActor*> Results = AttackCollision->CollisionAll(ECollisionGroup::EventTarget);
 
-	//for (int i = 0; i < Results.size(); i++)
-	//{
-	//	AEventActor* Result = dynamic_cast<ABaseCharacter*>(Results[i]);
-
-	//	if (nullptr != Result)
-	//	{
-	//		Result->TakeDamage(10, this);
-	//	}
-	//}
-
-	if (nullptr != OwnedEventActor)
+	for (int i = 0; i < Results.size(); i++)
 	{
-		int Result = OwnedEventActor->Interact(this);
+		AEventActor* Result = dynamic_cast<AEventActor*>(Results[i]);
 
-		if (1 == Result)
+		if (nullptr != Result)
 		{
-			if (GetCurDirection() == FVector2D::RIGHT)
+			if (true == Result->GetIsEquipalbe())
 			{
-				SpriteRenderer->ChangeAnimation("LiftRight");
+				OwnedEventActor = Result;
+
+				if (nullptr != OwnedEventActor)
+				{
+					int Result = OwnedEventActor->Interact(this);
+
+					if (1 == Result)
+					{
+						if (GetCurDirection() == FVector2D::RIGHT)
+						{
+							SpriteRenderer->ChangeAnimation("LiftRight");
+						}
+						else if (GetCurDirection() == FVector2D::LEFT)
+						{
+							SpriteRenderer->ChangeAnimation("LiftLeft");
+						}
+						else if (GetCurDirection() == FVector2D::UP)
+						{
+							SpriteRenderer->ChangeAnimation("LiftUp");
+						}
+						else if (GetCurDirection() == FVector2D::DOWN)
+						{
+							SpriteRenderer->ChangeAnimation("LiftDown");
+						}
+						return;
+					}
+				}
 			}
-			else if (GetCurDirection() == FVector2D::LEFT)
+			else
 			{
-				SpriteRenderer->ChangeAnimation("LiftLeft");
+				Result->Interact(this);
 			}
-			else if (GetCurDirection() == FVector2D::UP)
-			{
-				SpriteRenderer->ChangeAnimation("LiftUp");
-			}
-			else if (GetCurDirection() == FVector2D::DOWN)
-			{
-				SpriteRenderer->ChangeAnimation("LiftDown");
-			}
-			return;
 		}
 	}
+
 	InteractCollision->SetActive(false);
 	ChangeState(EPlayerState::Idle);
 }

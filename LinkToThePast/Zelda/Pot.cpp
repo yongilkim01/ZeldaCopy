@@ -48,6 +48,8 @@ APot::~APot()
 void APot::BeginPlay()
 {
 	AEventActor::BeginPlay();
+
+	IsEquipable = true;
 }
 
 void APot::Tick(float DeltaTime)
