@@ -34,9 +34,15 @@ AChest::AChest()
 		Collision->SetCollisionGroup(ECollisionGroup::EventTarget);
 		Collision->SetActive(true);
 
+		ImmuneCollision = CreateDefaultSubObject<UCollision2D>();
+		ImmuneCollision->SetComponentLocation({ 0, 0 });
+		ImmuneCollision->SetComponentScale({ 48, 48 });
+		ImmuneCollision->SetCollisionGroup(ECollisionGroup::NOTMOVEABLE);
+		ImmuneCollision->SetActive(true);
+
 	}
 
-	//DebugOn();
+	DebugOn();
 }
 
 AChest::~AChest()

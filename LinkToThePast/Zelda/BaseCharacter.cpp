@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "BaseCharacter.h"
 #include "Room.h"
+#include "EventActor.h"
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
@@ -38,11 +39,14 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 
 	if (CollisionImage != nullptr)
 	{
-		ABaseCharacter* Result = nullptr;
+		AEventActor* Result = nullptr;
 			
 		if (BodyCollision != nullptr)
 		{
-			Result = dynamic_cast<ABaseCharacter*>(BodyCollision->CollisionOnce(ECollisionGroup::NOTMOVEABLE));
+			FVector2D PrevCollisionLocation = MoveDirection;
+			PrevCollisionLocation.Normalize();
+			BodyCollision->AddComponentLocation(PrevCollisionLocation);
+			Result = dynamic_cast<AEventActor*>(BodyCollision->CollisionOnce(ECollisionGroup::NOTMOVEABLE));
 		}
 
 		if (Result == nullptr)
@@ -83,6 +87,7 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 			}
 		}
 	}
+	BodyCollision->SetComponentLocation(FVector2D(0, 10));
 }
 
 void ABaseCharacter::SetCurRoom(ARoom* Room, bool IsPlayer)

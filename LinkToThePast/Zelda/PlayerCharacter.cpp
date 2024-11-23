@@ -81,7 +81,7 @@ APlayerCharacter::APlayerCharacter()
 
 		BodyCollision = CreateDefaultSubObject<UCollision2D>();
 		BodyCollision->SetComponentLocation({ 0, 10 });
-		BodyCollision->SetComponentScale({ 50,55 });
+		BodyCollision->SetComponentScale({ 50,50 });
 		BodyCollision->SetCollisionGroup(ECollisionGroup::MOVEABLE);
 		BodyCollision->SetActive(true);
 

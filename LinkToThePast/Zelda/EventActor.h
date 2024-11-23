@@ -51,6 +51,7 @@ public:
 protected:
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* Collision = nullptr;
+	UCollision2D* ImmuneCollision = nullptr;
 	FVector2D CurDirection = FVector2D::ZERO;
 
 	bool IsControl = false;
