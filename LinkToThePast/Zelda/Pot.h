@@ -32,7 +32,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	/** 이벤트 액터 공통 메소드 */
-	virtual void Interact(ABaseCharacter* Character) override;
+	virtual int Interact(ABaseCharacter* Character) override;
 	virtual void Throw() override;
 	virtual void DestoryEventActor() override;
 
@@ -54,6 +54,8 @@ private:
 	EPotState CurPotState = EPotState::NONE;
 
 	APlayerCharacter* Owner = nullptr;
+
+	float ThrowSpeed = 1000.0f;
 
 };
 

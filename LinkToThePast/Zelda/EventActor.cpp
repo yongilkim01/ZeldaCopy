@@ -20,6 +20,7 @@ void AEventActor::BeginPlay()
 void AEventActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	SetEventActorRenderOrder();
 }
 
 void AEventActor::HoldToCharacter(FVector2D CharacterDirction)
@@ -62,6 +63,24 @@ void AEventActor::AddEventActorLocation(FVector2D Location)
 	}
 }
 
+void AEventActor::SetEventActorRenderOrder()
+{
+	if (nullptr != GetCurRoom())
+	{
+		int FloorOrder = 0;
+		if (ERoomFloor::FLOOR_1F == GetCurRoom()->GetCuRoomFloor())
+		{
+			FloorOrder = static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ);
+		}
+		else
+		{
+			FloorOrder = static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ);
+		}
+		int Padding = GetActorLocation().iY() - GetCurRoom()->GetActorLocation().iY();
+		this->SpriteRenderer->SetOrder(FloorOrder + Padding);
+	}
+}
+
 void AEventActor::SetCurRoom(ARoom* Room, ERoomFloor RoomFloor)
 {
 	CurRoom = Room;
@@ -79,3 +98,80 @@ void AEventActor::SetCurRoom(ARoom* Room, ERoomFloor RoomFloor)
 	}
 }
 
+FVector2D AEventActor::GetDirectionToTargetLocation(FVector2D TargetLocation)
+{
+	FVector2D ResultDir = TargetLocation - GetActorLocation();
+	ResultDir.Normalize();
+
+	// Up 또는 Down
+	if (UEngineMath::Abs(ResultDir.Y) > UEngineMath::Abs(ResultDir.X))
+	{
+		if (ResultDir.Y > 0.0f)
+		{
+			return FVector2D::DOWN;
+		}
+		else
+		{
+			return FVector2D::UP;
+		}
+	}
+	else // Right 또는 Left
+	{
+		if (ResultDir.X > 0.0f)
+		{
+			return FVector2D::RIGHT;
+		}
+		else
+		{
+			return FVector2D::LEFT;
+		}
+	}
+
+	return FVector2D::ZERO;
+}
+
+FVector2D AEventActor::GetDirectionToThisLocation(FVector2D TargetLocation)
+{
+	FVector2D ResultDir = GetActorLocation() - TargetLocation;
+	ResultDir.Normalize();
+
+	// Up 또는 Down
+	if (UEngineMath::Abs(ResultDir.Y) > UEngineMath::Abs(ResultDir.X))
+	{
+		if (ResultDir.Y > 0.0f)
+		{
+			return FVector2D::DOWN;
+		}
+		else
+		{
+			return FVector2D::UP;
+		}
+	}
+	else // Right 또는 Left
+	{
+		if (ResultDir.X > 0.0f)
+		{
+			return FVector2D::RIGHT;
+		}
+		else
+		{
+			return FVector2D::LEFT;
+		}
+	}
+
+	return FVector2D::ZERO;
+}
+
+FVector2D AEventActor::GetNormalDirectionToTargetLocation(FVector2D TargetLocation)
+{
+	FVector2D ResultDir = TargetLocation - GetActorLocation();
+	ResultDir.Normalize();
+	return ResultDir;
+}
+
+FVector2D AEventActor::GetNormalDirectionToThisLocation(FVector2D TargetLocation)
+{
+	FVector2D ResultDir = GetActorLocation() - TargetLocation;
+	ResultDir.Normalize();
+	return ResultDir;
+}

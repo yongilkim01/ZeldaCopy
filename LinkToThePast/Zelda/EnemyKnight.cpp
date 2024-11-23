@@ -35,7 +35,7 @@ void AEnemyKnight::Tick(float DeltaTime)
 	PrintDebugInfo();
 }
 
-void AEnemyKnight::TakeDamage(int Damage, ABaseCharacter* Character)
+void AEnemyKnight::TakeDamage(int Damage, AActor* Character)
 {
 	if (CurEnemyState == EEnemyState::KnockBack) return;
 	CurrentHP -= Damage;

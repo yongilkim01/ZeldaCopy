@@ -46,7 +46,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void StartInteract() override;
 	virtual void Interact(float DeltaTime) override;
-	virtual void TakeDamage(int Damage, ABaseCharacter* EnemyCharacter) override;
+	virtual void TakeDamage(int Damage, AActor* EnemyCharacter) override;
 	virtual void LevelChangeStart() override;
 	virtual void LevelChangeEnd() override;
 

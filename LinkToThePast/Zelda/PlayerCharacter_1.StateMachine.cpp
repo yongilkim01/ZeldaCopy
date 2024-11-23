@@ -414,28 +414,30 @@ void APlayerCharacter::Interact(float DetlaTime)
 	OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
 	if (nullptr != OwnedEventActor)
 	{
-		OwnedEventActor->Interact(this);
+		int Result = OwnedEventActor->Interact(this);
 
-		if (GetCurDirection() == FVector2D::RIGHT)
+		if (1 == Result)
 		{
-			SpriteRenderer->ChangeAnimation("LiftRight");
+			if (GetCurDirection() == FVector2D::RIGHT)
+			{
+				SpriteRenderer->ChangeAnimation("LiftRight");
+			}
+			else if (GetCurDirection() == FVector2D::LEFT)
+			{
+				SpriteRenderer->ChangeAnimation("LiftLeft");
+			}
+			else if (GetCurDirection() == FVector2D::UP)
+			{
+				SpriteRenderer->ChangeAnimation("LiftUp");
+			}
+			else if (GetCurDirection() == FVector2D::DOWN)
+			{
+				SpriteRenderer->ChangeAnimation("LiftDown");
+			}
+			return;
 		}
-		else if (GetCurDirection() == FVector2D::LEFT)
-		{
-			SpriteRenderer->ChangeAnimation("LiftLeft");
-		}
-		else if (GetCurDirection() == FVector2D::UP)
-		{
-			SpriteRenderer->ChangeAnimation("LiftUp");
-		}
-		else if (GetCurDirection() == FVector2D::DOWN)
-		{
-			SpriteRenderer->ChangeAnimation("LiftDown");
-		}
-
-		InteractCollision->SetActive(false);
-		return;
 	}
+	InteractCollision->SetActive(false);
 	ChangeState(EPlayerState::Idle);
 }
 

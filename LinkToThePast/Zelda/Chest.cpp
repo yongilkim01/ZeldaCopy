@@ -42,7 +42,7 @@ AChest::AChest()
 
 	}
 
-	DebugOn();
+	//DebugOn();
 }
 
 AChest::~AChest()
@@ -75,18 +75,22 @@ void AChest::Tick(float DeltaTime)
 	}
 }
 
-void AChest::Interact(ABaseCharacter* Character)
+int AChest::Interact(ABaseCharacter* Character)
 {
-	SpriteRenderer->SetOrder(Character->GetSpriteOrder() + 1);
-	Owner = dynamic_cast<APlayerCharacter*>(Character);
-
-	if (nullptr == Owner)
+	if (FVector2D::DOWN == GetDirectionToTargetLocation(Character->GetActorLocation()))
 	{
-		MSGASSERT("보물상자의 소유주 플레이어가 nullptr입니다.");
-		return;
-	}
+		SpriteRenderer->SetOrder(Character->GetSpriteOrder() + 1);
+		Owner = dynamic_cast<APlayerCharacter*>(Character);
 
-	ChangeState(EChestState::OPEN);
+		if (nullptr == Owner)
+		{
+			MSGASSERT("보물상자의 소유주 플레이어가 nullptr입니다.");
+			return 0;
+		}
+
+		ChangeState(EChestState::OPEN);
+	}
+	return 0;
 }
 
 void AChest::ChangeState(EChestState ChestState)

@@ -31,7 +31,7 @@ public:
 	AArmosKnight& operator=(AArmosKnight&& _Other) noexcept = delete;
 
 	/** Bass Character 공통 메소드 */
-	virtual void TakeDamage(int Damage, ABaseCharacter* Character) override;
+	virtual void TakeDamage(int Damage, AActor* Character) override;
 	virtual void Death() override;
 	virtual void Fall() override;
 

@@ -69,7 +69,7 @@ void APot::Tick(float DeltaTime)
 	}
 }
 
-void APot::Interact(ABaseCharacter* Character)
+int APot::Interact(ABaseCharacter* Character)
 {
 	SpriteRenderer->SetOrder(Character->GetSpriteOrder() + 1);
 	Owner = dynamic_cast<APlayerCharacter*>(Character);
@@ -77,7 +77,7 @@ void APot::Interact(ABaseCharacter* Character)
 	if (nullptr == Owner)
 	{
 		MSGASSERT("항아리의 소유주 플레이어가 nullptr입니다.");
-		return;
+		return 0;
 	}
 
 	if (Owner->GetCurDirection() == FVector2D::RIGHT)
@@ -151,6 +151,8 @@ void APot::Interact(ABaseCharacter* Character)
 			}
 		, false, false);
 	}
+
+	return 1;
 }
 
 void APot::Throw()
@@ -166,12 +168,14 @@ void APot::DestoryEventActor()
 
 void APot::Throw(float DeltaTime)
 {
-	this->AddEventActorLocation(CurDirection * DeltaTime * 1000.0f);
+	this->AddEventActorLocation(CurDirection * DeltaTime * ThrowSpeed);
 
 	ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(Collision->CollisionOnce(ECollisionGroup::EnemyBody));
 	if (nullptr != Result)
 	{
-		Result->TakeDamage(10, nullptr);
+		Result->TakeDamage(10, this);
+		this->ThrowSpeed = 0.0f;
+		DestoryEventActor();
 	}
 }
 

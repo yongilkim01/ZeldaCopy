@@ -30,13 +30,18 @@ public:
 	virtual void Tick(float DetlaTime) override;
 
 	/** 이벤트 액터 상속 메소드 */
-	virtual void Interact(ABaseCharacter* Character) {}
+	virtual int Interact(ABaseCharacter* Character) { return 0; }
 	virtual void Throw() {}
 	virtual void DestoryEventActor() {}
 
 	/** 이벤트 액터 공통 메소드 */
 	void HoldToCharacter(FVector2D CharacterDirction);
 	void AddEventActorLocation(FVector2D Location);
+	void SetEventActorRenderOrder();
+	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
+	FVector2D GetDirectionToThisLocation(FVector2D TargetLocation);
+	FVector2D GetNormalDirectionToTargetLocation(FVector2D TargetLocation);
+	FVector2D GetNormalDirectionToThisLocation(FVector2D TargetLocation);
 
 	/** 겟 셋 메소드 */
 	void SetCurRoom(ARoom* Room, ERoomFloor RoomFloor);

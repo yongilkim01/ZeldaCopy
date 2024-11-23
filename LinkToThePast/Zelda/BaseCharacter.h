@@ -21,7 +21,7 @@ public:
 	ABaseCharacter& operator=(ABaseCharacter&& _Other) noexcept = delete;
 
 	/** 캐릭터 가상 메소드 */
-	virtual void TakeDamage(int Damage, ABaseCharacter* Character) {}
+	virtual void TakeDamage(int Damage, AActor* Character) {}
 	virtual void Death() {}
 	virtual void Fall() {}
 	virtual void Interact(float DeltaTime) {}

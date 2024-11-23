@@ -20,7 +20,7 @@ public:
 	AEnemyKnight& operator=(const AEnemyKnight& _Other) = delete;
 	AEnemyKnight& operator=(AEnemyKnight&& _Other) noexcept = delete;
 
-	virtual void TakeDamage(int Damage, ABaseCharacter* Character) override;
+	virtual void TakeDamage(int Damage, AActor* Character) override;
 	virtual void Fall() override;
 
 	/** Castle Knight ¸Þ¼Òµå */

@@ -9,7 +9,7 @@
 #include <EngineCore/Actor.h>
 
 
-void AArmosKnight::TakeDamage(int Damage, ABaseCharacter* Character)
+void AArmosKnight::TakeDamage(int Damage, AActor* Character)
 {
 	if (CurBossState == EBossState::KNOCKBACK) return;
 

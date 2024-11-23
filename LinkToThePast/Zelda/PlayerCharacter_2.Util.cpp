@@ -8,7 +8,7 @@
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/SpriteRenderer.h>
 
-void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
+void APlayerCharacter::TakeDamage(int Damage, AActor* Character)
 {
 	if (CurPlayerState == EPlayerState::KnockBack) return;
 
@@ -18,8 +18,11 @@ void APlayerCharacter::TakeDamage(int Damage, ABaseCharacter* Character)
 	SetCurDirection(GetDirectionToTargetLocation(Character->GetActorLocation()));
 	KnockBackDir.Normalize();
 
-	ChangeState(EPlayerState::KnockBack);
-
+	if (EPlayerState::LiftIdle != CurPlayerState &&
+		EPlayerState::LiftMove != CurPlayerState)
+	{
+		ChangeState(EPlayerState::KnockBack);
+	}
 	TimeEventer.PushEvent(0.0f, [this] ()
 		{
 			HitCollision->SetActive(false);
