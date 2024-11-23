@@ -17,11 +17,19 @@ ADoor::ADoor()
 	// 스프라이트 컴포넌트 생성
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		SpriteRenderer->SetSprite("DoorDown.png", 0);
+		SpriteRenderer->SetSprite("DoorRightLeft2.png", 0);
 
 		SpriteRenderer->CreateAnimation("KeyDownDoorClose", "DoorDown.png", 0, 0, 0.05f);
 		SpriteRenderer->CreateAnimation("KeyDownDoorOpening", "DoorDown.png", 0, 2, 0.1f, false);
 		SpriteRenderer->CreateAnimation("KeyDownDoorOpen", "DoorDown.png", 2, 2, 0.05f);
+
+		SpriteRenderer->CreateAnimation("GimmickRightDoorClose", "DoorRightLeft2.png", 3, 3, 0.05f);
+		SpriteRenderer->CreateAnimation("GimmickRightDoorOpening", "DoorRightLeft2.png", 3, 5, 0.1f, false);
+		SpriteRenderer->CreateAnimation("GimmickRightDoorOpen", "DoorRightLeft2.png", 5, 5, 0.05f);
+
+		SpriteRenderer->CreateAnimation("GimmickLeftDoorClose", "DoorRightLeft2.png", 0, 0, 0.05f);
+		SpriteRenderer->CreateAnimation("GimmickLeftDoorOpening", "DoorRightLeft2.png", 0, 2, 0.1f, false);
+		SpriteRenderer->CreateAnimation("GimmickLeftDoorOpen", "DoorRightLeft2.png", 2, 2, 0.05f);
 
 		SpriteRenderer->CreateAnimation("GimmickUpDoorClose", "DoorDownUp2.png", 0, 0, 0.05f);
 		SpriteRenderer->CreateAnimation("GimmickUpDoorOpening", "DoorDownUp2.png", 0, 2, 0.1f, false);
@@ -37,6 +45,18 @@ ADoor::ADoor()
 				ImmuneCollision->SetActive(false);
 			});
 
+		SpriteRenderer->SetAnimationEvent("GimmickRightDoorOpening", 5, [this]()
+			{
+				SpriteRenderer->ChangeAnimation("GimmickRightDoorOpen");
+				ImmuneCollision->SetActive(false);
+			});
+
+		SpriteRenderer->SetAnimationEvent("GimmickLeftDoorOpening", 2, [this]()
+			{
+				SpriteRenderer->ChangeAnimation("GimmickLeftDoorOpen");
+				ImmuneCollision->SetActive(false);
+			});
+
 		SpriteRenderer->SetAnimationEvent("GimmickUpDoorOpening", 2, [this]()
 			{
 				SpriteRenderer->ChangeAnimation("GimmickUpDoorOpen");
@@ -48,8 +68,6 @@ ADoor::ADoor()
 				SpriteRenderer->ChangeAnimation("GimmickDownDoorOpen");
 				ImmuneCollision->SetActive(false);
 			});
-
-		SpriteRenderer->SetSpriteScale(1.0f);
 
 	}
 	{
@@ -79,7 +97,7 @@ void ADoor::BeginPlay()
 {
 	AEventActor::BeginPlay();
 
-	ChangeState(EDoorState::CLOSE);
+	//ChangeState(EDoorState::CLOSE);
 }
 
 void ADoor::Tick(float DeltaTime)
@@ -164,8 +182,10 @@ void ADoor::StartClose()
 		switch (DoorDirection)
 		{
 		case EDoorDirection::RIGHT:
+			SpriteRenderer->ChangeAnimation("GimmickRightDoorClose");
 			break;
 		case EDoorDirection::LEFT:
+			SpriteRenderer->ChangeAnimation("GimmickLeftDoorClose");
 			break;
 		case EDoorDirection::UP:
 			SpriteRenderer->ChangeAnimation("GimmickUpDoorClose");
@@ -206,8 +226,10 @@ void ADoor::StartOpen()
 		switch (DoorDirection)
 		{
 		case EDoorDirection::RIGHT:
+			SpriteRenderer->ChangeAnimation("GimmickRightDoorOpening");
 			break;
 		case EDoorDirection::LEFT:
+			SpriteRenderer->ChangeAnimation("GimmickLeftDoorOpening");
 			break;
 		case EDoorDirection::UP:
 			SpriteRenderer->ChangeAnimation("GimmickUpDoorOpening");
@@ -237,6 +259,26 @@ void ADoor::Open(float DeltaTime)
 void ADoor::SetDoorDirection(EDoorDirection Direction)
 {
 	DoorDirection = Direction;
+	FVector2D SpriteScale = FVector2D::ZERO;
+	switch (Direction)
+	{
+	case EDoorDirection::RIGHT:
+	case EDoorDirection::LEFT:
+		SpriteRenderer->SetSprite("DoorRightLeft2.png", 0);
+		SpriteScale = SpriteRenderer->SetSpriteScale(1.0f);
+		SpriteRenderer->SetComponentLocation(FVector2D::ZERO);
+		SpriteRenderer->SetComponentScale(SpriteScale);
+		break;
+	case EDoorDirection::UP:
+	case EDoorDirection::DOWN:
+		SpriteRenderer->SetSprite("DoorDownUp2.png", 0);
+		SpriteScale = SpriteRenderer->SetSpriteScale(1.0f);
+		SpriteRenderer->SetComponentLocation(FVector2D::ZERO);
+		SpriteRenderer->SetComponentScale(SpriteScale);
+		break;
+	default:
+		break;
+	}
 }
 
 EDoorDirection ADoor::GetDoorDirection()

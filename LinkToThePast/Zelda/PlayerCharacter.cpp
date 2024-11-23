@@ -174,8 +174,8 @@ void APlayerCharacter::LevelChangeStart()
 	}
 	else if("CASTLEDUNGEON" == LevelName)
 	{
-		SetActorLocation({ 2305, 165 });
-		//SetActorLocation({ 501, 120 });
+		//SetActorLocation({ 2305, 165 });
+		SetActorLocation({ 380, 1200 });
 		SetCurDirection(FVector2D::DOWN);
 	}
 	

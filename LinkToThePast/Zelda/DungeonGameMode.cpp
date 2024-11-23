@@ -122,6 +122,19 @@ void ACastleDungeonGameMode::BeginPlayRoomActor()
 		this->Roomes[1]->CreateEnvSprite("CastleDungeon2Door2.png", FVector2D(624, 296), FVector2D(156, 210), ERenderOrder::FIRST_FLOOR_OBJ);
 		this->Roomes[1]->CreateEnvSprite("CastleDungeon2Door3.png", FVector2D(229, 618), FVector2D(323, 142), ERenderOrder::FIRST_FLOOR_OBJ);
 
+		this->Roomes[1]->AddDoor(
+			FVector2D(336 + 48, 570 + 24),
+			ERoomFloor::FLOOR_1F,
+			EDoorType::GIMMICK,
+			EDoorState::OPEN,
+			EDoorDirection::DOWN);
+		this->Roomes[1]->AddDoor(
+			FVector2D(576 + 24, 354 + 48),
+			ERoomFloor::FLOOR_1F,
+			EDoorType::GIMMICK,
+			EDoorState::OPEN,
+			EDoorDirection::RIGHT);
+
 	}
 	{
 		this->Roomes[2]->CreateEnvSprite("CastleDungeon3Door1.png", FVector2D(0, 288), FVector2D(132, 236), ERenderOrder::FIRST_FLOOR_OBJ);
