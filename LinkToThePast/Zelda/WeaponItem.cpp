@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "WeaponItem.h"
 #include "ContentsEnum.h"
+#include "PlayerCharacter.h"
 
 #include <EngineCore/SpriteRenderer.h>
 
@@ -20,5 +21,6 @@ void AWeaponItem::BeginPlay()
 void AWeaponItem::Tick(float DeltaTime)
 {
 	ABaseItem::Tick(DeltaTime);
+	SetActorLocation(OwnerPlayer->GetActorLocation());
 }
 

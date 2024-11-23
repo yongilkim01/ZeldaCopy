@@ -133,6 +133,9 @@
     <ClInclude Include="Bow.h">
       <Filter>2_Data\5_Item</Filter>
     </ClInclude>
+    <ClInclude Include="EffectFire.h">
+      <Filter>2_Data\2_Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -293,6 +296,9 @@
     </ClCompile>
     <ClCompile Include="Bow.cpp">
       <Filter>2_Data\5_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectFire.cpp">
+      <Filter>2_Data\2_Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

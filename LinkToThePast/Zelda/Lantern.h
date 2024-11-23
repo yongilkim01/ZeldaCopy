@@ -20,6 +20,9 @@ public:
 	/** 액터 상속 메소드 */
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	
+	/** 웨폰 액터 상속 메소드 */
+	virtual void Action(float Tick) override;
 
 protected:
 

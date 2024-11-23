@@ -2,6 +2,8 @@
 #include "Lantern.h"
 #include "ContentsEnum.h"
 
+#include "EffectFire.h"
+
 #include <EngineCore/SpriteRenderer.h>
 
 ALantern::ALantern()
@@ -38,6 +40,11 @@ void ALantern::BeginPlay()
 void ALantern::Tick(float DeltaTime)
 {
 	AWeaponItem::Tick(DeltaTime);
-	int a = 0;
+}
+
+void ALantern::Action(float Tick)
+{
+	AEffectFire* FireEffect = GetWorld()->SpawnActor<AEffectFire>();
+	FireEffect->SetActorLocation(GetActorLocation());
 }
 

@@ -4,6 +4,8 @@
 #include "HylianKnights.h"
 #include "BaseCharacter.h"
 #include "EventActor.h"
+#include "PlayerDataManager.h"
+#include "WeaponItem.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -23,6 +25,9 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 		break;
 	case EPlayerState::Attack:
 		StartAttack();
+		break;
+	case EPlayerState::Skill:
+		StartSkill();
 		break;
 	case EPlayerState::KnockBack:
 		StartKnockBack();
@@ -122,6 +127,10 @@ void APlayerCharacter::StartAttack()
 	CurPlayerState = EPlayerState::Attack;
 }
 
+void APlayerCharacter::StartSkill()
+{
+}
+
 void APlayerCharacter::StartKnockBack()
 {
 	CurPlayerState = EPlayerState::KnockBack;
@@ -213,6 +222,11 @@ void APlayerCharacter::Idle(float DeltaTime)
 		StartAttack();
 		CurPlayerState = EPlayerState::Attack;
 	}
+	else if (UEngineInput::GetInst().IsDown(VK_RBUTTON) == true &&
+		CurPlayerState != EPlayerState::Skill)
+	{
+		ChangeState(EPlayerState::Skill);
+	}
 
 	if (UEngineInput::GetInst().IsDown('E') == true)
 	{
@@ -287,6 +301,11 @@ void APlayerCharacter::Move(float DeltaTime)
 	{
 		StartAttack();
 		CurPlayerState = EPlayerState::Attack;
+	}
+	else if (UEngineInput::GetInst().IsDown(VK_RBUTTON) == true &&
+		CurPlayerState != EPlayerState::Skill)
+	{
+		ChangeState(EPlayerState::Skill);
 	}
 }
 
@@ -396,6 +415,12 @@ void APlayerCharacter::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
+}
+
+void APlayerCharacter::Skill(float DeltaTime)
+{
+	WeaponItemes[PlayerDataManager::GetInstance().GetSelectWeapon()]->Action(DeltaTime);
+	ChangeState(EPlayerState::Idle);
 }
 
 void APlayerCharacter::Interact(float DetlaTime)

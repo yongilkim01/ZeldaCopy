@@ -19,6 +19,7 @@ enum class EPlayerState
 	Idle,
 	Move,
 	Attack,
+	Skill,
 	KnockBack,
 	Interact,
 	LiftIdle,
@@ -54,6 +55,7 @@ public:
 	void StartIdle();
 	void StartMove();
 	void StartAttack();
+	void StartSkill();
 	void StartKnockBack();
 	void StartLiftMove();
 	void StartLiftIdle();
@@ -62,6 +64,7 @@ public:
 	void Move(float DeltaTime);
 	void LiftMove(float DeltaTime);
 	void Attack(float DeltaTime);
+	void Skill(float DeltaTime);
 	void KnockBack(float DeltaTime);
 	void LiftIdle(float DeltaTime);
 

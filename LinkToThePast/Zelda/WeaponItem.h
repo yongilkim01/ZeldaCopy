@@ -2,6 +2,7 @@
 #include "BaseItem.h"
 
 class USpriteRenderer;
+class APlayerCharacter;
 
 /**
  *	설명
@@ -24,6 +25,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	/** 웨폰 액터 상속 메소드 */
+	virtual void Action(float Tick) {}
+
+	/** 웨폰 액터 메소드 */
 	void SetId(int Id)
 	{
 		this->Id = Id;
@@ -36,14 +40,22 @@ public:
 	{
 		return this->UISpriteRenderer;
 	}
-	
 	std::string GetUISpriteName()
 	{
 		return UISpriteName;
 	}
+	void SetPlayer(APlayerCharacter* Character)
+	{
+		this->OwnerPlayer = Character;
+	}
+	APlayerCharacter* GetPlayerCharacter()
+	{
+		return this->OwnerPlayer;
+	}
 
 protected:
 	USpriteRenderer* UISpriteRenderer = nullptr;
+	APlayerCharacter* OwnerPlayer = nullptr;
 	std::string UISpriteName;
 
 private:

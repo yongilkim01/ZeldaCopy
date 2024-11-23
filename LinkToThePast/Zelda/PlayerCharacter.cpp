@@ -157,6 +157,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 	case EPlayerState::Attack:
 		Attack(DeltaTime);
 		break;
+	case EPlayerState::Skill:
+		Skill(DeltaTime);
+		break;
 	case EPlayerState::KnockBack:
 		KnockBack(DeltaTime);
 		break;
@@ -206,6 +209,7 @@ void APlayerCharacter::CreateItem()
 {
 	ALantern* Lantern = GetWorld()->SpawnActor<ALantern>();
 	Lantern->SetActorLocation(GetActorLocation());
+	Lantern->SetPlayer(this);
 	WeaponItemes.push_back(Lantern);
 	Lantern->SetActive(
 		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1)
@@ -213,6 +217,7 @@ void APlayerCharacter::CreateItem()
 
 	ABow* Bow = GetWorld()->SpawnActor<ABow>();
 	Bow->SetActorLocation(GetActorLocation());
+	Bow->SetPlayer(this);
 	WeaponItemes.push_back(Bow);
 	Bow->SetActive(
 		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1)
