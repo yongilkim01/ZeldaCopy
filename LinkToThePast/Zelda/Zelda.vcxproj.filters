@@ -136,6 +136,9 @@
     <ClInclude Include="EffectFire.h">
       <Filter>2_Data\2_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Chest.h">
+      <Filter>2_Data\4_Environment\Chest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -300,6 +303,9 @@
     <ClCompile Include="EffectFire.cpp">
       <Filter>2_Data\2_Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Chest.cpp">
+      <Filter>2_Data\4_Environment\Chest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="1_GameMode">
@@ -376,6 +382,9 @@
     </Filter>
     <Filter Include="1_GameMode\2_Dungeon">
       <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\4_Environment\Chest">
+      <UniqueIdentifier>{c6c02b05-e417-4964-8bcd-bae7eee0d1c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

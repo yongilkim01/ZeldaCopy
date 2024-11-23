@@ -95,6 +95,8 @@ void UZeldaCore::BeginPlay()
 
 	UImageManager::GetInst().CuttingSprite("PotBreak.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("Chest.png", { 48, 48 });
+
 	UImageManager::GetInst().CuttingSprite("EnemyDeathEffect.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FireEffect.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 700 });
@@ -119,7 +121,7 @@ void UZeldaCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("HyruleCastle");
+	UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
 }
 
 void UZeldaCore::Tick()

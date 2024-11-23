@@ -105,9 +105,9 @@ private:
 
 	ALantern* Lantern = nullptr;
 
-	UCollision2D* HitCollision = nullptr;
 	USoundPlayer EffectSoundPlayer;
 
+	UCollision2D* HitCollision = nullptr;
 	UCollision2D* AttackCollision = nullptr;
 	UCollision2D* InteractCollision = nullptr;
 

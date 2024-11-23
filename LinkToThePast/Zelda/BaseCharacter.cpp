@@ -3,6 +3,7 @@
 #include "Room.h"
 
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/Collision2D.h>
 
 ABaseCharacter::ABaseCharacter()
 {
@@ -37,37 +38,49 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 
 	if (CollisionImage != nullptr)
 	{
-		UColor CenterColor = CollisionImage->GetColor(CheckLocation, UColor::PINK);
-		UColor LeftTopColor = CollisionImage->GetColor(CheckLocation + FVector2D{-CollisionSize.X, 0.0f}, UColor::PINK);
-		UColor LeftBottomColor = CollisionImage->GetColor(CheckLocation + FVector2D{ -CollisionSize.X, CollisionSize.Y }, UColor::PINK);
-		UColor RightTopColor = CollisionImage->GetColor(CheckLocation + FVector2D{ CollisionSize.X, 0.0f}, UColor::PINK);
-		UColor RightBottomColor = CollisionImage->GetColor(CheckLocation + FVector2D{ CollisionSize.X, CollisionSize.Y }, UColor::PINK);
+		ABaseCharacter* Result = nullptr;
+			
+		if (BodyCollision != nullptr)
+		{
+			Result = dynamic_cast<ABaseCharacter*>(BodyCollision->CollisionOnce(ECollisionGroup::NOTMOVEABLE));
+		}
 
-		if (CenterColor != UColor::PINK &&
-			LeftTopColor != UColor::PINK &&
-			LeftBottomColor != UColor::PINK &&
-			RightTopColor != UColor::PINK &&
-			RightBottomColor != UColor::PINK)
+		if (Result == nullptr)
 		{
-			AddActorLocation(MoveDirection);
-		}
-		if (CurRoom->GetIsSecondFloor() && 
-			CenterColor == UColor::ROOM_UPSTAIRS)
-		{
-			CurRoom->SetCulWinImageTo2F();
-			this->CurRoomFloor = ERoomFloor::FLOOR_2F;
-			this->CollisionImage = CurRoom->GetColWinImage2F();
-		}
-		else if (CurRoom->GetIsSecondFloor() &&
-			(CenterColor == UColor::ROOM_DOWNSTAIRS ||
-			LeftTopColor == UColor::ROOM_DOWNSTAIRS ||
-			LeftBottomColor == UColor::ROOM_DOWNSTAIRS ||
-			RightTopColor == UColor::ROOM_DOWNSTAIRS ||
-			RightBottomColor == UColor::ROOM_DOWNSTAIRS))
-		{
-			CurRoom->SetCulWinImageTo1F();
-			this->CurRoomFloor = ERoomFloor::FLOOR_1F;
-			this->CollisionImage = CurRoom->GetColWinImage1F();
+
+			UColor CenterColor = CollisionImage->GetColor(CheckLocation, UColor::PINK);
+			UColor LeftTopColor = CollisionImage->GetColor(CheckLocation + FVector2D{ -CollisionSize.X, 0.0f }, UColor::PINK);
+			UColor LeftBottomColor = CollisionImage->GetColor(CheckLocation + FVector2D{ -CollisionSize.X, CollisionSize.Y }, UColor::PINK);
+			UColor RightTopColor = CollisionImage->GetColor(CheckLocation + FVector2D{ CollisionSize.X, 0.0f }, UColor::PINK);
+			UColor RightBottomColor = CollisionImage->GetColor(CheckLocation + FVector2D{ CollisionSize.X, CollisionSize.Y }, UColor::PINK);
+
+			if (CenterColor != UColor::PINK &&
+				LeftTopColor != UColor::PINK &&
+				LeftBottomColor != UColor::PINK &&
+				RightTopColor != UColor::PINK &&
+				RightBottomColor != UColor::PINK)
+			{
+				AddActorLocation(MoveDirection);
+			}
+
+			if (CurRoom->GetIsSecondFloor() &&
+				CenterColor == UColor::ROOM_UPSTAIRS)
+			{
+				CurRoom->SetCulWinImageTo2F();
+				this->CurRoomFloor = ERoomFloor::FLOOR_2F;
+				this->CollisionImage = CurRoom->GetColWinImage2F();
+			}
+			else if (CurRoom->GetIsSecondFloor() &&
+				(CenterColor == UColor::ROOM_DOWNSTAIRS ||
+					LeftTopColor == UColor::ROOM_DOWNSTAIRS ||
+					LeftBottomColor == UColor::ROOM_DOWNSTAIRS ||
+					RightTopColor == UColor::ROOM_DOWNSTAIRS ||
+					RightBottomColor == UColor::ROOM_DOWNSTAIRS))
+			{
+				CurRoom->SetCulWinImageTo1F();
+				this->CurRoomFloor = ERoomFloor::FLOOR_1F;
+				this->CollisionImage = CurRoom->GetColWinImage1F();
+			}
 		}
 	}
 }

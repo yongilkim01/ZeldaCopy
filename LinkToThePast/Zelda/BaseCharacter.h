@@ -92,6 +92,8 @@ protected:
 
 	USpriteRenderer* SpriteRenderer = nullptr;
 
+	UCollision2D* BodyCollision = nullptr;
+
 private:
 	FVector2D CurDirection = FVector2D::ZERO;
 

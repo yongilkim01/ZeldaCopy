@@ -8,6 +8,7 @@
 #include "Fade.h"
 #include "Pot.h"
 #include "LevelMove.h"
+#include "Chest.h"
 #include <EngineCore/EngineAPICore.h>
 
 ACastleDungeonGameMode::ACastleDungeonGameMode()
@@ -70,6 +71,11 @@ void ACastleDungeonGameMode::BeginPlay()
 		APot* Pot3 = GetWorld()->SpawnActor<APot>();
 		Pot3->SetActorLocation({ 2161, 1743 });
 		Pot3->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
+	}
+	{
+		AChest* Chest1 = GetWorld()->SpawnActor<AChest>();
+		Chest1->SetActorLocation({ 2280, 400 });
+		Chest1->SetCurRoom(Roomes[3], ERoomFloor::FLOOR_2F);
 	}
 
 }

@@ -79,8 +79,12 @@ APlayerCharacter::APlayerCharacter()
 		HitCollision->SetCollisionGroup(ECollisionGroup::PlayerBody);
 		HitCollision->SetActive(true);
 
-	}
-	{
+		BodyCollision = CreateDefaultSubObject<UCollision2D>();
+		BodyCollision->SetComponentLocation({ 0, 10 });
+		BodyCollision->SetComponentScale({ 50,55 });
+		BodyCollision->SetCollisionGroup(ECollisionGroup::MOVEABLE);
+		BodyCollision->SetActive(true);
+
 		// 공격 컴포넌트 생성
 		AttackCollision = CreateDefaultSubObject<UCollision2D>();
 		AttackCollision->SetComponentLocation({ 0, 0 });

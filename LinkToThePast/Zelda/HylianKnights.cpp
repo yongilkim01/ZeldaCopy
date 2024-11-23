@@ -44,6 +44,12 @@ AHylianKnight::AHylianKnight()
 		CollisionComponent->SetComponentScale({ 80, 80 });
 		CollisionComponent->SetCollisionGroup(ECollisionGroup::EnemyBody);
 		CollisionComponent->SetCollisionType(ECollisionType::Rect);
+
+		BodyCollision = CreateDefaultSubObject<UCollision2D>();
+		BodyCollision->SetComponentLocation({ 0, 10 });
+		BodyCollision->SetComponentScale({ 50,55 });
+		BodyCollision->SetCollisionGroup(ECollisionGroup::MOVEABLE);
+		BodyCollision->SetActive(true);
 	}
 	{
 		// 공격 충돌 컴포넌트 생성

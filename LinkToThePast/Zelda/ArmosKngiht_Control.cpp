@@ -10,7 +10,11 @@
 
 AArmosKngiht_Control::AArmosKngiht_Control()
 {
-	
+	BodyCollision = CreateDefaultSubObject<UCollision2D>();
+	BodyCollision->SetComponentLocation({ 0, 10 });
+	BodyCollision->SetComponentScale({ 50,55 });
+	BodyCollision->SetCollisionGroup(ECollisionGroup::MOVEABLE);
+	BodyCollision->SetActive(true);
 }
 
 AArmosKngiht_Control::~AArmosKngiht_Control()
