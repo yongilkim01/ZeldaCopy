@@ -135,6 +135,8 @@ void ACastleDungeonGameMode::BeginPlayRoomActor()
 			EDoorState::OPEN,
 			EDoorDirection::RIGHT);
 
+		this->Roomes[1]->SetGimmickCollision(FVector2D(385, 450), FVector2D(340, 200));
+
 	}
 	{
 		this->Roomes[2]->CreateEnvSprite("CastleDungeon3Door1.png", FVector2D(0, 288), FVector2D(132, 236), ERenderOrder::FIRST_FLOOR_OBJ);

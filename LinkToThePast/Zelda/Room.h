@@ -12,6 +12,14 @@ class URoomMove;
 class UEngineWinImage;
 class ABaseCharacter;
 class APlayerCharacter;
+class UCollision2D;
+
+enum class EGimmickType
+{
+	NONE,
+	ENEMY,
+};
+
 
 /**
  *	방 구조를 나타내는 클래스
@@ -32,6 +40,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, EDoorState State, EDoorDirection Direction);
+	void SetGimmickCollision(FVector2D Location, FVector2D Size);
 
 	void PlayerLinkCheck();
 	void SetPlayer(ABaseCharacter* PlayerCharacter);
@@ -97,10 +106,10 @@ private:
 	USpriteRenderer* BackSpriteRenderer = nullptr;
 	USpriteRenderer* ColSpriteRenderer1F = nullptr;
 	USpriteRenderer* ColSpriteRenderer2F = nullptr;
-
 	USpriteRenderer* CurColSpriteRenderer = nullptr;
-
 	UEngineWinImage* CurrentCollisionWinImage = nullptr;
+
+	UCollision2D* GimmickCollision = nullptr;
 
 	APlayerCharacter* PlayerCharacter = nullptr;
 

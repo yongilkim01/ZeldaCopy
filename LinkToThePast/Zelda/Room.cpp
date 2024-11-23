@@ -4,6 +4,7 @@
 #include <EngineCore/ImageManager.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EnginePlatform/EngineInput.h>
+#include <EngineCore/Collision2D.h>
 #include "ContentsEnum.h"
 #include "PlayerCharacter.h"
 #include "BaseCharacter.h"
@@ -37,12 +38,21 @@ ARoom::ARoom()
 		ColSpriteRenderer2F->SetComponentLocation(MapScale.Half());
 		ColSpriteRenderer2F->SetActive(false);
 	}
+	{
+		GimmickCollision = CreateDefaultSubObject<UCollision2D>();
+		GimmickCollision->SetComponentLocation({ 0, 0 });
+		GimmickCollision->SetComponentScale({ 100, 100 });
+		GimmickCollision->SetCollisionGroup(ECollisionGroup::GIMMICK);
+		GimmickCollision->SetActive(false);
+	}
 
 	CurColSpriteRenderer = ColSpriteRenderer1F;
 	CurrentCollisionWinImage = UImageManager::GetInst().FindImage(ColSpriteRenderer1F->GetCurSpriteName());
 
 	EnvSprites.reserve(10);
 	Doores.reserve(5);
+
+	DebugOn();
 }
 
 ARoom::~ARoom()
@@ -62,6 +72,8 @@ void ARoom::Tick(float DeltaTime)
 	{
 		CurColSpriteRenderer->SetActive(IsDebugRenderMode);
 	}
+
+	//AActor* Character
 }
 
 void ARoom::AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, EDoorState State, EDoorDirection Direction)
@@ -89,6 +101,13 @@ void ARoom::AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, ED
 
 	Door->ChangeState(State);
 
+}
+
+void ARoom::SetGimmickCollision(FVector2D Location, FVector2D Scale)
+{
+	GimmickCollision->SetComponentLocation(Location);
+	GimmickCollision->SetComponentScale(Scale);
+	GimmickCollision->SetActive(true);
 }
 
 void ARoom::SetRoomSprite(std::string_view SpriteName, std::string_view CollisionSpriteName, ERenderOrder RenderOrder, FVector2D SpritePos, float SpriteScale /* = 3.0f */)

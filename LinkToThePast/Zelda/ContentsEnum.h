@@ -26,6 +26,7 @@ enum class ECollisionGroup
 	EventStart,
 	MOVEABLE,
 	NOTMOVEABLE,
+	GIMMICK,
 };
 
 enum class ERoomFloor
