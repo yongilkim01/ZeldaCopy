@@ -43,7 +43,7 @@ public:
 		return Result[0];
 	}
 	template<typename EnumType>
-	std::vector<AActor*> CollisionAll(EnumType OtherCollisionGroup, FVector2D NextDirection)
+	std::vector<AActor*> CollisionAll(EnumType OtherCollisionGroup, FVector2D NextDirection = FVector2D::ZERO)
 	{
 		// 상대가 100개이다. 100개 
 		std::vector<AActor*> Result;

@@ -108,7 +108,7 @@ private:
 	UCollision2D* HitCollision = nullptr;
 	USoundPlayer EffectSoundPlayer;
 
-	std::vector<UCollision2D*> AttackCollisions;
+	UCollision2D* AttackCollision = nullptr;
 	UCollision2D* InteractCollision = nullptr;
 
 	EPlayerState CurPlayerState = EPlayerState::Idle;

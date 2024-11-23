@@ -41,6 +41,7 @@ protected:
 	virtual void Trace(float DeltaTime) override;
 
 	UCollision2D* CollisionComponent = nullptr;
+	FVector2D KnockBackDir = FVector2D::ZERO;
 
 private:
 

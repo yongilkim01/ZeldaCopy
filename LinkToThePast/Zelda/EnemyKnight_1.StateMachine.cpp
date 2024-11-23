@@ -148,7 +148,11 @@ void AEnemyKnight::Attack(float DeltaTime)
 
 void AEnemyKnight::KnockBack(float DeltaTime)
 {
-	if (KnockBackCnt > 100)
+	//KnockBackDir += FVector2D
+
+
+
+	if (KnockBackCnt > 30)
 	{
 		CurEnemyState = PrevEnemyState;
 		KnockBackCnt = 0;

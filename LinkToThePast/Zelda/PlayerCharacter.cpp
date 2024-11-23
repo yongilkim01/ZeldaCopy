@@ -81,35 +81,12 @@ APlayerCharacter::APlayerCharacter()
 
 	}
 	{
-		// 공격 충돌 컴포넌트 생성
-		AttackCollisions.reserve(4);
+		// 공격 컴포넌트 생성
+		AttackCollision = CreateDefaultSubObject<UCollision2D>();
+		AttackCollision->SetComponentLocation({ 0, 0 });
+		AttackCollision->SetComponentScale({ 100,100 });
+		AttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 
-		UCollision2D* RightAttackCollision = CreateDefaultSubObject<UCollision2D>();
-		RightAttackCollision->SetComponentLocation({ 50, 0 });
-		RightAttackCollision->SetComponentScale({ 5, 5 });
-		RightAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
-		AttackCollisions.push_back(RightAttackCollision);
-
-		UCollision2D* LeftAttackCollision = CreateDefaultSubObject<UCollision2D>();
-		LeftAttackCollision->SetComponentLocation({ -50, 0 });
-		LeftAttackCollision->SetComponentScale({ 5,5 });
-		LeftAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
-		AttackCollisions.push_back(LeftAttackCollision);
-
-		UCollision2D* DownAttackCollision = CreateDefaultSubObject<UCollision2D>();
-		DownAttackCollision->SetComponentLocation({ 0, 50 });
-		DownAttackCollision->SetComponentScale({ 5, 5 });
-		DownAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
-		AttackCollisions.push_back(DownAttackCollision);
-
-		UCollision2D* UpAttackCollision = CreateDefaultSubObject<UCollision2D>();
-		UpAttackCollision->SetComponentLocation({ 0, -50 });
-		UpAttackCollision->SetComponentScale({ 5, 5 });
-		UpAttackCollision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
-		AttackCollisions.push_back(UpAttackCollision);
-
-	}
-	{
 		// 상호작용 컴포넌트 생성
 		InteractCollision = CreateDefaultSubObject<UCollision2D>();
 		InteractCollision->SetComponentLocation({ 0, 0 });
@@ -118,7 +95,7 @@ APlayerCharacter::APlayerCharacter()
 
 	}
 	{
-		SetSpeed(500.0f);
+		SetSpeed(250.0f);
 		CollisionSize = { 10.0f, 30.0f };
 	}
 	//DebugOn();
@@ -186,9 +163,9 @@ void APlayerCharacter::LevelChangeStart()
 	if ("HYRULECASTLE" == LevelName)
 	{
 		//SetActorLocation({ 1533, 2894 });
-		SetActorLocation({ 399, 342 });
+		SetActorLocation({ 1533, 2894 });
 		SetCurDirection(FVector2D::UP);
-		//ChangeState(EPlayerState::Idle);
+		ChangeState(EPlayerState::Idle);
 
 	}
 	else if("CASTLEDUNGEON" == LevelName)

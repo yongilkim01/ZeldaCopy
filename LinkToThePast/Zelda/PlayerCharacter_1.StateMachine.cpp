@@ -379,37 +379,19 @@ void APlayerCharacter::Attack(float DeltaTime)
 	SetCameraLocationToPlayer();
 	if (IsAttack == true) return;
 
-	if (GetCurDirection() == FVector2D::RIGHT)
+	IsAttack = true;
+	//ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollision->CollisionOnce(ECollisionGroup::EnemyBody));
+	//if (nullptr != Result)
+	//{
+	//	Result->TakeDamage(10, this);
+	//}
+
+	std::vector<AActor*> Results = AttackCollision->CollisionAll(ECollisionGroup::EnemyBody);
+
+	for (int i = 0; i < Results.size(); i++)
 	{
-		IsAttack = true;
-		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[0]->CollisionOnce(ECollisionGroup::EnemyBody));
-		if (nullptr != Result)
-		{
-			Result->TakeDamage(10, this);
-		}
-	}
-	else if (GetCurDirection() == FVector2D::LEFT)
-	{
-		IsAttack = true;
-		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[1]->CollisionOnce(ECollisionGroup::EnemyBody));
-		if (nullptr != Result)
-		{
-			Result->TakeDamage(10, this);
-		}
-	}
-	else if (GetCurDirection() == FVector2D::DOWN)
-	{
-		IsAttack = true;
-		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[2]->CollisionOnce(ECollisionGroup::EnemyBody));
-		if (nullptr != Result)
-		{
-			Result->TakeDamage(10, this);
-		}
-	}
-	else if (GetCurDirection() == FVector2D::UP)
-	{
-		IsAttack = true;
-		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(AttackCollisions[3]->CollisionOnce(ECollisionGroup::EnemyBody));
+		ABaseCharacter* Result = dynamic_cast<ABaseCharacter*>(Results[i]);
+
 		if (nullptr != Result)
 		{
 			Result->TakeDamage(10, this);

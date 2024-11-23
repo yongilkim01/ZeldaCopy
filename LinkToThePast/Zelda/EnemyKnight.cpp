@@ -39,6 +39,9 @@ void AEnemyKnight::TakeDamage(int Damage, ABaseCharacter* Character)
 {
 	if (CurEnemyState == EEnemyState::KnockBack) return;
 	CurrentHP -= Damage;
+	KnockBackDir = GetActorLocation() - Character->GetActorLocation();
+	KnockBackDir.Normalize();
+	KnockBackDir *= 100.0f;
 
 	if (CurrentHP <= 0)
 	{
