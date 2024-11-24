@@ -148,6 +148,9 @@
     <ClInclude Include="WeaponItem.h">
       <Filter>2_Data\5_Item\EquipItem</Filter>
     </ClInclude>
+    <ClInclude Include="DropHeart.h">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -323,6 +326,9 @@
     </ClCompile>
     <ClCompile Include="WeaponItem.cpp">
       <Filter>2_Data\5_Item\EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="DropHeart.cpp">
+      <Filter>2_Data\5_Item\Drop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

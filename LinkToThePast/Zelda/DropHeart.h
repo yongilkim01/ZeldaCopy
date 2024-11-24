@@ -4,18 +4,18 @@
 /**
  *	설명
  */
-	class ADropKeyItem : public ADropItem
+class ADropHeartItem : public ADropItem
 {
 public:
 	/** 생성자, 소멸자 */
-	ADropKeyItem();
-	~ADropKeyItem();
+	ADropHeartItem();
+	~ADropHeartItem();
 
 	/** 객체 값 복사 방지 */
-	ADropKeyItem(const ADropKeyItem& _Other) = delete;
-	ADropKeyItem(ADropKeyItem&& _Other) noexcept = delete;
-	ADropKeyItem& operator=(const ADropKeyItem& _Other) = delete;
-	ADropKeyItem& operator=(ADropKeyItem&& _Other) noexcept = delete;
+	ADropHeartItem(const ADropHeartItem& _Other) = delete;
+	ADropHeartItem(ADropHeartItem&& _Other) noexcept = delete;
+	ADropHeartItem& operator=(const ADropHeartItem& _Other) = delete;
+	ADropHeartItem& operator=(ADropHeartItem&& _Other) noexcept = delete;
 
 	/** 액터 상속 메소드 */
 	virtual void BeginPlay() override;
@@ -30,9 +30,9 @@ public:
 protected:
 
 private:
-	float DropSpeed = 0.5f;
+	float DropSpeed = 0.1f;
 	float DropLength = 50.0f;
-	float DropFrequency = 10.0f;
+	float DropFrequency = 30.0f;
 	float CurrentDeltaTime = 0.0f;
 
 	FVector2D CurDropPower = FVector2D::ZERO;

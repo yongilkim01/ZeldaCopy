@@ -61,6 +61,7 @@ void ACastleDungeonGameMode::BeginPlay()
 		EnemyCharacter->AddTurningLocation(FVector2D(540, 1100));
 		EnemyCharacter->AddTurningLocation(FVector2D(540, 1170));
 		EnemyCharacter->AddTurningLocation(FVector2D(240, 1170));
+		EnemyCharacter->SetDropItemType(EDropItemType::HEART);
 
 		CheckCharacterInRoom(EnemyCharacter);
 

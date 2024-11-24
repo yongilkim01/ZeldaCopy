@@ -5,6 +5,7 @@
 #include "Room.h"
 #include "DropKey.h"
 #include "DropItem.h"
+#include "DropHeart.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/SpriteRenderer.h>
@@ -178,6 +179,9 @@ void AEnemyKnight::KnockBack(float DeltaTime)
 			case EDropItemType::LANTERN:
 				break;
 			case EDropItemType::HEART:
+				DropItem = GetWorld()->SpawnActor<ADropHeartItem>();
+				DropItem->SetEventActorRenderOrder(SpriteRenderer->GetOrder() + 1);
+				DropItem->SetActorLocation(GetActorLocation());
 				break;
 			case EDropItemType::BOW:
 				break;

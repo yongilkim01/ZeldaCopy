@@ -177,6 +177,7 @@
     <ClInclude Include="Chest.h" />
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="DropHeart.h" />
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="DropKey.h" />
     <ClInclude Include="DungeonGameMode.h" />
@@ -321,6 +322,7 @@
     <ClCompile Include="Chest.cpp" />
     <ClCompile Include="ContentsEnum.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="DropHeart.cpp" />
     <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="DropKey.cpp" />
     <ClCompile Include="DungeonGameMode.cpp" />
