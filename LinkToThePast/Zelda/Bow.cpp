@@ -33,6 +33,7 @@ ABow::~ABow()
 void ABow::BeginPlay()
 {
 	AWeaponItem::BeginPlay();
+	SpriteRenderer->SetAlphafloat(0.0f);
 }
 
 void ABow::Tick(float DeltaTime)

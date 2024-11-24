@@ -109,10 +109,6 @@ public:
 
 	void CreateEnvSprite(std::string_view SpriteName, FVector2D Location, FVector2D Size, ERenderOrder Floor);
 
-	FVector2D RoomSize = FVector2D::ZERO;
-	FVector2D LeftTopPos = FVector2D::ZERO;
-	FVector2D RightBottomPos = FVector2D::ZERO;
-
 	void SetOnlySecondFloor(bool IsOnlySecondFloor)
 	{
 		this->IsOnlySecondFloor = IsOnlySecondFloor;
@@ -130,6 +126,18 @@ public:
 	{
 		return RoomType;
 	}
+	void AddEnemyCount(int Count)
+	{
+		EnemyCount += Count;
+	}
+	int GetEnemyCount()
+	{
+		return EnemyCount;
+	}
+
+	FVector2D RoomSize = FVector2D::ZERO;
+	FVector2D LeftTopPos = FVector2D::ZERO;
+	FVector2D RightBottomPos = FVector2D::ZERO;
 
 protected:
 
@@ -154,4 +162,6 @@ private:
 	bool IsSecondFloor = false;
 	bool IsDebugRenderMode = false;
 	bool IsOnlySecondFloor = false;
+
+	int EnemyCount = 0;
 };

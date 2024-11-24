@@ -9,6 +9,7 @@
 #include "Pot.h"
 #include "LevelMove.h"
 #include "Chest.h"
+#include "CastleKnight.h"
 #include "Door.h"
 #include <EngineCore/EngineAPICore.h>
 
@@ -35,6 +36,19 @@ void ACastleDungeonGameMode::BeginPlay()
 		EnemyCharacter->SetSpeed(150.0f);
 		EnemyCharacter->AddTurningLocation(FVector2D(2332, 1974));
 		EnemyCharacter->AddTurningLocation(FVector2D(2332, 1724));
+
+		CheckCharacterInRoom(EnemyCharacter);
+
+	}
+
+	{
+		ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
+		EnemyCharacter->SetActorLocation({ 240, 1100 });
+		EnemyCharacter->SetSpeed(150.0f);
+		EnemyCharacter->AddTurningLocation(FVector2D(240, 1100));
+		EnemyCharacter->AddTurningLocation(FVector2D(540, 1100));
+		EnemyCharacter->AddTurningLocation(FVector2D(540, 1170));
+		EnemyCharacter->AddTurningLocation(FVector2D(240, 1170));
 
 		CheckCharacterInRoom(EnemyCharacter);
 

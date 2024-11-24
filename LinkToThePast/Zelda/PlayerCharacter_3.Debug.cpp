@@ -19,6 +19,7 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	UColor Color = GetCollisionImage()->GetColor(PlayerLocation);
 
 	UEngineDebug::CoreOutPutString("Current RGB : " + Color.ToString());
+	UEngineDebug::CoreOutPutString("Enemy count : " + std::to_string(GetCurRoom()->GetEnemyCount()));
 
 	UEngineDebug::CoreOutPutString("Location : " + GetActorLocation().ToString(), GetDebugLocation(0));
 	UEngineDebug::CoreOutPutString("Level : " + GetWorld()->GetName(), GetDebugLocation(1));

@@ -177,7 +177,8 @@ void ADoor::Tick(float DeltaTime)
 
 int ADoor::Interact(ABaseCharacter* Character)
 {
-	if (0 < PlayerDataManager::GetInstance().GetKey())
+	if (0 < PlayerDataManager::GetInstance().GetKey()
+	 && EDoorType::KEYTYPE == DoorType)
 	{
 		PlayerDataManager::GetInstance().AddKey(-1);
 		//SpriteRenderer->SetOrder(Character->GetSpriteOrder() + 1);

@@ -15,7 +15,9 @@ ALantern::ALantern()
 		FVector2D SpriteScale = SpriteRenderer->SetSpriteScale(1.0f);
 		SpriteRenderer->SetComponentLocation(FVector2D::ZERO);
 		SpriteRenderer->SetComponentScale(SpriteScale);
+		SpriteRenderer->SetAlphafloat(0.0f);
 		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
+		SpriteRenderer->SetActive(false);
 	}
 	{
 		UISpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -41,6 +43,7 @@ void ALantern::BeginPlay()
 void ALantern::Tick(float DeltaTime)
 {
 	AWeaponItem::Tick(DeltaTime);
+	SpriteRenderer->SetAlphafloat(0.0f);
 }
 
 void ALantern::Action(float Tick)

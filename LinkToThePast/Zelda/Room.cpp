@@ -10,6 +10,7 @@
 #include "BaseCharacter.h"
 #include "RoomMove.h"
 #include "Door.h"
+#include <EngineCore/EngineCoreDebug.h>
 
 ARoom::ARoom()
 {
@@ -100,7 +101,16 @@ void ARoom::StartNormal()
 
 void ARoom::Gimmick(float DeltaTime)
 {
-
+	if (EnemyCount == 0)
+	{
+		for (int i = 0; i < Doores.size(); i++)
+		{
+			if (EDoorType::GIMMICK == Doores[i]->GetDoorType())
+			{
+				Doores[i]->ChangeState(EDoorState::OPEN);
+			}
+		}
+	}
 }
 
 void ARoom::Normal(float DeltaTime)

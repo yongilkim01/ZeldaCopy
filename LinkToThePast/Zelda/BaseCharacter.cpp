@@ -105,6 +105,10 @@ void ABaseCharacter::SetCurRoom(ARoom* Room, bool IsPlayer)
 	{
 		this->CurRoom->SetPlayer(this);
 	}
+	else
+	{
+		this->CurRoom->AddEnemyCount(1);
+	}
 
 	if (CurRoom->GetOnlySecondFloor())
 	{

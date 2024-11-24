@@ -161,6 +161,7 @@ void AEnemyKnight::KnockBack(float DeltaTime)
 		{
 			DeathEffect = GetWorld()->SpawnActor<AEffectEnemyDeath>();
 			DeathEffect->SetActorLocation(GetActorLocation());
+			GetCurRoom()->AddEnemyCount(-1);
 			DeathEffect->SetOwnerActor(this);
 		}
 

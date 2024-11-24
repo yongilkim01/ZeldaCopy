@@ -40,6 +40,7 @@ void AEffectEnemyDeath::EndEffect()
 {
 	//this->Destroy();
 	this->GetOwnerActor()->Destroy();
+	//this->GetOwnerActor()->GetCurRoom
 }
 
 void AEffectEnemyDeath::DestroyOwner()
