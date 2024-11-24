@@ -81,6 +81,16 @@ void AEventActor::SetEventActorRenderOrder()
 	}
 }
 
+void AEventActor::SetEventActorRenderOrder(int Order)
+{
+	SpriteRenderer->SetOrder(Order);
+}
+
+int AEventActor::GetEventActorRenderOrder()
+{
+	return SpriteRenderer->GetOrder();
+}
+
 void AEventActor::SetCurRoom(ARoom* Room, ERoomFloor RoomFloor)
 {
 	CurRoom = Room;

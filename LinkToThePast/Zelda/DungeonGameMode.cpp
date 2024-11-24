@@ -91,6 +91,10 @@ void ACastleDungeonGameMode::BeginPlay()
 		AChest* Chest1 = GetWorld()->SpawnActor<AChest>();
 		Chest1->SetActorLocation({ 2280, 400 });
 		Chest1->SetCurRoom(Roomes[3], ERoomFloor::FLOOR_2F);
+
+		AChest* Chest2 = GetWorld()->SpawnActor<AChest>();
+		Chest2->SetActorLocation({ 1152, 1120 });
+		Chest2->SetCurRoom(Roomes[2], ERoomFloor::FLOOR_1F);
 	}
 	{
 		// 2256, 594

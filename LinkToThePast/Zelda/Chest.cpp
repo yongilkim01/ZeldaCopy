@@ -4,6 +4,7 @@
 #include "ContentsEnum.h"
 #include "BaseCharacter.h"
 #include "PlayerCharacter.h"
+#include "DropKey.h"
 
 #include <EngineBase/EngineDebug.h>
 
@@ -120,6 +121,9 @@ void AChest::StartClose()
 void AChest::StartOpen()
 {
 	SpriteRenderer->ChangeAnimation("ChestOepn");
+	ADropKeyItem* DropKeyItem = GetWorld()->SpawnActor<ADropKeyItem>();
+	DropKeyItem->SetEventActorRenderOrder(GetEventActorRenderOrder() + 1);
+	DropKeyItem->SetActorLocation(GetActorLocation());
 }
 
 void AChest::Close(float DeltaTime)

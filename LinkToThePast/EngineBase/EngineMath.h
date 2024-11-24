@@ -409,6 +409,10 @@ public:
 		else
 			return value;
 	}
+	static float Sin(float Radian)
+	{
+		return std::sin(Radian);
+	}
 };
 
 

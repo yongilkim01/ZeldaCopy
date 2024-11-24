@@ -118,20 +118,8 @@
     <ClInclude Include="UIManager.h">
       <Filter>3_UI\0_Manager</Filter>
     </ClInclude>
-    <ClInclude Include="BaseItem.h">
-      <Filter>2_Data\5_Item</Filter>
-    </ClInclude>
-    <ClInclude Include="WeaponItem.h">
-      <Filter>2_Data\5_Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Lantern.h">
-      <Filter>2_Data\5_Item</Filter>
-    </ClInclude>
     <ClInclude Include="UIItemBox.h">
       <Filter>3_UI\0_Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Bow.h">
-      <Filter>2_Data\5_Item</Filter>
     </ClInclude>
     <ClInclude Include="EffectFire.h">
       <Filter>2_Data\2_Effect</Filter>
@@ -141,6 +129,24 @@
     </ClInclude>
     <ClInclude Include="Door.h">
       <Filter>2_Data\4_Environment\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="DropItem.h">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
+    <ClInclude Include="DropKey.h">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseItem.h">
+      <Filter>2_Data\5_Item\EquipItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Bow.h">
+      <Filter>2_Data\5_Item\EquipItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Lantern.h">
+      <Filter>2_Data\5_Item\EquipItem</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponItem.h">
+      <Filter>2_Data\5_Item\EquipItem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -288,20 +294,8 @@
     <ClCompile Include="UIManager.cpp">
       <Filter>3_UI\0_Manager</Filter>
     </ClCompile>
-    <ClCompile Include="BaseItem.cpp">
-      <Filter>2_Data\5_Item</Filter>
-    </ClCompile>
-    <ClCompile Include="WeaponItem.cpp">
-      <Filter>2_Data\5_Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Lantern.cpp">
-      <Filter>2_Data\5_Item</Filter>
-    </ClCompile>
     <ClCompile Include="UIItemBox.cpp">
       <Filter>3_UI\0_Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Bow.cpp">
-      <Filter>2_Data\5_Item</Filter>
     </ClCompile>
     <ClCompile Include="EffectFire.cpp">
       <Filter>2_Data\2_Effect</Filter>
@@ -311,6 +305,24 @@
     </ClCompile>
     <ClCompile Include="Door.cpp">
       <Filter>2_Data\4_Environment\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="DropItem.cpp">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClCompile>
+    <ClCompile Include="DropKey.cpp">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseItem.cpp">
+      <Filter>2_Data\5_Item\EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Bow.cpp">
+      <Filter>2_Data\5_Item\EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Lantern.cpp">
+      <Filter>2_Data\5_Item\EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponItem.cpp">
+      <Filter>2_Data\5_Item\EquipItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -394,6 +406,12 @@
     </Filter>
     <Filter Include="2_Data\4_Environment\Door">
       <UniqueIdentifier>{3495bc6d-f3a9-4f6e-8026-887aa761aa29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\5_Item\Drop">
+      <UniqueIdentifier>{05cc67e6-61d0-46d9-acde-c701ab6557be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\5_Item\EquipItem">
+      <UniqueIdentifier>{cd8eaa27-290f-4c59-936d-a5ab42f5fb70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

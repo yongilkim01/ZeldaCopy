@@ -38,6 +38,8 @@ public:
 	void HoldToCharacter(FVector2D CharacterDirction);
 	void AddEventActorLocation(FVector2D Location);
 	void SetEventActorRenderOrder();
+	void SetEventActorRenderOrder(int Order);
+	int GetEventActorRenderOrder();
 	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
 	FVector2D GetDirectionToThisLocation(FVector2D TargetLocation);
 	FVector2D GetNormalDirectionToTargetLocation(FVector2D TargetLocation);
@@ -60,6 +62,7 @@ public:
 protected:
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* Collision = nullptr;
+	UCollision2D* ImmuneCollision = nullptr;
 	FVector2D CurDirection = FVector2D::ZERO;
 
 	bool IsControl = false;
