@@ -1,9 +1,11 @@
 #pragma once
 #include "BaseCharacter.h"
+#include "ContentsEnum.h"
 
 class APlayerCharacter;
 class AEffectEnemyDeath;
 class UCollision2D;
+class ADropItem;
 
 enum class EEnemyState
 {
@@ -39,9 +41,13 @@ public:
 	EEnemyState GetCurEnemyState() { return this->CurEnemyState; }
 	void SetCurEnemyState(EEnemyState EnemyState) { this->CurEnemyState = EnemyState; }
 	bool GetDeathEffectAnimationIsEnd();
+	void SetDropItemType(EDropItemType ItemType)
+	{
+		DropItemType = ItemType;
+	}
 
 protected:
-	/** 액터 가상함수 */
+	/** 액터 상속 메소드 */
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
@@ -65,6 +71,9 @@ protected:
 	float AttackCoolTime = 0.0f;
 
 	bool IsAttack = false;
+
+	//ADropItem* DropItem = nullptr;
+	EDropItemType DropItemType = EDropItemType::NONE;
 
 private:
 };

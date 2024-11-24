@@ -42,6 +42,18 @@ void ACastleDungeonGameMode::BeginPlay()
 	}
 
 	{
+		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
+		EnemyCharacter->SetActorLocation({ 1270, 1070 });
+		EnemyCharacter->SetSpeed(150.0f);
+		EnemyCharacter->AddTurningLocation(FVector2D(1270, 1070));
+		EnemyCharacter->AddTurningLocation(FVector2D(1270, 1200));
+		EnemyCharacter->SetDropItemType(EDropItemType::KEY);
+
+		CheckCharacterInRoom(EnemyCharacter);
+
+	}
+
+	{
 		ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
 		EnemyCharacter->SetActorLocation({ 240, 1100 });
 		EnemyCharacter->SetSpeed(150.0f);

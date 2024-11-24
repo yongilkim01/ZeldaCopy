@@ -1,22 +1,6 @@
 #pragma once
 #include "EventActor.h"
 
-enum class EDropItemType
-{
-	NONE,
-	KEY,
-	LANTERN,
-	HEART,
-	BOW
-};
-
-enum class EDropItemState
-{
-	NONE,
-	DROP,
-	PICKUP,
-};
-
 /**
  *	Ό³Έν
  */

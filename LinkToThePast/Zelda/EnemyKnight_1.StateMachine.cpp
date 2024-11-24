@@ -3,6 +3,8 @@
 #include "PlayerCharacter.h"
 #include "EffectEnemyDeath.h"
 #include "Room.h"
+#include "DropKey.h"
+#include "DropItem.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EngineCore/SpriteRenderer.h>
@@ -163,6 +165,25 @@ void AEnemyKnight::KnockBack(float DeltaTime)
 			DeathEffect->SetActorLocation(GetActorLocation());
 			GetCurRoom()->AddEnemyCount(-1);
 			DeathEffect->SetOwnerActor(this);
+
+			ADropItem* DropItem = nullptr;
+
+			switch (DropItemType)
+			{
+			case EDropItemType::KEY:
+				DropItem = GetWorld()->SpawnActor<ADropKeyItem>();
+				DropItem->SetEventActorRenderOrder(SpriteRenderer->GetOrder() + 1);
+				DropItem->SetActorLocation(GetActorLocation());
+				break;
+			case EDropItemType::LANTERN:
+				break;
+			case EDropItemType::HEART:
+				break;
+			case EDropItemType::BOW:
+				break;
+			default:
+				break;
+			}
 		}
 
 		return;

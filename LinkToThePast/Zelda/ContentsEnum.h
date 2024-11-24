@@ -34,3 +34,19 @@ enum class ERoomFloor
 	FLOOR_1F,
 	FLOOR_2F,
 };
+
+enum class EDropItemType
+{
+	NONE,
+	KEY,
+	LANTERN,
+	HEART,
+	BOW
+};
+
+enum class EDropItemState
+{
+	NONE,
+	DROP,
+	PICKUP,
+};
