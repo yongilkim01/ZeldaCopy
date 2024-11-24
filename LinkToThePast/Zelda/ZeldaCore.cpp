@@ -97,6 +97,7 @@ void UZeldaCore::BeginPlay()
 
 	UImageManager::GetInst().CuttingSprite("Chest.png", { 48, 48 });
 	UImageManager::GetInst().CuttingSprite("DoorDown.png", { 96, 48 });
+	UImageManager::GetInst().CuttingSprite("DoorDownUp.png", { 96, 48 });
 	UImageManager::GetInst().CuttingSprite("DoorDownUp2.png", { 96, 48 });
 	UImageManager::GetInst().CuttingSprite("DoorRightLeft2.png", { 48, 96 });
 

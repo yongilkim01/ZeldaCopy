@@ -68,6 +68,7 @@ public:
 protected:
 
 private:
+	UCollision2D* ImmuneCollision = nullptr;
 	EDoorState CurDoorState = EDoorState::NONE;
 	EDoorDirection DoorDirection = EDoorDirection::NONE;
 	EDoorType DoorType = EDoorType::NONE;

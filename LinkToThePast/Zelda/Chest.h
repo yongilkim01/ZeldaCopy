@@ -47,6 +47,7 @@ protected:
 
 private:
 	EChestState CurChestState = EChestState::NONE;
+	UCollision2D* ImmuneCollision = nullptr;
 
 	APlayerCharacter* Owner = nullptr;
 

@@ -59,21 +59,93 @@ ARoom::~ARoom()
 {
 }
 
+void ARoom::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
 void ARoom::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	PrintDebugRoomInfo();
+
+	switch (CurRoomState)
+	{
+	case ERoomState::NORMAL:
+		Normal(DeltaTime);
+		break;
+	case ERoomState::GIMMICK:
+		Gimmick(DeltaTime);
+		break;
+	default:
+		break;
+	}
+
+}
+
+void ARoom::StartGimmick()
+{
+	GimmickCollision->SetActive(false);
+
+	for (int i = 0; i < Doores.size(); i++)
+	{
+		Doores[i]->ChangeState(EDoorState::CLOSE);
+	}
+}
+
+void ARoom::StartNormal()
+{
+}
+
+void ARoom::Gimmick(float DeltaTime)
+{
+
+}
+
+void ARoom::Normal(float DeltaTime)
+{
+	if (ERoomType::NORMAL == RoomType) return;
+
+	AActor* Result = GimmickCollision->CollisionOnce(ECollisionGroup::PlayerBody);
+
+	Result = dynamic_cast<APlayerCharacter*>(Result);
+
+	if (nullptr != Result)
+	{
+		ChangeState(ERoomState::GIMMICK);
+	}
+}
+
+void ARoom::ChangeState(ERoomState State)
+{
+	switch (State)
+	{
+	case ERoomState::NORMAL:
+		StartNormal();
+		break;
+	case ERoomState::GIMMICK:
+		StartGimmick();
+		break;
+	default:
+		break;
+	}
+
+	CurRoomState = State;
+}
+
+
+void ARoom::PrintDebugRoomInfo()
+{
 	if (true == UEngineInput::GetInst().IsDown('Y'))
 	{
 		this->IsDebugRenderMode = !this->IsDebugRenderMode;
-	}	
+	}
 
 	if (CurColSpriteRenderer != nullptr)
 	{
 		CurColSpriteRenderer->SetActive(IsDebugRenderMode);
 	}
-
-	//AActor* Character
 }
 
 void ARoom::AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, EDoorState State, EDoorDirection Direction)
@@ -92,7 +164,7 @@ void ARoom::AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, ED
 		Door->SetDoorRenderOrder(RenderOrder);
 		break;
 	case ERoomFloor::FLOOR_2F:
-		RenderOrder = static_cast<int>(ERenderOrder::SECOND_FLOOR) + 2;
+		RenderOrder = static_cast<int>(ERenderOrder::SECOND_FLOOR) + 1;
 		Door->SetDoorRenderOrder(RenderOrder);
 		break;
 	default:
@@ -100,6 +172,7 @@ void ARoom::AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, ED
 	}
 
 	Door->ChangeState(State);
+	Doores.push_back(Door);
 
 }
 

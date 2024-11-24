@@ -7,6 +7,24 @@
 #include "ContentsEnum.h"
 #include "Door.h"
 
+enum class ERoomState
+{
+	NORMAL,
+	GIMMICK,
+};
+
+enum class ERoomType
+{
+	NORMAL,
+	GIMMICK,
+};
+
+enum class EGimmickType
+{
+	NONE,
+	ENEMY,
+};
+
 class USpriteRenderer;
 class URoomMove;
 class UEngineWinImage;
@@ -14,11 +32,6 @@ class ABaseCharacter;
 class APlayerCharacter;
 class UCollision2D;
 
-enum class EGimmickType
-{
-	NONE,
-	ENEMY,
-};
 
 
 /**
@@ -37,8 +50,18 @@ public:
 	ARoom& operator=(const ARoom& _Other) = delete;
 	ARoom& operator=(ARoom&& _Other) noexcept = delete;
 
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
+	void StartGimmick();
+	void StartNormal();
+
+	void Gimmick(float DeltaTime);
+	void Normal(float DeltaTime);
+
+	void ChangeState(ERoomState State);
+
+	void PrintDebugRoomInfo();
 	void AddDoor(FVector2D Location, ERoomFloor RoomFloor, EDoorType Type, EDoorState State, EDoorDirection Direction);
 	void SetGimmickCollision(FVector2D Location, FVector2D Size);
 
@@ -99,6 +122,14 @@ public:
 	{
 		return this->IsOnlySecondFloor;
 	}
+	void SetRoomType(ERoomType RoomType)
+	{
+		this->RoomType = RoomType;
+	}
+	ERoomType GetRoomType()
+	{
+		return RoomType;
+	}
 
 protected:
 
@@ -114,6 +145,8 @@ private:
 	APlayerCharacter* PlayerCharacter = nullptr;
 
 	ERoomFloor CurFloor = ERoomFloor::FLOOR_1F;
+	ERoomState CurRoomState = ERoomState::NORMAL;
+	ERoomType RoomType = ERoomType::NORMAL;
 
 	std::vector<USpriteRenderer*> EnvSprites;
 	std::vector<ADoor*> Doores;

@@ -132,10 +132,17 @@ void ACastleDungeonGameMode::BeginPlayRoomActor()
 			FVector2D(576 + 24, 354 + 48),
 			ERoomFloor::FLOOR_1F,
 			EDoorType::GIMMICK,
-			EDoorState::OPEN,
+			EDoorState::CLOSE,
 			EDoorDirection::RIGHT);
+		this->Roomes[1]->AddDoor(
+			FVector2D(336 + 48, 114 + 24),
+			ERoomFloor::FLOOR_2F,
+			EDoorType::KEYTYPE,
+			EDoorState::CLOSE,
+			EDoorDirection::UP);
 
-		this->Roomes[1]->SetGimmickCollision(FVector2D(385, 450), FVector2D(340, 200));
+		this->Roomes[1]->SetGimmickCollision(FVector2D(385, 380), FVector2D(340, 200));
+		this->Roomes[1]->SetRoomType(ERoomType::GIMMICK);
 
 	}
 	{
