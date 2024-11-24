@@ -30,8 +30,9 @@ public:
 protected:
 
 private:
-	float DropSpeed = 300.0f;
+	float DropSpeed = 0.5f;
 	float DropLength = 50.0f;
-	float DropFrequency = 1.0f;
+	float DropFrequency = 10.0f;
+	float CurrentDeltaTime = 0.0f;
 };
 

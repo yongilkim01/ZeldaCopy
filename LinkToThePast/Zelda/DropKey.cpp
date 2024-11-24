@@ -1,11 +1,14 @@
 #include "PreCompile.h"
 #include "DropKey.h"
 #include "ContentsEnum.h"
+#include "PlayerCharacter.h"
+#include "PlayerDataManager.h"
 
 #include <EngineBase/EngineMath.h>
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
+#include <EngineCore/EngineCoreDebug.h>
 
 ADropKeyItem::ADropKeyItem()
 {
@@ -60,9 +63,21 @@ void ADropKeyItem::StartPickup()
 
 void ADropKeyItem::Drop(float DeltaTime)
 {
-	FVector2D CurLocation = GetActorLocation();
-	CurLocation.Y = DropSpeed + DropLength * UEngineMath::Sin(2 * PI * DropFrequency * DeltaTime);
-	//SetActorLocation(CurLocation);
+	if (DropSpeed > 0.0f)
+	{
+		CurrentDeltaTime += DeltaTime;
+		AddActorLocation(FVector2D(0.0f, DropSpeed * UEngineMath::Sin(CurrentDeltaTime * DropFrequency)));
+		DropSpeed -= 0.0001;
+	}
+	else
+	{
+		AActor* Result = Collision->CollisionOnce(ECollisionGroup::PlayerBody);
+		if (nullptr != Result)
+		{
+			PlayerDataManager::GetInstance().AddKey(1);
+			Destroy();
+		}
+	}
 }
 
 void ADropKeyItem::Pickup(float DeltaTime)
