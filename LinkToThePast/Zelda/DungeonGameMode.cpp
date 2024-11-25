@@ -33,9 +33,57 @@ void ACastleDungeonGameMode::BeginPlay()
 	{
 		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
 		EnemyCharacter->SetActorLocation({ 2332, 1724 });
-		EnemyCharacter->SetSpeed(150.0f);
+		EnemyCharacter->SetSpeed(100.0f);
 		EnemyCharacter->AddTurningLocation(FVector2D(2332, 1974));
 		EnemyCharacter->AddTurningLocation(FVector2D(2332, 1724));
+
+		CheckCharacterInRoom(EnemyCharacter);
+
+	}
+
+	{
+		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
+		EnemyCharacter->SetActorLocation({ 2000, 1974 });
+		EnemyCharacter->SetSpeed(100.0f);
+		EnemyCharacter->AddTurningLocation(FVector2D(2000, 1974));
+		EnemyCharacter->AddTurningLocation(FVector2D(2000, 1724));
+
+		CheckCharacterInRoom(EnemyCharacter);
+
+	}
+
+	{
+		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
+		EnemyCharacter->SetActorLocation({ 2555, 2305 });
+		EnemyCharacter->SetSpeed(100.0f);
+		EnemyCharacter->AddTurningLocation(FVector2D(2555, 2305));
+		EnemyCharacter->AddTurningLocation(FVector2D(2555, 2680));
+
+		CheckCharacterInRoom(EnemyCharacter);
+
+	}
+
+	{
+		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
+		EnemyCharacter->SetActorLocation({ 2400, 280 });
+		EnemyCharacter->SetSpeed(100.0f);
+		EnemyCharacter->AddTurningLocation(FVector2D(2400, 280));
+		EnemyCharacter->AddTurningLocation(FVector2D(2400, 500));
+		EnemyCharacter->AddTurningLocation(FVector2D(2230, 500));
+		EnemyCharacter->AddTurningLocation(FVector2D(2230, 280));
+		EnemyCharacter->SetDropItemType(EDropItemType::KEY);
+
+		CheckCharacterInRoom(EnemyCharacter);
+
+	}
+	{
+		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
+		EnemyCharacter->SetActorLocation({ 2250, 1100 });
+		EnemyCharacter->SetSpeed(100.0f);
+		EnemyCharacter->AddTurningLocation(FVector2D(2250, 1100));
+		EnemyCharacter->AddTurningLocation(FVector2D(2250, 1270));
+		EnemyCharacter->AddTurningLocation(FVector2D(2050, 1270));
+		EnemyCharacter->AddTurningLocation(FVector2D(2050, 1100));
 
 		CheckCharacterInRoom(EnemyCharacter);
 
