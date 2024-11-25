@@ -80,6 +80,10 @@ public:
 	{
 		return SpriteRenderer->GetOrder();
 	}
+	USpriteRenderer* GetSpriteRenderer()
+	{
+		return SpriteRenderer;
+	}
 protected:
 	/** 액터 가상 메소드 */
 	virtual void BeginPlay() override;
@@ -91,12 +95,10 @@ protected:
 	FVector2D CollisionSize = { 20.0f, 30.0f };
 
 	USpriteRenderer* SpriteRenderer = nullptr;
-
 	UCollision2D* BodyCollision = nullptr;
 
 private:
 	FVector2D CurDirection = FVector2D::ZERO;
-
 	ARoom* CurRoom = nullptr;
 	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
 	UEngineWinImage* CollisionImage = nullptr;

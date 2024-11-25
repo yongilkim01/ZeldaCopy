@@ -1,9 +1,11 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include <EnginePlatform/EngineSound.h>
 
 class USpriteRenderer;
 class UCollision2D;
 class APlayerCharacter;
+class ABaseCharacter;
 class UEngineWinImage;
 class ARoom;
 
@@ -79,12 +81,18 @@ private:
 	UCollision2D* Collision = nullptr;
 
 	APlayerCharacter* PlayerCharacter = nullptr;
+	ABaseCharacter* HitCharacter = nullptr;
 	ARoom* CurRoom = nullptr;
 	EArrowState CurState = EArrowState::NONE;
+	USoundPlayer SoundPlayer;
+
 	FVector2D CurDirection = FVector2D::ZERO;
+	FVector2D PrevHitLocation = FVector2D::ZERO;
 
 	float Speed = 600.0f;
 	float HitCheckTime = 0.5f;
 	float HitCurrentTime = 0.0f;
+	float LifeCheckTime = 2.0f;
+	float LifeCurrentTime = 0.0f;
 };
 

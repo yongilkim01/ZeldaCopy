@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Arrow.h"
 #include "ContentsEnum.h"
+#include "BaseCharacter.h"
 #include "Room.h"
 
 #include <EngineBase/EngineMath.h>
@@ -27,6 +28,7 @@ AArrow::AArrow()
 		Collision->SetCollisionGroup(ECollisionGroup::PlayerAttack);
 		Collision->SetActive(true);
 	}
+	DebugOn();
 }
 
 AArrow::~AArrow()
@@ -62,6 +64,8 @@ void AArrow::Tick(float DeltaTime)
 
 void AArrow::StartThrow()
 {
+	SoundPlayer = UEngineSound::Play("arrow 1.wav");
+
 	if (FVector2D::RIGHT == CurDirection)
 	{
 		SpriteRenderer->SetSprite("Arrow.png", 0);
@@ -152,10 +156,20 @@ void AArrow::Throw(float DeltaTime)
 		CheckSize = { 0.0f, 22.0f };
 	}
 
-	UColor CheckColor = CollisionImage->GetColor(CheckLocation + CheckSize, UColor::PINK);
+	UColor CheckColor = CollisionImage->GetColor(CheckLocation, UColor::PINK);
 
 	if (UColor::PINK == CheckColor)
 	{
+		ChangeState(EArrowState::HIT);
+	}
+
+	ABaseCharacter* Character = dynamic_cast<ABaseCharacter*>(Collision->CollisionOnce(ECollisionGroup::EnemyBody));
+	
+	if (nullptr != Character)
+	{
+		HitCharacter = Character;
+		PrevHitLocation = HitCharacter->GetActorLocation();
+		Collision->SetActive(false);
 		ChangeState(EArrowState::HIT);
 	}
 }
@@ -168,10 +182,30 @@ void AArrow::Hit(float DeltaTime)
 	{
 		ChangeState(EArrowState::STUCK);
 	}
+
+	if (nullptr != HitCharacter)
+	{
+		FVector2D ChangeLocation = HitCharacter->GetActorLocation() - PrevHitLocation;
+		AddActorLocation(ChangeLocation);
+		PrevHitLocation = HitCharacter->GetActorLocation();
+	}
 }
 
 void AArrow::Stuck(float DeltaTime)
 {
+	LifeCurrentTime += DeltaTime;
+
+	if (LifeCheckTime < LifeCurrentTime)
+	{
+		Destroy();
+	}
+
+	if (nullptr != HitCharacter)
+	{
+		FVector2D ChangeLocation = HitCharacter->GetActorLocation() - PrevHitLocation;
+		AddActorLocation(ChangeLocation);
+		PrevHitLocation = HitCharacter->GetActorLocation();
+	}
 }
 
 void AArrow::ChangeState(EArrowState State)

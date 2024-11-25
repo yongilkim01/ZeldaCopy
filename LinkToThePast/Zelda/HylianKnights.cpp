@@ -41,7 +41,7 @@ AHylianKnight::AHylianKnight()
 	{
 		CollisionComponent = CreateDefaultSubObject<UCollision2D>();
 		CollisionComponent->SetComponentLocation({ 0, 0 });
-		CollisionComponent->SetComponentScale({ 80, 80 });
+		CollisionComponent->SetComponentScale({ 14, 25 });
 		CollisionComponent->SetCollisionGroup(ECollisionGroup::EnemyBody);
 		CollisionComponent->SetCollisionType(ECollisionType::Rect);
 
@@ -84,7 +84,7 @@ AHylianKnight::AHylianKnight()
 	CollisionSize = { 10.0f, 30.0f };
 
 
-	//DebugOn();
+	DebugOn();
 }
 
 AHylianKnight::~AHylianKnight()
