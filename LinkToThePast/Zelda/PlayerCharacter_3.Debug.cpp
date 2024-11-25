@@ -77,6 +77,7 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 
 	UEngineDebug::CoreOutPutString("Weapon count : " + std::to_string(PlayerDataManager::GetInstance().GetWeaponCount()), GetDebugLocation(8));
 	UEngineDebug::CoreOutPutString("Select Index : " + std::to_string(PlayerDataManager::GetInstance().GetSelectWeapon()), GetDebugLocation(9));
+	UEngineDebug::CoreOutPutString("Render Order : " + std::to_string(SpriteRenderer->GetOrder()), GetDebugLocation(10));
 
 	if (true == UEngineInput::GetInst().IsDown('1'))
 	{

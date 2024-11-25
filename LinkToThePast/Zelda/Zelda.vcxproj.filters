@@ -157,6 +157,9 @@
     <ClInclude Include="Arrow.h">
       <Filter>2_Data\5_Item\EquipItem</Filter>
     </ClInclude>
+    <ClInclude Include="DropHeartStay.h">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -341,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>2_Data\5_Item\EquipItem</Filter>
+    </ClCompile>
+    <ClCompile Include="DropHeartStay.cpp">
+      <Filter>2_Data\5_Item\Drop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

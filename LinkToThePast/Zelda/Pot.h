@@ -47,6 +47,10 @@ public:
 
 	/** 항아리 액터 유틸 메소드 */
 	void EndBreak();
+	void SetDropItemType(EDropItemType ItemType)
+	{
+		DropItemType = ItemType;
+	}
 
 protected:
 
@@ -54,6 +58,7 @@ private:
 	EPotState CurPotState = EPotState::NONE;
 
 	APlayerCharacter* Owner = nullptr;
+	EDropItemType DropItemType = EDropItemType::NONE;
 
 	float ThrowSpeed = 1000.0f;
 

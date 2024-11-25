@@ -4,6 +4,7 @@
 #include "ContentsEnum.h"
 #include "BaseCharacter.h"
 #include "PlayerCharacter.h"
+#include "DropHeartStay.h"
 
 #include <EngineBase/EngineDebug.h>
 
@@ -73,8 +74,27 @@ void APot::Tick(float DeltaTime)
 
 int APot::Interact(ABaseCharacter* Character)
 {
+	ADropItem* DropItem = nullptr;
+	switch (DropItemType)
+	{
+	case EDropItemType::KEY:
+		break;
+	case EDropItemType::LANTERN:
+		break;
+	case EDropItemType::HEART:
+		DropItem = GetWorld()->SpawnActor<ADropHeartStayItem>();
+		DropItem->SetEventActorRenderOrder(SpriteRenderer->GetOrder() + 1);
+		DropItem->SetActorLocation(GetActorLocation());
+		break;
+	case EDropItemType::BOW:
+		break;
+	default:
+		break;
+	}
+
 	SpriteRenderer->SetOrder(Character->GetSpriteOrder() + 1);
 	Owner = dynamic_cast<APlayerCharacter*>(Character);
+
 
 	if (nullptr == Owner)
 	{

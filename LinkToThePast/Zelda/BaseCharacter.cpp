@@ -115,8 +115,8 @@ void ABaseCharacter::SetCurRoom(ARoom* Room, bool IsPlayer)
 		this->CurRoomFloor = ERoomFloor::FLOOR_2F;
 		SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
 		CurRoom->SetCulWinImageTo1F();
+		SpriteRenderer->SetOrder(ERenderOrder::SECOND_FLOOR_OBJ);
 	}
-
 	else
 	{
 		if (CurRoom->GetIsSecondFloor())
@@ -152,13 +152,20 @@ void ABaseCharacter::SetCharacterRenderOrder()
 	if (nullptr != GetCurRoom())
 	{
 		int FloorOrder = 0;
-		if (ERoomFloor::FLOOR_1F == GetCurRoom()->GetCuRoomFloor())
+		if (true == CurRoom->GetOnlySecondFloor())
 		{
-			FloorOrder = static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ);
+			FloorOrder = static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ);
 		}
 		else
 		{
-			FloorOrder = static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ);
+			if (ERoomFloor::FLOOR_1F == GetCurRoom()->GetCuRoomFloor())
+			{
+				FloorOrder = static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ);
+			}
+			else
+			{
+				FloorOrder = static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ);
+			}
 		}
 		int Padding = GetActorLocation().iY() - GetCurRoom()->GetActorLocation().iY();
 		this->SpriteRenderer->SetOrder(FloorOrder + Padding);

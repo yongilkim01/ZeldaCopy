@@ -186,6 +186,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="DropHeart.h" />
+    <ClInclude Include="DropHeartStay.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="DropKey.h" />
     <ClInclude Include="DungeonGameMode.h" />
@@ -339,6 +343,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="DropHeart.cpp" />
+    <ClCompile Include="DropHeartStay.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="DropKey.cpp" />
     <ClCompile Include="DungeonGameMode.cpp" />

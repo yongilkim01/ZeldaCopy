@@ -91,6 +91,7 @@ void ACastleDungeonGameMode::BeginPlay()
 		APot* Pot1 = GetWorld()->SpawnActor<APot>();
 		Pot1->SetActorLocation({ 2473, 2369 });
 		Pot1->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
+		Pot1->SetDropItemType(EDropItemType::HEART);
 
 		APot* Pot2 = GetWorld()->SpawnActor<APot>();
 		Pot2->SetActorLocation({ 2161, 1985 });
