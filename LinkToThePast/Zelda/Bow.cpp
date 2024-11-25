@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "Bow.h"
 #include "ContentsEnum.h"
+#include "Arrow.h"
+#include "PlayerCharacter.h"
+#include "Room.h"
 
 #include <EngineCore/SpriteRenderer.h>
 
@@ -40,5 +43,27 @@ void ABow::Tick(float DeltaTime)
 {
 	AWeaponItem::Tick(DeltaTime);
 	int a = 0;
+}
+
+void ABow::Action(float DeltaTime)
+{
+	AArrow* Arrow = GetWorld()->SpawnActor<AArrow>();
+	Arrow->SetDirection(OwnerPlayer->GetCurDirection());
+	Arrow->SetCollisionImage(OwnerPlayer->GetCollisionImage());
+	Arrow->SetCurRoom(OwnerPlayer->GetCurRoom());
+	switch (OwnerPlayer->GetCurRoomFloor())
+	{
+	case ERoomFloor::FLOOR_1F:
+		Arrow->SetOrder(static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ) + 1000);
+		break;
+	case ERoomFloor::FLOOR_2F:
+		Arrow->SetOrder(static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ) + 1000);
+		break;
+	default:
+		break;
+
+	}
+	float DistanceToOwner = OwnerPlayer->GetChildDistance();
+	Arrow->SetActorLocation(GetActorLocation() + (OwnerPlayer->GetCurDirection() * DistanceToOwner));
 }
 
