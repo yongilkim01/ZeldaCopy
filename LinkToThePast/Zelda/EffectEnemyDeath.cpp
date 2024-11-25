@@ -29,6 +29,8 @@ AEffectEnemyDeath::~AEffectEnemyDeath()
 void AEffectEnemyDeath::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//EffectSoundPlayer = UEngineSound::Play("enemy dies.wav");
 }
 
 void AEffectEnemyDeath::Tick(float DeltaTime)

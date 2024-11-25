@@ -79,7 +79,7 @@ void ADropKeyItem::Pickup(float DeltaTime)
 	{
 		CurrentDeltaTime += DeltaTime;
 		AddActorLocation(FVector2D(0.0f, DropSpeed * UEngineMath::Sin(CurrentDeltaTime * DropFrequency)));
-		DropSpeed -= 0.0001;
+		DropSpeed -= 0.0006;
 	}
 	else
 	{

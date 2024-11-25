@@ -177,6 +177,10 @@
     <ClInclude Include="Chest.h" />
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="DropBow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="DropHeart.h" />
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="DropKey.h" />
@@ -322,6 +326,10 @@
     <ClCompile Include="Chest.cpp" />
     <ClCompile Include="ContentsEnum.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="DropBow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="DropHeart.cpp" />
     <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="DropKey.cpp" />

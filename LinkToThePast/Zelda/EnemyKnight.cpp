@@ -38,6 +38,7 @@ void AEnemyKnight::Tick(float DeltaTime)
 void AEnemyKnight::TakeDamage(int Damage, AActor* Character)
 {
 	if (CurEnemyState == EEnemyState::KnockBack) return;
+	EffectSoundPlayer = UEngineSound::Play("enemy hit.wav");
 	CurrentHP -= Damage;
 	KnockBackDir = GetActorLocation() - Character->GetActorLocation();
 	KnockBackDir.Normalize();

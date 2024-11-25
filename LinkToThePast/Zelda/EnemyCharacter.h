@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseCharacter.h"
 #include "ContentsEnum.h"
+#include <EnginePlatform/EngineSound.h>
 
 class APlayerCharacter;
 class AEffectEnemyDeath;
@@ -74,7 +75,9 @@ protected:
 
 	//ADropItem* DropItem = nullptr;
 	EDropItemType DropItemType = EDropItemType::NONE;
+	USoundPlayer EffectSoundPlayer;
 
 private:
+	
 };
 

@@ -15,6 +15,8 @@
 
 void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 {
+	if (CurPlayerState == ChangeState) return;
+
 	switch (ChangeState)
 	{
 	case EPlayerState::Idle:
@@ -102,6 +104,8 @@ void APlayerCharacter::StartMove()
 
 void APlayerCharacter::StartAttack()
 {
+	EffectSoundPlayer = UEngineSound::Play("fighter sword 2.wav");
+
 	if (GetCurDirection() == FVector2D::RIGHT)
 	{
 		SpriteRenderer->ChangeAnimation("Attack_Right", true);
@@ -216,7 +220,7 @@ void APlayerCharacter::Idle(float DeltaTime)
 		return;
 	}
 
-	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
+	if (UEngineInput::GetInst().IsDown(VK_LBUTTON) == true &&
 		CurPlayerState != EPlayerState::Attack)
 	{
 		StartAttack();
@@ -296,7 +300,7 @@ void APlayerCharacter::Move(float DeltaTime)
 		ChangeState(EPlayerState::Idle);
 	}
 
-	if (UEngineInput::GetInst().IsPress(VK_LBUTTON) == true &&
+	if (UEngineInput::GetInst().IsDown(VK_LBUTTON) == true &&
 		CurPlayerState != EPlayerState::Attack)
 	{
 		StartAttack();
@@ -374,8 +378,6 @@ void APlayerCharacter::LiftMove(float DeltaTime)
 
 void APlayerCharacter::Attack(float DeltaTime)
 {
-	//EffectSoundPlayer = UEngineSound::Play("sword_beam.wav");
-
 	SetCameraLocationToPlayer();
 	if (IsAttack == true) return;
 

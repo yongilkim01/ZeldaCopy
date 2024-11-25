@@ -1,5 +1,6 @@
 #pragma once
 #include "ZeldaGameMode.h"
+#include <EnginePlatform/EngineSound.h>
 
 /**
  *	Ό³Έν
@@ -28,6 +29,5 @@ public:
 protected:
 
 private:
-
+	USoundPlayer EffectSoundPlayer;
 };
-

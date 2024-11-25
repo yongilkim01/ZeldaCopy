@@ -13,6 +13,8 @@ class AEnemyCharacter;
 class AEventActor;
 class ALantern;
 class AWeaponItem;
+class ABow;
+class ALantern;
 
 enum class EPlayerState
 {
@@ -119,6 +121,8 @@ private:
 	FVector2D KnockBackDir = FVector2D::ZERO;
 
 	AEventActor* OwnedEventActor = nullptr;
+
+	ABow* Bow = nullptr;
 
 	int MySpriteIndex = 0;
 	int IsGround = false;

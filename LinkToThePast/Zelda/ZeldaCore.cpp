@@ -21,6 +21,7 @@ UZeldaCore::UZeldaCore()
 
 UZeldaCore::~UZeldaCore()
 {
+	UEngineSound::Release();
 }
 
 void UZeldaCore::BeginPlay()

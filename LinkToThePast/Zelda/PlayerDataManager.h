@@ -159,6 +159,14 @@ public:
 		return false;
 	}
 
+	void SetWeaponActiveToIndex(int Index, bool Value)
+	{
+		if (0 <= Index && Index < 2)
+		{
+			WeaponActive[Index] = Value;
+		}
+	}
+
 	int GetSelectWeapon()
 	{
 		return CurrentSelectWeapon;
@@ -207,11 +215,11 @@ private:
 	int MaxKey = 9;
 
 	bool WeaponActive[2]  ={
-		true,
-		true
+		true,	// Lantern
+		false	// Bow
 	};
 
-	int CurrentSelectWeapon = 1;
+	int CurrentSelectWeapon = 0;
 	int MaxSelectWeapon = 1;
 };
 

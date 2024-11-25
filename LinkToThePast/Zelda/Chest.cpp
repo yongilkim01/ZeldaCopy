@@ -5,6 +5,9 @@
 #include "BaseCharacter.h"
 #include "PlayerCharacter.h"
 #include "DropKey.h"
+#include "DropItem.h"
+#include "DropHeart.h"
+#include "DropBow.h"
 
 #include <EngineBase/EngineDebug.h>
 
@@ -121,9 +124,34 @@ void AChest::StartClose()
 void AChest::StartOpen()
 {
 	SpriteRenderer->ChangeAnimation("ChestOepn");
-	ADropKeyItem* DropKeyItem = GetWorld()->SpawnActor<ADropKeyItem>();
-	DropKeyItem->SetEventActorRenderOrder(GetEventActorRenderOrder() + 1);
-	DropKeyItem->SetActorLocation(GetActorLocation());
+	//ADropKeyItem* DropKeyItem = GetWorld()->SpawnActor<ADropKeyItem>();
+	//DropKeyItem->SetEventActorRenderOrder(GetEventActorRenderOrder() + 1);
+	//DropKeyItem->SetActorLocation(GetActorLocation());
+
+	ADropItem* DropItem = nullptr;
+
+	switch (DropItemType)
+	{
+	case EDropItemType::KEY:
+		DropItem = GetWorld()->SpawnActor<ADropKeyItem>();
+		DropItem->SetEventActorRenderOrder(GetEventActorRenderOrder() + 1);
+		DropItem->SetActorLocation(GetActorLocation());
+		break;
+	case EDropItemType::LANTERN:
+		break;
+	case EDropItemType::HEART:
+		DropItem = GetWorld()->SpawnActor<ADropHeartItem>();
+		DropItem->SetEventActorRenderOrder(GetEventActorRenderOrder() + 1);
+		DropItem->SetActorLocation(GetActorLocation());
+		break;
+	case EDropItemType::BOW:
+		DropItem = GetWorld()->SpawnActor<ADropBowItem>();
+		DropItem->SetEventActorRenderOrder(GetEventActorRenderOrder() + 1);
+		DropItem->SetActorLocation(GetActorLocation());
+		break;
+	default:
+		break;
+	}
 }
 
 void AChest::Close(float DeltaTime)

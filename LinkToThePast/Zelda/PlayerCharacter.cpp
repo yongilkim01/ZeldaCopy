@@ -188,19 +188,19 @@ void APlayerCharacter::LevelChangeEnd()
 
 void APlayerCharacter::CreateItem()
 {
-	ALantern* Lantern = GetWorld()->SpawnActor<ALantern>();
+	Lantern = GetWorld()->SpawnActor<ALantern>();
 	Lantern->SetActorLocation(GetActorLocation());
 	Lantern->SetPlayer(this);
 	WeaponItemes.push_back(Lantern);
 	Lantern->SetActive(
-		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1)
+		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1) // 0
 	);
 
-	ABow* Bow = GetWorld()->SpawnActor<ABow>();
+	Bow = GetWorld()->SpawnActor<ABow>();
 	Bow->SetActorLocation(GetActorLocation());
 	Bow->SetPlayer(this);
 	WeaponItemes.push_back(Bow);
 	Bow->SetActive(
-		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1)
+		false // 1
 	);
 }

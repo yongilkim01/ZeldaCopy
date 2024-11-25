@@ -151,6 +151,9 @@
     <ClInclude Include="DropHeart.h">
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClInclude>
+    <ClInclude Include="DropBow.h">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -330,6 +333,9 @@
     <ClCompile Include="DropHeart.cpp">
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClCompile>
+    <ClCompile Include="DropBow.cpp">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="1_GameMode">
@@ -418,6 +424,9 @@
     </Filter>
     <Filter Include="2_Data\5_Item\EquipItem">
       <UniqueIdentifier>{cd8eaa27-290f-4c59-936d-a5ab42f5fb70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Sound">
+      <UniqueIdentifier>{094869bf-2ce8-4613-bd28-45f4d3561e4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

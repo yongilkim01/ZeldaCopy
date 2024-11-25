@@ -1,5 +1,6 @@
 #pragma once
 #include "EventActor.h"
+#include "ContentsEnum.h"
 
 class APlayerCharacter;
 
@@ -42,12 +43,18 @@ public:
 	void Close(float DeltaTime);
 	void Open(float DeltaTime);
 
+	/** °Ù, ¼Â ¸Þ¼Òµå */
+	void SetDropItemType(EDropItemType ItemType)
+	{
+		DropItemType = ItemType;
+	}
 
 protected:
 
 private:
 	EChestState CurChestState = EChestState::NONE;
 	APlayerCharacter* Owner = nullptr;
+	EDropItemType DropItemType = EDropItemType::NONE;
 
 };
 

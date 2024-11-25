@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include <EnginePlatform/EngineSound.h>
 
 class USpriteRenderer;
 
@@ -33,6 +34,7 @@ public:
 
 protected:
 	USpriteRenderer* SpriteRenderer = nullptr;
+	//USoundPlayer EffectSoundPlayer;
 private:
 	AActor* OwnerActor = nullptr;
 };

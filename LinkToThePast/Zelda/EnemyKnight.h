@@ -1,6 +1,8 @@
 #pragma once
 #include "EnemyCharacter.h"
 
+#include <EnginePlatform/EngineSound.h>
+
 class USpriteRenderer;
 class UCollision2D;
 
@@ -46,5 +48,6 @@ protected:
 private:
 
 	int KnockBackCnt = 0;
+	USoundPlayer WalSoundPlayer;
 
 };

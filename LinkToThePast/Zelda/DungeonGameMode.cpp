@@ -108,6 +108,7 @@ void ACastleDungeonGameMode::BeginPlay()
 		AChest* Chest2 = GetWorld()->SpawnActor<AChest>();
 		Chest2->SetActorLocation({ 1152, 1120 });
 		Chest2->SetCurRoom(Roomes[2], ERoomFloor::FLOOR_1F);
+		Chest2->SetDropItemType(EDropItemType::BOW);
 	}
 	{
 		// 2256, 594
