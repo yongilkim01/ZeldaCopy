@@ -108,6 +108,11 @@ void ULevel::Tick(float _DeltaTime)
 		{
 			AActor* CurActor = *StartIter;
 
+			if (CurActor->IsActive() == false)
+			{
+				continue;
+			}
+
 			CurActor->Tick(_DeltaTime);
 		}
 	}
@@ -342,12 +347,6 @@ void ULevel::BeginPlayCheck()
 	for (; StartIter != EndIter; ++StartIter)
 	{
 		AActor* CurActor = *StartIter;
-
-		if (CurActor->IsActive() == false)
-		{
-			continue;
-		}
-
 		CurActor->BeginPlay();
 		AllActors.push_back(CurActor);
 	}

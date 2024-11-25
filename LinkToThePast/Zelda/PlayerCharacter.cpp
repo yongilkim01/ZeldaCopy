@@ -201,6 +201,6 @@ void APlayerCharacter::CreateItem()
 	Bow->SetPlayer(this);
 	WeaponItemes.push_back(Bow);
 	Bow->SetActive(
-		false // 1
+		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1) // 1
 	);
 }
