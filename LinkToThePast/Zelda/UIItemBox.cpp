@@ -35,10 +35,7 @@ void AUIItemBox::BeginPlay()
 	Super::BeginPlay();
 
 	Player = dynamic_cast<APlayerCharacter*>(GetWorld()->GetPawn());
-
-	int WeaponSelectIndex = PlayerDataManager::GetInstance().GetSelectWeapon();
-	std::string SpriteName = Player->GetWeaponUISpriteByIndex(WeaponSelectIndex);
-	ItemRenderer->SetSprite(SpriteName);
+	ItemRenderer->SetActive(false);
 
 }
 
@@ -47,7 +44,12 @@ void AUIItemBox::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	int WeaponSelectIndex = PlayerDataManager::GetInstance().GetSelectWeapon();
-	std::string SpriteName = Player->GetWeaponUISpriteByIndex(WeaponSelectIndex);
-	ItemRenderer->SetSprite(SpriteName);
+
+	if (0 != PlayerDataManager::GetInstance().GetWeaponCount())
+	{
+		std::string SpriteName = Player->GetWeaponUISpriteByIndex(WeaponSelectIndex);
+		ItemRenderer->SetSprite("UIBow.png");
+		ItemRenderer->SetActive(true);
+	}
 }
 

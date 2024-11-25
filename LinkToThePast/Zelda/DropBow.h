@@ -1,5 +1,6 @@
 #pragma once
 #include "DropItem.h"
+#include <EnginePlatform/EngineSound.h>
 
 /**
  *	Ό³Έν
@@ -34,5 +35,6 @@ private:
 	float CurrentTime = 0.0f;
 
 	FVector2D CurDropPower = FVector2D::ZERO;
+	USoundPlayer SoundPlayer;
 };
 

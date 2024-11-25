@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "DropItem.h"
+#include "PlayerCharacter.h"
 
 ADropItem::ADropItem()
 {
@@ -13,6 +14,8 @@ ADropItem::~ADropItem()
 void ADropItem::BeginPlay()
 {
 	AEventActor::BeginPlay();
+
+	PlayerCharacter = dynamic_cast<APlayerCharacter*>(GetWorld()->GetPawn());
 }
 
 void ADropItem::Tick(float DeltaTime)

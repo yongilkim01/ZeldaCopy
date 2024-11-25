@@ -99,6 +99,10 @@ public:
 	{
 		return ChildDistance;
 	}
+	ABow* GetBow()
+	{
+		return Bow;
+	}
 
 protected:
 

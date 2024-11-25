@@ -1,6 +1,8 @@
 #pragma once
 #include "EventActor.h"
 
+class APlayerCharacter;
+
 /**
  *	Ό³Έν
  */
@@ -47,11 +49,16 @@ public:
 	{
 		return CurDropItemState;
 	}
+	APlayerCharacter* GetPlayerCharacter()
+	{
+		return PlayerCharacter;
+	}
 
 protected:
 
 private:
 	EDropItemType CurDropItemType = EDropItemType::NONE;
 	EDropItemState CurDropItemState = EDropItemState::NONE;
+	APlayerCharacter* PlayerCharacter = nullptr;
 };
 

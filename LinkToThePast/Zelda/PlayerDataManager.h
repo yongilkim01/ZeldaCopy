@@ -177,16 +177,26 @@ public:
 	}
 	void AddSelectWeapon(int Index)
 	{
+		if (0 == WeaponCount) return;
+
 		this->CurrentSelectWeapon += Index;
 
-		if (CurrentSelectWeapon > MaxSelectWeapon)
+		if (CurrentSelectWeapon >= WeaponCount)
 		{
-			CurrentSelectWeapon = MaxSelectWeapon;
+			CurrentSelectWeapon = WeaponCount - 1;
 		}
 		else if (CurrentSelectWeapon < 0)
 		{
 			CurrentSelectWeapon = 0;
 		}
+	}
+	int GetWeaponCount()
+	{
+		return WeaponCount;
+	}
+	void AddWeaponCount(int Count)
+	{
+		WeaponCount += Count;
 	}
 
 protected:
@@ -215,11 +225,11 @@ private:
 	int MaxKey = 9;
 
 	bool WeaponActive[2]  ={
-		true,	// Lantern
+		false,	// Lantern
 		false	// Bow
 	};
 
-	int CurrentSelectWeapon = 0;
-	int MaxSelectWeapon = 1;
+	int CurrentSelectWeapon = -1;
+	int WeaponCount = 0;
 };
 

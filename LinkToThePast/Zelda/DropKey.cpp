@@ -51,6 +51,7 @@ void ADropKeyItem::BeginPlay()
 void ADropKeyItem::Tick(float DeltaTime)
 {
 	ADropItem::Tick(DeltaTime);
+	//UEngineDebug::CoreOutPutString("location Y : " + std::to_string(SpriteRenderer->GetComponentLocation().Y));
 }
 
 void ADropKeyItem::StartDrop()
@@ -78,16 +79,26 @@ void ADropKeyItem::Pickup(float DeltaTime)
 	if (DropSpeed > 0.0f)
 	{
 		CurrentDeltaTime += DeltaTime;
-		AddActorLocation(FVector2D(0.0f, DropSpeed * UEngineMath::Sin(CurrentDeltaTime * DropFrequency)));
-		DropSpeed -= 0.0006;
-	}
-	else
-	{
-		AActor* Result = Collision->CollisionOnce(ECollisionGroup::PlayerBody);
-		if (nullptr != Result)
+		SpriteRenderer->AddComponentLocation(FVector2D(0.0f, DropSpeed * UEngineMath::Sin(CurrentDeltaTime * DropFrequency)));
+		if (UEngineMath::Sin(CurrentDeltaTime * DropFrequency) < -0.99f && false == IsSoundCheck)
 		{
-			PlayerDataManager::GetInstance().AddKey(1);
-			Destroy();
+			SoundPlayer = UEngineSound::Play("tink.wav");
+			IsSoundCheck = true;
 		}
+
+		if (UEngineMath::Sin(CurrentDeltaTime * DropFrequency) > 0.98f)
+		{
+			IsSoundCheck = false;
+		}
+		DropSpeed -= 0.0006;
+
+	}
+
+	AActor* Result = Collision->CollisionOnce(ECollisionGroup::PlayerBody);
+	if (nullptr != Result)
+	{
+		PlayerDataManager::GetInstance().AddKey(1);
+		SoundPlayer = UEngineSound::Play("key 1.wav");
+		Destroy();
 	}
 }

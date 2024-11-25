@@ -1,5 +1,6 @@
 #pragma once
 #include "EventActor.h"
+#include <EnginePlatform/EngineSound.h>
 
 class APlayerCharacter;
 
@@ -73,6 +74,6 @@ private:
 	EDoorType DoorType = EDoorType::NONE;
 
 	APlayerCharacter* Owner = nullptr;
-
+	USoundPlayer SoundPlayer;
 };
 

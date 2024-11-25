@@ -81,6 +81,7 @@ void AChest::Tick(float DeltaTime)
 
 int AChest::Interact(ABaseCharacter* Character)
 {
+	if (EChestState::OPEN == CurChestState) return 0;
 	if (FVector2D::DOWN == GetDirectionToTargetLocation(Character->GetActorLocation()))
 	{
 		SpriteRenderer->SetOrder(Character->GetSpriteOrder() + 1);

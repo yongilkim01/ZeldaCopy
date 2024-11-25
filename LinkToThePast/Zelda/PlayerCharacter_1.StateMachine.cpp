@@ -398,8 +398,11 @@ void APlayerCharacter::Attack(float DeltaTime)
 
 void APlayerCharacter::Skill(float DeltaTime)
 {
-	WeaponItemes[PlayerDataManager::GetInstance().GetSelectWeapon()]->Action(DeltaTime);
-	ChangeState(EPlayerState::Idle);
+	if (0 != PlayerDataManager::GetInstance().GetWeaponCount())
+	{
+		WeaponItemes[PlayerDataManager::GetInstance().GetSelectWeapon()]->Action(DeltaTime);
+		ChangeState(EPlayerState::Idle);
+	}
 }
 
 void APlayerCharacter::Interact(float DetlaTime)

@@ -219,6 +219,7 @@ void ADoor::ChangeState(EDoorState DoorState)
 
 void ADoor::StartClose()
 {
+	SoundPlayer = UEngineSound::Play("door close.wav");
 	switch (DoorType)
 	{
 	case EDoorType::KEYTYPE:
@@ -264,6 +265,7 @@ void ADoor::StartClose()
 
 void ADoor::StartOpen()
 {
+	SoundPlayer = UEngineSound::Play("door open.wav");
 	switch (DoorType)
 	{
 	case EDoorType::KEYTYPE:

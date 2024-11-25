@@ -3,6 +3,7 @@
 #include "ContentsEnum.h"
 #include "PlayerCharacter.h"
 #include "PlayerDataManager.h"
+#include "Bow.h"
 
 #include <EngineBase/EngineMath.h>
 
@@ -55,7 +56,7 @@ void ADropBowItem::Tick(float DeltaTime)
 
 void ADropBowItem::StartDrop()
 {
-	//CurDropPower = FVector2D::UP * 300.0f;
+	SoundPlayer = UEngineSound::Play("item get 1.wav");
 }
 
 void ADropBowItem::StartPickup()
@@ -82,6 +83,9 @@ void ADropBowItem::Pickup(float DeltaTime)
 	if (CheckTime <= CurrentTime)
 	{
 		PlayerDataManager::GetInstance().SetWeaponActiveToIndex(1, true);
+		PlayerDataManager::GetInstance().AddWeaponCount(1);
+		PlayerDataManager::GetInstance().SetSelectWeapon(1);
+		GetPlayerCharacter()->GetBow()->SetActive(true);
 		Destroy();
 	}
 }

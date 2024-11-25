@@ -1,6 +1,6 @@
 #pragma once
 #include "DropItem.h"
-
+#include <EnginePlatform/EngineSound.h>
 /**
  *	Ό³Έν
  */
@@ -35,6 +35,9 @@ private:
 	float DropFrequency = 10.0f;
 	float CurrentDeltaTime = 0.0f;
 
+	bool IsSoundCheck;
+
 	FVector2D CurDropPower = FVector2D::ZERO;
+	USoundPlayer SoundPlayer;
 };
 
