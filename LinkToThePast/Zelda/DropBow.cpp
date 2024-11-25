@@ -3,6 +3,7 @@
 #include "ContentsEnum.h"
 #include "PlayerCharacter.h"
 #include "PlayerDataManager.h"
+#include "EventManager.h"
 #include "Bow.h"
 
 #include <EngineBase/EngineMath.h>
@@ -47,6 +48,7 @@ void ADropBowItem::BeginPlay()
 {
 	ADropItem::BeginPlay();
 	ChangeState(EDropItemState::DROP);
+	UEventManager::GetInstance().SetEventPause(true);
 }
 
 void ADropBowItem::Tick(float DeltaTime)
@@ -86,6 +88,7 @@ void ADropBowItem::Pickup(float DeltaTime)
 		PlayerDataManager::GetInstance().AddWeaponCount(1);
 		PlayerDataManager::GetInstance().SetSelectWeapon(1);
 		GetPlayerCharacter()->GetBow()->SetActive(true);
+		UEventManager::GetInstance().SetEventPause(false);
 		Destroy();
 	}
 }

@@ -2,6 +2,7 @@
 #include "BaseCharacter.h"
 #include "Room.h"
 #include "EventActor.h"
+#include "EventManager.h"
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
@@ -24,6 +25,8 @@ void ABaseCharacter::BeginPlay()
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (true == UEventManager::GetInstance().GetEventPause()) return;
 
 	if (SpriteRenderer != nullptr)
 	{

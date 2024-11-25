@@ -73,9 +73,6 @@
     <ClInclude Include="EnemyKnight.h">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClInclude>
-    <ClInclude Include="EventActor.h">
-      <Filter>2_Data\0_Object</Filter>
-    </ClInclude>
     <ClInclude Include="StatueStone.h">
       <Filter>2_Data\4_Environment\Statue</Filter>
     </ClInclude>
@@ -159,6 +156,12 @@
     </ClInclude>
     <ClInclude Include="DropHeartStay.h">
       <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>6_Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventActor.h">
+      <Filter>6_Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -261,9 +264,6 @@
     <ClCompile Include="PlayerCharacter_3.Debug.cpp">
       <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="EventActor.cpp">
-      <Filter>2_Data\0_Object</Filter>
-    </ClCompile>
     <ClCompile Include="Statue.cpp">
       <Filter>2_Data\4_Environment\Statue</Filter>
     </ClCompile>
@@ -347,6 +347,12 @@
     </ClCompile>
     <ClCompile Include="DropHeartStay.cpp">
       <Filter>2_Data\5_Item\Drop</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>6_Event</Filter>
+    </ClCompile>
+    <ClCompile Include="EventActor.cpp">
+      <Filter>6_Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -439,6 +445,9 @@
     </Filter>
     <Filter Include="5_Sound">
       <UniqueIdentifier>{094869bf-2ce8-4613-bd28-45f4d3561e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="6_Event">
+      <UniqueIdentifier>{40c56a5b-f154-4656-80e9-4b8858ddf333}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

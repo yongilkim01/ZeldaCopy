@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "EventActor.h"
+#include "EventManager.h"
 
 #include "Room.h"
 
@@ -20,6 +21,9 @@ void AEventActor::BeginPlay()
 void AEventActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//if (true == UEventManager::GetInstance().GetEventPause()) return;
+
 	SetEventActorRenderOrder();
 }
 
