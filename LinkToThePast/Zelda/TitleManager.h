@@ -59,6 +59,7 @@ private:
 	USpriteRenderer* TitleRenderer = nullptr;
 	USpriteRenderer* TitleZRenderer = nullptr;
 	USpriteRenderer* SwordRenderer = nullptr;
+	USpriteRenderer* EnvRenderer = nullptr;
 
 	// 379, 0
 	// 379 256
@@ -69,6 +70,7 @@ private:
 
 	FVector2D SwordInitLocation = FVector2D(211, -306);
 	FVector2D SwordFinalLocation = FVector2D(211, 306);
+	FVector2D EnvInitLocation = FVector2D::ZERO;
 
 	FVector2D TitleZLocation = FVector2D(229 - 31, 60 - 72);
 
