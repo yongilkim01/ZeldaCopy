@@ -78,6 +78,7 @@ private:
 	FVector2D TitleZLocation = FVector2D(229 - 31, 60 - 72);
 
 	ETitleState TitleState = ETitleState::NONE;
+	ETitleState PrevState = ETitleState::NONE;
 
 	USoundPlayer EffectSoundPlayer;
 	USoundPlayer BackgroundSoundPlayer;
