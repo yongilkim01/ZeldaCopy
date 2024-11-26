@@ -54,10 +54,12 @@ ATitleManager::ATitleManager()
 			if (0 == static_cast<int>(i) || 2 == static_cast<int>(i))
 			{
 				TriforceRenderer->CreateAnimation("RotateTriforce", "TitleTriforceReverse.png", 0, 170, 0.03f, false);
+				TriforceRenderer->CreateAnimation("RotateDone", "TitleTriforceReverse.png", 170, 170, 0.03f);
 			}
 			else
 			{
 				TriforceRenderer->CreateAnimation("RotateTriforce", "TitleTriforce.png", 0, 170, 0.03f, false);
+				TriforceRenderer->CreateAnimation("RotateDone", "TitleTriforce.png", 170, 170, 0.03f);
 			};
 
 			TriforceRenderer->SetSpriteScale(1.0f);
@@ -209,6 +211,30 @@ void ATitleManager::StartSwordLogo()
 
 void ATitleManager::StartTitle()
 {
+	EffectSoundPlayer = UEngineSound::Play("Title.mp3");
+	LogoRenderer->SetSprite("NintentdoAgeLogo.png");
+	LogoRenderer->SetSpriteScale(3.0f);
+	LogoRenderer->SetComponentLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(0.0f, 250.0f));
+	LogoRenderer->SetCameraEffect(false);
+	LogoRenderer->SetActive(true);
+	LogoRenderer->SetAlphafloat(1.0f);
+
+	Triforces[0]->SetComponentLocation(TriforceFinalLocations[0]);
+	Triforces[1]->SetComponentLocation(TriforceFinalLocations[1]);
+	Triforces[2]->SetComponentLocation(TriforceFinalLocations[2]);
+
+	Triforces[0]->ChangeAnimation("RotateDone", true);
+	Triforces[1]->ChangeAnimation("RotateDone", true);
+	Triforces[2]->ChangeAnimation("RotateDone", true);
+
+	TitleRenderer->SetAlphafloat(1.0f);
+	TitleRenderer->SetOrder(5);
+	TitleZRenderer->SetAlphafloat(1.0f);
+
+	SwordRenderer->SetComponentLocation(SwordFinalLocation);
+
+	EnvRenderer->SetAlphafloat(1.0f);
+
 }
 
 
@@ -286,6 +312,11 @@ void ATitleManager::SwordLogo(float DeltaTime)
 		FadeGreenRenderer->SetAlphafloat(0.0f);
 		FadeWhiteAlpha -= 0.006f;
 		FadeWhiteRenderer->SetAlphafloat(FadeWhiteAlpha);
+
+		if (FadeWhiteAlpha <= 0.0f)
+		{
+			ChangeState(ETitleState::TITLE);
+		}
 	}
 }
 

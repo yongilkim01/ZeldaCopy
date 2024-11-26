@@ -27,9 +27,14 @@ void ATitleGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (true == UEngineInput::GetInst().IsDown('R'))
+	if (true == UEngineInput::GetInst().IsDown(VK_SPACE))
 	{
-		UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
+		ManagerActor->ChangeState(ETitleState::TITLE);
 	}
+
+	//if (true == UEngineInput::GetInst().IsDown(VK_SPACE))
+	//{
+	//	UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
+	//}
 
 }
