@@ -70,6 +70,11 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("LiftRunUp", "LinkLiftUp.png", 2, 7, 0.04f);
 		SpriteRenderer->CreateAnimation("LiftRunDown", "LinkLiftDown.png", 2, 7, 0.04f);
 
+		SpriteRenderer->CreateAnimation("BowRight", "LinkBowRight.png", 0, 2, 0.1f, false);
+		SpriteRenderer->CreateAnimation("BowLeft", "LinkBowLeft.png", 0, 2, 0.1f, false);
+		SpriteRenderer->CreateAnimation("BowUp", "LinkBowUp.png", 0, 2, 0.1f, false);
+		SpriteRenderer->CreateAnimation("BowDown", "LinkBowDown.png", 0, 2, 0.1f, false);
+
 		// 애니메이션 이벤트 바인드
 		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::EndAttack, this));
 		SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayerCharacter::EndAttack, this));
@@ -80,6 +85,11 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->SetAnimationEvent("LiftLeft", 1, std::bind(&APlayerCharacter::EndLift, this));
 		SpriteRenderer->SetAnimationEvent("LiftUp", 1, std::bind(&APlayerCharacter::EndLift, this));
 		SpriteRenderer->SetAnimationEvent("LiftDown", 1, std::bind(&APlayerCharacter::EndLift, this));
+		
+		SpriteRenderer->SetAnimationEvent("BowRight", 2, std::bind(&APlayerCharacter::EndAttack, this));
+		SpriteRenderer->SetAnimationEvent("BowLeft", 2, std::bind(&APlayerCharacter::EndAttack, this));
+		SpriteRenderer->SetAnimationEvent("BowUp", 2, std::bind(&APlayerCharacter::EndAttack, this));
+		SpriteRenderer->SetAnimationEvent("BowDown", 2, std::bind(&APlayerCharacter::EndAttack, this));
 	}
 	{
 		// 충돌 컴포넌트 생성
