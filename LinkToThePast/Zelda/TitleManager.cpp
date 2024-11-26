@@ -25,6 +25,7 @@ ATitleManager::ATitleManager()
 		TriforceFinalLocations.push_back(FVector2D(319, 362));
 
 		EnvInitLocation = WindowHalfSize + FVector2D(0.0f, -53.0f);
+		FadeGreenInitLocation = WindowHalfSize;
 	}
 
 	{
@@ -36,7 +37,7 @@ ATitleManager::ATitleManager()
 		BackgroundRenderer->SetCameraEffect(false);
 
 		LogoRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		LogoRenderer->SetOrder(2);
+		LogoRenderer->SetOrder(3);
 		LogoRenderer->SetSprite("NintendoPresentLogo.png");
 		LogoRenderer->SetSpriteScale(3.0f);
 		LogoRenderer->SetComponentLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half());
@@ -47,7 +48,7 @@ ATitleManager::ATitleManager()
 		{
 
 			USpriteRenderer* TriforceRenderer = CreateDefaultSubObject<USpriteRenderer>();
-			TriforceRenderer->SetOrder(3);
+			TriforceRenderer->SetOrder(4);
 			TriforceRenderer->SetSprite("TitleTriforce.png", 0);
 
 			if (0 == static_cast<int>(i) || 2 == static_cast<int>(i))
@@ -72,7 +73,7 @@ ATitleManager::ATitleManager()
 			});
 
 		TitleRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		TitleRenderer->SetOrder(2);
+		TitleRenderer->SetOrder(3);
 		TitleRenderer->SetSprite("TitleLogo.png");
 		TitleRenderer->SetSpriteScale(1.0f);
 		TitleRenderer->SetComponentLocation(FVector2D(407, 323));
@@ -81,7 +82,7 @@ ATitleManager::ATitleManager()
 		TitleRenderer->SetAlphafloat(TitleAlpha);
 
 		TitleZRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		TitleZRenderer->SetOrder(6);
+		TitleZRenderer->SetOrder(7);
 		TitleZRenderer->SetSprite("TitleZmiddle.png");
 		TitleZRenderer->SetSpriteScale(1.0f);
 		TitleZRenderer->SetComponentLocation(TitleRenderer->GetComponentLocation() - TitleZLocation);
@@ -90,7 +91,7 @@ ATitleManager::ATitleManager()
 		TitleZRenderer->SetAlphafloat(TitleAlpha);
 
 		SwordRenderer = CreateDefaultSubObject<USpriteRenderer>();
-		SwordRenderer->SetOrder(5);
+		SwordRenderer->SetOrder(6);
 		SwordRenderer->SetSprite("TitleSword.png");
 		SwordRenderer->SetSpriteScale(1.0f);
 		SwordRenderer->SetComponentLocation(SwordInitLocation);
@@ -105,7 +106,24 @@ ATitleManager::ATitleManager()
 		EnvRenderer->SetComponentLocation(EnvInitLocation);
 		EnvRenderer->SetCameraEffect(false);
 		EnvRenderer->SetActive(true);
-		EnvRenderer->SetAlphafloat(1.0f);
+		EnvRenderer->SetAlphafloat(0.0f);
+
+		FadeGreenRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		FadeGreenRenderer->SetOrder(10);
+		FadeGreenRenderer->SetSprite("FadeGreen.png");
+		FVector2D FadeGreenScale = FadeGreenRenderer->SetSpriteScale(1.0f);
+		FadeGreenRenderer->SetComponentLocation(FadeGreenScale.Half());
+		FadeGreenRenderer->SetCameraEffect(false);
+		FadeGreenRenderer->SetAlphafloat(0.0f);
+
+		FadeWhiteRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		FadeWhiteRenderer->SetOrder(2);
+		FadeWhiteRenderer->SetSprite("FadeWhite.png");
+		FadeWhiteRenderer->SetSpriteScale(1.0f);
+		FadeWhiteRenderer->SetComponentLocation(EnvInitLocation);
+		FadeWhiteRenderer->SetCameraEffect(false);
+		FadeWhiteRenderer->SetActive(true);
+		FadeWhiteRenderer->SetAlphafloat(FadeWhiteAlpha);
 
 		FadeRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		FadeRenderer->SetOrder(10);
@@ -241,7 +259,7 @@ void ATitleManager::TitleLogo(float DeltaTime)
 	}
 	else
 	{
-		TitleRenderer->SetOrder(4);
+		TitleRenderer->SetOrder(5);
 	}
 
 	if (CurTime >= 1.5f)
@@ -255,6 +273,20 @@ void ATitleManager::SwordLogo(float DeltaTime)
 	CurTime += DeltaTime;
 
 	SwordRenderer->SetComponentLocation(FVector2D::LerpClimp(SwordInitLocation, SwordFinalLocation, CurTime / 0.1f));
+
+	if (0.1f <= CurTime && CurTime < 0.3f)
+	{
+		FadeGreenRenderer->SetAlphafloat(UEngineMath::Sin(CurTime * 500.0f));
+		FadeWhiteAlpha += 0.01f;
+		FadeWhiteRenderer->SetAlphafloat(FadeWhiteAlpha);
+		EnvRenderer->SetAlphafloat(1.0f);
+	}
+	else if (0.3f <= CurTime && FadeWhiteAlpha > 0.0f)
+	{
+		FadeGreenRenderer->SetAlphafloat(0.0f);
+		FadeWhiteAlpha -= 0.006f;
+		FadeWhiteRenderer->SetAlphafloat(FadeWhiteAlpha);
+	}
 }
 
 void ATitleManager::Title(float DeltaTime)

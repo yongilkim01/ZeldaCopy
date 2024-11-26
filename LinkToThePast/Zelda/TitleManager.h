@@ -60,6 +60,8 @@ private:
 	USpriteRenderer* TitleZRenderer = nullptr;
 	USpriteRenderer* SwordRenderer = nullptr;
 	USpriteRenderer* EnvRenderer = nullptr;
+	USpriteRenderer* FadeGreenRenderer = nullptr;
+	USpriteRenderer* FadeWhiteRenderer = nullptr;
 
 	// 379, 0
 	// 379 256
@@ -71,6 +73,7 @@ private:
 	FVector2D SwordInitLocation = FVector2D(211, -306);
 	FVector2D SwordFinalLocation = FVector2D(211, 306);
 	FVector2D EnvInitLocation = FVector2D::ZERO;
+	FVector2D FadeGreenInitLocation = FVector2D::ZERO;
 
 	FVector2D TitleZLocation = FVector2D(229 - 31, 60 - 72);
 
@@ -86,5 +89,6 @@ private:
 	float TriforceDistance = 400.0f;
 	float TriforceSpeed = 47.0f;
 	float TitleAlpha = 0.0f;
+	float FadeWhiteAlpha = 0.0f;
 };
 
