@@ -56,6 +56,9 @@ private:
 	USpriteRenderer* BackgroundRenderer = nullptr;
 	USpriteRenderer* LogoRenderer = nullptr;
 	USpriteRenderer* FadeRenderer = nullptr;
+	USpriteRenderer* TitleRenderer = nullptr;
+	USpriteRenderer* TitleZRenderer = nullptr;
+	USpriteRenderer* SwordRenderer = nullptr;
 
 	// 379, 0
 	// 379 256
@@ -63,6 +66,11 @@ private:
 	std::vector<USpriteRenderer*> Triforces;
 	std::vector<FVector2D> TriforceLocations;
 	std::vector<FVector2D> TriforceFinalLocations;
+
+	FVector2D SwordInitLocation = FVector2D(211, -306);
+	FVector2D SwordFinalLocation = FVector2D(211, 306);
+
+	FVector2D TitleZLocation = FVector2D(229 - 31, 60 - 72);
 
 	ETitleState TitleState = ETitleState::NONE;
 
@@ -75,5 +83,6 @@ private:
 	float FadeValue = 0.0f;
 	float TriforceDistance = 400.0f;
 	float TriforceSpeed = 47.0f;
+	float TitleAlpha = 0.0f;
 };
 

@@ -45,7 +45,7 @@ ATitleManager::ATitleManager()
 		{
 
 			USpriteRenderer* TriforceRenderer = CreateDefaultSubObject<USpriteRenderer>();
-			TriforceRenderer->SetOrder(1);
+			TriforceRenderer->SetOrder(2);
 			TriforceRenderer->SetSprite("TitleTriforce.png", 0);
 
 			if (0 == static_cast<int>(i) || 2 == static_cast<int>(i))
@@ -55,11 +55,7 @@ ATitleManager::ATitleManager()
 			else
 			{
 				TriforceRenderer->CreateAnimation("RotateTriforce", "TitleTriforce.png", 0, 170, 0.03f, false);
-			}
-
-			TriforceRenderer->SetAnimationEvent("RotateTriforce", 170, [this]() {
-					ChangeState(ETitleState::TITLELOGO);
-				});
+			};
 
 			TriforceRenderer->SetSpriteScale(1.0f);
 			TriforceRenderer->SetComponentLocation(TriforceLocations[i]);
@@ -72,6 +68,33 @@ ATitleManager::ATitleManager()
 		Triforces[0]->SetAnimationEvent("RotateTriforce", 17, [this]() {
 			EffectSoundPlayer = UEngineSound::Play("Title.mp3");
 			});
+
+		TitleRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		TitleRenderer->SetOrder(1);
+		TitleRenderer->SetSprite("TitleLogo.png");
+		TitleRenderer->SetSpriteScale(1.0f);
+		TitleRenderer->SetComponentLocation(FVector2D(407, 323));
+		TitleRenderer->SetCameraEffect(false);
+		TitleRenderer->SetActive(true);
+		TitleRenderer->SetAlphafloat(TitleAlpha);
+
+		TitleZRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		TitleZRenderer->SetOrder(5);
+		TitleZRenderer->SetSprite("TitleZmiddle.png");
+		TitleZRenderer->SetSpriteScale(1.0f);
+		TitleZRenderer->SetComponentLocation(TitleRenderer->GetComponentLocation() - TitleZLocation);
+		TitleZRenderer->SetCameraEffect(false);
+		TitleZRenderer->SetActive(true);
+		TitleZRenderer->SetAlphafloat(TitleAlpha);
+
+		SwordRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		SwordRenderer->SetOrder(4);
+		SwordRenderer->SetSprite("TitleSword.png");
+		SwordRenderer->SetSpriteScale(1.0f);
+		SwordRenderer->SetComponentLocation(SwordInitLocation);
+		SwordRenderer->SetCameraEffect(false);
+		SwordRenderer->SetActive(true);
+		SwordRenderer->SetAlphafloat(1.0f);
 
 		FadeRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		FadeRenderer->SetOrder(1);
@@ -137,6 +160,13 @@ void ATitleManager::StartTriforce()
 		Triforces[i]->SetActive(true);
 		Triforces[i]->ChangeAnimation("RotateTriforce");
 	}
+
+	LogoRenderer->SetSprite("NintentdoAgeLogo.png");
+	LogoRenderer->SetSpriteScale(3.0f);
+	LogoRenderer->SetComponentLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(0.0f, 250.0f));
+	LogoRenderer->SetCameraEffect(false);
+	LogoRenderer->SetActive(true);
+	LogoRenderer->SetAlphafloat(1.0f);
 }
 
 void ATitleManager::StartTitleLogo()
@@ -145,6 +175,7 @@ void ATitleManager::StartTitleLogo()
 
 void ATitleManager::StartSwordLogo()
 {
+	EffectSoundPlayer = UEngineSound::Play("sword shine 1.wav");
 }
 
 void ATitleManager::StartTitle()
@@ -172,25 +203,47 @@ void ATitleManager::Logo(float DeltaTime)
 
 void ATitleManager::Triforce(float DeltaTime)
 {
-	FVector2D WindowHalfSize = UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(0.0f, 30.0f);
+	CurTime += DeltaTime;
 
+	for (size_t i = 0; i < Triforces.size(); i++)
 	{
-		TriforceDistance -= TriforceSpeed * DeltaTime;
-		CurTime += DeltaTime;
-
-		for (size_t i = 0; i < Triforces.size(); i++)
-		{
-			Triforces[i]->SetComponentLocation(FVector2D::LerpClimp(TriforceLocations[i], TriforceFinalLocations[i], CurTime/5.0f));
-		}
+		Triforces[i]->SetComponentLocation(FVector2D::LerpClimp(TriforceLocations[i], TriforceFinalLocations[i], CurTime / 5.0f));
 	}
+
+	if (CurTime >= 7.0f)
+	{
+		ChangeState(ETitleState::TITLELOGO);
+		CurTime = 0.0f;
+	}
+
 }
 
 void ATitleManager::TitleLogo(float DeltaTime)
 {
-}
+	CurTime += DeltaTime;
 
+	if (TitleAlpha < 1.0f)
+	{
+		TitleAlpha += 0.005f;
+		TitleRenderer->SetAlphafloat(TitleAlpha);
+		TitleZRenderer->SetAlphafloat(TitleAlpha);
+	}
+	else
+	{
+		TitleRenderer->SetOrder(3);
+	}
+
+	if (CurTime >= 1.5f)
+	{
+		ChangeState(ETitleState::SWORDLOGO);
+		CurTime = 0.0f;
+	}
+}
 void ATitleManager::SwordLogo(float DeltaTime)
 {
+	CurTime += DeltaTime;
+
+	SwordRenderer->SetComponentLocation(FVector2D::LerpClimp(SwordInitLocation, SwordFinalLocation, CurTime / 0.1f));
 }
 
 void ATitleManager::Title(float DeltaTime)
