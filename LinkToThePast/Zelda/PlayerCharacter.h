@@ -134,5 +134,6 @@ private:
 	bool IsAttack = false;
 	float KnockBackTime = 0.0f;
 	float ChildDistance = 25.0f;
+	bool IsEquipShield = true;
 };
 

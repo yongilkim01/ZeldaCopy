@@ -12,6 +12,7 @@
 
 void AEnemyKnight::Patrol(float DeltaTime)
 {
+	SetSpeed(100.0f);
 	AEnemyCharacter::Patrol(DeltaTime);
 
 	if (this->TurningLocations[CurTurningIndex].DistanceTo(GetActorLocation()) < 10.0f)
@@ -45,8 +46,8 @@ void AEnemyKnight::Patrol(float DeltaTime)
 	{
 		if (GetCurDirection() == FVector2D::RIGHT)
 		{
-			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + 200.0f &&
-				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - 200.0f)
+			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + Range &&
+				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - Range)
 			{
 				CurEnemyState = EEnemyState::Trace;
 			}
@@ -54,8 +55,8 @@ void AEnemyKnight::Patrol(float DeltaTime)
 		}
 		else if (GetCurDirection() == FVector2D::LEFT)
 		{
-			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + 200.0f &&
-				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - 200.0f)
+			if (GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y + Range &&
+				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - Range)
 			{
 				CurEnemyState = EEnemyState::Trace;
 			}
@@ -63,8 +64,8 @@ void AEnemyKnight::Patrol(float DeltaTime)
 		}
 		else if (GetCurDirection() == FVector2D::UP)
 		{
-			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + 200.0f &&
-				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - 200.0f &&
+			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + Range &&
+				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - Range &&
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y)
 			{
 				CurEnemyState = EEnemyState::Trace;
@@ -73,8 +74,8 @@ void AEnemyKnight::Patrol(float DeltaTime)
 		}
 		else if (GetCurDirection() == FVector2D::DOWN)
 		{
-			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + 100.0f &&
-				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - 100.0f &&
+			if (GetActorLocation().X < PlayerCharacter->GetActorLocation().X + Range &&
+				GetActorLocation().X > PlayerCharacter->GetActorLocation().X - Range &&
 				GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y)
 			{
 				CurEnemyState = EEnemyState::Trace;
@@ -86,6 +87,7 @@ void AEnemyKnight::Patrol(float DeltaTime)
 
 void AEnemyKnight::Trace(float DeltaTime)
 {
+	SetSpeed(150.0f);
 	AttackCoolTime += DeltaTime;
 
 	FVector2D PlayerLocation = this->PlayerCharacter->GetActorLocation();

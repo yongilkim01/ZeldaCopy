@@ -52,54 +52,106 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 
 void APlayerCharacter::StartIdle()
 {
-	if (GetCurDirection() == FVector2D::RIGHT)
+	if (true == IsEquipShield)
 	{
-		SpriteRenderer->ChangeAnimation("Idle_Right");
-	}
-	else if (GetCurDirection() == FVector2D::LEFT)
-	{
-		SpriteRenderer->ChangeAnimation("Idle_Left");
-	}
-	else if (GetCurDirection() == FVector2D::UP)
-	{
-		SpriteRenderer->ChangeAnimation("Idle_Up");
-	}
-	else if (GetCurDirection() == FVector2D::DOWN)
-	{
-		SpriteRenderer->ChangeAnimation("Idle_Down");
+		if (GetCurDirection() == FVector2D::RIGHT)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldIdleRight");
+		}
+		else if (GetCurDirection() == FVector2D::LEFT)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldIdleLeft");
+		}
+		else if (GetCurDirection() == FVector2D::UP)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldIdleUp");
+		}
+		else if (GetCurDirection() == FVector2D::DOWN)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldIdleDown");
+		}
+		else
+		{
+			MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+			return;
+		}
 	}
 	else
 	{
-		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
-		return;
+		if (GetCurDirection() == FVector2D::RIGHT)
+		{
+			SpriteRenderer->ChangeAnimation("Idle_Right");
+		}
+		else if (GetCurDirection() == FVector2D::LEFT)
+		{
+			SpriteRenderer->ChangeAnimation("Idle_Left");
+		}
+		else if (GetCurDirection() == FVector2D::UP)
+		{
+			SpriteRenderer->ChangeAnimation("Idle_Up");
+		}
+		else if (GetCurDirection() == FVector2D::DOWN)
+		{
+			SpriteRenderer->ChangeAnimation("Idle_Down");
+		}
+		else
+		{
+			MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+			return;
+		}
 	}
 }
 
 void APlayerCharacter::StartMove()
 {
-	if (GetCurDirection() == FVector2D::RIGHT)
+	if (true == IsEquipShield)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right", true);
-	}
-	else if (GetCurDirection() == FVector2D::LEFT)
-	{
-		SpriteRenderer->ChangeAnimation("Run_Left", true);
-	}
-	else if (GetCurDirection() == FVector2D::UP)
-	{
-		SpriteRenderer->ChangeAnimation("Run_Up", true);
-	}
-	else if (GetCurDirection() == FVector2D::DOWN)
-	{
-		SpriteRenderer->ChangeAnimation("Run_Down", true);
+		if (GetCurDirection() == FVector2D::RIGHT)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldMoveRight");
+		}
+		else if (GetCurDirection() == FVector2D::LEFT)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldMoveLeft");
+		}
+		else if (GetCurDirection() == FVector2D::UP)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldMoveUp");
+		}
+		else if (GetCurDirection() == FVector2D::DOWN)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldMoveDown");
+		}
+		else
+		{
+			MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+			return;
+		}
 	}
 	else
 	{
-		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
-		return;
+		if (GetCurDirection() == FVector2D::RIGHT)
+		{
+			SpriteRenderer->ChangeAnimation("Run_Right", true);
+		}
+		else if (GetCurDirection() == FVector2D::LEFT)
+		{
+			SpriteRenderer->ChangeAnimation("Run_Left", true);
+		}
+		else if (GetCurDirection() == FVector2D::UP)
+		{
+			SpriteRenderer->ChangeAnimation("Run_Up", true);
+		}
+		else if (GetCurDirection() == FVector2D::DOWN)
+		{
+			SpriteRenderer->ChangeAnimation("Run_Down", true);
+		}
+		else
+		{
+			MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+			return;
+		}
 	}
-
-	CurPlayerState = EPlayerState::Move;
 }
 
 void APlayerCharacter::StartAttack()
@@ -268,21 +320,48 @@ void APlayerCharacter::Move(float DeltaTime)
 		MoveDir += FVector2D::UP;
 	}
 
-	if (GetCurDirection() == FVector2D::RIGHT)
+	if (true == IsEquipShield)
 	{
-		SpriteRenderer->ChangeAnimation("Run_Right");
+		if (GetCurDirection() == FVector2D::RIGHT)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldMoveRight");
+		}
+		else if (GetCurDirection() == FVector2D::LEFT)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldMoveLeft");
+		}
+		else if (GetCurDirection() == FVector2D::UP)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldMoveUp");
+		}
+		else if (GetCurDirection() == FVector2D::DOWN)
+		{
+			SpriteRenderer->ChangeAnimation("ShieldMoveDown");
+		}
+		else
+		{
+			MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+			return;
+		}
 	}
-	else if (GetCurDirection() == FVector2D::LEFT)
+	else
 	{
-		SpriteRenderer->ChangeAnimation("Run_Left");
-	}
-	else if (GetCurDirection() == FVector2D::UP)
-	{
-		SpriteRenderer->ChangeAnimation("Run_Up");
-	}
-	else if (GetCurDirection() == FVector2D::DOWN)
-	{
-		SpriteRenderer->ChangeAnimation("Run_Down");
+		if (GetCurDirection() == FVector2D::RIGHT)
+		{
+			SpriteRenderer->ChangeAnimation("Run_Right");
+		}
+		else if (GetCurDirection() == FVector2D::LEFT)
+		{
+			SpriteRenderer->ChangeAnimation("Run_Left");
+		}
+		else if (GetCurDirection() == FVector2D::UP)
+		{
+			SpriteRenderer->ChangeAnimation("Run_Up");
+		}
+		else if (GetCurDirection() == FVector2D::DOWN)
+		{
+			SpriteRenderer->ChangeAnimation("Run_Down");
+		}
 	}
 
 	MoveDir.Normal();

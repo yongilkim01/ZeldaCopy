@@ -30,10 +30,20 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("Run_Up", "LinkMoveUp.png", 1, 8, 0.04f);
 		SpriteRenderer->CreateAnimation("Run_Down", "LinkMoveDown.png", 1, 8, 0.04f);
 
-		SpriteRenderer->CreateAnimation("Idle_Right", "LinkMoveRight.png", 0, 0, 0.1f);
+		SpriteRenderer->CreateAnimation("Idle_right", "LinkMoveRight.png", 0, 0, 0.1f);
 		SpriteRenderer->CreateAnimation("Idle_Left", "LinkMoveLeft.png", 0, 0, 0.1f);
 		SpriteRenderer->CreateAnimation("Idle_Up", "LinkMoveUp.png", 0, 0, 0.1f);
 		SpriteRenderer->CreateAnimation("Idle_Down", "LinkMoveDown.png", 0, 0, 0.1f);
+
+		SpriteRenderer->CreateAnimation("ShieldMoveRight", "LinkShieldMoveRight.png", 0, 8, 0.04f);
+		SpriteRenderer->CreateAnimation("ShieldMoveLeft", "LinkShieldMoveLeft.png", 0, 8, 0.04f);
+		SpriteRenderer->CreateAnimation("ShieldMoveUp", "LinkShieldMoveUp.png", 0, 8, 0.04f);
+		SpriteRenderer->CreateAnimation("ShieldMoveDown", "LinkShieldMoveDown.png", 0, 8, 0.04f);
+
+		SpriteRenderer->CreateAnimation("ShieldIdleRight", "LinkShieldMoveRight.png", 0, 0, 0.1f);
+		SpriteRenderer->CreateAnimation("ShieldIdleLeft", "LinkShieldMoveLeft.png", 0, 0, 0.1f);
+		SpriteRenderer->CreateAnimation("ShieldIdleUp", "LinkShieldMoveUp.png", 0, 0, 0.1f);
+		SpriteRenderer->CreateAnimation("ShieldIdleDown", "LinkShieldMoveDown.png", 0, 0, 0.1f);
 
 		SpriteRenderer->CreateAnimation("KnockBack_Right", "LinkKnockBackRight.png", 0, 7, 0.001f);
 		SpriteRenderer->CreateAnimation("KnockBack_Left", "LinkKnockBackLeft.png", 0, 7, 0.001f);
@@ -193,7 +203,7 @@ void APlayerCharacter::CreateItem()
 	Lantern->SetPlayer(this);
 	WeaponItemes.push_back(Lantern);
 	Lantern->SetActive(
-		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1) // 0
+		static_cast<int>(PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size()) - 1) // 0
 	);
 
 	Bow = GetWorld()->SpawnActor<ABow>();
@@ -201,6 +211,6 @@ void APlayerCharacter::CreateItem()
 	Bow->SetPlayer(this);
 	WeaponItemes.push_back(Bow);
 	Bow->SetActive(
-		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size() - 1) // 1
+		static_cast<int>(PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size()) - 1) // 1
 	);
 }
