@@ -118,6 +118,8 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("FireEffect.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 700 });
 	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 700 });
+	UImageManager::GetInst().CuttingSprite("TitleTriforce.png", { 200, 200 });
+	UImageManager::GetInst().CuttingSprite("TitleTriforceReverse.png", { 200, 200 });
 
 	UImageManager::GetInst().CuttingSprite("Heart.png", { 21, 21 });
 	UImageManager::GetInst().CuttingSprite("DropHeart.png", { 24, 78 });
@@ -139,7 +141,7 @@ void UZeldaCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
+	UEngineAPICore::GetCore()->OpenLevel("Title");
 }
 
 void UZeldaCore::Tick()

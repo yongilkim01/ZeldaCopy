@@ -42,22 +42,21 @@ public:
 			TimeEventFunction& TimeEvent = *StartIter;
 			TimeEvent.Time -= DeltaTime;
 
-			if (TimeEvent.IsUpdate && 0.0f < TimeEvent.Time == true)
+			if (true == TimeEvent.IsUpdate && 0.0f < TimeEvent.Time)
 			{
 				TimeEvent.Event();
 			}
 
-			if (TimeEvent.Time <= 0.0f)
+			if (0.0f >= TimeEvent.Time)
 			{
 				TimeEvent.Event();
-				if (TimeEvent.Loop == false)
+				if (false == TimeEvent.Loop)
 				{
-					// TODO: 정확히 어떤 동작이지?
 					StartIter = Events.erase(StartIter);
 				}
 				else
 				{
-					StartIter++;
+					++StartIter;
 					TimeEvent.Time = TimeEvent.MaxTime;
 				}
 			}

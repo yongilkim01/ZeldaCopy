@@ -163,6 +163,9 @@
     <ClInclude Include="EventActor.h">
       <Filter>6_Event</Filter>
     </ClInclude>
+    <ClInclude Include="TitleManager.h">
+      <Filter>1_GameMode\0_Title\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -353,6 +356,9 @@
     </ClCompile>
     <ClCompile Include="EventActor.cpp">
       <Filter>6_Event</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleManager.cpp">
+      <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -169,6 +169,14 @@ public:
 		return Result;
 	}
 
+	FVector2D operator*(const FVector2D& Other) const
+	{
+		FVector2D Result;
+		Result.X = X * Other.X;
+		Result.Y = Y * Other.Y;
+		return Result;
+	}
+
 	// ture가 나오는 
 	bool operator==(const FVector2D& _Other) const
 	{
@@ -210,7 +218,8 @@ public:
 		return *this;
 	}
 
-	static FVector2D LerpClimp(FVector2D _StartLocation, FVector2D _TargetLocation, float _t);
+	static FVector2D LerpClimp(FVector2D _StartLocation, FVector2D _TargetLocation, float _t); 
+	
 
 	std::string ToString()
 	{
@@ -368,6 +377,17 @@ public:
 class UEngineMath
 {
 public:
+
+	static FVector2D RotateToDegree(float Degree, FVector2D Location, float H)
+	{
+		FVector2D Result = FVector2D::ZERO;
+
+		Result.X = H * static_cast<float>(std::cos(RADIAN(Degree)));
+		Result.Y = H * static_cast<float>(std::sin(RADIAN(Degree)));
+
+		return Result + Location;
+	}
+
 	static FVector2D Lerp(FVector2D StartLocation, FVector2D EndLocation, float Distance)
 	{
 		return { StartLocation.X + Distance * (EndLocation.X - StartLocation.X), StartLocation.Y + Distance * (EndLocation.Y - StartLocation.Y) };

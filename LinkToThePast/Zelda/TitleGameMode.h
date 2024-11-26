@@ -1,5 +1,8 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include <EngineBase/TimeEvent.h>
+
+class ATitleManager;
 
 // Ό³Έν :
 class ATitleGameMode : public AGameMode
@@ -16,11 +19,12 @@ public:
 	ATitleGameMode& operator=(ATitleGameMode&& _Other) noexcept = delete;
 
 protected:
-	void BeginPlay() override;
-
-	void Tick(float _DeltaTime) override;
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 private:
-
+	float CurTime = 0.0f;
+	ATitleManager* ManagerActor = nullptr;
+	UTimeEvent TimeEventer;
 };
 

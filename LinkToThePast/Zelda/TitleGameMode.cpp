@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "TitleGameMode.h"
+#include "TitleManager.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -14,18 +15,17 @@ ATitleGameMode::~ATitleGameMode()
 {
 }
 
-
-// 언리얼에서는 MainPawn 주인공 무조건 지정하게 해요.
 void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	TitleLogo* NewActor = GetWorld()->SpawnActor<TitleLogo>();
+	ManagerActor = GetWorld()->SpawnActor<ATitleManager>();
+	ManagerActor->SetActorLocation(FVector2D::ZERO);
 }
 
 
-void ATitleGameMode::Tick(float _DeltaTime)
+void ATitleGameMode::Tick(float DeltaTime)
 {
-	Super::Tick(_DeltaTime);
+	Super::Tick(DeltaTime);
 
 	if (true == UEngineInput::GetInst().IsDown('R'))
 	{
