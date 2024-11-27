@@ -49,3 +49,20 @@ enum class EDropItemState
 	DROP,
 	PICKUP,
 };
+
+enum class ETextIndex
+{
+	A = 0, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+	a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,
+	ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
+	EXCLAMATION,
+	QUESTION,
+	LEFT_ARROW,
+	RIGHT_ARROW,
+	LEFT_PARENT,
+	RIGHT_PARENT,
+	UNDERBAR,
+	DOT,
+	COMMA,
+	MAX,
+};

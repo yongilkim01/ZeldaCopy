@@ -1,57 +1,62 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include "ContentsEnum.h"
 
 class USpriteRenderer;
-
-enum class ETextType
-{
-	NONE,
-	HUD,
-	STORY,
-};
 
 /**
  *	설명
  */
-class AHUDText : public AActor
+class AUIText : public AActor
 {
 public:
 	/** 생성자, 소멸자 */
-	AHUDText();
-	~AHUDText();
+	AUIText();
+	~AUIText();
 
 	/** 객체 값 복사 방지 */
-	AHUDText(const AHUDText& _Other) = delete;
-	AHUDText(AHUDText&& _Other) noexcept = delete;
-	AHUDText& operator=(const AHUDText& _Other) = delete;
-	AHUDText& operator=(AHUDText&& _Other) noexcept = delete;
+	AUIText(const AUIText& Other) = delete;
+	AUIText(AUIText&& Other) noexcept = delete;
+	AUIText& operator=(const AUIText& Other) = delete;
+	AUIText& operator=(AUIText&& Other) noexcept = delete;
 
-	void InitText(FVector2D Size, int Count);
-	void ShowText(float Time);
+	/** 클래스 메소드 */
+	void BeginPlayUIText(std::string_view StrValue, float Time = 0.0f);
+	void BeginPlayUIText(const AUIText* UIText);
+	void BeginPlayUIText(const std::vector<std::string>& StrValues, float Time = 0.0f);
+
+	void ShowUIText(float DeltaTime);
+	void SetOrder(ERenderOrder Order);
+	int ConvertCharToIndex(char CharValue);
 	void Reserve(int Count);
-	int ConvertCharInteger(char c);
-	void SetTextCount(int Count);
-	void SetValue(int StrValue);
 
-	std::string GetString() const
-	{ 
-		return StrValue; 
+	/** 겟, 셋 메소드 */
+	std::string GetUIStrValue() const
+	{
+		return StrValue;
+	}
+	float GetTime() const
+	{
+		return Time;
 	}
 	void SetTime(float Time)
-	{ 
+	{
 		this->Time = Time;
 	}
 
 protected:
+	/** 액터 상속 메소드 */
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 private:
-	std::vector<USpriteRenderer*> TextSprites;
-	ETextType TextType = ETextType::NONE;
-	FVector2D TextSize = FVector2D::ZERO;
+	/** 멤버 변수 초기화 */
+	float CurTime = 0.0f;
+	float Time = 0.0f;
+	int CurCount = 0;
 
 	std::string StrValue;
-	float Time = 0.0f;
-	int TextCount = 0;
-
+	const FVector2D TextSize = { 21.0f, 39.0f };
+	std::vector<USpriteRenderer*> TextRendereres;
 };
 

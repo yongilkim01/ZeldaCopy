@@ -91,7 +91,7 @@
     <ClInclude Include="Text.h">
       <Filter>3_UI\1_Data</Filter>
     </ClInclude>
-    <ClInclude Include="UIText.h">
+    <ClInclude Include="HUDText.h">
       <Filter>3_UI\1_Data</Filter>
     </ClInclude>
     <ClInclude Include="UIArrowManager.h">
@@ -165,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="TitleManager.h">
       <Filter>1_GameMode\0_Title\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>3_UI\1_Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -285,7 +288,7 @@
     <ClCompile Include="Text.cpp">
       <Filter>3_UI\1_Data</Filter>
     </ClCompile>
-    <ClCompile Include="UIText.cpp">
+    <ClCompile Include="HUDText.cpp">
       <Filter>3_UI\1_Data</Filter>
     </ClCompile>
     <ClCompile Include="UIArrowManager.cpp">
@@ -359,6 +362,9 @@
     </ClCompile>
     <ClCompile Include="TitleManager.cpp">
       <Filter>1_GameMode\0_Title\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>3_UI\1_Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

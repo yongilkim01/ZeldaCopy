@@ -3,7 +3,7 @@
 #include "ContentsEnum.h"
 #include "PlayerDataManager.h"
 
-#include "UIText.h"
+#include "HUDText.h"
 
 #include <EngineCore/SpriteRenderer.h>
 
