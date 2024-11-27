@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
-class AUIText;
+class AHUDText;
 class USpriteRenderer;
 
 /**
@@ -28,6 +28,6 @@ protected:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
-	AUIText* UIText = nullptr;
+	AHUDText* UIText = nullptr;
 
 };

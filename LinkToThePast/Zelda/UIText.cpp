@@ -4,15 +4,15 @@
 
 #include <EngineCore/SpriteRenderer.h>
 
-AUIText::AUIText()
+AHUDText::AHUDText()
 {
 }
 
-AUIText::~AUIText()
+AHUDText::~AHUDText()
 {
 }
 
-void AUIText::InitText(FVector2D Size, int Count)
+void AHUDText::InitText(FVector2D Size, int Count)
 {
 	TextSprites.reserve(Count);
 
@@ -53,11 +53,11 @@ void AUIText::InitText(FVector2D Size, int Count)
 
 }
 
-void AUIText::ShowText(float Time)
+void AHUDText::ShowText(float Time)
 {
 }
 
-void AUIText::Reserve(int Count)
+void AHUDText::Reserve(int Count)
 {
 	// 모든 텍스트 스프라이트들을 비활성화
 	for (size_t i = 0; i < TextSprites.size(); i++)
@@ -69,12 +69,12 @@ void AUIText::Reserve(int Count)
 	TextSprites.resize(Count);
 }
 
-int AUIText::ConvertCharInteger(char c)
+int AHUDText::ConvertCharInteger(char c)
 {
 	return c - '0';
 }
 
-void AUIText::SetTextCount(int Count)
+void AHUDText::SetTextCount(int Count)
 {
 	FVector2D StartLocation = FVector2D(-50.0f, 0.0f);
 	// 모든 텍스트 스프라이트들을 비활성화
@@ -86,7 +86,7 @@ void AUIText::SetTextCount(int Count)
 }
 
 // int 정수형 값을 문자열로 바꾸는 코드
-void AUIText::SetValue(int StrValue)
+void AHUDText::SetValue(int StrValue)
 {
 	std::string Number = std::to_string(StrValue);
 

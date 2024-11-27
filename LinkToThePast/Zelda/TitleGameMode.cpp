@@ -34,7 +34,7 @@ void ATitleGameMode::Tick(float DeltaTime)
 
 	if (true == UEngineInput::GetInst().IsDown(VK_SPACE))
 	{
-		UEngineAPICore::GetCore()->OpenLevel("HyruleCastle");
+		UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
 		ManagerActor->StopSound();
 	}
 

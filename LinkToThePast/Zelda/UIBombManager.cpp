@@ -26,7 +26,7 @@ void AUIBombManager::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UIText = GetWorld()->SpawnActor<AUIText>();
+	UIText = GetWorld()->SpawnActor<AHUDText>();
 	UIText->SetActorLocation(GetActorLocation() + FVector2D(0.0f, 14.0f));
 	UIText->InitText(FVector2D(24.0f, 0.0f), 2);
 }
