@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineBase/TimeEvent.h>
 
 /**
  *	설명
@@ -24,8 +25,13 @@ public:
 	/** 이벤트 매니저 메소드 */
 	void EventTimeBeginPlay(float CheckTime);
 	void EventTimeTick(float DeltaTime);
+	void SetEventPause(float Time);
 
 	/** 겟, 셋 메소드 */
+	void SwitchEventPause()
+	{
+		EventPause = !EventPause;
+	}
 	void SetEventPause(bool Pause)
 	{
 		EventPause = Pause;
@@ -42,5 +48,7 @@ private:
 	float CheckTime = 0.0f;
 	float CurrentTime = 0.0f;
 
-	bool EventPause = true;
+	bool EventPause = false;
+
+	UTimeEvent TimeEventer;
 };

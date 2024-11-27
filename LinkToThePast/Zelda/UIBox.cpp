@@ -2,6 +2,7 @@
 #include "UIBox.h"
 #include "ContentsEnum.h"
 #include "UIText.h"
+#include "EventManager.h"
 
 #include <EngineCore/SpriteRenderer.h>
 
@@ -105,12 +106,25 @@ void AUIBox::SetTextsCount(int Count)
 
 void AUIBox::StartShow()
 {
+	UEventManager::GetInstance().SetEventPause(true);
 	BoxRenderer->SetAlphafloat(1.0f);
 	MaxLineCount = static_cast<int>(UITextes.size());
 }
 
 void AUIBox::StartEnd()
 {
+	TimeEventer.PushEvent(2.0f, [this]()
+		{
+			UEventManager::GetInstance().SetEventPause(false);
+			BoxRenderer->SetAlphafloat(0.0f);
+			for (size_t i = 0; i < UITextes.size(); i++)
+			{
+				UITextes[i]->SetActive(false);
+			}
+			MaxLineCount = 0;
+			CurLineCount = 0;
+		}
+	);
 }
 
 void AUIBox::Show(float DeltaTime)

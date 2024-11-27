@@ -31,15 +31,19 @@ void ACastleDungeonGameMode::BeginPlay()
 
 	CheckCollisionRoom();
 
-	UIBox = GetWorld()->SpawnActor<AUIBox>();
-	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half());
+	TimeEventer.PushEvent(2.0f, [this]()
+		{
+			UIBox = GetWorld()->SpawnActor<AUIBox>();
+			UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half());
 
-	std::vector<std::string> StrValues;
-	StrValues.push_back("Link, I am going out for a");
-	StrValues.push_back("while. I will be back by morning.");
-	StrValues.push_back("Don't leave the house.");
+			std::vector<std::string> StrValues;
+			StrValues.push_back("Link, I am going out for a");
+			StrValues.push_back("while. I will be back by morning.");
+			StrValues.push_back("Don't leave the house.");
 
-	UIBox->CreateUIText(StrValues, 1.0f);
+			UIBox->CreateUIText(StrValues, 1.0f);
+		});
+
 	//UIBox->ShowUI();
 
 	{

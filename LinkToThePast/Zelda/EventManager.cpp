@@ -24,3 +24,14 @@ void UEventManager::EventTimeTick(float DeltaTime)
 
 	}
 }
+
+void UEventManager::SetEventPause(float Time)
+{
+	EventPause = true;
+
+	TimeEventer.PushEvent(Time, [this]()
+		{
+			EventPause = false;
+		}
+	);
+}

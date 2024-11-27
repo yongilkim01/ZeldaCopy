@@ -4,6 +4,7 @@
 #include "BossGameMode.h"
 #include "ContentsEnum.h"
 #include "PlayerDataManager.h"
+#include "EventManager.h"
 
 #include <EngineCore/EngineCoreDebug.h>
 #include <EnginePlatform/EngineInput.h>
@@ -86,6 +87,10 @@ void APlayerCharacter::PrintDebugInfo(float DeltaTime)
 	if (true == UEngineInput::GetInst().IsDown('2'))
 	{
 		UEngineDebug::SwitchIsDebug();
+	}
+	if (true == UEngineInput::GetInst().IsDown(VK_F1))
+	{
+		UEventManager::GetInstance().SwitchEventPause();
 	}
 	if (true == UEngineInput::GetInst().IsDown(VK_F3))
 	{

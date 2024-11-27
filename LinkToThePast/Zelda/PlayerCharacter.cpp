@@ -144,11 +144,11 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	ABaseCharacter::Tick(DeltaTime);
 
+	PrintDebugInfo(DeltaTime);
+
 	if (AZeldaGameMode::IsMapMoving == true) return;
 
-	//if (true == UEventManager::GetInstance().GetEventPause()) return;
-
-	PrintDebugInfo(DeltaTime);
+	if (true == UEventManager::GetInstance().GetEventPause()) return;
 
 	switch (CurPlayerState)
 	{
