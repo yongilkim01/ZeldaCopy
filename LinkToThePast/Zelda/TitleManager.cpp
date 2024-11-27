@@ -211,10 +211,11 @@ void ATitleManager::StartSwordLogo()
 
 void ATitleManager::StartTitle()
 {
-	//if (ETitleState::SWORDLOGO != PrevState)
-	//{
-	//	EffectSoundPlayer = UEngineSound::Play("Title.mp3");
-	//}
+	if (ETitleState::SWORDLOGO != PrevState)
+	{
+		EffectSoundPlayer.Stop();
+		EffectSoundPlayer = UEngineSound::Play("Title.mp3");
+	}
 	//EffectSoundPlayer = UEngineSound::Play("Title.mp3");
 	LogoRenderer->SetSprite("NintentdoAgeLogo.png");
 	LogoRenderer->SetSpriteScale(3.0f);
@@ -357,5 +358,11 @@ void ATitleManager::ChangeState(ETitleState State)
 	}
 
 	TitleState = State;
+}
+
+void ATitleManager::StopSound()
+{
+	EffectSoundPlayer.Stop();
+	BackgroundSoundPlayer.Stop();
 }
 

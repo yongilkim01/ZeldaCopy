@@ -35,7 +35,7 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	/** 타이틀 메인 상태 */
+	/** 타이틀 매니저 상태 메소드 */
 	void StartLogo();
 	void StartTriforce();
 	void StartTitleLogo();
@@ -49,6 +49,9 @@ public:
 	void Title(float DeltaTime);
 
 	void ChangeState(ETitleState State);
+	
+	/** 타이틀 매니저 메소드 */
+	void StopSound();
 
 protected:
 

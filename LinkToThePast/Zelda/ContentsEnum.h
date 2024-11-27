@@ -1,6 +1,5 @@
 #pragma once
 
-
 enum class ERenderOrder
 {
 	BACKGROUND = -1000,

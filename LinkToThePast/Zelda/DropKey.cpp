@@ -90,7 +90,7 @@ void ADropKeyItem::Pickup(float DeltaTime)
 		{
 			IsSoundCheck = false;
 		}
-		DropSpeed -= 0.0006;
+		DropSpeed -= 0.0006f;
 
 	}
 

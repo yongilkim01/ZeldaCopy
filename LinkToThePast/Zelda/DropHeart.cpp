@@ -86,7 +86,7 @@ void ADropHeartItem::Pickup(float DeltaTime)
 	{
 		CurrentDeltaTime += DeltaTime;
 		AddActorLocation(FVector2D(DropSpeed * UEngineMath::Sin(CurrentDeltaTime * DropFrequency), 0.0f));
-		DropSpeed -= 0.0005;
+		DropSpeed -= 0.0005f;
 	}
 	else
 	{

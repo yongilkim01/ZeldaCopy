@@ -1,6 +1,13 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
+enum class EFadeType
+{
+	NONE,
+	ALPHA,
+	ZOOM,
+};
+
 class USpriteRenderer;
 
 /**
@@ -19,32 +26,33 @@ public:
 	AFade& operator=(const AFade& _Other) = delete;
 	AFade& operator=(AFade&& _Other) noexcept = delete;
 
+	/** Fade 클래스 메소드 */
 	void FadeIn();
 	void FadeOut();
 
-	void FadeInEnd();
-	void FadeOutEnd();
+	void FadeChange();
 
 	USpriteRenderer* GetBackSpriteRenderer()
 	{
-		return BackSpriteRenderer;
+		return AlphaRenderer;
 	}
 
 
 protected:
+	/** 액터 상속 메소드 */
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+	virtual void LevelChangeStart() override;
+	virtual void LevelChangeEnd() override;
 
 private:
-	virtual void LevelChangeStart() override;
-	void FadeChange();
-
+	/** Fade 클래스 멤버변수 초기화 */
 	float FadeValue = 0.0f;
 	float FadeDir = 1.0f;
-
 	bool IsFading = false;
 
-	USpriteRenderer* BackSpriteRenderer = nullptr;
-
-	std::function<void()> EndFunction = nullptr;
-
+	/** 컴포넌트 */
+	USpriteRenderer* AlphaRenderer = nullptr;
+	USpriteRenderer* ZoomRenderer = nullptr;
 };
 

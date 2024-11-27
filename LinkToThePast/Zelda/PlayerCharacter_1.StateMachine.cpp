@@ -15,7 +15,7 @@
 
 void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 {
-	if (CurPlayerState == ChangeState) return;
+	//if (CurPlayerState == ChangeState) return;
 
 	switch (ChangeState)
 	{

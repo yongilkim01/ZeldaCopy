@@ -115,25 +115,15 @@ void ACastleDungeonGameMode::BeginPlay()
 
 	}
 
-	AFade* FadeActor = GetWorld()->SpawnActor<AFade>();
-
-	FadeActor->GetBackSpriteRenderer()->SetAnimationEvent("FadeOut", 7, []()
-		{
-			int a = 0;
-		});
-
-	FadeActor->GetBackSpriteRenderer()->SetAnimationEvent("FadeIn", 7, []()
-		{
-			UEngineAPICore::GetCore()->OpenLevel("HyruleCastle");
-		});
-
-
-	FadeActor->SetActorLocation({ 0, 0 });
-	FadeActor->FadeOut();
-
 	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
 	LevelMove1->SetActorLocation({ 2305, 115 });
-	LevelMove1->SetFade(FadeActor);
+	//LevelMove1->SetFade(FadeActor);
+	LevelMove1->SetMoveLevelName("HyruleCastle");
+
+	ALevelMove* LevelMove2 = GetWorld()->SpawnActor<ALevelMove>();
+	LevelMove2->SetActorLocation({ 500, 114 });
+	//LevelMove2->SetFade(FadeActor);
+	LevelMove2->SetMoveLevelName("Boss");
 
 	{
 		APot* Pot1 = GetWorld()->SpawnActor<APot>();

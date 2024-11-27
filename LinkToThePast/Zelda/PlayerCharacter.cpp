@@ -194,9 +194,10 @@ void APlayerCharacter::LevelChangeStart()
 	}
 	else if("CASTLEDUNGEON" == LevelName)
 	{
-		//SetActorLocation({ 2305, 165 });
-		SetActorLocation({ 380, 1254 });
+		SetActorLocation({ 2305, 165 });
+		//SetActorLocation({ 380, 1254 });
 		SetCurDirection(FVector2D::DOWN);
+		ChangeState(EPlayerState::Idle);
 	}
 	
 }
@@ -213,7 +214,7 @@ void APlayerCharacter::CreateItem()
 	Lantern->SetPlayer(this);
 	WeaponItemes.push_back(Lantern);
 	Lantern->SetActive(
-		static_cast<int>(PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size()) - 1) // 0
+		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(static_cast<int>(WeaponItemes.size()) - 1) // 0
 	);
 
 	Bow = GetWorld()->SpawnActor<ABow>();
@@ -221,6 +222,6 @@ void APlayerCharacter::CreateItem()
 	Bow->SetPlayer(this);
 	WeaponItemes.push_back(Bow);
 	Bow->SetActive(
-		static_cast<int>(PlayerDataManager::GetInstance().GetWeaponActiveToIndex(WeaponItemes.size()) - 1) // 1
+		PlayerDataManager::GetInstance().GetWeaponActiveToIndex(static_cast<int>(WeaponItemes.size()) - 1) // 1
 	);
 }

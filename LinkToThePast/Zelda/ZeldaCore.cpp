@@ -116,8 +116,8 @@ void UZeldaCore::BeginPlay()
 
 	UImageManager::GetInst().CuttingSprite("EnemyDeathEffect.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FireEffect.png", { 64, 64 });
-	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 700 });
-	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 700 });
+	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 2000 });
+	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 2000 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforce.png", { 200, 200 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforceReverse.png", { 200, 200 });
 

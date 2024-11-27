@@ -2,6 +2,7 @@
 #include "LevelMove.h"
 #include "ContentsEnum.h"
 #include "Fade.h"
+#include "PlayerCharacter.h"
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
@@ -20,17 +21,13 @@ ALevelMove::ALevelMove()
 		SpriteRenderer->SetCameraEffect(false);
 		SpriteRenderer->SetAlphafloat(0.0f);
 	}
-	{
-		// 충돌 컴포넌트 생성
+	// 충돌 컴포넌트 생성
+	{		
 		Collision = CreateDefaultSubObject<UCollision2D>();
 		Collision->SetComponentLocation({ 0, -10 });
 		Collision->SetComponentScale({ 10, 10 });
 		Collision->SetCollisionGroup(ECollisionGroup::Potal);
 		Collision->SetActive(true);
-
-	}
-	{
-		//Fade = 
 	}
 
 	DebugOn();
@@ -43,17 +40,30 @@ ALevelMove::~ALevelMove()
 void ALevelMove::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Player = dynamic_cast<APlayerCharacter*>(GetWorld()->GetPawn());
+
+	FadeActor = GetWorld()->SpawnActor<AFade>();
+	FadeActor->SetActorLocation(Player->GetActorLocation());
+	FadeActor->FadeOut();
 }
 
 void ALevelMove::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FadeActor->SetActorLocation(Player->GetActorLocation());
+
 	AActor* Result = Collision->CollisionOnce(ECollisionGroup::PlayerBody);
 
 	if (nullptr != Result)
 	{
 		UEngineDebug::CoreOutPutString("플레이어 안에 들어옴");
-		FadeActor->FadeIn();
+			FadeActor->FadeIn();
+		TimeEventer.PushEvent(1.0f, [this]()
+			{
+				UEngineAPICore::GetCore()->OpenLevel(MoveLevel);
+			}
+		);
 	}
 }

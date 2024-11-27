@@ -6,35 +6,70 @@
 
 AFade::AFade()
 {
-	BackSpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
-	BackSpriteRenderer->SetOrder(ERenderOrder::FADE);
-	BackSpriteRenderer->SetSprite("FadeIn.png");
-	FVector2D MapScale = BackSpriteRenderer->SetSpriteScale(1.0f);
-	BackSpriteRenderer->SetComponentLocation(MapScale.Half());
-	BackSpriteRenderer->SetCameraEffect(false);
-	//BackSpriteRenderer->SetAlphaChar(200);
+	// SpriteRenderer component √ ±‚»≠
+	{
+		AlphaRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		AlphaRenderer->SetOrder(ERenderOrder::FADE);
+		AlphaRenderer->SetSprite("Fade.bmp");
+		FVector2D AlphaScale = AlphaRenderer->SetSpriteScale(1.0f);
+		AlphaRenderer->SetComponentLocation(FVector2D::ZERO);
+		//AlphaRenderer->SetCameraEffect(false);
+		AlphaRenderer->SetAlphafloat(0.0f);
+		AlphaRenderer->SetActive(true);
 
-	BackSpriteRenderer->CreateAnimation("FadeOut", "FadeOut.png", 0, 7, 0.1f);
-	BackSpriteRenderer->CreateAnimation("FadeIn", "FadeIn.png", 0, 7, 0.1f);
-	BackSpriteRenderer->CreateAnimation("Black", "BlackBlankSprite.png", 0, 0, 0.1f);
+		
+		ZoomRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		ZoomRenderer->SetOrder(ERenderOrder::FADE);
+		ZoomRenderer->SetSprite("FadeOut.png", 0);
+		FVector2D ZoomScale = ZoomRenderer->SetSpriteScale(1.0f);
+		ZoomRenderer->SetComponentLocation(FVector2D::ZERO);
+		ZoomRenderer->CreateAnimation("FadeOut", "FadeOut.png", 0, 7, 0.08f, false);
+		ZoomRenderer->CreateAnimation("FadeIn", "FadeIn.png", 0, 7, 0.08f, false);
+		ZoomRenderer->SetAlphafloat(0.0f);
 
-	BackSpriteRenderer->SetAnimationEvent("FadeOut", 7, std::bind(&AFade::FadeOutEnd, this));
-	BackSpriteRenderer->SetAnimationEvent("FadeIn", 7, std::bind(&AFade::FadeInEnd, this));
+		ZoomRenderer->SetAnimationEvent("FadeOut", 7, [this]()
+			{
+				ZoomRenderer->SetAlphafloat(0.0f);
+			}
+		);
 
-	BackSpriteRenderer->SetAlphafloat(0.0f);
-
-	FVector2D Pos = GetActorLocation();
+		ZoomRenderer->SetAnimationEvent("FadeIn", 7, [this]()
+			{
+				AlphaRenderer->SetAlphafloat(1.0f);
+			}
+		);
+	}
 }
 
 AFade::~AFade()
 {
 }
 
+void AFade::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+void AFade::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+void AFade::LevelChangeStart()
+{
+	Super::LevelChangeStart();
+}
+
+void AFade::LevelChangeEnd()
+{
+	Super::LevelChangeEnd();
+}
+
 void AFade::FadeChange()
 {
 	float DeltaTime = UEngineAPICore::GetCore()->GetDeltaTime();
-	FadeValue += DeltaTime * 0.5F * FadeDir;
-	BackSpriteRenderer->SetAlphafloat(FadeValue);
+	FadeValue += DeltaTime * 0.5f * FadeDir;
+	//AlphaRenderer->SetAlphafloat(FadeValue);
 
 }
 
@@ -44,31 +79,14 @@ void AFade::FadeIn()
 	if (false == IsFading)
 	{
 		IsFading = true;
-		BackSpriteRenderer->SetAlphafloat(1.0f);
-		BackSpriteRenderer->ChangeAnimation("FadeIn");
+		ZoomRenderer->SetAlphafloat(1.0f);
+		ZoomRenderer->ChangeAnimation("FadeIn");
 	}
 }
 
+// 1 => 0
 void AFade::FadeOut()
 {
-	BackSpriteRenderer->SetAlphafloat(1.0f);
-	BackSpriteRenderer->ChangeAnimation("FadeOut");
-	//UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
-}
-
-void AFade::FadeInEnd()
-{
-	BackSpriteRenderer->ChangeAnimation("Black");
-	UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
-	///TimeEventer.PushEvent(4.0f, std::bind(&AFade::FadeOut, this), false, false);
-}
-
-void AFade::FadeOutEnd()
-{
-	this->BackSpriteRenderer->SetAlphafloat(0.0f);
-	IsFading = false;
-}
-
-void AFade::LevelChangeStart()
-{
+	ZoomRenderer->SetAlphafloat(1.0f);
+	ZoomRenderer->ChangeAnimation("FadeOut");
 }

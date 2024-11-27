@@ -4,6 +4,7 @@
 class USpriteRenderer;
 class UCollision2D;
 class AFade;
+class APlayerCharacter;
 
 /**
  *	설명
@@ -21,12 +22,18 @@ public:
 	ALevelMove& operator=(const ALevelMove& _Other) = delete;
 	ALevelMove& operator=(ALevelMove&& _Other) noexcept = delete;
 
+	/** 겟, 셋 메소드 */
 	void SetFade(AFade* FadeActor)
 	{
 		this->FadeActor = FadeActor;
 	}
+	void SetMoveLevelName(std::string_view LevelName)
+	{
+		MoveLevel = LevelName;
+	}
 
 protected:
+	/** 액터 상속 메소드 */
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
@@ -34,6 +41,8 @@ private:
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* Collision = nullptr;
 	AFade* FadeActor = nullptr;
-
+	APlayerCharacter* Player = nullptr;
+	
+	std::string MoveLevel;
 };
 
