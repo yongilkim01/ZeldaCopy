@@ -38,7 +38,7 @@ void AUIText::BeginPlayUIText(std::string_view StrValue, float Time)
 		char CharValue = this->StrValue[i];
 		int TextIndex = ConvertCharToIndex(CharValue);
 		TextRendereres[i]->SetSprite("UIText.png", TextIndex);
-		TextRendereres[i]->SetSpriteScale();
+		TextRendereres[i]->SetSpriteScale(0.75f);
 		TextRendereres[i]->SetComponentLocation(FVector2D( TextSize.X * i, TextSize.Y ));
 		TextRendereres[i]->SetActive(false);
 	}

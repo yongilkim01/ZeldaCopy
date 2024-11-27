@@ -56,7 +56,7 @@ private:
 	int CurCount = 0;
 
 	std::string StrValue;
-	const FVector2D TextSize = { 21.0f, 39.0f };
+	const FVector2D TextSize = { 15.0f, 29.0f };
 	std::vector<USpriteRenderer*> TextRendereres;
 };
 

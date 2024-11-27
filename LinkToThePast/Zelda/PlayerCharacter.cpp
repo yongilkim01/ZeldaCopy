@@ -6,6 +6,7 @@
 #include "Lantern.h"
 #include "Bow.h"
 #include "PlayerDataManager.h"
+#include "EventManager.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -144,6 +145,8 @@ void APlayerCharacter::Tick(float DeltaTime)
 	ABaseCharacter::Tick(DeltaTime);
 
 	if (AZeldaGameMode::IsMapMoving == true) return;
+
+	//if (true == UEventManager::GetInstance().GetEventPause()) return;
 
 	PrintDebugInfo(DeltaTime);
 

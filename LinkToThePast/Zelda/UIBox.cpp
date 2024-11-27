@@ -8,7 +8,7 @@
 AUIBox::AUIBox()
 {
 	BoxRenderer = CreateDefaultSubObject<USpriteRenderer>();
-	BoxRenderer->SetSprite("UIBox.png");
+	BoxRenderer->SetSprite("UIBox2.png");
 	FVector2D BoxScale = BoxRenderer->SetSpriteScale(1.0f);
 	BoxRenderer->SetComponentLocation(FVector2D::ZERO);
 	BoxRenderer->SetComponentScale(BoxScale);
@@ -115,8 +115,8 @@ void AUIBox::StartEnd()
 
 void AUIBox::Show(float DeltaTime)
 {
-	FVector2D Location = GetActorLocation() - FVector2D(330, 90);
-	Location += FVector2D(0, CurLineCount * 50);
+	FVector2D Location = GetActorLocation() - FVector2D(250, 70);
+	Location += FVector2D(0, CurLineCount * 40);
 
 	CurTime += DeltaTime;
 

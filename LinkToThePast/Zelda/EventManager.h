@@ -42,5 +42,5 @@ private:
 	float CheckTime = 0.0f;
 	float CurrentTime = 0.0f;
 
-	bool EventPause = false;
+	bool EventPause = true;
 };
