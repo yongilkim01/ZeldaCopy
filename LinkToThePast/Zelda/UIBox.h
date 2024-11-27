@@ -4,6 +4,13 @@
 class USpriteRenderer;
 class AUIText;
 
+enum class EUIBoxState
+{
+	NONE,
+	SHOW,
+	END,
+};
+
 /**
  *	설명
  */
@@ -20,12 +27,21 @@ public:
 	AUIBox& operator=(const AUIBox& _Other) = delete;
 	AUIBox& operator=(AUIBox&& _Other) noexcept = delete;
 
+	/** 클래스 상태 메소드 */
+	void StartShow();
+	void StartEnd();
+
+	void Show(float DeltaTime);
+	void End(float DeltaTime);
+
+	void ChangeState(EUIBoxState State);
+
 	/** 클래스 메소드 */
 	void CreateUIText(std::string_view StrValue, float Time = 0.0f);
 	void CreateUIText(const std::vector<std::string>& StrValues, float Time = 0.0f);
 	void SetUIText(std::string_view StrValue, int Index = 0, float Time = 0.0f);
 	void SetUIText(const std::vector<std::string>& StrValues, int Index = 0, float Time = 0.0f);
-	void ShowUI(float DeltaTime = 0.0f);
+	//void ShowUI(float DeltaTime = 0.0f);
 	void HideUI();
 
 	/** 겟, 셋 메소드 */
@@ -53,6 +69,14 @@ public:
 		}
 		--UITextIter;
 	}
+	void SetTime(float Time)
+	{
+		this->Time = Time;
+	}
+	float GetTime()
+	{
+		return Time;
+	}
 
 protected:
 	/** 액터 상속 메소드 */
@@ -64,5 +88,11 @@ private:
 	std::vector<AUIText*>::iterator UITextIter;
 
 	USpriteRenderer* BoxRenderer = nullptr;
+
+	float CurTime = 0.0f;
+	float Time = 0.0f;
+	int CurLineCount = 0;
+	int MaxLineCount = 0;
+	EUIBoxState CurState = EUIBoxState::NONE;
 };
 

@@ -39,7 +39,7 @@ void ACastleDungeonGameMode::BeginPlay()
 	StrValues.push_back("while. I will be back by morning.");
 	StrValues.push_back("Don't leave the house.");
 
-	UIBox->CreateUIText(StrValues);
+	UIBox->CreateUIText(StrValues, 1.0f);
 	//UIBox->ShowUI();
 
 	{
@@ -172,7 +172,6 @@ void ACastleDungeonGameMode::Tick(float DeltaTime)
 	AZeldaGameMode::Tick(DeltaTime);
 
 	CheckCollisionRoom();
-	UIBox->ShowUI(DeltaTime);
 }
 
 void ACastleDungeonGameMode::BeginPlayRoomActor()

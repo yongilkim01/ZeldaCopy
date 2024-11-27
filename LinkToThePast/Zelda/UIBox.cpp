@@ -25,16 +25,31 @@ void AUIBox::BeginPlay()
 {
 	Super::BeginPlay();
 
+	ChangeState(EUIBoxState::SHOW);
+
 }
 
 void AUIBox::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	switch (CurState)
+	{
+	case EUIBoxState::SHOW:
+		Show(DeltaTime);
+		break;
+	case EUIBoxState::END:
+		End(DeltaTime);
+		break;
+	default:
+		break;
+	}
+
 }
 
 void AUIBox::CreateUIText(std::string_view StrValue, float Time)
 {
+	// s20_02
 	AUIText* NewUIText = GetWorld()->SpawnActor<AUIText>();
 	NewUIText->BeginPlayUIText(StrValue, Time);
 	NewUIText->SetActive(false);
@@ -43,10 +58,15 @@ void AUIBox::CreateUIText(std::string_view StrValue, float Time)
 
 void AUIBox::CreateUIText(const std::vector<std::string>& StrValues, float Time)
 {
-	AUIText* NewUIText = GetWorld()->SpawnActor<AUIText>();
-	NewUIText->BeginPlayUIText(StrValues, Time);
-	NewUIText->SetActive(false);
-	UITextes.push_back(NewUIText);
+	this->Time = Time;
+
+	for (std::string StrValue : StrValues)
+	{
+		AUIText* NewUIText = GetWorld()->SpawnActor<AUIText>();
+		NewUIText->BeginPlayUIText(StrValue, 0.0f);
+		NewUIText->SetActive(false);
+		UITextes.push_back(NewUIText);
+	}
 }
 
 void AUIBox::SetUIText(std::string_view StrValue, int Index, float Time)
@@ -62,20 +82,6 @@ void AUIBox::SetUIText(const std::vector<std::string>& StrValues, int Index, flo
 	if (Index < UITextes.size()) 
 	{
 		UITextes[Index]->BeginPlayUIText(StrValues, Time);
-	}
-}
-
-void AUIBox::ShowUI(float DeltaTime)
-{
-	BoxRenderer->SetAlphafloat(1.0f);
-	FVector2D Location = GetActorLocation() - FVector2D(330, 60);
-
-	for (AUIText* UIText : UITextes)
-	{
-		Location.Y -= 30.0f;
-		UIText->SetActive(true);
-		UIText->ShowUIText(0.0f);
-		UIText->SetActorLocation(Location);
 	}
 }
 
@@ -95,4 +101,61 @@ void AUIBox::SetTextsCount(int Count)
 	{
 		CreateUIText("");
 	}
+}
+
+void AUIBox::StartShow()
+{
+	BoxRenderer->SetAlphafloat(1.0f);
+	MaxLineCount = static_cast<int>(UITextes.size());
+}
+
+void AUIBox::StartEnd()
+{
+}
+
+void AUIBox::Show(float DeltaTime)
+{
+	FVector2D Location = GetActorLocation() - FVector2D(330, 90);
+	Location += FVector2D(0, CurLineCount * 50);
+
+	CurTime += DeltaTime;
+
+	if (CurTime > Time)
+	{
+
+		UITextes[CurLineCount]->SetActive(true);
+		UITextes[CurLineCount]->ShowUIText(0.0f);
+		UITextes[CurLineCount]->SetActorLocation(Location);
+
+		CurTime = 0.0f;
+		++CurLineCount;
+
+		if (CurLineCount == MaxLineCount)
+		{
+			ChangeState(EUIBoxState::END);
+		}
+	}
+}
+
+void AUIBox::End(float DeltaTime)
+{
+}
+
+void AUIBox::ChangeState(EUIBoxState State)
+{
+	if (State == CurState) return;
+
+	switch (State)
+	{
+	case EUIBoxState::SHOW:
+		StartShow();
+		break;
+	case EUIBoxState::END:
+		StartEnd();
+		break;
+	default:
+		break;
+	}
+
+	CurState = State;
 }
