@@ -63,6 +63,7 @@ enum class ETextIndex
 	RIGHT_PARENT,
 	UNDERBAR,
 	DOT,
-	COMMA,
+	COMMA_DOWN,
+	COMMA_UP,
 	MAX,
 };

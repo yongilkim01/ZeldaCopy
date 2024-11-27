@@ -1,6 +1,8 @@
 #pragma once
 #include "ZeldaGameMode.h"
 
+class AUIBox;
+
 /**
  *	Ό³Έν
  */
@@ -25,6 +27,6 @@ public:
 protected:
 
 private:
-
+	AUIBox* UIBox = nullptr;
 };
 

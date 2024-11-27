@@ -267,6 +267,10 @@
     </ClInclude>
     <ClInclude Include="UIArrowManager.h" />
     <ClInclude Include="UIBombManager.h" />
+    <ClInclude Include="UIBox.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="UIHeartManager.h">
       <SubType>
       </SubType>
@@ -442,6 +446,10 @@
     </ClCompile>
     <ClCompile Include="UIArrowManager.cpp" />
     <ClCompile Include="UIBombManager.cpp" />
+    <ClCompile Include="UIBox.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="UIHeartManager.cpp">
       <SubType>
       </SubType>

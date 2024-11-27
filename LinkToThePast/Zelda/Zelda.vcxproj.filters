@@ -169,6 +169,9 @@
     <ClInclude Include="UIText.h">
       <Filter>3_UI\1_Data</Filter>
     </ClInclude>
+    <ClInclude Include="UIBox.h">
+      <Filter>3_UI\1_Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -364,6 +367,9 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClCompile>
     <ClCompile Include="UIText.cpp">
+      <Filter>3_UI\1_Data</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBox.cpp">
       <Filter>3_UI\1_Data</Filter>
     </ClCompile>
   </ItemGroup>

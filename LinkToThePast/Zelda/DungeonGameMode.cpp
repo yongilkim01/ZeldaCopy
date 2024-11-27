@@ -11,6 +11,7 @@
 #include "Chest.h"
 #include "CastleKnight.h"
 #include "Door.h"
+#include "UIBox.h"
 #include <EngineCore/EngineAPICore.h>
 
 ACastleDungeonGameMode::ACastleDungeonGameMode()
@@ -29,6 +30,17 @@ void ACastleDungeonGameMode::BeginPlay()
 	UIBeginPlay();
 
 	CheckCollisionRoom();
+
+	UIBox = GetWorld()->SpawnActor<AUIBox>();
+	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half());
+
+	std::vector<std::string> StrValues;
+	StrValues.push_back("Link, I am going out for a");
+	StrValues.push_back("while. I will be back by morning.");
+	StrValues.push_back("Don't leave the house.");
+
+	UIBox->CreateUIText(StrValues);
+	//UIBox->ShowUI();
 
 	{
 		AHylianKnight* EnemyCharacter = GetWorld()->SpawnActor<AHylianKnight>();
@@ -101,19 +113,19 @@ void ACastleDungeonGameMode::BeginPlay()
 
 	}
 
-	{
-		ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
-		EnemyCharacter->SetActorLocation({ 240, 1100 });
-		EnemyCharacter->SetSpeed(150.0f);
-		EnemyCharacter->AddTurningLocation(FVector2D(240, 1100));
-		EnemyCharacter->AddTurningLocation(FVector2D(540, 1100));
-		EnemyCharacter->AddTurningLocation(FVector2D(540, 1170));
-		EnemyCharacter->AddTurningLocation(FVector2D(240, 1170));
-		EnemyCharacter->SetDropItemType(EDropItemType::HEART);
+	//{
+	//	ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
+	//	EnemyCharacter->SetActorLocation({ 240, 1100 });
+	//	EnemyCharacter->SetSpeed(150.0f);
+	//	EnemyCharacter->AddTurningLocation(FVector2D(240, 1100));
+	//	EnemyCharacter->AddTurningLocation(FVector2D(540, 1100));
+	//	EnemyCharacter->AddTurningLocation(FVector2D(540, 1170));
+	//	EnemyCharacter->AddTurningLocation(FVector2D(240, 1170));
+	//	EnemyCharacter->SetDropItemType(EDropItemType::HEART);
 
-		CheckCharacterInRoom(EnemyCharacter);
+	//	CheckCharacterInRoom(EnemyCharacter);
 
-	}
+	//}
 
 	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
 	LevelMove1->SetActorLocation({ 2305, 115 });
@@ -160,6 +172,7 @@ void ACastleDungeonGameMode::Tick(float DeltaTime)
 	AZeldaGameMode::Tick(DeltaTime);
 
 	CheckCollisionRoom();
+	UIBox->ShowUI(DeltaTime);
 }
 
 void ACastleDungeonGameMode::BeginPlayRoomActor()

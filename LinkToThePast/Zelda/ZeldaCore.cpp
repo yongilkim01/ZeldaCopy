@@ -124,6 +124,7 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("Heart.png", { 21, 21 });
 	UImageManager::GetInst().CuttingSprite("DropHeart.png", { 24, 78 });
 	UImageManager::GetInst().CuttingSprite("HUDText.png", { 21, 21 });
+	UImageManager::GetInst().CuttingSprite("UIText.png", { 128, 128 });
 
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowTitle("A link to the past");
 

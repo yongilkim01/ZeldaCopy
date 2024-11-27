@@ -86,7 +86,7 @@ void AUIText::BeginPlayUIText(const std::vector<std::string>& StrValues, float T
 		{
 			char CharValue = StrVal[j];
 			int TextIndex = ConvertCharToIndex(CharValue);
-			TextRendereres[i]->SetSprite("UIText.png", TextIndex);
+			TextRendereres[Index]->SetSprite("UIText.png", TextIndex);
 			TextRendereres[Index]->SetSpriteScale();
 			TextRendereres[Index]->SetComponentLocation(FVector2D(TextSize.X * Index, TextSize.Y));
 			TextRendereres[Index]->SetActive(false);
@@ -184,7 +184,7 @@ int AUIText::ConvertCharToIndex(char CharValue)
 			return static_cast<int>(ETextIndex::DOT);
 			break;
 		case ',': 
-			return static_cast<int>(ETextIndex::COMMA);
+			return static_cast<int>(ETextIndex::COMMA_DOWN);
 			break;
 		default: 
 			return static_cast<int>(ETextIndex::MAX);

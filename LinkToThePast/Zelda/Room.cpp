@@ -53,7 +53,7 @@ ARoom::ARoom()
 	EnvSprites.reserve(10);
 	Doores.reserve(5);
 
-	DebugOn();
+	//DebugOn();
 }
 
 ARoom::~ARoom()

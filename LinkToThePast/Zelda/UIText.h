@@ -25,10 +25,10 @@ public:
 	void BeginPlayUIText(const AUIText* UIText);
 	void BeginPlayUIText(const std::vector<std::string>& StrValues, float Time = 0.0f);
 
+	void Reserve(int Count);
 	void ShowUIText(float DeltaTime);
 	void SetOrder(ERenderOrder Order);
 	int ConvertCharToIndex(char CharValue);
-	void Reserve(int Count);
 
 	/** °Ù, ¼Â ¸Þ¼Òµå */
 	std::string GetUIStrValue() const
