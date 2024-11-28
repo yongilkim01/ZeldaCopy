@@ -11,6 +11,7 @@ enum class ELinkHouseState
 {
 	NONE,
 	HELPMSG,
+	SKIP,
 	FADEOUT,
 	NPCTALK,
 };
@@ -37,7 +38,11 @@ public:
 	void StartHelpMsg();
 	void HelpMsg(float DeltaTime);
 
-	void FadeOut();
+	void StartFadeOut();
+	void FadeOut(float DeltaTime);
+
+	void StartSkip();
+	void Skip(float DeltaTime);
 
 	void StartNPCTalk();
 	void NPCTalk(float DeltaTime);
@@ -66,6 +71,8 @@ protected:
 
 
 private:
+	float FadeAlpha = 0.9f;
+
 	APlayerCharacter* Player = nullptr;
 	AHouseBed* HouseBed = nullptr;
 	AUIBox* UIBox = nullptr;

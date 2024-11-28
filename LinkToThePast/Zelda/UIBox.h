@@ -8,6 +8,7 @@ enum class EUIBoxState
 {
 	NONE,
 	SHOW,
+	SKIP,
 	END,
 };
 
@@ -30,9 +31,11 @@ public:
 	/** 클래스 상태 메소드 */
 	void StartShow();
 	void StartEnd();
+	void StartSkip();
 
 	void Show(float DeltaTime);
 	void End(float DeltaTime);
+	void Skip(float DeltaTime);
 
 	void ChangeState(EUIBoxState State);
 

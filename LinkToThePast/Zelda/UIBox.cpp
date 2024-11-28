@@ -42,6 +42,9 @@ void AUIBox::Tick(float DeltaTime)
 	case EUIBoxState::END:
 		End(DeltaTime);
 		break;
+	case EUIBoxState::SKIP:
+		Skip(DeltaTime);
+		break;
 	default:
 		break;
 	}
@@ -86,14 +89,17 @@ void AUIBox::SetUIText(const std::vector<std::string>& StrValues, int Index, flo
 	}
 }
 
+
 void AUIBox::HideUI()
 {
 	BoxRenderer->SetAlphafloat(0.0f);
 
-	for (AUIText* UIText : UITextes)
+	for (size_t i = 0; i < UITextes.size(); i++)
 	{
-		UIText->SetActive(false);
+		UITextes[i]->SetActive(false);
 	}
+	MaxLineCount = 0;
+	CurLineCount = 0;
 }
 
 void AUIBox::SetTextsCount(int Count)
@@ -113,7 +119,7 @@ void AUIBox::StartShow()
 
 void AUIBox::StartEnd()
 {
-	TimeEventer.PushEvent(2.0f, [this]()
+	TimeEventer.PushEvent(1.0f, [this]()
 		{
 			UEventManager::GetInstance().SetEventPause(false);
 			BoxRenderer->SetAlphafloat(0.0f);
@@ -125,6 +131,27 @@ void AUIBox::StartEnd()
 			CurLineCount = 0;
 		}
 	);
+}
+
+void AUIBox::StartSkip()
+{
+	for (size_t i = 0; i < MaxLineCount; i++)
+	{
+		UITextes[i]->SetActive(false);
+	}
+
+	FVector2D Location = GetActorLocation() - FVector2D(250, 70);
+
+	//int Index = 0;
+
+	for (size_t i = MaxLineCount - 3; i < MaxLineCount; i++)
+	{
+		UITextes[i]->SetActive(true);
+		UITextes[i]->ShowUIText(0.0f);
+		UITextes[i]->SetActorLocation(Location);
+		Location += FVector2D(0.0f, 35.0f);
+		//UITextes[i]->ChangeState(EUITExtState::IDLE);
+	}
 }
 
 void AUIBox::Show(float DeltaTime)
@@ -176,6 +203,10 @@ void AUIBox::End(float DeltaTime)
 {
 }
 
+void AUIBox::Skip(float DeltaTime)
+{
+}
+
 void AUIBox::ChangeState(EUIBoxState State)
 {
 	if (State == CurState) return;
@@ -187,6 +218,9 @@ void AUIBox::ChangeState(EUIBoxState State)
 		break;
 	case EUIBoxState::END:
 		StartEnd();
+		break;
+	case EUIBoxState::SKIP:
+		StartSkip();
 		break;
 	default:
 		break;

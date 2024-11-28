@@ -7,6 +7,7 @@
 #include "Fade.h"
 #include "PlayerCharacter.h"
 
+#include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineAPICore.h>
 
@@ -18,7 +19,7 @@ ALinkHouseGameMode::ALinkHouseGameMode()
 		FVector2D Location = FadeBlueRenderer->SetSpriteScale(1.0f);
 		FadeBlueRenderer->SetComponentLocation(Location.Half());
 		FadeBlueRenderer->SetOrder(ERenderOrder::FADE_FIRST);
-		FadeBlueRenderer->SetAlphafloat(0.85f);
+		FadeBlueRenderer->SetAlphafloat(FadeAlpha);
 		FadeBlueRenderer->SetActive(true);
 	}
 }
@@ -149,6 +150,12 @@ void ALinkHouseGameMode::Tick(float DeltaTime)
 	case ELinkHouseState::NPCTALK:
 		NPCTalk(DeltaTime);
 		break;
+	case ELinkHouseState::SKIP:
+		Skip(DeltaTime);
+		break;
+	case ELinkHouseState::FADEOUT:
+		FadeOut(DeltaTime);
+		break;
 	default:
 		break;
 	}
@@ -176,6 +183,7 @@ void ALinkHouseGameMode::StartHelpMsg()
 	StrValues.push_back("seal. ... ...");
 	StrValues.push_back("I am in the dungeon of the");
 	StrValues.push_back("castle.");
+	StrValues.push_back("Please help me...");
 
 	UIBox->CreateUIText(StrValues, 1.0f);
 }
@@ -184,7 +192,48 @@ void ALinkHouseGameMode::HelpMsg(float DeltaTime)
 {
 	if (EUIBoxState::END == UIBox->GetUIBoxState())
 	{
+		ChangeState(ELinkHouseState::FADEOUT);
+	}
+
+	if (true == UEngineInput::GetInst().IsDown(VK_SPACE) ||
+		true == UEngineInput::GetInst().IsDown(VK_RETURN))
+	{
+		ChangeState(ELinkHouseState::SKIP);
+	}
+}
+
+void ALinkHouseGameMode::StartFadeOut()
+{
+	UIBox->HideUI();
+}
+
+void ALinkHouseGameMode::FadeOut(float DeltaTime)
+{
+	FadeAlpha -= 0.001f;
+	FadeBlueRenderer->SetAlphafloat(FadeAlpha);
+
+	if (FadeAlpha < 0.0f)
+	{
 		ChangeState(ELinkHouseState::NPCTALK);
+	}
+}
+
+void ALinkHouseGameMode::StartSkip()
+{
+	UIBox->ChangeState(EUIBoxState::SKIP);
+
+	TimeEventer.PushEvent(1.0f, [this]()
+		{
+			ChangeState(ELinkHouseState::FADEOUT);
+		});
+}
+
+void ALinkHouseGameMode::Skip(float DeltaTime)
+{
+	if (true == UEngineInput::GetInst().IsDown(VK_SPACE) ||
+		true == UEngineInput::GetInst().IsDown(VK_RETURN))
+	{
+		ChangeState(ELinkHouseState::SKIP);
 	}
 }
 
@@ -217,6 +266,12 @@ void ALinkHouseGameMode::ChangeState(ELinkHouseState State)
 		break;
 	case ELinkHouseState::NPCTALK:
 		StartNPCTalk();
+		break;
+	case ELinkHouseState::SKIP:
+		StartSkip();
+		break;
+	case ELinkHouseState::FADEOUT:
+		StartFadeOut();
 		break;
 	default:
 		break;

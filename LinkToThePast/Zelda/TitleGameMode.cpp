@@ -27,7 +27,8 @@ void ATitleGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (true == UEngineInput::GetInst().IsDown(VK_SPACE))
+	if (true == UEngineInput::GetInst().IsDown(VK_SPACE) ||
+		true == UEngineInput::GetInst().IsDown(VK_RETURN))
 	{
 		ManagerActor->ChangeState(ETitleState::TITLE);
 	}
