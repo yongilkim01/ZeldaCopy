@@ -239,6 +239,7 @@ void ALinkHouseGameMode::Skip(float DeltaTime)
 
 void ALinkHouseGameMode::StartNPCTalk()
 {
+	UIBox->Destroy();
 }
 
 void ALinkHouseGameMode::NPCTalk(float DeltaTime)
