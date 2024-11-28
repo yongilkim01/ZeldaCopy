@@ -129,6 +129,14 @@ void AUIText::ShowUIText(float DeltaTime)
 	}
 }
 
+void AUIText::HideUIText(float DeltaTime)
+{
+	for (size_t i = 0; i < TextRendereres.size(); i++)
+	{
+		TextRendereres[i]->SetActive(false);
+	}
+}
+
 void AUIText::SetOrder(ERenderOrder Order)
 {
 	for (size_t i = 0; i < TextRendereres.size(); i++)

@@ -27,7 +27,7 @@ void ACastleDungeonGameMode::BeginPlay()
 	AZeldaGameMode::BeginPlay();
 
 	BeginPlayRoomActor();
-	UIBeginPlay();
+	BeginPlayUI();
 
 	CheckCollisionRoom();
 

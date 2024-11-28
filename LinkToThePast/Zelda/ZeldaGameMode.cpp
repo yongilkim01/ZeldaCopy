@@ -62,13 +62,13 @@ void AZeldaGameMode::Tick(float DeltaTime)
 }
 
 
-void AZeldaGameMode::UIBeginPlay()
+void AZeldaGameMode::BeginPlayUI()
 {
 	UI = GetWorld()->SpawnActor<AUIManager>();
 	UI->SetPlayer(this->PlayerCharacter);
 }
 
-void AZeldaGameMode::UITick()
+void AZeldaGameMode::TickUI()
 {
 
 }

@@ -187,7 +187,14 @@ void APlayerCharacter::LevelChangeStart()
 
 	std::string LevelName = GetWorld()->GetName();
 
-	if ("HYRULECASTLE" == LevelName)
+	if ("LINKHOUSE" == LevelName)
+	{
+		SetActorLocation({ 220, 280 });
+		SetCurDirection(FVector2D::UP);
+		ChangeState(EPlayerState::Idle);
+
+	}
+	else if ("HYRULECASTLE" == LevelName)
 	{
 		//SetActorLocation({ 1533, 2894 });
 		SetActorLocation({ 1533, 2894 });

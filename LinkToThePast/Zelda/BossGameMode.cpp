@@ -18,7 +18,7 @@ void ABossGameMode::BeginPlay()
 	AZeldaGameMode::BeginPlay();
 
 	BeginPlayRoomActor();
-	UIBeginPlay();
+	BeginPlayUI();
 
 	CheckCollisionRoom();
 

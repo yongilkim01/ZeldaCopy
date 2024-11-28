@@ -35,7 +35,7 @@ void AHyruleCastleGameMode::BeginPlay()
 
 	// ·ë °´Ã¼¿Í UIµéµé ÃÊ±âÈ­
 	BeginPlayRoomActor();
-	UIBeginPlay();
+	BeginPlayUI();
 
 	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
 	LevelMove1->SetActorLocation({ 1532, 220 });

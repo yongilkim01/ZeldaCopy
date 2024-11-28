@@ -47,7 +47,6 @@ public:
 	{
 		if (nullptr == CurState)
 		{
-			MSGASSERT("상태가 지정되지 않은 스테이트머신 입니다.");
 			return;
 		}
 
@@ -58,6 +57,11 @@ public:
 	void ChangeState(EnumType _Key)
 	{
 		ChangeState(static_cast<int>(_Key));
+	}
+
+	void Stop()
+	{
+		CurState = nullptr;
 	}
 
 	void ChangeState(int _Key)

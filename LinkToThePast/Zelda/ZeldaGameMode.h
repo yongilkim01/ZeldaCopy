@@ -67,13 +67,13 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	//virtual void BeginPlayRoomActor() {}
+	virtual void BeginPlayRoomActor() {}
 	virtual void BeginPlayEnvActor() {}
 	virtual void BeginPlayEnemyActor() {}
 
 	/** UI 관리 메소드 */
-	void UIBeginPlay();
-	void UITick();
+	void BeginPlayUI();
+	void TickUI();
 
 	ARoom* FindRoomToName(std::string_view RoomName);
 	void CreateRoomActor(std::string_view _MapName, int StartRoomIndex);

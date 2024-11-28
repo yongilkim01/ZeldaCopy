@@ -22,7 +22,7 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	void BeginPlayRoomActor();
+	virtual void BeginPlayRoomActor() override;
 
 protected:
 

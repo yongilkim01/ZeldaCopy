@@ -77,6 +77,10 @@ public:
 	{
 		return Time;
 	}
+	void SetIsShowFrame(bool ShowFrame)
+	{
+		IsShowFrame = ShowFrame;
+	}
 
 protected:
 	/** 액터 상속 메소드 */
@@ -93,6 +97,7 @@ private:
 	float Time = 0.0f;
 	int CurLineCount = 0;
 	int MaxLineCount = 0;
+	bool IsShowFrame = true;
 	EUIBoxState CurState = EUIBoxState::NONE;
 };
 

@@ -8,6 +8,12 @@ enum class EFadeType
 	ZOOM,
 };
 
+enum class EFadeSize
+{
+	NORMAL,
+	BIG,
+};
+
 class USpriteRenderer;
 
 /**
@@ -37,6 +43,15 @@ public:
 		return AlphaRenderer;
 	}
 
+	/** 겟, 셋 메소드 */
+	EFadeSize GetFadeSize()
+	{
+		return FadeSize;
+	}
+	void SetFadeSize(EFadeSize FadeSize)
+	{
+		this->FadeSize = FadeSize;
+	}
 
 protected:
 	/** 액터 상속 메소드 */
@@ -54,5 +69,7 @@ private:
 	/** 컴포넌트 */
 	USpriteRenderer* AlphaRenderer = nullptr;
 	USpriteRenderer* ZoomRenderer = nullptr;
+
+	EFadeSize FadeSize = EFadeSize::NORMAL;
 };
 

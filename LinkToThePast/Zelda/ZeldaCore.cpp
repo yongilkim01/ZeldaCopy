@@ -7,6 +7,7 @@
 #include "DungeonGameMode.h"
 #include "HyruleCastleGameMode.h"
 #include "BossGameMode.h"
+#include "LinkHouseGameMode.h"
 
 #include <EngineBase/EngineDirectory.h>
 #include <EngineBase/EngineDebug.h>
@@ -107,6 +108,7 @@ void UZeldaCore::BeginPlay()
 
 	UImageManager::GetInst().CuttingSprite("PotBreak.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("Arrow.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkBed.png", { 96, 120 });
 
 	UImageManager::GetInst().CuttingSprite("Chest.png", { 48, 48 });
 	UImageManager::GetInst().CuttingSprite("DoorDown.png", { 96, 48 });
@@ -118,6 +120,8 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("FireEffect.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 2000 });
 	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 2000 });
+	UImageManager::GetInst().CuttingSprite("BigFadeOut.png", { 1600, 2000 });
+	UImageManager::GetInst().CuttingSprite("BigFadeOut.png", { 1600, 2000 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforce.png", { 200, 200 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforceReverse.png", { 200, 200 });
 
@@ -138,11 +142,12 @@ void UZeldaCore::BeginPlay()
 	UEngineAPICore::GetCore()->GetMainWindow().SetWindowPosAndScale(WindowResolution.Half() - InitWindowScale.Half(), InitWindowScale);
 
 	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
+	UEngineAPICore::GetCore()->CreateLevel<ALinkHouseGameMode, APlayerCharacter>("LinkHouse");
 	UEngineAPICore::GetCore()->CreateLevel<AHyruleCastleGameMode, APlayerCharacter>("HyruleCastle");
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("Title");
+	UEngineAPICore::GetCore()->OpenLevel("LinkHouse");
 }
 
 void UZeldaCore::Tick()

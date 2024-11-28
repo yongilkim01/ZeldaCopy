@@ -27,6 +27,7 @@ public:
 
 	void Reserve(int Count);
 	void ShowUIText(float DeltaTime);
+	void HideUIText(float DeltaTime);
 	void SetOrder(ERenderOrder Order);
 	int ConvertCharToIndex(char CharValue);
 
@@ -56,7 +57,7 @@ private:
 	int CurCount = 0;
 
 	std::string StrValue;
-	const FVector2D TextSize = { 15.0f, 29.0f };
+	const FVector2D TextSize = { 15.0f, 30.0f };
 	std::vector<USpriteRenderer*> TextRendereres;
 };
 

@@ -107,7 +107,7 @@ void AUIBox::SetTextsCount(int Count)
 void AUIBox::StartShow()
 {
 	UEventManager::GetInstance().SetEventPause(true);
-	BoxRenderer->SetAlphafloat(1.0f);
+	BoxRenderer->SetAlphafloat(IsShowFrame);
 	MaxLineCount = static_cast<int>(UITextes.size());
 }
 
@@ -130,7 +130,7 @@ void AUIBox::StartEnd()
 void AUIBox::Show(float DeltaTime)
 {
 	FVector2D Location = GetActorLocation() - FVector2D(250, 70);
-	Location += FVector2D(0, CurLineCount * 40);
+	Location += FVector2D(0, CurLineCount * 35);
 
 	CurTime += DeltaTime;
 
@@ -141,6 +141,13 @@ void AUIBox::Show(float DeltaTime)
 		UITextes[CurLineCount]->ShowUIText(0.0f);
 		UITextes[CurLineCount]->SetActorLocation(Location);
 
+		
+		if (CurLineCount >= 3)
+		{
+			UITextes[CurLineCount - 3]->SetActive(false);
+			UITextes[CurLineCount - 3]->HideUIText(0.0f);
+		}
+
 		CurTime = 0.0f;
 		++CurLineCount;
 
@@ -148,7 +155,9 @@ void AUIBox::Show(float DeltaTime)
 		{
 			ChangeState(EUIBoxState::END);
 		}
+
 	}
+
 }
 
 void AUIBox::End(float DeltaTime)

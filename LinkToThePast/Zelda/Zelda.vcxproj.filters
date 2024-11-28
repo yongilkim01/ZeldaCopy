@@ -11,7 +11,7 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClInclude>
     <ClInclude Include="DungeonGameMode.h">
-      <Filter>1_GameMode\2_Dungeon</Filter>
+      <Filter>1_GameMode\3_Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="ZeldaGameMode.h">
       <Filter>1_GameMode</Filter>
@@ -44,7 +44,7 @@
       <Filter>2_Data\0_Object</Filter>
     </ClInclude>
     <ClInclude Include="BossGameMode.h">
-      <Filter>1_GameMode\3_Boss</Filter>
+      <Filter>1_GameMode\4_Boss</Filter>
     </ClInclude>
     <ClInclude Include="HylianKnights.h">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
@@ -62,7 +62,7 @@
       <Filter>2_Data\1_Enemy\Basic</Filter>
     </ClInclude>
     <ClInclude Include="HyruleCastleGameMode.h">
-      <Filter>1_GameMode\1_HyruleCastle</Filter>
+      <Filter>1_GameMode\2_HyruleCastle</Filter>
     </ClInclude>
     <ClInclude Include="LevelMove.h">
       <Filter>4_Util</Filter>
@@ -172,6 +172,12 @@
     <ClInclude Include="UIBox.h">
       <Filter>3_UI\1_Data</Filter>
     </ClInclude>
+    <ClInclude Include="LinkHouseGameMode.h">
+      <Filter>1_GameMode\1_LinkHouse</Filter>
+    </ClInclude>
+    <ClInclude Include="HouseBed.h">
+      <Filter>1_GameMode\1_LinkHouse\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -184,7 +190,7 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClCompile>
     <ClCompile Include="DungeonGameMode.cpp">
-      <Filter>1_GameMode\2_Dungeon</Filter>
+      <Filter>1_GameMode\3_Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="ZeldaGameMode.cpp">
       <Filter>1_GameMode</Filter>
@@ -223,7 +229,7 @@
       <Filter>2_Data\0_Object</Filter>
     </ClCompile>
     <ClCompile Include="BossGameMode.cpp">
-      <Filter>1_GameMode\3_Boss</Filter>
+      <Filter>1_GameMode\4_Boss</Filter>
     </ClCompile>
     <ClCompile Include="HylianKnights.cpp">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
@@ -250,7 +256,7 @@
       <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="HyruleCastleGameMode.cpp">
-      <Filter>1_GameMode\1_HyruleCastle</Filter>
+      <Filter>1_GameMode\2_HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="LevelMove.cpp">
       <Filter>4_Util</Filter>
@@ -372,6 +378,12 @@
     <ClCompile Include="UIBox.cpp">
       <Filter>3_UI\1_Data</Filter>
     </ClCompile>
+    <ClCompile Include="LinkHouseGameMode.cpp">
+      <Filter>1_GameMode\1_LinkHouse</Filter>
+    </ClCompile>
+    <ClCompile Include="HouseBed.cpp">
+      <Filter>1_GameMode\1_LinkHouse\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="1_GameMode">
@@ -419,12 +431,6 @@
     <Filter Include="2_Data\1_Enemy\Basic\HyruleCastle">
       <UniqueIdentifier>{ecad5478-fd92-4eb1-ba17-373459691ac6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_GameMode\3_Boss">
-      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_GameMode\1_HyruleCastle">
-      <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Data\4_Environment">
       <UniqueIdentifier>{f74ede32-9f86-46ba-8e8c-84602ba8571b}</UniqueIdentifier>
     </Filter>
@@ -446,9 +452,6 @@
     <Filter Include="0_PlayerCharacter">
       <UniqueIdentifier>{52f9ad51-57de-47f3-a004-502d6249eeaf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_GameMode\2_Dungeon">
-      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Data\4_Environment\Chest">
       <UniqueIdentifier>{c6c02b05-e417-4964-8bcd-bae7eee0d1c9}</UniqueIdentifier>
     </Filter>
@@ -466,6 +469,21 @@
     </Filter>
     <Filter Include="6_Event">
       <UniqueIdentifier>{40c56a5b-f154-4656-80e9-4b8858ddf333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\2_HyruleCastle">
+      <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\3_Dungeon">
+      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\4_Boss">
+      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\1_LinkHouse">
+      <UniqueIdentifier>{e19ebbc8-eeb6-4990-a240-c2d805c1edd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\1_LinkHouse\Actor">
+      <UniqueIdentifier>{8dd2e063-8210-47fb-b6bd-b058c2ed494c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
