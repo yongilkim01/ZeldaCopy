@@ -125,6 +125,8 @@ void ALinkHouseGameMode::BeginPlayRoomActor()
 	RoomDataes.push_back({ { 0, 0 } ,{ 768, 672 } });
 
 	CreateRoomActor("LinkHouse", 0);
+
+	this->Roomes[0]->CreateEnvSprite("LinkHouse1Door1.png", FVector2D(282, 648), FVector2D(214, 24), ERenderOrder::FIRST_FLOOR_OBJ);
 }
 
 void ALinkHouseGameMode::BeginPlayEnvActor()
@@ -166,6 +168,9 @@ void ALinkHouseGameMode::Tick(float DeltaTime)
 		break;
 	case ELinkHouseState::NPC_MOVE_DOWN:
 		NPCMoveDown(DeltaTime);
+		break;
+	case ELinkHouseState::GAMEPLAY:
+		GamePlay(DeltaTime);
 		break;
 	default:
 		break;
@@ -215,7 +220,7 @@ void ALinkHouseGameMode::HelpMsg(float DeltaTime)
 
 void ALinkHouseGameMode::StartFadeOut()
 {
-	UIBox->HideUI();
+	UIBox->ResetText();
 }
 
 void ALinkHouseGameMode::FadeOut(float DeltaTime)
@@ -263,6 +268,7 @@ void ALinkHouseGameMode::StartNPCTalk()
 	UIBox->CreateUIText(StrValues, 1.0f);
 
 	LinkFather->ChangeState(ELinkFatherState::SIT_LEFT);
+	Player->ChangeState(EPlayerState::WakeUp);
 
 	TimeEventer.PushEvent(3.0f, [this]() 
 		{
@@ -301,7 +307,19 @@ void ALinkHouseGameMode::NPCMoveDown(float DeltaTime)
 	if (UEngineMath::Abs(LinkFather->GetActorLocation().Y - LinkFather->GetDestLocation().Y) < 0.1f)
 	{
 		LinkFather->Destroy();
+		ChangeState(ELinkHouseState::GAMEPLAY);
 	}
+}
+
+void ALinkHouseGameMode::StartGamePlay()
+{
+	Player->ChangeState(EPlayerState::Idle);
+	Player->SetActorLocation(Player->GetActorLocation() + FVector2D(70.0f, 0.0f));
+	UIBox->ResetText();
+}
+
+void ALinkHouseGameMode::GamePlay(float DeltaTime)
+{
 }
 
 void ALinkHouseGameMode::ChangeState(ELinkHouseState State)
@@ -327,6 +345,9 @@ void ALinkHouseGameMode::ChangeState(ELinkHouseState State)
 		break;
 	case ELinkHouseState::NPC_MOVE_DOWN:
 		StartNPCMoveDown();
+		break;
+	case ELinkHouseState::GAMEPLAY:
+		StartGamePlay();
 		break;
 	default:
 		break;

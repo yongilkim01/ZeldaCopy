@@ -76,6 +76,9 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("BowUp", "LinkBowUp.png", 0, 2, 0.1f, false);
 		SpriteRenderer->CreateAnimation("BowDown", "LinkBowDown.png", 0, 2, 0.1f, false);
 
+		SpriteRenderer->CreateAnimation("LinkSleep", "LinkSleep.png", 0, 0, 0.1f);
+		SpriteRenderer->CreateAnimation("LinkWakeUp", "LinkSleep.png", 1, 1, 0.1f);
+
 		// 애니메이션 이벤트 바인드
 		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::EndAttack, this));
 		SpriteRenderer->SetAnimationEvent("Attack_Left", 5, std::bind(&APlayerCharacter::EndAttack, this));
@@ -176,6 +179,12 @@ void APlayerCharacter::Tick(float DeltaTime)
 	case EPlayerState::LiftMove:
 		LiftMove(DeltaTime);
 		break;
+	case EPlayerState::Sleep:
+		Sleep(DeltaTime);
+		break;
+	case EPlayerState::WakeUp:
+		WakeUp(DeltaTime);
+		break;
 	default:
 		break;
 	}
@@ -189,9 +198,9 @@ void APlayerCharacter::LevelChangeStart()
 
 	if ("LINKHOUSE" == LevelName)
 	{
-		SetActorLocation({ 220, 280 });
+		SetActorLocation({ 216, 260 });
 		SetCurDirection(FVector2D::UP);
-		ChangeState(EPlayerState::Idle);
+		ChangeState(EPlayerState::Sleep);
 
 	}
 	else if ("HYRULECASTLE" == LevelName)

@@ -43,6 +43,12 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 	case EPlayerState::LiftMove:
 		StartLiftMove();
 		break;
+	case EPlayerState::Sleep:
+		StartSleep();
+		break;
+	case EPlayerState::WakeUp:
+		StartWakeUp();
+		break;
 	default:
 		break;
 	}
@@ -256,6 +262,16 @@ void APlayerCharacter::StartLiftIdle()
 		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
 		return;
 	}
+}
+
+void APlayerCharacter::StartSleep()
+{
+	SpriteRenderer->ChangeAnimation("LinkSleep");
+}
+
+void APlayerCharacter::StartWakeUp()
+{
+	SpriteRenderer->ChangeAnimation("LinkWakeUp");
 }
 
 
@@ -635,6 +651,14 @@ void APlayerCharacter::LiftIdle(float DeltaTime)
 			ChangeState(EPlayerState::Idle);
 		}
 	}
+}
+
+void APlayerCharacter::Sleep(float DeltaTime)
+{
+}
+
+void APlayerCharacter::WakeUp(float DeltaTime)
+{
 }
 
 void APlayerCharacter::EndAttack()

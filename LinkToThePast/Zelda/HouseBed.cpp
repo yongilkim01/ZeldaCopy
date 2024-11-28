@@ -10,6 +10,13 @@ AHouseBed::AHouseBed()
 	{
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("LinkBed.png", 0);
+
+		SpriteRenderer->CreateAnimation("LinkSleep", "LinkBed.png", 0, 0, 0.1f, true);
+		SpriteRenderer->CreateAnimation("LinkWakeUp", "LinkBed.png", 1, 1, 0.1f, true);
+		SpriteRenderer->CreateAnimation("EmptyBed", "LinkBed.png", 2, 2, 0.1f, true);
+
+		SpriteRenderer->ChangeAnimation("EmptyBed");
+
 		FVector2D Location = SpriteRenderer->SetSpriteScale(1.0f);
 		SpriteRenderer->SetComponentLocation(FVector2D::ZERO);
 		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);

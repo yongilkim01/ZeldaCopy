@@ -91,6 +91,8 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("LinkBowUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkBowDown.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("LinkSleep.png", { 64, 64 });
+
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveLeft.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveUp.png", { 64, 64 });

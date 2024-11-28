@@ -106,6 +106,8 @@ void AUIBox::HideUI()
 
 void AUIBox::ResetText()
 {
+	UEventManager::GetInstance().SetEventPause(false);
+	BoxRenderer->SetAlphafloat(0.0f);
 	for (size_t i = 0; i < UITextes.size(); i++)
 	{
 		UITextes[i]->Destroy();
@@ -134,18 +136,6 @@ void AUIBox::StartShow()
 
 void AUIBox::StartEnd()
 {
-	TimeEventer.PushEvent(1.0f, [this]()
-		{
-			UEventManager::GetInstance().SetEventPause(false);
-			BoxRenderer->SetAlphafloat(0.0f);
-			for (size_t i = 0; i < UITextes.size(); i++)
-			{
-				UITextes[i]->SetActive(false);
-			}
-			MaxLineCount = 0;
-			CurLineCount = 0;
-		}
-	);
 }
 
 void AUIBox::StartSkip()

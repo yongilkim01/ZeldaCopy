@@ -17,6 +17,7 @@ enum class ELinkHouseState
 	NPC_TALK,
 	NPC_MOVE_LEFT,
 	NPC_MOVE_DOWN,
+	GAMEPLAY,
 };
 
 class USpriteRenderer;
@@ -55,6 +56,9 @@ public:
 
 	void StartNPCMoveDown();
 	void NPCMoveDown(float DeltaTime);
+
+	void StartGamePlay();
+	void GamePlay(float DeltaTime);
 
 	void ChangeState(ELinkHouseState State);
 

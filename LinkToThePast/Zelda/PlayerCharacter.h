@@ -26,6 +26,8 @@ enum class EPlayerState
 	Interact,
 	LiftIdle,
 	LiftMove,
+	Sleep,
+	WakeUp
 };
 
 /**
@@ -61,6 +63,8 @@ public:
 	void StartKnockBack();
 	void StartLiftMove();
 	void StartLiftIdle();
+	void StartSleep();
+	void StartWakeUp();
 
 	void Idle(float DeltaTime);
 	void Move(float DeltaTime);
@@ -69,6 +73,8 @@ public:
 	void Skill(float DeltaTime);
 	void KnockBack(float DeltaTime);
 	void LiftIdle(float DeltaTime);
+	void Sleep(float DeltaTime);
+	void WakeUp(float DeltaTime);
 
 	void EndAttack();
 	void EndLift();
