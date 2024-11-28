@@ -71,6 +71,8 @@ void AUIBox::CreateUIText(const std::vector<std::string>& StrValues, float Time)
 		NewUIText->SetActive(false);
 		UITextes.push_back(NewUIText);
 	}
+
+	ChangeState(EUIBoxState::SHOW);
 }
 
 void AUIBox::SetUIText(std::string_view StrValue, int Index, float Time)
@@ -100,6 +102,19 @@ void AUIBox::HideUI()
 	}
 	MaxLineCount = 0;
 	CurLineCount = 0;
+}
+
+void AUIBox::ResetText()
+{
+	for (size_t i = 0; i < UITextes.size(); i++)
+	{
+		UITextes[i]->Destroy();
+	}
+	UITextes.clear();
+	MaxLineCount = 0;
+	CurLineCount = 0;
+	ChangeState(EUIBoxState::NONE);
+
 }
 
 void AUIBox::SetTextsCount(int Count)

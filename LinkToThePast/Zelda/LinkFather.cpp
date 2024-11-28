@@ -17,9 +17,9 @@ ALinkFather::ALinkFather()
 		SpriteRenderer->CreateAnimation("SitDown", "FatherSit.png", 0, 0, 0.01f, true);
 		SpriteRenderer->CreateAnimation("SitLeft", "FatherSit.png", 1, 1, 0.01f, true);
 
-		SpriteRenderer->CreateAnimation("MoveRight", "FatherMove.png", 0, 1, 0.1f, true);
-		SpriteRenderer->CreateAnimation("MoveLeft", "FatherMove.png", 2, 3, 0.1f, true);
-		SpriteRenderer->CreateAnimation("MoveDown", "FatherMove.png", 4, 5, 0.01f, true);
+		SpriteRenderer->CreateAnimation("MoveRight", "FatherMove.png", 0, 1, 0.5f, true);
+		SpriteRenderer->CreateAnimation("MoveLeft", "FatherMove.png", 2, 3, 0.5f, true);
+		SpriteRenderer->CreateAnimation("MoveDown", "FatherMove.png", 4, 5, 0.5f, true);
 		
 		SpriteRenderer->CreateAnimation("DeathWeapon", "FatherDeath.png", 0, 0, 0.01f, true);
 		SpriteRenderer->CreateAnimation("DeathNoneWeapon", "FatherDeath.png", 1, 1, 0.01f, true);
@@ -128,4 +128,6 @@ void ALinkFather::ChangeState(ELinkFatherState State)
 	default:
 		break;
 	}
+
+	CurState = State;
 }

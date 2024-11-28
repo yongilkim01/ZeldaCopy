@@ -250,16 +250,7 @@ void ALinkHouseGameMode::Skip(float DeltaTime)
 
 void ALinkHouseGameMode::StartNPCTalk()
 {
-	UIBox->Destroy();
-	TimeEventer.PushEvent(2.0f, [this]() 
-		{
-			ChangeState(ELinkHouseState::NPC_MOVE_LEFT);
-		});
-}
-
-void ALinkHouseGameMode::NPCTalk(float DeltaTime)
-{
-	UIBox = GetWorld()->SpawnActor<AUIBox>();
+	UIBox->ResetText();
 	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(10.0f, 200.0f));
 
 	std::vector<std::string> StrValues;
@@ -268,23 +259,49 @@ void ALinkHouseGameMode::NPCTalk(float DeltaTime)
 	StrValues.push_back("while. I will be back by morning.");
 	StrValues.push_back("Do not leave the house.");
 
+	UIBox->SetIsShowFrame(true);
 	UIBox->CreateUIText(StrValues, 1.0f);
+
+	LinkFather->ChangeState(ELinkFatherState::SIT_LEFT);
+
+	TimeEventer.PushEvent(3.0f, [this]() 
+		{
+			ChangeState(ELinkHouseState::NPC_MOVE_LEFT);
+		});
+}
+
+void ALinkHouseGameMode::NPCTalk(float DeltaTime)
+{
 }
 
 void ALinkHouseGameMode::StartNPCMoveLeft()
 {
+	LinkFather->SetDestLocaion(LinkFather->GetActorLocation() - FVector2D(144.0f, 0.0f));
+	LinkFather->ChangeState(ELinkFatherState::MOVE_LEFT);
 }
 
 void ALinkHouseGameMode::NPCMoveLeft(float DeltaTime)
 {
+	if (UEngineMath::Abs(LinkFather->GetActorLocation().X - LinkFather->GetDestLocation().X) < 0.1f)
+	{
+		LinkFather->SetActorLocation(LinkFather->GetDestLocation());
+		LinkFather->SetDestLocaion(FVector2D::ZERO);
+		ChangeState(ELinkHouseState::NPC_MOVE_DOWN);
+	}
 }
 
 void ALinkHouseGameMode::StartNPCMoveDown()
 {
+	LinkFather->SetDestLocaion(LinkFather->GetActorLocation() + FVector2D(0.0f, 369.0f));
+	LinkFather->ChangeState(ELinkFatherState::MOVE_DOWN);
 }
 
 void ALinkHouseGameMode::NPCMoveDown(float DeltaTime)
 {
+	if (UEngineMath::Abs(LinkFather->GetActorLocation().Y - LinkFather->GetDestLocation().Y) < 0.1f)
+	{
+		LinkFather->Destroy();
+	}
 }
 
 void ALinkHouseGameMode::ChangeState(ELinkHouseState State)

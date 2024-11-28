@@ -46,6 +46,7 @@ public:
 	void SetUIText(const std::vector<std::string>& StrValues, int Index = 0, float Time = 0.0f);
 	//void ShowUI(float DeltaTime = 0.0f);
 	void HideUI();
+	void ResetText();
 
 	/** °Ù, ¼Â ¸Þ¼Òµå */
 	void SetTextsCount(int Count);
