@@ -181,6 +181,9 @@
     <ClInclude Include="LinkFather.h">
       <Filter>2_Data\6_NPC</Filter>
     </ClInclude>
+    <ClInclude Include="DropLantern.h">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -389,6 +392,9 @@
     </ClCompile>
     <ClCompile Include="LinkFather.cpp">
       <Filter>2_Data\6_NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="DropLantern.cpp">
+      <Filter>2_Data\5_Item\Drop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

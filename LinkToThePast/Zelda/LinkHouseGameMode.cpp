@@ -7,6 +7,8 @@
 #include "Fade.h"
 #include "PlayerCharacter.h"
 #include "LinkFather.h"
+#include "Pot.h"
+#include "Chest.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
@@ -51,69 +53,6 @@ void ALinkHouseGameMode::BeginPlay()
 			ChangeState(ELinkHouseState::HELPMSG);
 		}
 	);
-
-	//StartFsm.CreateState(0, [this](float _DeltaTime)
-	//	{
-	//		static float CurTime = 0.0f;
-
-	//		CurTime += _DeltaTime;
-
-	//		if (3.0f <= CurTime)
-	//		{
-	//			StartFsm.ChangeState(1);
-	//			return;
-	//		}
-
-	//		// 글자 출력해라.
-	//		// 화면 밝아져라
-
-	//	});
-
-	//StartFsm.CreateState(1, [this](float _DeltaTime)
-	//	{
-	//		static float CurTime = 0.0f;
-
-	//		CurTime += _DeltaTime;
-
-	//		// 아빠가 왼쪽으로 가면
-	//		if (3.0f <= CurTime)
-	//		{
-	//			StartFsm.ChangeState(2);
-	//			return;
-	//		}
-	//		// 아빠 왼쪽으로 움직여라.
-	//	});
-
-	//StartFsm.CreateState(2, [this](float _DeltaTime)
-	//	{
-	//		static float CurTime = 0.0f;
-
-	//		CurTime += _DeltaTime;
-	//		if (3.0f <= CurTime)
-	//		{
-	//			StartFsm.ChangeState(3);
-	//			return;
-	//		}
-	//		// 아빠 오른쪽으로 움직여라.
-	//	});
-
-	//StartFsm.CreateState(2, [this](float _DeltaTime)
-	//	{
-	//		static float CurTime = 0.0f;
-
-	//		CurTime += _DeltaTime;
-	//		if (3.0f <= CurTime)
-	//		{
-	//			// MainPlayer->SetActive(true);
-	//			StartFsm.Stop();
-	//			return;
-	//		}
-	//		// 아빠 오른쪽으로 움직여라.
-
-
-	//	});
-
-
 }
 
 
@@ -131,16 +70,36 @@ void ALinkHouseGameMode::BeginPlayRoomActor()
 
 void ALinkHouseGameMode::BeginPlayEnvActor()
 {
-	HouseBed = GetWorld()->SpawnActor<AHouseBed>();
-	HouseBed->SetActorLocation({ 216, 276 });
-
-	LinkFather = GetWorld()->SpawnActor<ALinkFather>();
-	LinkFather->SetActorLocation({ 528, 303 });
-	LinkFather->SetActive(true);
-}
-
-void ALinkHouseGameMode::BeginPlayEnemyActor()
-{
+	{
+		HouseBed = GetWorld()->SpawnActor<AHouseBed>();
+		HouseBed->SetActorLocation({ 216, 276 });
+	}
+	{
+		LinkFather = GetWorld()->SpawnActor<ALinkFather>();
+		LinkFather->SetActorLocation({ 528, 303 });
+		LinkFather->SetActive(true);
+	}
+	{
+		APot* Pot = GetWorld()->SpawnActor<APot>();
+		Pot->SetActorLocation({ 144, 237 });
+		Pot->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+	}
+	{
+		APot* Pot = GetWorld()->SpawnActor<APot>();
+		Pot->SetActorLocation({ 144, 285 });
+		Pot->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+	}
+	{
+		APot* Pot = GetWorld()->SpawnActor<APot>();
+		Pot->SetActorLocation({ 144, 333 });
+		Pot->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+	}
+	{
+		AChest* Chest = GetWorld()->SpawnActor<AChest>();
+		Chest->SetActorLocation({ 600, 500 });
+		Chest->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+		Chest->SetDropItemType(EDropItemType::LANTERN);
+	}
 }
 
 void ALinkHouseGameMode::Tick(float DeltaTime)
@@ -282,6 +241,7 @@ void ALinkHouseGameMode::NPCTalk(float DeltaTime)
 
 void ALinkHouseGameMode::StartNPCMoveLeft()
 {
+	UIBox->ResetText();
 	LinkFather->SetDestLocaion(LinkFather->GetActorLocation() - FVector2D(144.0f, 0.0f));
 	LinkFather->ChangeState(ELinkFatherState::MOVE_LEFT);
 }
@@ -315,7 +275,6 @@ void ALinkHouseGameMode::StartGamePlay()
 {
 	Player->ChangeState(EPlayerState::Idle);
 	Player->SetActorLocation(Player->GetActorLocation() + FVector2D(70.0f, 0.0f));
-	UIBox->ResetText();
 }
 
 void ALinkHouseGameMode::GamePlay(float DeltaTime)

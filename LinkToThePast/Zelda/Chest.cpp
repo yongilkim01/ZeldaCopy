@@ -8,6 +8,7 @@
 #include "DropItem.h"
 #include "DropHeart.h"
 #include "DropBow.h"
+#include "DropLantern.h"
 
 #include <EngineBase/EngineDebug.h>
 
@@ -139,6 +140,9 @@ void AChest::StartOpen()
 		DropItem->SetActorLocation(GetActorLocation());
 		break;
 	case EDropItemType::LANTERN:
+		DropItem = GetWorld()->SpawnActor<ADropLanternItem>();
+		DropItem->SetEventActorRenderOrder(GetEventActorRenderOrder() + 1);
+		DropItem->SetActorLocation(GetActorLocation());
 		break;
 	case EDropItemType::HEART:
 		DropItem = GetWorld()->SpawnActor<ADropHeartItem>();

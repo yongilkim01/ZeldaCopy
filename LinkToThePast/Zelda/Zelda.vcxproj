@@ -192,6 +192,7 @@
     </ClInclude>
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="DropKey.h" />
+    <ClInclude Include="DropLantern.h" />
     <ClInclude Include="DungeonGameMode.h" />
     <ClInclude Include="Effect.h">
       <SubType>
@@ -371,6 +372,7 @@
     </ClCompile>
     <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="DropKey.cpp" />
+    <ClCompile Include="DropLantern.cpp" />
     <ClCompile Include="DungeonGameMode.cpp" />
     <ClCompile Include="Effect.cpp">
       <SubType>
