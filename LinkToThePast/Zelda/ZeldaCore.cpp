@@ -106,6 +106,10 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("ArmosKnightHit.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("ArmosKnightDeath.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("FatherSit.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("FatherMove.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("FatherDeath.png", { 64, 64 });
+
 	UImageManager::GetInst().CuttingSprite("PotBreak.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("Arrow.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkBed.png", { 96, 120 });

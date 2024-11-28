@@ -239,6 +239,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="LinkFather.h" />
     <ClInclude Include="LinkHouseGameMode.h">
       <SubType>
       </SubType>
@@ -420,6 +421,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LinkFather.cpp" />
     <ClCompile Include="LinkHouseGameMode.cpp">
       <SubType>
       </SubType>

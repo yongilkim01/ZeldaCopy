@@ -178,6 +178,9 @@
     <ClInclude Include="HouseBed.h">
       <Filter>1_GameMode\1_LinkHouse\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="LinkFather.h">
+      <Filter>2_Data\6_NPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -384,6 +387,9 @@
     <ClCompile Include="HouseBed.cpp">
       <Filter>1_GameMode\1_LinkHouse\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="LinkFather.cpp">
+      <Filter>2_Data\6_NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="1_GameMode">
@@ -484,6 +490,9 @@
     </Filter>
     <Filter Include="1_GameMode\1_LinkHouse\Actor">
       <UniqueIdentifier>{8dd2e063-8210-47fb-b6bd-b058c2ed494c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\6_NPC">
+      <UniqueIdentifier>{a8ec52e4-78ce-467e-a13e-578499321692}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
