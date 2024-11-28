@@ -11,6 +11,8 @@ enum class ELinkHouseState
 {
 	NONE,
 	HELPMSG,
+	FADEOUT,
+	NPCTALK,
 };
 
 class USpriteRenderer;
@@ -34,6 +36,11 @@ public:
 	/** 클래스 상태 메소드 */
 	void StartHelpMsg();
 	void HelpMsg(float DeltaTime);
+
+	void FadeOut();
+
+	void StartNPCTalk();
+	void NPCTalk(float DeltaTime);
 
 	void ChangeState(ELinkHouseState State);
 

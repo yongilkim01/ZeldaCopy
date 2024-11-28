@@ -3,6 +3,7 @@
 #include "ContentsEnum.h"
 
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineBase/EngineMath.h>
 
 AUIText::AUIText()
 {
@@ -21,6 +22,18 @@ void AUIText::BeginPlay()
 void AUIText::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	switch (CurState)
+	{
+	case EUITExtState::IDLE:
+		Idle(DeltaTime);
+		break;
+	case EUITExtState::MOVE:
+		Move(DeltaTime);
+		break;
+	default:
+		break;
+	}
 
 }
 
@@ -217,4 +230,52 @@ void AUIText::Reserve(int Count)
 		TextRenderer->SetCameraEffect(false);
 		TextRendereres[i] = TextRenderer;
 	}
+}
+
+void AUIText::StartIdle()
+{
+	
+}
+
+void AUIText::StartMove()
+{
+	StartLocation = GetActorLocation();
+	EndLocation = StartLocation + (MoveDir * HorizontalPadding);
+	CurTime = 0.0f;
+}
+
+void AUIText::Idle(float DeltaTime)
+{
+}
+
+void AUIText::Move(float DeltaTime)
+{
+	CurTime += DeltaTime;
+
+	SetActorLocation(FVector2D::LerpClimp(StartLocation, EndLocation, CurTime / MoveFrequency));
+
+	if (UEngineMath::Abs(GetActorLocation().Y - EndLocation.Y) <= 0.1f)
+	{
+		ChangeState(EUITExtState::IDLE);
+	}
+
+}
+
+void AUIText::ChangeState(EUITExtState State)
+{
+	if (CurState == State) return;
+
+	switch (State)
+	{
+	case EUITExtState::IDLE:
+		StartIdle();
+		break;
+	case EUITExtState::MOVE:
+		StartMove();
+		break;
+	default:
+		break;
+	}
+
+	CurState = State;
 }

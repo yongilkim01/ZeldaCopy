@@ -81,6 +81,10 @@ public:
 	{
 		IsShowFrame = ShowFrame;
 	}
+	EUIBoxState GetUIBoxState()
+	{
+		return CurState;
+	}
 
 protected:
 	/** 액터 상속 메소드 */

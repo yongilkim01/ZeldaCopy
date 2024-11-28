@@ -130,7 +130,16 @@ void AUIBox::StartEnd()
 void AUIBox::Show(float DeltaTime)
 {
 	FVector2D Location = GetActorLocation() - FVector2D(250, 70);
-	Location += FVector2D(0, CurLineCount * 35);
+	
+	if (CurLineCount <= 2)
+	{
+		Location += FVector2D(0, CurLineCount * 35);
+	}
+	else
+	{
+		Location += FVector2D(0, 2 * 35);
+	}
+	//Location += FVector2D(0, CurLineCount * 35);
 
 	CurTime += DeltaTime;
 
@@ -146,6 +155,9 @@ void AUIBox::Show(float DeltaTime)
 		{
 			UITextes[CurLineCount - 3]->SetActive(false);
 			UITextes[CurLineCount - 3]->HideUIText(0.0f);
+
+			UITextes[CurLineCount - 2]->ChangeState(EUITExtState::MOVE);
+			UITextes[CurLineCount - 1]->ChangeState(EUITExtState::MOVE);
 		}
 
 		CurTime = 0.0f;

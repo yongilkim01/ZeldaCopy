@@ -146,6 +146,9 @@ void ALinkHouseGameMode::Tick(float DeltaTime)
 	case ELinkHouseState::HELPMSG:
 		HelpMsg(DeltaTime);
 		break;
+	case ELinkHouseState::NPCTALK:
+		NPCTalk(DeltaTime);
+		break;
 	default:
 		break;
 	}
@@ -154,7 +157,7 @@ void ALinkHouseGameMode::Tick(float DeltaTime)
 void ALinkHouseGameMode::StartHelpMsg()
 {
 	UIBox = GetWorld()->SpawnActor<AUIBox>();
-	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(0.0f, 100.0f));
+	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(10.0f, 200.0f));
 	UIBox->SetIsShowFrame(false);
 
 	std::vector<std::string> StrValues;
@@ -164,13 +167,43 @@ void ALinkHouseGameMode::StartHelpMsg()
 	StrValues.push_back("I am a prisoner in the dungeon");
 	StrValues.push_back("of the castle.");
 	StrValues.push_back("My name is Zelda.");
+	StrValues.push_back("The wizard, Agahnim, has done...");
+	StrValues.push_back("something to the other missing");
+	StrValues.push_back("girls. Now only I remain....");
+	StrValues.push_back("Agahnim has seized control of");
+	StrValues.push_back("the castle and is now trying to");
+	StrValues.push_back("oepn the seven wise men is");
+	StrValues.push_back("seal. ... ...");
+	StrValues.push_back("I am in the dungeon of the");
+	StrValues.push_back("castle.");
 
 	UIBox->CreateUIText(StrValues, 1.0f);
 }
 
 void ALinkHouseGameMode::HelpMsg(float DeltaTime)
 {
+	if (EUIBoxState::END == UIBox->GetUIBoxState())
+	{
+		ChangeState(ELinkHouseState::NPCTALK);
+	}
+}
 
+void ALinkHouseGameMode::StartNPCTalk()
+{
+}
+
+void ALinkHouseGameMode::NPCTalk(float DeltaTime)
+{
+	UIBox = GetWorld()->SpawnActor<AUIBox>();
+	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(10.0f, 200.0f));
+
+	std::vector<std::string> StrValues;
+
+	StrValues.push_back("Link, I am going out for a");
+	StrValues.push_back("while. I will be back by morning.");
+	StrValues.push_back("Do not leave the house.");
+
+	UIBox->CreateUIText(StrValues, 1.0f);
 }
 
 void ALinkHouseGameMode::ChangeState(ELinkHouseState State)
@@ -181,6 +214,9 @@ void ALinkHouseGameMode::ChangeState(ELinkHouseState State)
 	{
 	case ELinkHouseState::HELPMSG:
 		StartHelpMsg();
+		break;
+	case ELinkHouseState::NPCTALK:
+		StartNPCTalk();
 		break;
 	default:
 		break;
