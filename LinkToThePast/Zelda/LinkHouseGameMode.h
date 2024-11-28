@@ -6,14 +6,17 @@ class AUIBox;
 class AHouseBed;
 class AFade;
 class APlayerCharacter;
+class ALinkFather;
 
 enum class ELinkHouseState
 {
 	NONE,
 	HELPMSG,
 	SKIP,
-	FADEOUT,
-	NPCTALK,
+	FADE_OUT,
+	NPC_TALK,
+	NPC_MOVE_LEFT,
+	NPC_MOVE_DOWN,
 };
 
 class USpriteRenderer;
@@ -47,6 +50,12 @@ public:
 	void StartNPCTalk();
 	void NPCTalk(float DeltaTime);
 
+	void StartNPCMoveLeft();
+	void NPCMoveLeft(float DeltaTime);
+
+	void StartNPCMoveDown();
+	void NPCMoveDown(float DeltaTime);
+
 	void ChangeState(ELinkHouseState State);
 
 	/** °Ù, ¼Â ¸Þ¼Òµå */
@@ -78,6 +87,7 @@ private:
 	AUIBox* UIBox = nullptr;
 	ARoom* LinkHouse = nullptr;
 	AFade* Fade = nullptr;
+	ALinkFather* LinkFather = nullptr;
 
 	USpriteRenderer* FadeBlueRenderer = nullptr;
 	ELinkHouseState CurState = ELinkHouseState::NONE;

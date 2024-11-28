@@ -12,6 +12,7 @@ ALinkFather::ALinkFather()
 		SpriteRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		SpriteRenderer->SetSprite("FatherSit.png", 0);
 		SpriteRenderer->SetSpriteScale(3.0f);
+		SpriteRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
 
 		SpriteRenderer->CreateAnimation("SitDown", "FatherSit.png", 0, 0, 0.01f, true);
 		SpriteRenderer->CreateAnimation("SitLeft", "FatherSit.png", 1, 1, 0.01f, true);
@@ -23,7 +24,7 @@ ALinkFather::ALinkFather()
 		SpriteRenderer->CreateAnimation("DeathWeapon", "FatherDeath.png", 0, 0, 0.01f, true);
 		SpriteRenderer->CreateAnimation("DeathNoneWeapon", "FatherDeath.png", 1, 1, 0.01f, true);
 
-		SpriteRenderer->ChangeAnimation("SidDown");
+		SpriteRenderer->ChangeAnimation("SitDown");
 	}
 }
 
@@ -34,6 +35,7 @@ ALinkFather::~ALinkFather()
 void ALinkFather::BeginPlay()
 {
 	Super::BeginPlay();
+	ChangeState(ELinkFatherState::SIT_DOWN);
 }
 
 void ALinkFather::Tick(float DeltaTime)

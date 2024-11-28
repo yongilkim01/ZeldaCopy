@@ -6,6 +6,7 @@
 #include "UIBox.h"
 #include "Fade.h"
 #include "PlayerCharacter.h"
+#include "LinkFather.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
@@ -130,6 +131,10 @@ void ALinkHouseGameMode::BeginPlayEnvActor()
 {
 	HouseBed = GetWorld()->SpawnActor<AHouseBed>();
 	HouseBed->SetActorLocation({ 216, 276 });
+
+	LinkFather = GetWorld()->SpawnActor<ALinkFather>();
+	LinkFather->SetActorLocation({ 528, 303 });
+	LinkFather->SetActive(true);
 }
 
 void ALinkHouseGameMode::BeginPlayEnemyActor()
@@ -147,14 +152,20 @@ void ALinkHouseGameMode::Tick(float DeltaTime)
 	case ELinkHouseState::HELPMSG:
 		HelpMsg(DeltaTime);
 		break;
-	case ELinkHouseState::NPCTALK:
+	case ELinkHouseState::NPC_TALK:
 		NPCTalk(DeltaTime);
 		break;
 	case ELinkHouseState::SKIP:
 		Skip(DeltaTime);
 		break;
-	case ELinkHouseState::FADEOUT:
+	case ELinkHouseState::FADE_OUT:
 		FadeOut(DeltaTime);
+		break;
+	case ELinkHouseState::NPC_MOVE_LEFT:
+		NPCMoveLeft(DeltaTime);
+		break;
+	case ELinkHouseState::NPC_MOVE_DOWN:
+		NPCMoveDown(DeltaTime);
 		break;
 	default:
 		break;
@@ -192,7 +203,7 @@ void ALinkHouseGameMode::HelpMsg(float DeltaTime)
 {
 	if (EUIBoxState::END == UIBox->GetUIBoxState())
 	{
-		ChangeState(ELinkHouseState::FADEOUT);
+		ChangeState(ELinkHouseState::FADE_OUT);
 	}
 
 	if (true == UEngineInput::GetInst().IsDown(VK_SPACE) ||
@@ -214,7 +225,7 @@ void ALinkHouseGameMode::FadeOut(float DeltaTime)
 
 	if (FadeAlpha < 0.0f)
 	{
-		ChangeState(ELinkHouseState::NPCTALK);
+		ChangeState(ELinkHouseState::NPC_TALK);
 	}
 }
 
@@ -224,7 +235,7 @@ void ALinkHouseGameMode::StartSkip()
 
 	TimeEventer.PushEvent(1.0f, [this]()
 		{
-			ChangeState(ELinkHouseState::FADEOUT);
+			ChangeState(ELinkHouseState::FADE_OUT);
 		});
 }
 
@@ -240,6 +251,10 @@ void ALinkHouseGameMode::Skip(float DeltaTime)
 void ALinkHouseGameMode::StartNPCTalk()
 {
 	UIBox->Destroy();
+	TimeEventer.PushEvent(2.0f, [this]() 
+		{
+			ChangeState(ELinkHouseState::NPC_MOVE_LEFT);
+		});
 }
 
 void ALinkHouseGameMode::NPCTalk(float DeltaTime)
@@ -256,6 +271,22 @@ void ALinkHouseGameMode::NPCTalk(float DeltaTime)
 	UIBox->CreateUIText(StrValues, 1.0f);
 }
 
+void ALinkHouseGameMode::StartNPCMoveLeft()
+{
+}
+
+void ALinkHouseGameMode::NPCMoveLeft(float DeltaTime)
+{
+}
+
+void ALinkHouseGameMode::StartNPCMoveDown()
+{
+}
+
+void ALinkHouseGameMode::NPCMoveDown(float DeltaTime)
+{
+}
+
 void ALinkHouseGameMode::ChangeState(ELinkHouseState State)
 {
 	if (State == CurState) return;
@@ -265,14 +296,20 @@ void ALinkHouseGameMode::ChangeState(ELinkHouseState State)
 	case ELinkHouseState::HELPMSG:
 		StartHelpMsg();
 		break;
-	case ELinkHouseState::NPCTALK:
+	case ELinkHouseState::NPC_TALK:
 		StartNPCTalk();
 		break;
 	case ELinkHouseState::SKIP:
 		StartSkip();
 		break;
-	case ELinkHouseState::FADEOUT:
+	case ELinkHouseState::FADE_OUT:
 		StartFadeOut();
+		break;
+	case ELinkHouseState::NPC_MOVE_LEFT:
+		StartNPCMoveLeft();
+		break;
+	case ELinkHouseState::NPC_MOVE_DOWN:
+		StartNPCMoveDown();
 		break;
 	default:
 		break;
