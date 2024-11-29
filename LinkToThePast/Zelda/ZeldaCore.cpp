@@ -6,6 +6,7 @@
 #include "TitleGameMode.h"
 #include "LinkHouseGameMode.h"
 #include "LightWorldGameMode.h"
+#include "CastleUnderWaterGameMode.h"
 #include "HyruleCastleGameMode.h"
 #include "DungeonGameMode.h"
 #include "BossGameMode.h"
@@ -94,6 +95,7 @@ void UZeldaCore::BeginPlay()
 
 	UImageManager::GetInst().CuttingSprite("LinkSleep.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkFall.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkTurnFall.png", { 64, 64 });
 
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveLeft.png", { 64, 64 });
@@ -155,11 +157,12 @@ void UZeldaCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 	UEngineAPICore::GetCore()->CreateLevel<ALinkHouseGameMode, APlayerCharacter>("LinkHouse");
 	UEngineAPICore::GetCore()->CreateLevel<ALightWorldGameMode, APlayerCharacter>("LightWorld");
+	UEngineAPICore::GetCore()->CreateLevel<ACastleUnderWaterGameMode, APlayerCharacter>("UnderWater");
 	UEngineAPICore::GetCore()->CreateLevel<AHyruleCastleGameMode, APlayerCharacter>("HyruleCastle");
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("LinkHouse");
+	UEngineAPICore::GetCore()->OpenLevel("UnderWater");
 }
 
 void UZeldaCore::Tick()

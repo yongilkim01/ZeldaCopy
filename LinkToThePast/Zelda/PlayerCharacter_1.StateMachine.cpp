@@ -52,6 +52,9 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 	case EPlayerState::Fall:
 		StartFall();
 		break;
+	case EPlayerState::TurnFall:
+		StartTurnFall();
+		break;
 	default:
 		break;
 	}
@@ -280,6 +283,11 @@ void APlayerCharacter::StartWakeUp()
 void APlayerCharacter::StartFall()
 {
 	SpriteRenderer->ChangeAnimation("Fall");
+}
+
+void APlayerCharacter::StartTurnFall()
+{
+	SpriteRenderer->ChangeAnimation("TurnFall");
 }
 
 
@@ -670,6 +678,10 @@ void APlayerCharacter::WakeUp(float DeltaTime)
 }
 
 void APlayerCharacter::Fall(float DeltaTime)
+{
+}
+
+void APlayerCharacter::TurnFall(float DeltaTime)
 {
 }
 

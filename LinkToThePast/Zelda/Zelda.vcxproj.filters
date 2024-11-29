@@ -11,7 +11,7 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClInclude>
     <ClInclude Include="DungeonGameMode.h">
-      <Filter>1_GameMode\4_Dungeon</Filter>
+      <Filter>1_GameMode\5_Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="ZeldaGameMode.h">
       <Filter>1_GameMode</Filter>
@@ -44,7 +44,7 @@
       <Filter>2_Data\0_Object</Filter>
     </ClInclude>
     <ClInclude Include="BossGameMode.h">
-      <Filter>1_GameMode\5_Boss</Filter>
+      <Filter>1_GameMode\6_Boss</Filter>
     </ClInclude>
     <ClInclude Include="HylianKnights.h">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
@@ -62,7 +62,7 @@
       <Filter>2_Data\1_Enemy\Basic</Filter>
     </ClInclude>
     <ClInclude Include="HyruleCastleGameMode.h">
-      <Filter>1_GameMode\3_HyruleCastle</Filter>
+      <Filter>1_GameMode\4_HyruleCastle</Filter>
     </ClInclude>
     <ClInclude Include="LevelMove.h">
       <Filter>4_Util</Filter>
@@ -193,6 +193,9 @@
     <ClInclude Include="Grass.h">
       <Filter>2_Data\4_Environment</Filter>
     </ClInclude>
+    <ClInclude Include="CastleUnderWaterGameMode.h">
+      <Filter>1_GameMode\3_UnderWater</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -205,7 +208,7 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClCompile>
     <ClCompile Include="DungeonGameMode.cpp">
-      <Filter>1_GameMode\4_Dungeon</Filter>
+      <Filter>1_GameMode\5_Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="ZeldaGameMode.cpp">
       <Filter>1_GameMode</Filter>
@@ -244,7 +247,7 @@
       <Filter>2_Data\0_Object</Filter>
     </ClCompile>
     <ClCompile Include="BossGameMode.cpp">
-      <Filter>1_GameMode\5_Boss</Filter>
+      <Filter>1_GameMode\6_Boss</Filter>
     </ClCompile>
     <ClCompile Include="HylianKnights.cpp">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
@@ -271,7 +274,7 @@
       <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="HyruleCastleGameMode.cpp">
-      <Filter>1_GameMode\3_HyruleCastle</Filter>
+      <Filter>1_GameMode\4_HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="LevelMove.cpp">
       <Filter>4_Util</Filter>
@@ -414,6 +417,9 @@
     <ClCompile Include="Grass.cpp">
       <Filter>2_Data\4_Environment</Filter>
     </ClCompile>
+    <ClCompile Include="CastleUnderWaterGameMode.cpp">
+      <Filter>1_GameMode\3_UnderWater</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="1_GameMode">
@@ -494,20 +500,23 @@
     <Filter Include="2_Data\6_NPC">
       <UniqueIdentifier>{a8ec52e4-78ce-467e-a13e-578499321692}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_GameMode\3_HyruleCastle">
-      <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_GameMode\4_Dungeon">
-      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_GameMode\5_Boss">
-      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_GameMode\2_LightWorld">
       <UniqueIdentifier>{1475c39c-29c0-483b-b0ca-7a34e5a8ad2a}</UniqueIdentifier>
     </Filter>
     <Filter Include="2_Data\5_Item\Equip">
       <UniqueIdentifier>{cd8eaa27-290f-4c59-936d-a5ab42f5fb70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\4_HyruleCastle">
+      <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\5_Dungeon">
+      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\6_Boss">
+      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\3_UnderWater">
+      <UniqueIdentifier>{4ef9cc9b-05d5-47a8-a841-55f153c86574}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

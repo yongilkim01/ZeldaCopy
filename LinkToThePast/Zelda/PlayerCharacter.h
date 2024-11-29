@@ -28,7 +28,8 @@ enum class EPlayerState
 	LiftMove,
 	Sleep,
 	WakeUp,
-	Fall
+	Fall,
+	TurnFall
 };
 
 /**
@@ -67,6 +68,7 @@ public:
 	void StartSleep();
 	void StartWakeUp();
 	void StartFall();
+	void StartTurnFall();
 
 	void Idle(float DeltaTime);
 	void Move(float DeltaTime);
@@ -78,6 +80,7 @@ public:
 	void Sleep(float DeltaTime);
 	void WakeUp(float DeltaTime);
 	void Fall(float DeltaTime);
+	void TurnFall(float DeltaTime);
 
 	void EndAttack();
 	void EndLift();
