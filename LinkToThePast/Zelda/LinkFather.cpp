@@ -35,7 +35,7 @@ ALinkFather::~ALinkFather()
 void ALinkFather::BeginPlay()
 {
 	Super::BeginPlay();
-	ChangeState(ELinkFatherState::SIT_DOWN);
+	//ChangeState(ELinkFatherState::SIT_DOWN);
 }
 
 void ALinkFather::Tick(float DeltaTime)
@@ -55,6 +55,12 @@ void ALinkFather::Tick(float DeltaTime)
 		break;
 	case ELinkFatherState::MOVE_DOWN:
 		MoveDown(DeltaTime);
+		break;
+	case ELinkFatherState::DEATH_WEAPON:
+		DeathWeapon(DeltaTime);
+		break;
+	case ELinkFatherState::DEATH_NONWEAPON:
+		DeathNoneWeapon(DeltaTime);
 		break;
 	default:
 		break;
@@ -107,6 +113,24 @@ void ALinkFather::MoveDown(float DeltaTime)
 	SetActorLocation(FVector2D::LerpClimp(StartLocation, DestLocation, CurTime / 3.0f));
 }
 
+void ALinkFather::StartDeathWeapon()
+{
+	SpriteRenderer->ChangeAnimation("DeathWeapon");
+}
+
+void ALinkFather::DeathWeapon(float DeltaTime)
+{
+}
+
+void ALinkFather::StartDeathNoneWeapon()
+{
+	SpriteRenderer->ChangeAnimation("DeathNoneWeapon");
+}
+
+void ALinkFather::DeathNoneWeapon(float DeltaTime)
+{
+}
+
 void ALinkFather::ChangeState(ELinkFatherState State)
 {
 	if (State == CurState) return;
@@ -124,6 +148,12 @@ void ALinkFather::ChangeState(ELinkFatherState State)
 		break;
 	case ELinkFatherState::MOVE_DOWN:
 		StartMoveDown();
+		break;
+	case ELinkFatherState::DEATH_WEAPON:
+		StartDeathWeapon();
+		break;
+	case ELinkFatherState::DEATH_NONWEAPON:
+		StartDeathNoneWeapon();
 		break;
 	default:
 		break;

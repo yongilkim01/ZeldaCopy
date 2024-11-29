@@ -9,7 +9,9 @@ enum class ELinkFatherState
 	SIT_DOWN,
 	SIT_LEFT,
 	MOVE_LEFT,
-	MOVE_DOWN
+	MOVE_DOWN,
+	DEATH_WEAPON,
+	DEATH_NONWEAPON
 };
 
 /**
@@ -40,6 +42,12 @@ public:
 
 	void StartMoveDown();
 	void MoveDown(float DeltaTime);
+
+	void StartDeathWeapon();
+	void DeathWeapon(float DeltaTime);
+
+	void StartDeathNoneWeapon();
+	void DeathNoneWeapon(float DeltaTime);
 
 	void ChangeState(ELinkFatherState State);
 

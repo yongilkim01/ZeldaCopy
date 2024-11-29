@@ -37,7 +37,7 @@ void ACastleUnderWaterGameMode::BeginPlay()
 	BeginPlayEnemyActor();
 	BeginPlayUI();
 
-	TimeEventer.PushEvent(1.0f, [this]()
+	TimeEventer.PushEvent(0.2f, [this]()
 		{
 			ChangeState(ECastleUnderWaterState::LINK_FALL);
 		}
@@ -50,7 +50,7 @@ void ACastleUnderWaterGameMode::BeginPlayRoomActor()
 	Roomes.reserve(1);
 	RoomDataes.reserve(1);
 
-	RoomDataes.push_back({ { 0, 0 } ,{ 1434, 621 } });
+	RoomDataes.push_back({ { 0, 0 } ,{ 1434, 700 } });
 
 	CreateRoomActor("CastleUnderWater", 0);
 
@@ -62,6 +62,7 @@ void ACastleUnderWaterGameMode::BeginPlayEnvActor()
 	{
 		LinkFather = GetWorld()->SpawnActor<ALinkFather>();
 		LinkFather->SetActorLocation({ 596, 224 });
+		LinkFather->ChangeState(ELinkFatherState::DEATH_WEAPON);
 		LinkFather->SetActive(true);
 	}
 }
@@ -69,8 +70,6 @@ void ACastleUnderWaterGameMode::BeginPlayEnvActor()
 void ACastleUnderWaterGameMode::Tick(float DeltaTime)
 {
 	AZeldaGameMode::Tick(DeltaTime);
-
-	//StartFsm.Update(DeltaTime);
 
 	switch (CurState)
 	{
@@ -98,7 +97,7 @@ void ACastleUnderWaterGameMode::StartFallLink()
 void ACastleUnderWaterGameMode::FallLink(float DeltaTime)
 {
 	CurTime += DeltaTime;
-	Player->SetActorLocation(FVector2D::LerpClimp(LinkStartLocation, LinkDestLocation, CurTime / 2.0f));
+	Player->SetActorLocation(FVector2D::LerpClimp(LinkStartLocation, LinkDestLocation, CurTime / 1.0f));
 
 	if (UEngineMath::Abs(Player->GetActorLocation().Y - LinkDestLocation.Y) < 0.1f)
 	{

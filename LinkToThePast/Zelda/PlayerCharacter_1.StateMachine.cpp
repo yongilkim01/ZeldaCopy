@@ -683,6 +683,7 @@ void APlayerCharacter::Fall(float DeltaTime)
 
 void APlayerCharacter::TurnFall(float DeltaTime)
 {
+	SetCameraLocationToPlayer();
 }
 
 void APlayerCharacter::EndAttack()

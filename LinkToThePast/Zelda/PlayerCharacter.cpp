@@ -79,7 +79,7 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("LinkSleep", "LinkSleep.png", 0, 0, 0.1f);
 		SpriteRenderer->CreateAnimation("LinkWakeUp", "LinkSleep.png", 1, 1, 0.1f);
 		SpriteRenderer->CreateAnimation("Fall", "LinkFall.png", 0, 6, 0.1f, false);
-		SpriteRenderer->CreateAnimation("TurnFall", "LinkTurnFall.png", 0, 3, 0.1f, false);
+		SpriteRenderer->CreateAnimation("TurnFall", "LinkTurnFall.png", 0, 3, 0.08f);
 
 		// 애니메이션 이벤트 바인드
 		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::EndAttack, this));
@@ -214,6 +214,13 @@ void APlayerCharacter::LevelChangeStart()
 	else if ("LIGHTWORLD" == LevelName)
 	{
 		SetActorLocation({ 1536 + 576, 3072 + 847 });
+		SetCurDirection(FVector2D::DOWN);
+		ChangeState(EPlayerState::Idle);
+
+	}
+	else if ("UNDERWATER" == LevelName)
+	{
+		SetActorLocation({ 1152, 0 });
 		SetCurDirection(FVector2D::DOWN);
 		ChangeState(EPlayerState::Idle);
 
