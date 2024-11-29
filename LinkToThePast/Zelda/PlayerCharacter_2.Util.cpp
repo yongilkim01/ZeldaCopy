@@ -66,10 +66,51 @@ void APlayerCharacter::ChangePlayerDirection(FVector2D Dir)
 	}
 	else if (FVector2D::DOWN == Dir)
 	{
-		InteractCollision->SetComponentLocation(Dir * ChildDistance);
+		InteractCollision->SetComponentLocation(Dir * (ChildDistance * 1.5f));
 		AttackCollision->SetComponentLocation(Dir * ChildDistance);
 	}
 
+}
+
+void APlayerCharacter::CheckInteract()
+{
+	InteractCollision->SetActive(true);
+
+	//OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
+
+	std::vector<AActor*> Results = InteractCollision->CollisionAll(ECollisionGroup::EventTarget);
+
+	for (int i = 0; i < Results.size(); i++)
+	{
+		AEventActor* Result = dynamic_cast<AEventActor*>(Results[i]);
+
+		if (nullptr != Result)
+		{
+			if (true == Result->GetIsEquipalbe())
+			{
+				OwnedEventActor = Result;
+
+				if (nullptr != OwnedEventActor)
+				{
+					int Result = OwnedEventActor->Interact(this);
+
+					if (1 == Result)
+					{
+						ChangeState(EPlayerState::Lift);
+						InteractCollision->SetActive(false);
+						return;
+					}
+				}
+			}
+			else
+			{
+				Result->Interact(this);
+			}
+		}
+	}
+
+	InteractCollision->SetActive(false);
+	//ChangeState(EPlayerState::Idle);
 }
 
 FVector2D APlayerCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)

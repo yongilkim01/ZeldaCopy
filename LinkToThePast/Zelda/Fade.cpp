@@ -117,21 +117,24 @@ void AFade::FadeIn()
 // 1 => 0
 void AFade::FadeOut()
 {
-	ZoomRenderer->SetAlphafloat(1.0f);
-
-	switch (FadeSize)
+	if (true == IsFadeOn())
 	{
-	case EFadeSize::NORMAL:
-		ZoomRenderer->SetSprite("FadeOut.png", 0);
-		ZoomRenderer->SetSpriteScale(1.0f);
-		ZoomRenderer->ChangeAnimation("FadeOut");
-		break;
-	case EFadeSize::BIG:
-		ZoomRenderer->SetSprite("BigFadeOut.png", 0);
-		ZoomRenderer->SetSpriteScale(1.0f);
-		ZoomRenderer->ChangeAnimation("BigFadeOut");
-		break;
-	default:
-		break;
+		ZoomRenderer->SetAlphafloat(1.0f);
+
+		switch (FadeSize)
+		{
+		case EFadeSize::NORMAL:
+			ZoomRenderer->SetSprite("FadeOut.png", 0);
+			ZoomRenderer->SetSpriteScale(1.0f);
+			ZoomRenderer->ChangeAnimation("FadeOut");
+			break;
+		case EFadeSize::BIG:
+			ZoomRenderer->SetSprite("BigFadeOut.png", 0);
+			ZoomRenderer->SetSpriteScale(1.0f);
+			ZoomRenderer->ChangeAnimation("BigFadeOut");
+			break;
+		default:
+			break;
+		}
 	}
 }

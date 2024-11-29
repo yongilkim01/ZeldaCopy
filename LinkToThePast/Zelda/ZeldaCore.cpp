@@ -134,7 +134,7 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 2000 });
 	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 2000 });
 	UImageManager::GetInst().CuttingSprite("BigFadeOut.png", { 1600, 2000 });
-	UImageManager::GetInst().CuttingSprite("BigFadeOut.png", { 1600, 2000 });
+	UImageManager::GetInst().CuttingSprite("BigFadeIn.png", { 1600, 2000 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforce.png", { 200, 200 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforceReverse.png", { 200, 200 });
 
@@ -162,7 +162,7 @@ void UZeldaCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("UnderWater");
+	UEngineAPICore::GetCore()->OpenLevel("LightWorld");
 }
 
 void UZeldaCore::Tick()

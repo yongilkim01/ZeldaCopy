@@ -24,6 +24,7 @@ enum class EPlayerState
 	Skill,
 	KnockBack,
 	Interact,
+	Lift,
 	LiftIdle,
 	LiftMove,
 	Sleep,
@@ -64,6 +65,7 @@ public:
 	void StartAttack();
 	void StartSkill();
 	void StartKnockBack();
+	void StartLift();
 	void StartLiftMove();
 	void StartLiftIdle();
 	void StartSleep();
@@ -78,6 +80,7 @@ public:
 	void Attack(float DeltaTime);
 	void Skill(float DeltaTime);
 	void KnockBack(float DeltaTime);
+	void Lift(float DeltaTime);
 	void LiftIdle(float DeltaTime);
 	void Sleep(float DeltaTime);
 	void WakeUp(float DeltaTime);
@@ -90,6 +93,7 @@ public:
 
 	void ChangeState(EPlayerState ChangeState);
 	void ChangePlayerDirection(FVector2D Dir);
+	void CheckInteract();
 
 	void RunSoundPlay();
 

@@ -3,6 +3,7 @@
 #include "ContentsEnum.h"
 #include "Fade.h"
 #include "PlayerCharacter.h"
+#include "CastleUnderWaterGameMode.h"
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
@@ -45,7 +46,9 @@ void ALevelMove::BeginPlay()
 
 	FadeActor = GetWorld()->SpawnActor<AFade>();
 	FadeActor->SetActorLocation(Player->GetActorLocation());
-	FadeActor->FadeOut();
+	FadeActor->SetFadeSize(EFadeSize::BIG);
+	FadeActor->SetFadeOn(false);
+	//FadeActor->FadeOut();
 }
 
 void ALevelMove::Tick(float DeltaTime)
@@ -54,18 +57,19 @@ void ALevelMove::Tick(float DeltaTime)
 
 	FadeActor->SetActorLocation(Player->GetActorLocation());
 
-	AActor* Result = Collision->CollisionOnce(ECollisionGroup::PlayerBody);
+	AActor* Result = Collision->CollisionOnce(ECollisionGroup::PLAYERMOVEABLE);
 
 	if (nullptr != Result)
 	{
-		if (MoveLevel == "CastleDungeon")
+		if (MoveLevel == "UnderWater")
 		{
 			Player->ChangeState(EPlayerState::Fall);
 			Player->SetActorLocation(GetActorLocation());
 
 			TimeEventer.PushEvent(1.5f, [this]()
 				{
-					FadeActor->FadeIn();
+					//FadeActor->FadeIn();
+					UEngineAPICore::GetCore()->ResetLevel<ACastleUnderWaterGameMode, APlayerCharacter>("UnderWater");
 					UEngineAPICore::GetCore()->OpenLevel(MoveLevel);
 				}
 			);
@@ -73,12 +77,13 @@ void ALevelMove::Tick(float DeltaTime)
 		else
 		{
 			UEngineDebug::CoreOutPutString("플레이어 안에 들어옴");
-			FadeActor->FadeIn();
+			//FadeActor->FadeIn();
 			TimeEventer.PushEvent(1.0f, [this]()
 				{
 					UEngineAPICore::GetCore()->OpenLevel(MoveLevel);
 				}
 			);
 		}
+		Collision->SetActive(false);
 	}
 }

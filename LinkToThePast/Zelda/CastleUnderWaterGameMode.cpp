@@ -11,6 +11,7 @@
 #include "Chest.h"
 #include "SoundManager.h"
 #include "LevelMove.h"
+#include "PlayerDataManager.h"
 
 #include <EngineBase/EngineMath.h>
 #include <EnginePlatform/EngineInput.h>
@@ -46,6 +47,10 @@ void ACastleUnderWaterGameMode::BeginPlay()
 	BeginPlayEnemyActor();
 	BeginPlayUI();
 
+	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
+	LevelMove1->SetActorLocation({ 288, 576 });
+	LevelMove1->SetMoveLevelName("LightWorld");
+
 	TimeEventer.PushEvent(0.2f, [this]()
 		{
 			ChangeState(ECastleUnderWaterState::LINK_FALL);
@@ -63,7 +68,7 @@ void ACastleUnderWaterGameMode::BeginPlayRoomActor()
 
 	CreateRoomActor("CastleUnderWater", 0);
 
-	//this->Roomes[0]->CreateEnvSprite("CastleUnderWater1Door1.png", FVector2D(282, 648), FVector2D(214, 24), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[0]->CreateEnvSprite("CastleUnderWater1Door1.png", FVector2D(105, 516), FVector2D(366, 87), ERenderOrder::FIRST_FLOOR_OBJ);
 }
 
 void ACastleUnderWaterGameMode::BeginPlayEnvActor()
@@ -98,6 +103,7 @@ void ACastleUnderWaterGameMode::Tick(float DeltaTime)
 
 void ACastleUnderWaterGameMode::StartFallLink()
 {
+
 	Player->ChangeState(EPlayerState::TurnFall);
 	Player->SetActorLocation(LinkStartLocation);
 	CurTime = 0.0f;
@@ -118,6 +124,8 @@ void ACastleUnderWaterGameMode::FallLink(float DeltaTime)
 void ACastleUnderWaterGameMode::StartGetWeapon()
 {
 	LinkCheckCollision->SetActive(false);
+
+	Player->ChangeState(EPlayerState::Idle);
 
 	UIBox = GetWorld()->SpawnActor<AUIBox>();
 	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(10.0f, 200.0f));
@@ -155,6 +163,9 @@ void ACastleUnderWaterGameMode::GetWeapon(float DeltaTime)
 
 void ACastleUnderWaterGameMode::StartGamePlay()
 {
+	PlayerDataManager::GetInstance().SetLevelStartLocation({ 2160, 640 });
+	PlayerDataManager::GetInstance().SetLevelStartRoomIndex(0);
+
 	Player->SetCurDirection(FVector2D::LEFT);
 	Player->ChangeState(EPlayerState::Idle);
 }

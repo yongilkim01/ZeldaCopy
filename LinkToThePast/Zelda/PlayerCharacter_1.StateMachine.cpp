@@ -6,6 +6,7 @@
 #include "EventActor.h"
 #include "PlayerDataManager.h"
 #include "WeaponItem.h"
+#include "Grass.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/EngineAPICore.h>
@@ -36,6 +37,9 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 		break;
 	case EPlayerState::Interact:
 		StartInteract();
+		break;
+	case EPlayerState::Lift:
+		StartLift();
 		break;
 	case EPlayerState::LiftIdle:
 		StartLiftIdle();
@@ -228,6 +232,26 @@ void APlayerCharacter::StartKnockBack()
 	CurPlayerState = EPlayerState::KnockBack;
 }
 
+void APlayerCharacter::StartLift()
+{
+	if (GetCurDirection() == FVector2D::RIGHT)
+	{
+		SpriteRenderer->ChangeAnimation("LiftRight", true);
+	}
+	else if (GetCurDirection() == FVector2D::LEFT)
+	{
+		SpriteRenderer->ChangeAnimation("LiftLeft", true);
+	}
+	else if (GetCurDirection() == FVector2D::UP)
+	{
+		SpriteRenderer->ChangeAnimation("LiftUp", true);
+	}
+	else if (GetCurDirection() == FVector2D::DOWN)
+	{
+		SpriteRenderer->ChangeAnimation("LiftDown", true);
+	}
+}
+
 void APlayerCharacter::StartLiftMove()
 {
 	if (GetCurDirection() == FVector2D::RIGHT)
@@ -301,6 +325,43 @@ void APlayerCharacter::StartSwordGet()
 
 void APlayerCharacter::StartInteract()
 {
+	InteractCollision->SetActive(true);
+
+	//OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
+
+	std::vector<AActor*> Results = InteractCollision->CollisionAll(ECollisionGroup::EventTarget);
+
+	for (int i = 0; i < Results.size(); i++)
+	{
+		AEventActor* Result = dynamic_cast<AEventActor*>(Results[i]);
+
+		if (nullptr != Result)
+		{
+			if (true == Result->GetIsEquipalbe())
+			{
+				OwnedEventActor = Result;
+
+				if (nullptr != OwnedEventActor)
+				{
+					int Result = OwnedEventActor->Interact(this);
+
+					if (1 == Result)
+					{
+						ChangeState(EPlayerState::Lift);
+						InteractCollision->SetActive(false);
+						return;
+					}
+				}
+			}
+			else
+			{
+				Result->Interact(this);
+			}
+		}
+	}
+
+	InteractCollision->SetActive(false);
+	ChangeState(EPlayerState::Idle);
 }
 
 
@@ -347,7 +408,8 @@ void APlayerCharacter::Idle(float DeltaTime)
 
 	if (UEngineInput::GetInst().IsDown('E') == true)
 	{
-		ChangeState(EPlayerState::Interact);
+		//ChangeState(EPlayerState::Interact);
+		CheckInteract();
 	}
 }
 
@@ -534,6 +596,18 @@ void APlayerCharacter::Attack(float DeltaTime)
 			Result->TakeDamage(10, this);
 		}
 	}
+
+	std::vector<AActor*> EvenvActors = AttackCollision->CollisionAll(ECollisionGroup::NOTMOVEABLE);
+
+	for (int i = 0; i < EvenvActors.size(); i++)
+	{
+		AGrass* Result = dynamic_cast<AGrass*>(EvenvActors[i]);
+
+		if (nullptr != Result)
+		{
+			Result->DestoryEventActor();
+		}
+	}
 }
 
 void APlayerCharacter::Skill(float DeltaTime)
@@ -548,59 +622,7 @@ void APlayerCharacter::Skill(float DeltaTime)
 
 void APlayerCharacter::Interact(float DetlaTime)
 {
-	ABaseCharacter::Interact(DetlaTime);
 
-	InteractCollision->SetActive(true);
-
-	//OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
-
-	std::vector<AActor*> Results = InteractCollision->CollisionAll(ECollisionGroup::EventTarget);
-
-	for (int i = 0; i < Results.size(); i++)
-	{
-		AEventActor* Result = dynamic_cast<AEventActor*>(Results[i]);
-
-		if (nullptr != Result)
-		{
-			if (true == Result->GetIsEquipalbe())
-			{
-				OwnedEventActor = Result;
-
-				if (nullptr != OwnedEventActor)
-				{
-					int Result = OwnedEventActor->Interact(this);
-
-					if (1 == Result)
-					{
-						if (GetCurDirection() == FVector2D::RIGHT)
-						{
-							SpriteRenderer->ChangeAnimation("LiftRight");
-						}
-						else if (GetCurDirection() == FVector2D::LEFT)
-						{
-							SpriteRenderer->ChangeAnimation("LiftLeft");
-						}
-						else if (GetCurDirection() == FVector2D::UP)
-						{
-							SpriteRenderer->ChangeAnimation("LiftUp");
-						}
-						else if (GetCurDirection() == FVector2D::DOWN)
-						{
-							SpriteRenderer->ChangeAnimation("LiftDown");
-						}
-						return;
-					}
-				}
-			}
-			else
-			{
-				Result->Interact(this);
-			}
-		}
-	}
-
-	InteractCollision->SetActive(false);
-	ChangeState(EPlayerState::Idle);
 }
 
 void APlayerCharacter::KnockBack(float DeltaTime)
@@ -634,6 +656,10 @@ void APlayerCharacter::KnockBack(float DeltaTime)
 	{
 		SpriteRenderer->ChangeAnimation("KnockBack_Down");
 	}
+}
+
+void APlayerCharacter::Lift(float DeltaTime)
+{
 }
 
 void APlayerCharacter::LiftIdle(float DeltaTime)

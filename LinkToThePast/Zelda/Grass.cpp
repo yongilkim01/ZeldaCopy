@@ -39,7 +39,7 @@ AGrass::AGrass()
 
 		ImmuneCollision = CreateDefaultSubObject<UCollision2D>();
 		ImmuneCollision->SetComponentLocation({ 0, 0 });
-		ImmuneCollision->SetComponentScale({ 48, 48 });
+		ImmuneCollision->SetComponentScale({ 40, 40 });
 		ImmuneCollision->SetCollisionGroup(ECollisionGroup::NOTMOVEABLE);
 		ImmuneCollision->SetActive(true);
 	}
@@ -110,14 +110,14 @@ int AGrass::Interact(ABaseCharacter* Character)
 
 	if (Owner->GetCurDirection() == FVector2D::RIGHT)
 	{
-		TimeEventer.PushEvent(0.1f, [this]()
+		TimeEventer.PushEvent(0.3f, [this]()
 			{
 				SetActorLocation(Owner->GetActorLocation() + FVector2D(20.0f, -20.0f));
 				SpriteRenderer->SetOrder(Owner->GetSpriteOrder() + 1);
 			}
 		, false, false);
 
-		TimeEventer.PushEvent(0.2f, [this]()
+		TimeEventer.PushEvent(0.6f, [this]()
 			{
 				SetActorLocation(Owner->GetActorLocation() + FVector2D(0.0f, -40.0f));
 				SpriteRenderer->SetOrder(Owner->GetSpriteOrder() + 1);
@@ -127,14 +127,14 @@ int AGrass::Interact(ABaseCharacter* Character)
 	}
 	else if (Owner->GetCurDirection() == FVector2D::LEFT)
 	{
-		TimeEventer.PushEvent(0.1f, [this]()
+		TimeEventer.PushEvent(0.3f, [this]()
 			{
 				SetActorLocation(Owner->GetActorLocation() + FVector2D(-20.0f, -20.0f));
 				SpriteRenderer->SetOrder(Owner->GetSpriteOrder() + 1);
 			}
 		, false, false);
 
-		TimeEventer.PushEvent(0.2f, [this]()
+		TimeEventer.PushEvent(0.6f, [this]()
 			{
 				SetActorLocation(Owner->GetActorLocation() + FVector2D(0.0f, -40.0f));
 				SpriteRenderer->SetOrder(Owner->GetSpriteOrder() + 1);
@@ -144,7 +144,7 @@ int AGrass::Interact(ABaseCharacter* Character)
 	}
 	else if (Owner->GetCurDirection() == FVector2D::UP)
 	{
-		TimeEventer.PushEvent(0.1f, [this]()
+		TimeEventer.PushEvent(0.3f, [this]()
 			{
 				if (nullptr != Owner)
 				{
@@ -154,7 +154,7 @@ int AGrass::Interact(ABaseCharacter* Character)
 			}
 		, false, false);
 
-		TimeEventer.PushEvent(0.2f, [this]()
+		TimeEventer.PushEvent(0.6f, [this]()
 			{
 				SetActorLocation(GetActorLocation() + FVector2D(0.0f, -12.0f));
 				SpriteRenderer->SetOrder(Owner->GetSpriteOrder() + 1);
@@ -164,14 +164,14 @@ int AGrass::Interact(ABaseCharacter* Character)
 	}
 	else if (Owner->GetCurDirection() == FVector2D::DOWN)
 	{
-		TimeEventer.PushEvent(0.1f, [this]()
+		TimeEventer.PushEvent(0.3f, [this]()
 			{
 				SetActorLocation(Owner->GetActorLocation() + FVector2D(0.0f, -20.0f));
 				SpriteRenderer->SetOrder(Owner->GetSpriteOrder() + 1);
 			}
 		, false, false);
 
-		TimeEventer.PushEvent(0.2f, [this]()
+		TimeEventer.PushEvent(0.6f, [this]()
 			{
 				SetActorLocation(GetActorLocation() + FVector2D(0.0f, -15.0f));
 				SpriteRenderer->SetOrder(Owner->GetSpriteOrder() + 1);

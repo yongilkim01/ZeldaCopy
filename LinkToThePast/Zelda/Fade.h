@@ -52,6 +52,14 @@ public:
 	{
 		this->FadeSize = FadeSize;
 	}
+	bool IsFadeOn()
+	{
+		return bFadeOn;
+	}
+	void SetFadeOn(bool Value)
+	{
+		bFadeOn = Value;
+	}
 
 protected:
 	/** 액터 상속 메소드 */
@@ -65,6 +73,7 @@ private:
 	float FadeValue = 0.0f;
 	float FadeDir = 1.0f;
 	bool IsFading = false;
+	bool bFadeOn = true;
 
 	/** 컴포넌트 */
 	USpriteRenderer* AlphaRenderer = nullptr;

@@ -59,7 +59,7 @@ void ALightWorldGameMode::BeginPlay()
 
 	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
 	LevelMove1->SetActorLocation({ 2712, 504 });
-	LevelMove1->SetMoveLevelName("CastleDungeon");
+	LevelMove1->SetMoveLevelName("UnderWater");
 
 	Fade = GetWorld()->SpawnActor<AFade>();
 	Fade->SetFadeSize(EFadeSize::BIG);

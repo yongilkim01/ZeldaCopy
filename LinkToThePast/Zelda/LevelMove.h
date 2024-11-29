@@ -31,6 +31,14 @@ public:
 	{
 		MoveLevel = LevelName;
 	}
+	bool GetFade()
+	{
+		return IsFade;
+	}
+	void SetFade(bool Fade)
+	{
+		IsFade = Fade;
+	}
 
 protected:
 	/** 액터 상속 메소드 */
@@ -38,6 +46,8 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	bool IsFade = true;
+
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* Collision = nullptr;
 	AFade* FadeActor = nullptr;

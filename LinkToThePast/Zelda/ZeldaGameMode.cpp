@@ -6,6 +6,7 @@
 #include "UIManager.h"
 #include "RoomMove.h"
 #include "EnemyCharacter.h"
+#include "PlayerDataManager.h"
 
 #include <EngineBase/EngineMath.h>
 
@@ -436,8 +437,23 @@ ARoom* AZeldaGameMode::FindRoomToName(std::string_view RoomName)
 
 void AZeldaGameMode::SetCurRoom(int _Index)
 {
-	PlayerCharacter->SetCurRoom(Roomes[_Index], true);
-	this->CurRoom = Roomes[_Index];
+	if (FVector2D::ZERO != PlayerDataManager::GetInstance().GetLevelStartLocation())
+	{
+		PlayerCharacter->SetActorLocation(PlayerDataManager::GetInstance().GetLevelStartLocation());
+		PlayerDataManager::GetInstance().SetLevelStartLocation(FVector2D::ZERO);
+	}
+
+	if (-1 != PlayerDataManager::GetInstance().GetLevelStartRoomIndex())
+	{
+		PlayerCharacter->SetCurRoom(Roomes[PlayerDataManager::GetInstance().GetLevelStartRoomIndex()], true);
+		this->CurRoom = Roomes[PlayerDataManager::GetInstance().GetLevelStartRoomIndex()];
+		PlayerDataManager::GetInstance().SetLevelStartRoomIndex(-1);
+	}
+	else
+	{
+		PlayerCharacter->SetCurRoom(Roomes[_Index], true);
+		this->CurRoom = Roomes[_Index];
+	}
 }
 
 void AZeldaGameMode::CheckCollisionRoom()

@@ -199,6 +199,23 @@ public:
 		WeaponCount += Count;
 	}
 
+	void SetLevelStartLocation(FVector2D Location)
+	{
+		LevelStartLocation = Location;
+	}
+	FVector2D GetLevelStartLocation()
+	{
+		return LevelStartLocation;
+	}
+	void SetLevelStartRoomIndex(int Index)
+	{
+		LevelStartRoomIndex = Index;
+	}
+	int GetLevelStartRoomIndex()
+	{
+		return LevelStartRoomIndex;
+	}
+
 protected:
 
 private:
@@ -231,5 +248,8 @@ private:
 
 	int CurrentSelectWeapon = -1;
 	int WeaponCount = 0;
+
+	FVector2D LevelStartLocation = FVector2D::ZERO;
+	int LevelStartRoomIndex = -1;
 };
 

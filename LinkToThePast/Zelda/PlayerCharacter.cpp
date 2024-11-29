@@ -56,10 +56,10 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("Attack_Up", "LinkAttackUp.png", 0, 4, 0.04f, false);
 		SpriteRenderer->CreateAnimation("Attack_Down", "LinkAttackDown.png", 0, 5, 0.04f, false);
 
-		SpriteRenderer->CreateAnimation("LiftRight", "LinkLiftRight.png", 0, 1, 0.1f, false);
-		SpriteRenderer->CreateAnimation("LiftLeft", "LinkLiftLeft.png", 0, 1, 0.1f, false);
-		SpriteRenderer->CreateAnimation("LiftUp", "LinkLiftUp.png", 0, 1, 0.1f, false);
-		SpriteRenderer->CreateAnimation("LiftDown", "LinkLiftDown.png", 0, 1, 0.1f, false);
+		SpriteRenderer->CreateAnimation("LiftRight", "LinkLiftRight.png", 0, 1, 0.3f, false);
+		SpriteRenderer->CreateAnimation("LiftLeft", "LinkLiftLeft.png", 0, 1, 0.3f, false);
+		SpriteRenderer->CreateAnimation("LiftUp", "LinkLiftUp.png", 0, 1, 0.3f, false);
+		SpriteRenderer->CreateAnimation("LiftDown", "LinkLiftDown.png", 0, 1, 0.3f, false);
 
 		SpriteRenderer->CreateAnimation("LiftIdleRight", "LinkLiftRight.png", 2, 2, 0.1f);
 		SpriteRenderer->CreateAnimation("LiftIdleLeft", "LinkLiftLeft.png", 2, 2, 0.1f);
@@ -109,7 +109,7 @@ APlayerCharacter::APlayerCharacter()
 		BodyCollision = CreateDefaultSubObject<UCollision2D>();
 		BodyCollision->SetComponentLocation({ 0, 10 });
 		BodyCollision->SetComponentScale({ 50,50 });
-		BodyCollision->SetCollisionGroup(ECollisionGroup::MOVEABLE);
+		BodyCollision->SetCollisionGroup(ECollisionGroup::PLAYERMOVEABLE);
 		BodyCollision->SetActive(true);
 
 		// 공격 컴포넌트 생성
@@ -176,6 +176,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 	case EPlayerState::Interact:
 		Interact(DeltaTime);
 		break;
+	case EPlayerState::Lift:
+		Lift(DeltaTime);
+		break;
 	case EPlayerState::LiftIdle:
 		LiftIdle(DeltaTime);
 		break;
@@ -207,6 +210,18 @@ void APlayerCharacter::LevelChangeStart()
 	Super::LevelChangeStart();
 
 	std::string LevelName = GetWorld()->GetName();
+	FVector2D Test = PlayerDataManager::GetInstance().GetLevelStartLocation();
+
+	if (FVector2D::ZERO != PlayerDataManager::GetInstance().GetLevelStartLocation())
+	{
+		SetActorLocation(PlayerDataManager::GetInstance().GetLevelStartLocation());
+		SetCurDirection(FVector2D::DOWN);
+		ChangeState(EPlayerState::Idle);
+		//PlayerDataManager::GetInstance().SetLevelStartLocation(FVector2D::ZERO);
+		//PlayerDataManager::GetInstance().SetLevelStartRoomIndex(-1);
+
+		return;
+	}
 
 	if ("LINKHOUSE" == LevelName)
 	{
