@@ -93,6 +93,7 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("LinkBowDown.png", { 64, 64 });
 
 	UImageManager::GetInst().CuttingSprite("LinkSleep.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("LinkFall.png", { 64, 64 });
 
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveRight.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HylianKnightMoveLeft.png", { 64, 64 });
@@ -126,6 +127,7 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("DoorRightLeft2.png", { 48, 96 });
 
 	UImageManager::GetInst().CuttingSprite("EnemyDeathEffect.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("Rain.png", { 771, 669 });
 	UImageManager::GetInst().CuttingSprite("FireEffect.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FadeIn.png", { 800, 2000 });
 	UImageManager::GetInst().CuttingSprite("FadeOut.png", { 800, 2000 });
@@ -133,7 +135,6 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("BigFadeOut.png", { 1600, 2000 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforce.png", { 200, 200 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforceReverse.png", { 200, 200 });
-
 
 	UImageManager::GetInst().CuttingSprite("Heart.png", { 21, 21 });
 	UImageManager::GetInst().CuttingSprite("DropHeart.png", { 24, 78 });
@@ -158,7 +159,7 @@ void UZeldaCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("LightWorld");
+	UEngineAPICore::GetCore()->OpenLevel("LinkHouse");
 }
 
 void UZeldaCore::Tick()

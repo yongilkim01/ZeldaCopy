@@ -78,6 +78,7 @@ APlayerCharacter::APlayerCharacter()
 
 		SpriteRenderer->CreateAnimation("LinkSleep", "LinkSleep.png", 0, 0, 0.1f);
 		SpriteRenderer->CreateAnimation("LinkWakeUp", "LinkSleep.png", 1, 1, 0.1f);
+		SpriteRenderer->CreateAnimation("Fall", "LinkFall.png", 0, 6, 0.1f, false);
 
 		// 애니메이션 이벤트 바인드
 		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::EndAttack, this));
@@ -184,6 +185,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 		break;
 	case EPlayerState::WakeUp:
 		WakeUp(DeltaTime);
+		break;
+	case EPlayerState::Fall:
+		Fall(DeltaTime);
 		break;
 	default:
 		break;

@@ -49,6 +49,9 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 	case EPlayerState::WakeUp:
 		StartWakeUp();
 		break;
+	case EPlayerState::Fall:
+		StartFall();
+		break;
 	default:
 		break;
 	}
@@ -272,6 +275,11 @@ void APlayerCharacter::StartSleep()
 void APlayerCharacter::StartWakeUp()
 {
 	SpriteRenderer->ChangeAnimation("LinkWakeUp");
+}
+
+void APlayerCharacter::StartFall()
+{
+	SpriteRenderer->ChangeAnimation("Fall");
 }
 
 
@@ -658,6 +666,10 @@ void APlayerCharacter::Sleep(float DeltaTime)
 }
 
 void APlayerCharacter::WakeUp(float DeltaTime)
+{
+}
+
+void APlayerCharacter::Fall(float DeltaTime)
 {
 }
 

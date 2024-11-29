@@ -58,12 +58,27 @@ void ALevelMove::Tick(float DeltaTime)
 
 	if (nullptr != Result)
 	{
-		UEngineDebug::CoreOutPutString("플레이어 안에 들어옴");
+		if (MoveLevel == "CastleDungeon")
+		{
+			Player->ChangeState(EPlayerState::Fall);
+			Player->SetActorLocation(GetActorLocation());
+
+			TimeEventer.PushEvent(1.5f, [this]()
+				{
+					FadeActor->FadeIn();
+					UEngineAPICore::GetCore()->OpenLevel(MoveLevel);
+				}
+			);
+		}
+		else
+		{
+			UEngineDebug::CoreOutPutString("플레이어 안에 들어옴");
 			FadeActor->FadeIn();
-		TimeEventer.PushEvent(1.0f, [this]()
-			{
-				UEngineAPICore::GetCore()->OpenLevel(MoveLevel);
-			}
-		);
+			TimeEventer.PushEvent(1.0f, [this]()
+				{
+					UEngineAPICore::GetCore()->OpenLevel(MoveLevel);
+				}
+			);
+		}
 	}
 }

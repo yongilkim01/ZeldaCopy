@@ -2,12 +2,8 @@
 #include "ZeldaGameMode.h"
 
 class ARoom;
-class AUIBox;
-class AHouseBed;
 class AFade;
 class APlayerCharacter;
-class ALinkFather;
-
 class USpriteRenderer;
 
 /**
@@ -40,5 +36,8 @@ protected:
 private:
 	APlayerCharacter* Player = nullptr;
 	AFade* Fade = nullptr;
+	
+	USpriteRenderer* WeatherRenderer = nullptr;
+	USpriteRenderer* FadeRenderer = nullptr;
 };
 
