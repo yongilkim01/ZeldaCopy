@@ -55,6 +55,9 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 	case EPlayerState::TurnFall:
 		StartTurnFall();
 		break;
+	case EPlayerState::SwordGet:
+		StartSwordGet();
+		break;
 	default:
 		break;
 	}
@@ -288,6 +291,11 @@ void APlayerCharacter::StartFall()
 void APlayerCharacter::StartTurnFall()
 {
 	SpriteRenderer->ChangeAnimation("TurnFall");
+}
+
+void APlayerCharacter::StartSwordGet()
+{
+	SpriteRenderer->ChangeAnimation("SwordGet");
 }
 
 
@@ -684,6 +692,10 @@ void APlayerCharacter::Fall(float DeltaTime)
 void APlayerCharacter::TurnFall(float DeltaTime)
 {
 	SetCameraLocationToPlayer();
+}
+
+void APlayerCharacter::GetSword(float DeltaTime)
+{
 }
 
 void APlayerCharacter::EndAttack()

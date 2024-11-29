@@ -80,6 +80,7 @@ APlayerCharacter::APlayerCharacter()
 		SpriteRenderer->CreateAnimation("LinkWakeUp", "LinkSleep.png", 1, 1, 0.1f);
 		SpriteRenderer->CreateAnimation("Fall", "LinkFall.png", 0, 6, 0.1f, false);
 		SpriteRenderer->CreateAnimation("TurnFall", "LinkTurnFall.png", 0, 3, 0.08f);
+		SpriteRenderer->CreateAnimation("SwordGet", "LinkSwordGet.png", 0, 0, 0.08f);
 
 		// 애니메이션 이벤트 바인드
 		SpriteRenderer->SetAnimationEvent("Attack_Right", 5, std::bind(&APlayerCharacter::EndAttack, this));
@@ -192,6 +193,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 		break;
 	case EPlayerState::TurnFall:
 		TurnFall(DeltaTime);
+		break;
+	case EPlayerState::SwordGet:
+		GetSword(DeltaTime);
 		break;
 	default:
 		break;

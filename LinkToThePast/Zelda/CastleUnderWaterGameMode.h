@@ -17,7 +17,7 @@ enum class ECastleUnderWaterState
 };
 
 class USpriteRenderer;
-
+class UCollision2D;
 /**
  *	Ό³Έν
  */
@@ -78,6 +78,7 @@ private:
 	FVector2D LinkDestLocation = FVector2D(1152, 308);
 
 	USpriteRenderer* FadeRenderer = nullptr;
+	UCollision2D* LinkCheckCollision = nullptr;
 	ECastleUnderWaterState CurState = ECastleUnderWaterState::NONE;
 };
 

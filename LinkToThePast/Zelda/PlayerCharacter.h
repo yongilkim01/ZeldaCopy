@@ -29,7 +29,8 @@ enum class EPlayerState
 	Sleep,
 	WakeUp,
 	Fall,
-	TurnFall
+	TurnFall,
+	SwordGet,
 };
 
 /**
@@ -69,6 +70,7 @@ public:
 	void StartWakeUp();
 	void StartFall();
 	void StartTurnFall();
+	void StartSwordGet();
 
 	void Idle(float DeltaTime);
 	void Move(float DeltaTime);
@@ -81,6 +83,7 @@ public:
 	void WakeUp(float DeltaTime);
 	void Fall(float DeltaTime);
 	void TurnFall(float DeltaTime);
+	void GetSword(float DeltaTime);
 
 	void EndAttack();
 	void EndLift();

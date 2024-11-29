@@ -15,11 +15,20 @@
 #include <EngineBase/EngineMath.h>
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/Collision2D.h>
 #include <EngineCore/EngineAPICore.h>
 
 ACastleUnderWaterGameMode::ACastleUnderWaterGameMode()
 {
+	{
+		LinkCheckCollision = CreateDefaultSubObject<UCollision2D>();
+		LinkCheckCollision->SetComponentLocation({ 596, 224 });
+		LinkCheckCollision->SetComponentScale({ 50, 50 });
+		LinkCheckCollision->SetCollisionGroup(ECollisionGroup::EventTarget);
+		LinkCheckCollision->SetActive(true);
+	}
 
+	DebugOn();
 }
 
 ACastleUnderWaterGameMode::~ACastleUnderWaterGameMode()
@@ -102,39 +111,40 @@ void ACastleUnderWaterGameMode::FallLink(float DeltaTime)
 	if (UEngineMath::Abs(Player->GetActorLocation().Y - LinkDestLocation.Y) < 0.1f)
 	{
 		Player->SetActorLocation(LinkDestLocation);
-		Player->SetCurDirection(FVector2D::LEFT);
-		Player->ChangeState(EPlayerState::Idle);
 		ChangeState(ECastleUnderWaterState::GAMEPLAY);
 	}
 }
 
 void ACastleUnderWaterGameMode::StartGetWeapon()
 {
+	LinkCheckCollision->SetActive(false);
+
 	UIBox = GetWorld()->SpawnActor<AUIBox>();
 	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(10.0f, 200.0f));
-	UIBox->SetIsShowFrame(false);
 
 	std::vector<std::string> StrValues;
-	StrValues.push_back("Help me...");
-	StrValues.push_back("          ");
-	StrValues.push_back("Please help me...");
-	StrValues.push_back("I am a prisoner in the dungeon");
-	StrValues.push_back("of the castle.");
-	StrValues.push_back("My name is Zelda.");
-	StrValues.push_back("The wizard, Agahnim, has done...");
-	StrValues.push_back("something to the other missing");
-	StrValues.push_back("girls. Now only I remain....");
-	StrValues.push_back("Agahnim has seized control of");
-	StrValues.push_back("the castle and is now trying to");
-	StrValues.push_back("oepn the seven wise men is");
-	StrValues.push_back("seal. ... ...");
-	StrValues.push_back("I am in the dungeon of the");
-	StrValues.push_back("castle.");
-	StrValues.push_back("Please help me...");
+	StrValues.push_back("Unnh... Link, I did not want");
+	StrValues.push_back("you involved in this... I told");
+	StrValues.push_back("you not to leave the house...");
+	StrValues.push_back("Take my sword and shield.");
 
 	UIBox->CreateUIText(StrValues, 1.0f);
 
-	USoundManager::GetInstance().PlayBGM("LTTP_Rain_InL.wav");
+	TimeEventer.PushEvent(5.0f, [this]()
+		{
+			Player->ChangeState(EPlayerState::SwordGet);
+			LinkFather->ChangeState(ELinkFatherState::DEATH_NONWEAPON);
+			UIBox->ResetText();
+		}
+	);
+
+	TimeEventer.PushEvent(8.0f, [this]()
+		{
+			ChangeState(ECastleUnderWaterState::GAMEPLAY);
+		}
+	);
+
+	//USoundManager::GetInstance().PlayBGM("LTTP_Rain_InL.wav");
 }
 
 void ACastleUnderWaterGameMode::GetWeapon(float DeltaTime)
@@ -144,11 +154,18 @@ void ACastleUnderWaterGameMode::GetWeapon(float DeltaTime)
 
 void ACastleUnderWaterGameMode::StartGamePlay()
 {
-
+	Player->SetCurDirection(FVector2D::LEFT);
+	Player->ChangeState(EPlayerState::Idle);
 }
 
 void ACastleUnderWaterGameMode::GamePlay(float DeltaTime)
 {
+	APlayerCharacter* Actor = dynamic_cast<APlayerCharacter*>(LinkCheckCollision->CollisionOnce(ECollisionGroup::PlayerBody));
+
+	if (nullptr != Actor)
+	{
+		ChangeState(ECastleUnderWaterState::ITEM_GET);
+	}
 }
 
 void ACastleUnderWaterGameMode::ChangeState(ECastleUnderWaterState State)
