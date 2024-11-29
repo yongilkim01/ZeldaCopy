@@ -1,6 +1,8 @@
 #pragma once
 #include "ZeldaGameMode.h"
 
+#include <EnginePlatform/EngineSound.h>
+
 class ARoom;
 class AUIBox;
 class AHouseBed;
@@ -80,5 +82,7 @@ private:
 	USpriteRenderer* FadeRenderer = nullptr;
 	UCollision2D* LinkCheckCollision = nullptr;
 	ECastleUnderWaterState CurState = ECastleUnderWaterState::NONE;
+
+	USoundPlayer SoundPlayer;
 };
 
