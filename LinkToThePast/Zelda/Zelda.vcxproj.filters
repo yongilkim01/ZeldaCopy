@@ -73,18 +73,6 @@
     <ClInclude Include="EnemyKnight.h">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClInclude>
-    <ClInclude Include="StatueStone.h">
-      <Filter>2_Data\4_Environment\Statue</Filter>
-    </ClInclude>
-    <ClInclude Include="Statue.h">
-      <Filter>2_Data\4_Environment\Statue</Filter>
-    </ClInclude>
-    <ClInclude Include="StatueFire.h">
-      <Filter>2_Data\4_Environment\Statue</Filter>
-    </ClInclude>
-    <ClInclude Include="Pot.h">
-      <Filter>2_Data\4_Environment\Pot</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerDataManager.h">
       <Filter>0_PlayerCharacter</Filter>
     </ClInclude>
@@ -121,12 +109,6 @@
     <ClInclude Include="EffectFire.h">
       <Filter>2_Data\2_Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Chest.h">
-      <Filter>2_Data\4_Environment\Chest</Filter>
-    </ClInclude>
-    <ClInclude Include="Door.h">
-      <Filter>2_Data\4_Environment\Door</Filter>
-    </ClInclude>
     <ClInclude Include="DropItem.h">
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClInclude>
@@ -134,16 +116,16 @@
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClInclude>
     <ClInclude Include="BaseItem.h">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClInclude>
     <ClInclude Include="Bow.h">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClInclude>
     <ClInclude Include="Lantern.h">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClInclude>
     <ClInclude Include="WeaponItem.h">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClInclude>
     <ClInclude Include="DropHeart.h">
       <Filter>2_Data\5_Item\Drop</Filter>
@@ -152,7 +134,7 @@
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClInclude>
     <ClInclude Include="Arrow.h">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClInclude>
     <ClInclude Include="DropHeartStay.h">
       <Filter>2_Data\5_Item\Drop</Filter>
@@ -189,6 +171,27 @@
     </ClInclude>
     <ClInclude Include="LightWorldGameMode.h">
       <Filter>1_GameMode\2_LightWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="Statue.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="StatueFire.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="StatueStone.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Pot.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Chest.h">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>2_Data\4_Environment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,18 +294,6 @@
     <ClCompile Include="PlayerCharacter_3.Debug.cpp">
       <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
-    <ClCompile Include="Statue.cpp">
-      <Filter>2_Data\4_Environment\Statue</Filter>
-    </ClCompile>
-    <ClCompile Include="StatueFire.cpp">
-      <Filter>2_Data\4_Environment\Statue</Filter>
-    </ClCompile>
-    <ClCompile Include="StatueStone.cpp">
-      <Filter>2_Data\4_Environment\Statue</Filter>
-    </ClCompile>
-    <ClCompile Include="Pot.cpp">
-      <Filter>2_Data\4_Environment\Pot</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerDataManager.cpp">
       <Filter>0_PlayerCharacter</Filter>
     </ClCompile>
@@ -339,12 +330,6 @@
     <ClCompile Include="EffectFire.cpp">
       <Filter>2_Data\2_Effect</Filter>
     </ClCompile>
-    <ClCompile Include="Chest.cpp">
-      <Filter>2_Data\4_Environment\Chest</Filter>
-    </ClCompile>
-    <ClCompile Include="Door.cpp">
-      <Filter>2_Data\4_Environment\Door</Filter>
-    </ClCompile>
     <ClCompile Include="DropItem.cpp">
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClCompile>
@@ -352,16 +337,16 @@
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClCompile>
     <ClCompile Include="BaseItem.cpp">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClCompile>
     <ClCompile Include="Bow.cpp">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClCompile>
     <ClCompile Include="Lantern.cpp">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClCompile>
     <ClCompile Include="WeaponItem.cpp">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClCompile>
     <ClCompile Include="DropHeart.cpp">
       <Filter>2_Data\5_Item\Drop</Filter>
@@ -370,7 +355,7 @@
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
-      <Filter>2_Data\5_Item\EquipItem</Filter>
+      <Filter>2_Data\5_Item\Equip</Filter>
     </ClCompile>
     <ClCompile Include="DropHeartStay.cpp">
       <Filter>2_Data\5_Item\Drop</Filter>
@@ -407,6 +392,27 @@
     </ClCompile>
     <ClCompile Include="LightWorldGameMode.cpp">
       <Filter>1_GameMode\2_LightWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="Statue.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="StatueFire.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="StatueStone.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Pot.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Chest.cpp">
+      <Filter>2_Data\4_Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>2_Data\4_Environment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,12 +464,6 @@
     <Filter Include="2_Data\4_Environment">
       <UniqueIdentifier>{f74ede32-9f86-46ba-8e8c-84602ba8571b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Data\4_Environment\Statue">
-      <UniqueIdentifier>{d46f1de4-a048-4a6a-b608-6ab6d06752a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Data\4_Environment\Pot">
-      <UniqueIdentifier>{11515cce-5854-4f59-a7a6-3da0b1d1a059}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Data\5_Item">
       <UniqueIdentifier>{e0b73e6e-5c05-461b-a917-410b5dc989b8}</UniqueIdentifier>
     </Filter>
@@ -476,17 +476,8 @@
     <Filter Include="0_PlayerCharacter">
       <UniqueIdentifier>{52f9ad51-57de-47f3-a004-502d6249eeaf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_Data\4_Environment\Chest">
-      <UniqueIdentifier>{c6c02b05-e417-4964-8bcd-bae7eee0d1c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Data\4_Environment\Door">
-      <UniqueIdentifier>{3495bc6d-f3a9-4f6e-8026-887aa761aa29}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_Data\5_Item\Drop">
       <UniqueIdentifier>{05cc67e6-61d0-46d9-acde-c701ab6557be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_Data\5_Item\EquipItem">
-      <UniqueIdentifier>{cd8eaa27-290f-4c59-936d-a5ab42f5fb70}</UniqueIdentifier>
     </Filter>
     <Filter Include="5_Sound">
       <UniqueIdentifier>{094869bf-2ce8-4613-bd28-45f4d3561e4d}</UniqueIdentifier>
@@ -514,6 +505,9 @@
     </Filter>
     <Filter Include="1_GameMode\2_LightWorld">
       <UniqueIdentifier>{1475c39c-29c0-483b-b0ca-7a34e5a8ad2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_Data\5_Item\Equip">
+      <UniqueIdentifier>{cd8eaa27-290f-4c59-936d-a5ab42f5fb70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

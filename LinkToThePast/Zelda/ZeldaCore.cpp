@@ -113,11 +113,13 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("FatherMove.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("FatherDeath.png", { 64, 64 });
 
-	UImageManager::GetInst().CuttingSprite("PotBreak.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("Arrow.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("LinkBed.png", { 96, 120 });
 
 	UImageManager::GetInst().CuttingSprite("Chest.png", { 48, 48 });
+	UImageManager::GetInst().CuttingSprite("PotBreak.png", { 64, 64 });
+	UImageManager::GetInst().CuttingSprite("GrassBreak.png", { 64, 64 });
+
 	UImageManager::GetInst().CuttingSprite("DoorDown.png", { 96, 48 });
 	UImageManager::GetInst().CuttingSprite("DoorDownUp.png", { 96, 48 });
 	UImageManager::GetInst().CuttingSprite("DoorDownUp2.png", { 96, 48 });
@@ -131,6 +133,7 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("BigFadeOut.png", { 1600, 2000 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforce.png", { 200, 200 });
 	UImageManager::GetInst().CuttingSprite("TitleTriforceReverse.png", { 200, 200 });
+
 
 	UImageManager::GetInst().CuttingSprite("Heart.png", { 21, 21 });
 	UImageManager::GetInst().CuttingSprite("DropHeart.png", { 24, 78 });

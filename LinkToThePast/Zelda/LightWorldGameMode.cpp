@@ -7,7 +7,7 @@
 #include "Fade.h"
 #include "PlayerCharacter.h"
 #include "LinkFather.h"
-#include "Pot.h"
+#include "Grass.h"
 #include "Chest.h"
 #include "SoundManager.h"
 #include "LevelMove.h"
@@ -69,11 +69,23 @@ void ALightWorldGameMode::BeginPlayRoomActor()
 
 void ALightWorldGameMode::BeginPlayEnvActor()
 {
-	//{
-	//	APot* Pot = GetWorld()->SpawnActor<APot>();
-	//	Pot->SetActorLocation({ 144, 237 });
-	//	Pot->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
-	//}
+	{
+		AGrass* Grass1 = GetWorld()->SpawnActor<AGrass>();
+		Grass1->SetActorLocation({ Roomes[1]->GetActorLocation().iX() + 697, Roomes[1]->GetActorLocation().iY() + 842});
+		Grass1->SetCurRoom(Roomes[1], ERoomFloor::FLOOR_2F);
+
+		AGrass* Grass2 = GetWorld()->SpawnActor<AGrass>();
+		Grass2->SetActorLocation({ Roomes[1]->GetActorLocation().iX() + 697, Roomes[1]->GetActorLocation().iY() + 842 + 48 });
+		Grass2->SetCurRoom(Roomes[1], ERoomFloor::FLOOR_2F);
+
+		AGrass* Grass3 = GetWorld()->SpawnActor<AGrass>();
+		Grass3->SetActorLocation({ Roomes[1]->GetActorLocation().iX() + 697 + 48, Roomes[1]->GetActorLocation().iY() + 842 });
+		Grass3->SetCurRoom(Roomes[1], ERoomFloor::FLOOR_2F);
+
+		AGrass* Grass4 = GetWorld()->SpawnActor<AGrass>();
+		Grass4->SetActorLocation({ Roomes[1]->GetActorLocation().iX() + 697 + 48, Roomes[1]->GetActorLocation().iY() + 842 + 48 });
+		Grass4->SetCurRoom(Roomes[1], ERoomFloor::FLOOR_2F);
+	}
 	//{
 	//	APot* Pot = GetWorld()->SpawnActor<APot>();
 	//	Pot->SetActorLocation({ 144, 285 });
