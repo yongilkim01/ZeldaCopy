@@ -134,6 +134,14 @@ public:
 	{
 		return EnemyCount;
 	}
+	bool GetStartSecondFloor()
+	{
+		return IsStartSecondFloor;
+	}
+	void SetStartSecondFloor(bool IsValue)
+	{
+		IsStartSecondFloor = IsValue;
+	}
 
 	FVector2D RoomSize = FVector2D::ZERO;
 	FVector2D LeftTopPos = FVector2D::ZERO;
@@ -162,6 +170,7 @@ private:
 	bool IsSecondFloor = false;
 	bool IsDebugRenderMode = false;
 	bool IsOnlySecondFloor = false;
+	bool IsStartSecondFloor = false;
 
 	int EnemyCount = 0;
 };

@@ -124,18 +124,28 @@ void ABaseCharacter::SetCurRoom(ARoom* Room, bool IsPlayer)
 	{
 		if (CurRoom->GetIsSecondFloor())
 		{
-			switch (CurRoomFloor)
+
+			if (CurRoom->GetStartSecondFloor())
 			{
-			case ERoomFloor::FLOOR_1F:
-				SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
-				CurRoom->SetCulWinImageTo1F();
-				break;
-			case ERoomFloor::FLOOR_2F:
+				CurRoomFloor = ERoomFloor::FLOOR_2F;
 				SetCollisionImage(CurRoom->GetColWinImage2F()->GetName());
 				CurRoom->SetCulWinImageTo2F();
-				break;
-			default:
-				break;
+			}
+			else
+			{
+				switch (CurRoomFloor)
+				{
+				case ERoomFloor::FLOOR_1F:
+					SetCollisionImage(CurRoom->GetColWinImage1F()->GetName());
+					CurRoom->SetCulWinImageTo1F();
+					break;
+				case ERoomFloor::FLOOR_2F:
+					SetCollisionImage(CurRoom->GetColWinImage2F()->GetName());
+					CurRoom->SetCulWinImageTo2F();
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		else

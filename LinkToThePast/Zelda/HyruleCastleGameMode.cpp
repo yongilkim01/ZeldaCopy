@@ -189,7 +189,6 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter->AddTurningLocation(FVector2D(1547, 2449));
 	EnemyCharacter->AddTurningLocation(FVector2D(1547, 2216));
 	EnemyCharacter->AddTurningLocation(FVector2D(1358, 2216));
-
 	CheckCharacterInRoom(EnemyCharacter);
 
 
@@ -203,7 +202,6 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter2->AddTurningLocation(FVector2D(1460, 2241));
 	EnemyCharacter2->AddTurningLocation(FVector2D(1680, 2241));
 	EnemyCharacter2->AddTurningLocation(FVector2D(1680, 2384));
-
 	CheckCharacterInRoom(EnemyCharacter2);
 
 	ACastleKnight* EnemyCharacter3 = GetWorld()->SpawnActor<ACastleKnight>();
@@ -211,7 +209,6 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter3->SetSpeed(100.0f);
 	EnemyCharacter3->AddTurningLocation(FVector2D(1640, 2200));
 	EnemyCharacter3->AddTurningLocation(FVector2D(1480, 2200));
-
 	CheckCharacterInRoom(EnemyCharacter3);
 
 	AHylianKnight* EnemyCharacter4 = GetWorld()->SpawnActor<AHylianKnight>();
@@ -227,6 +224,5 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter5->SetSpeed(100.0f);
 	EnemyCharacter5->AddTurningLocation(FVector2D(350, 592));
 	EnemyCharacter5->AddTurningLocation(FVector2D(350, 892));
-
 	CheckCharacterInRoom(EnemyCharacter5);
 }

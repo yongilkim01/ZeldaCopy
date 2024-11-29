@@ -11,7 +11,7 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClInclude>
     <ClInclude Include="DungeonGameMode.h">
-      <Filter>1_GameMode\3_Dungeon</Filter>
+      <Filter>1_GameMode\4_Dungeon</Filter>
     </ClInclude>
     <ClInclude Include="ZeldaGameMode.h">
       <Filter>1_GameMode</Filter>
@@ -44,7 +44,7 @@
       <Filter>2_Data\0_Object</Filter>
     </ClInclude>
     <ClInclude Include="BossGameMode.h">
-      <Filter>1_GameMode\4_Boss</Filter>
+      <Filter>1_GameMode\5_Boss</Filter>
     </ClInclude>
     <ClInclude Include="HylianKnights.h">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
@@ -62,7 +62,7 @@
       <Filter>2_Data\1_Enemy\Basic</Filter>
     </ClInclude>
     <ClInclude Include="HyruleCastleGameMode.h">
-      <Filter>1_GameMode\2_HyruleCastle</Filter>
+      <Filter>1_GameMode\3_HyruleCastle</Filter>
     </ClInclude>
     <ClInclude Include="LevelMove.h">
       <Filter>4_Util</Filter>
@@ -187,6 +187,9 @@
     <ClInclude Include="SoundManager.h">
       <Filter>5_Sound</Filter>
     </ClInclude>
+    <ClInclude Include="LightWorldGameMode.h">
+      <Filter>1_GameMode\2_LightWorld</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -199,7 +202,7 @@
       <Filter>1_GameMode\0_Title\Actor</Filter>
     </ClCompile>
     <ClCompile Include="DungeonGameMode.cpp">
-      <Filter>1_GameMode\3_Dungeon</Filter>
+      <Filter>1_GameMode\4_Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="ZeldaGameMode.cpp">
       <Filter>1_GameMode</Filter>
@@ -238,7 +241,7 @@
       <Filter>2_Data\0_Object</Filter>
     </ClCompile>
     <ClCompile Include="BossGameMode.cpp">
-      <Filter>1_GameMode\4_Boss</Filter>
+      <Filter>1_GameMode\5_Boss</Filter>
     </ClCompile>
     <ClCompile Include="HylianKnights.cpp">
       <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
@@ -265,7 +268,7 @@
       <Filter>2_Data\1_Enemy\Boss\HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="HyruleCastleGameMode.cpp">
-      <Filter>1_GameMode\2_HyruleCastle</Filter>
+      <Filter>1_GameMode\3_HyruleCastle</Filter>
     </ClCompile>
     <ClCompile Include="LevelMove.cpp">
       <Filter>4_Util</Filter>
@@ -402,6 +405,9 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>5_Sound</Filter>
     </ClCompile>
+    <ClCompile Include="LightWorldGameMode.cpp">
+      <Filter>1_GameMode\2_LightWorld</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="1_GameMode">
@@ -488,15 +494,6 @@
     <Filter Include="6_Event">
       <UniqueIdentifier>{40c56a5b-f154-4656-80e9-4b8858ddf333}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_GameMode\2_HyruleCastle">
-      <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_GameMode\3_Dungeon">
-      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_GameMode\4_Boss">
-      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_GameMode\1_LinkHouse">
       <UniqueIdentifier>{e19ebbc8-eeb6-4990-a240-c2d805c1edd4}</UniqueIdentifier>
     </Filter>
@@ -505,6 +502,18 @@
     </Filter>
     <Filter Include="2_Data\6_NPC">
       <UniqueIdentifier>{a8ec52e4-78ce-467e-a13e-578499321692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\3_HyruleCastle">
+      <UniqueIdentifier>{09f8b467-3077-4148-a5e6-6153318e74d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\4_Dungeon">
+      <UniqueIdentifier>{4ad1b176-08dc-45f5-ae5a-28534a3c78cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\5_Boss">
+      <UniqueIdentifier>{96731bec-8f9e-4012-9a9f-2e49f997198c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_GameMode\2_LightWorld">
+      <UniqueIdentifier>{1475c39c-29c0-483b-b0ca-7a34e5a8ad2a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -4,10 +4,11 @@
 #include "PlayerCharacter.h"
 #include "ZeldaGameMode.h"
 #include "TitleGameMode.h"
-#include "DungeonGameMode.h"
-#include "HyruleCastleGameMode.h"
-#include "BossGameMode.h"
 #include "LinkHouseGameMode.h"
+#include "LightWorldGameMode.h"
+#include "HyruleCastleGameMode.h"
+#include "DungeonGameMode.h"
+#include "BossGameMode.h"
 
 #include <EngineBase/EngineDirectory.h>
 #include <EngineBase/EngineDebug.h>
@@ -149,11 +150,12 @@ void UZeldaCore::BeginPlay()
 
 	UEngineAPICore::GetCore()->CreateLevel<ATitleGameMode, AActor>("Title");
 	UEngineAPICore::GetCore()->CreateLevel<ALinkHouseGameMode, APlayerCharacter>("LinkHouse");
+	UEngineAPICore::GetCore()->CreateLevel<ALightWorldGameMode, APlayerCharacter>("LightWorld");
 	UEngineAPICore::GetCore()->CreateLevel<AHyruleCastleGameMode, APlayerCharacter>("HyruleCastle");
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("LinkHouse");
+	UEngineAPICore::GetCore()->OpenLevel("LightWorld");
 }
 
 void UZeldaCore::Tick()

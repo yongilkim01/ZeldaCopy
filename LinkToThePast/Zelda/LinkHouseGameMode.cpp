@@ -10,6 +10,7 @@
 #include "Pot.h"
 #include "Chest.h"
 #include "SoundManager.h"
+#include "LevelMove.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
@@ -47,6 +48,10 @@ void ALinkHouseGameMode::BeginPlay()
 	Fade->SetFadeSize(EFadeSize::BIG);
 	Fade->SetActorLocation(HouseBed->GetActorLocation());
 	Fade->FadeOut();
+
+	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
+	LevelMove1->SetActorLocation({ 384, 670 });
+	LevelMove1->SetMoveLevelName("LightWorld");
 
 
 	TimeEventer.PushEvent(1.0f, [this]()

@@ -240,6 +240,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="LightWorldGameMode.h" />
     <ClInclude Include="LinkFather.h" />
     <ClInclude Include="LinkHouseGameMode.h">
       <SubType>
@@ -424,6 +425,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LightWorldGameMode.cpp" />
     <ClCompile Include="LinkFather.cpp" />
     <ClCompile Include="LinkHouseGameMode.cpp">
       <SubType>

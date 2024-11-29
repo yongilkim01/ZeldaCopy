@@ -199,8 +199,15 @@ void APlayerCharacter::LevelChangeStart()
 	if ("LINKHOUSE" == LevelName)
 	{
 		SetActorLocation({ 216, 260 });
-		SetCurDirection(FVector2D::UP);
+		SetCurDirection(FVector2D::RIGHT);
 		ChangeState(EPlayerState::Sleep);
+
+	}
+	else if ("LIGHTWORLD" == LevelName)
+	{
+		SetActorLocation({ 1536 + 576, 3072 + 847 });
+		SetCurDirection(FVector2D::DOWN);
+		ChangeState(EPlayerState::Idle);
 
 	}
 	else if ("HYRULECASTLE" == LevelName)
