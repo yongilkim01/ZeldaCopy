@@ -39,7 +39,7 @@ public:
 	void SetCharacterRenderOrder();
 	FVector2D GetDebugLocation(int Index = 0);
 
-	/** 게터/세터 메소드 */
+	/** 겟, 셋 메소드 */
 	void SetSpeed(float Speed) 
 	{ 
 		this->Speed = Speed;
@@ -84,8 +84,9 @@ public:
 	{
 		return SpriteRenderer;
 	}
+
 protected:
-	/** 액터 가상 메소드 */
+	/** 액터 상속 메소드 */
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 

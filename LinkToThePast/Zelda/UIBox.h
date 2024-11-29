@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include <EnginePlatform/EngineSound.h>
 
 class USpriteRenderer;
 class AUIText;
@@ -100,6 +101,7 @@ private:
 	std::vector<AUIText*>::iterator UITextIter;
 
 	USpriteRenderer* BoxRenderer = nullptr;
+	USoundPlayer SoundPlayer;
 
 	float CurTime = 0.0f;
 	float Time = 0.0f;

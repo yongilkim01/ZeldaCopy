@@ -9,6 +9,7 @@
 #include "LinkFather.h"
 #include "Pot.h"
 #include "Chest.h"
+#include "SoundManager.h"
 
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/SpriteRenderer.h>
@@ -161,6 +162,8 @@ void ALinkHouseGameMode::StartHelpMsg()
 	StrValues.push_back("Please help me...");
 
 	UIBox->CreateUIText(StrValues, 1.0f);
+
+	USoundManager::GetInstance().PlayBGM("LTTP_Rain_InL.wav");
 }
 
 void ALinkHouseGameMode::HelpMsg(float DeltaTime)
@@ -214,6 +217,8 @@ void ALinkHouseGameMode::Skip(float DeltaTime)
 
 void ALinkHouseGameMode::StartNPCTalk()
 {
+	USoundManager::GetInstance().PlayBGM("Time of the Falling Rain.mp3");
+
 	UIBox->ResetText();
 	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(10.0f, 200.0f));
 

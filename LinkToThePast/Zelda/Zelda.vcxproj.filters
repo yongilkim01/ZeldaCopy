@@ -184,6 +184,9 @@
     <ClInclude Include="DropLantern.h">
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>5_Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -395,6 +398,9 @@
     </ClCompile>
     <ClCompile Include="DropLantern.cpp">
       <Filter>2_Data\5_Item\Drop</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>5_Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

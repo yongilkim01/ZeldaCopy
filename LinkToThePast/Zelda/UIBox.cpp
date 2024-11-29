@@ -177,7 +177,7 @@ void AUIBox::Show(float DeltaTime)
 
 	if (CurTime > Time)
 	{
-
+		//SoundPlayer = UEngineSound::Play("message finish.wav");
 		UITextes[CurLineCount]->SetActive(true);
 		UITextes[CurLineCount]->ShowUIText(0.0f);
 		UITextes[CurLineCount]->SetActorLocation(Location);

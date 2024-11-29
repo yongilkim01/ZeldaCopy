@@ -259,6 +259,7 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Statue.h">
       <SubType>
       </SubType>
@@ -448,6 +449,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Statue.cpp">
       <SubType>
       </SubType>

@@ -49,8 +49,27 @@ void APlayerCharacter::ChangePlayerDirection(FVector2D Dir)
 {
 	SetCurDirection(Dir);
 
-	InteractCollision->SetComponentLocation(Dir * ChildDistance);
-	AttackCollision->SetComponentLocation(Dir * ChildDistance);
+	if (FVector2D::RIGHT == Dir)
+	{
+		InteractCollision->SetComponentLocation(Dir * ChildDistance);
+		AttackCollision->SetComponentLocation(Dir * ChildDistance);
+	}
+	else if (FVector2D::LEFT == Dir)
+	{
+		InteractCollision->SetComponentLocation(Dir * ChildDistance);
+		AttackCollision->SetComponentLocation(Dir * ChildDistance);
+	}
+	else if (FVector2D::UP == Dir)
+	{
+		InteractCollision->SetComponentLocation(Dir * (ChildDistance * 0.5f));
+		AttackCollision->SetComponentLocation(Dir * ChildDistance);
+	}
+	else if (FVector2D::DOWN == Dir)
+	{
+		InteractCollision->SetComponentLocation(Dir * ChildDistance);
+		AttackCollision->SetComponentLocation(Dir * ChildDistance);
+	}
+
 }
 
 FVector2D APlayerCharacter::GetDirectionToTargetLocation(FVector2D TargetLocation)

@@ -530,7 +530,7 @@ void APlayerCharacter::Interact(float DetlaTime)
 
 	//OwnedEventActor = dynamic_cast<AEventActor*>(InteractCollision->CollisionOnce(ECollisionGroup::EventTarget));
 
-	std::vector<AActor*> Results = AttackCollision->CollisionAll(ECollisionGroup::EventTarget);
+	std::vector<AActor*> Results = InteractCollision->CollisionAll(ECollisionGroup::EventTarget);
 
 	for (int i = 0; i < Results.size(); i++)
 	{
