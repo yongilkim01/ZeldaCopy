@@ -50,6 +50,7 @@ void AEnemyKnight::Patrol(float DeltaTime)
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - Range)
 			{
 				CurEnemyState = EEnemyState::Trace;
+				WalSoundPlayer = UEngineSound::Play("soldier.wav");
 			}
 
 		}
@@ -59,6 +60,7 @@ void AEnemyKnight::Patrol(float DeltaTime)
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y - Range)
 			{
 				CurEnemyState = EEnemyState::Trace;
+				WalSoundPlayer = UEngineSound::Play("soldier.wav");
 			}
 
 		}
@@ -69,6 +71,7 @@ void AEnemyKnight::Patrol(float DeltaTime)
 				GetActorLocation().Y > PlayerCharacter->GetActorLocation().Y)
 			{
 				CurEnemyState = EEnemyState::Trace;
+				WalSoundPlayer = UEngineSound::Play("soldier.wav");
 			}
 
 		}
@@ -79,6 +82,7 @@ void AEnemyKnight::Patrol(float DeltaTime)
 				GetActorLocation().Y < PlayerCharacter->GetActorLocation().Y)
 			{
 				CurEnemyState = EEnemyState::Trace;
+				WalSoundPlayer = UEngineSound::Play("soldier.wav");
 			}
 
 		}

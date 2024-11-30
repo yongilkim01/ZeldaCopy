@@ -4,6 +4,7 @@
 #include "Arrow.h"
 #include "PlayerCharacter.h"
 #include "Room.h"
+#include "PlayerDataManager.h"
 
 #include <EngineCore/SpriteRenderer.h>
 
@@ -47,23 +48,27 @@ void ABow::Tick(float DeltaTime)
 
 void ABow::Action(float DeltaTime)
 {
-	AArrow* Arrow = GetWorld()->SpawnActor<AArrow>();
-	Arrow->SetDirection(OwnerPlayer->GetCurDirection());
-	Arrow->SetCollisionImage(OwnerPlayer->GetCollisionImage());
-	Arrow->SetCurRoom(OwnerPlayer->GetCurRoom());
-	switch (OwnerPlayer->GetCurRoomFloor())
+	if (0 < PlayerDataManager::GetInstance().GetArrow())
 	{
-	case ERoomFloor::FLOOR_1F:
-		Arrow->SetOrder(static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ) + 1000);
-		break;
-	case ERoomFloor::FLOOR_2F:
-		Arrow->SetOrder(static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ) + 1000);
-		break;
-	default:
-		break;
+		AArrow* Arrow = GetWorld()->SpawnActor<AArrow>();
+		Arrow->SetDirection(OwnerPlayer->GetCurDirection());
+		Arrow->SetCollisionImage(OwnerPlayer->GetCollisionImage());
+		Arrow->SetCurRoom(OwnerPlayer->GetCurRoom());
+		switch (OwnerPlayer->GetCurRoomFloor())
+		{
+		case ERoomFloor::FLOOR_1F:
+			Arrow->SetOrder(static_cast<int>(ERenderOrder::FIRST_FLOOR_OBJ) + 1000);
+			break;
+		case ERoomFloor::FLOOR_2F:
+			Arrow->SetOrder(static_cast<int>(ERenderOrder::SECOND_FLOOR_OBJ) + 1000);
+			break;
+		default:
+			break;
 
+		}
+		float DistanceToOwner = OwnerPlayer->GetChildDistance();
+		Arrow->SetActorLocation(GetActorLocation() + (OwnerPlayer->GetCurDirection() * DistanceToOwner));
+		PlayerDataManager::GetInstance().AddArrow(-1);
 	}
-	float DistanceToOwner = OwnerPlayer->GetChildDistance();
-	Arrow->SetActorLocation(GetActorLocation() + (OwnerPlayer->GetCurDirection() * DistanceToOwner));
 }
 

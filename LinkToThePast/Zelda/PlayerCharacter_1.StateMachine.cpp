@@ -204,26 +204,29 @@ void APlayerCharacter::StartAttack()
 
 void APlayerCharacter::StartSkill()
 {
-	if (GetCurDirection() == FVector2D::RIGHT)
+	if (true == PlayerDataManager::GetInstance().GetWeaponActiveToIndex(1))
 	{
-		SpriteRenderer->ChangeAnimation("BowRight", true);
-	}
-	else if (GetCurDirection() == FVector2D::LEFT)
-	{
-		SpriteRenderer->ChangeAnimation("BowLeft", true);
-	}
-	else if (GetCurDirection() == FVector2D::UP)
-	{
-		SpriteRenderer->ChangeAnimation("BowUp", true);
-	}
-	else if (GetCurDirection() == FVector2D::DOWN)
-	{
-		SpriteRenderer->ChangeAnimation("BowDown", true);
-	}
-	else
-	{
-		MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
-		return;
+		if (GetCurDirection() == FVector2D::RIGHT)
+		{
+			SpriteRenderer->ChangeAnimation("BowRight", true);
+		}
+		else if (GetCurDirection() == FVector2D::LEFT)
+		{
+			SpriteRenderer->ChangeAnimation("BowLeft", true);
+		}
+		else if (GetCurDirection() == FVector2D::UP)
+		{
+			SpriteRenderer->ChangeAnimation("BowUp", true);
+		}
+		else if (GetCurDirection() == FVector2D::DOWN)
+		{
+			SpriteRenderer->ChangeAnimation("BowDown", true);
+		}
+		else
+		{
+			MSGASSERT("플레이어의 방향이 초기화 되지 않았습니다!");
+			return;
+		}
 	}
 }
 

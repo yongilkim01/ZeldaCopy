@@ -234,19 +234,19 @@ private:
 	int CurrentHP = 6;
 	int MaxHP = 6;
 
-	int CurrentMagicGauge = 105;
+	int CurrentMagicGauge = 0;
 	const int MaxMagicGauge = 105;
 
-	int CurrentRupee = 10;
+	int CurrentRupee = 0;
 	int MaxRupee = 999;
 
-	int CurrentBomb = 3;
+	int CurrentBomb = 0;
 	int MaxBomb = 99;
 
-	int CurrentArrow = 3;
+	int CurrentArrow = 0;
 	int MaxArrow = 99;
 
-	int CurrentKey = 3;
+	int CurrentKey = 0;
 	int MaxKey = 9;
 
 	bool WeaponActive[2]  ={

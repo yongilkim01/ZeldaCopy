@@ -140,6 +140,7 @@ void UZeldaCore::BeginPlay()
 
 	UImageManager::GetInst().CuttingSprite("Heart.png", { 21, 21 });
 	UImageManager::GetInst().CuttingSprite("DropHeart.png", { 24, 78 });
+	UImageManager::GetInst().CuttingSprite("DropRupee.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("HUDText.png", { 21, 21 });
 	UImageManager::GetInst().CuttingSprite("UIText.png", { 128, 128 });
 

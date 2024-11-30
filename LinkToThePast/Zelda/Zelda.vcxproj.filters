@@ -196,6 +196,12 @@
     <ClInclude Include="CastleUnderWaterGameMode.h">
       <Filter>1_GameMode\3_UnderWater</Filter>
     </ClInclude>
+    <ClInclude Include="DropRupee.h">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
+    <ClInclude Include="DropMagicDrink.h">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -419,6 +425,12 @@
     </ClCompile>
     <ClCompile Include="CastleUnderWaterGameMode.cpp">
       <Filter>1_GameMode\3_UnderWater</Filter>
+    </ClCompile>
+    <ClCompile Include="DropRupee.cpp">
+      <Filter>2_Data\5_Item\Drop</Filter>
+    </ClCompile>
+    <ClCompile Include="DropMagicDrink.cpp">
+      <Filter>2_Data\5_Item\Drop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@
 #include "SoundManager.h"
 #include "LevelMove.h"
 #include "PlayerDataManager.h"
+#include "SoundManager.h"
 
 #include <EngineBase/EngineMath.h>
 #include <EnginePlatform/EngineInput.h>
@@ -116,6 +117,7 @@ void ACastleUnderWaterGameMode::FallLink(float DeltaTime)
 
 	if (UEngineMath::Abs(Player->GetActorLocation().Y - LinkDestLocation.Y) < 0.1f)
 	{
+		USoundManager::GetInstance().PlayEffectSound("fall in water.wav");
 		Player->SetActorLocation(LinkDestLocation);
 		ChangeState(ECastleUnderWaterState::GAMEPLAY);
 	}

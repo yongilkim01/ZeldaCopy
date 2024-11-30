@@ -39,6 +39,8 @@ enum class ERoomFloor
 enum class EDropItemType
 {
 	NONE,
+	MAGICDRINK,
+	RUPEE,
 	KEY,
 	LANTERN,
 	HEART,

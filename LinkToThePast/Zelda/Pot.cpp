@@ -5,6 +5,8 @@
 #include "BaseCharacter.h"
 #include "PlayerCharacter.h"
 #include "DropHeartStay.h"
+#include "DropRupee.h"
+#include "DropMagicDrink.h"
 
 #include <EngineBase/EngineDebug.h>
 
@@ -79,11 +81,22 @@ void APot::Tick(float DeltaTime)
 
 int APot::Interact(ABaseCharacter* Character)
 {
+	SoundPlayer = UEngineSound::Play("lift.wav");
 	ImmuneCollision->SetActive(false);
 	ADropItem* DropItem = nullptr;
 	switch (DropItemType)
 	{
 	case EDropItemType::KEY:
+		break;
+	case EDropItemType::MAGICDRINK:
+		DropItem = GetWorld()->SpawnActor<ADropMagicDrinkItem>();
+		DropItem->SetEventActorRenderOrder(SpriteRenderer->GetOrder() + 1);
+		DropItem->SetActorLocation(GetActorLocation());
+		break;
+	case EDropItemType::RUPEE:
+		DropItem = GetWorld()->SpawnActor<ADropRupeeItem>();
+		DropItem->SetEventActorRenderOrder(SpriteRenderer->GetOrder() + 1);
+		DropItem->SetActorLocation(GetActorLocation());
 		break;
 	case EDropItemType::LANTERN:
 		break;
@@ -191,7 +204,12 @@ void APot::Throw()
 
 void APot::DestoryEventActor()
 {
-	SpriteRenderer->ChangeAnimation("Break");
+	if (false == IsDestorying)
+	{
+		IsDestorying = true;
+		SpriteRenderer->ChangeAnimation("Break");
+		SoundPlayer = UEngineSound::Play("break.wav");
+	}
 }
 
 void APot::Throw(float DeltaTime)

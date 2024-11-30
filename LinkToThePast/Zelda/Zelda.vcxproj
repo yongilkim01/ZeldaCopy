@@ -194,6 +194,8 @@
     <ClInclude Include="DropItem.h" />
     <ClInclude Include="DropKey.h" />
     <ClInclude Include="DropLantern.h" />
+    <ClInclude Include="DropMagicDrink.h" />
+    <ClInclude Include="DropRupee.h" />
     <ClInclude Include="DungeonGameMode.h" />
     <ClInclude Include="Effect.h">
       <SubType>
@@ -378,6 +380,8 @@
     <ClCompile Include="DropItem.cpp" />
     <ClCompile Include="DropKey.cpp" />
     <ClCompile Include="DropLantern.cpp" />
+    <ClCompile Include="DropMagicDrink.cpp" />
+    <ClCompile Include="DropRupee.cpp" />
     <ClCompile Include="DungeonGameMode.cpp" />
     <ClCompile Include="Effect.cpp">
       <SubType>

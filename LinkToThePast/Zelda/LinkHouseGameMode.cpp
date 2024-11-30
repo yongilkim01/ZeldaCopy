@@ -96,11 +96,13 @@ void ALinkHouseGameMode::BeginPlayEnvActor()
 		APot* Pot = GetWorld()->SpawnActor<APot>();
 		Pot->SetActorLocation({ 144, 285 });
 		Pot->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+		Pot->SetDropItemType(EDropItemType::RUPEE);
 	}
 	{
 		APot* Pot = GetWorld()->SpawnActor<APot>();
 		Pot->SetActorLocation({ 144, 333 });
 		Pot->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+		Pot->SetDropItemType(EDropItemType::MAGICDRINK);
 	}
 	{
 		AChest* Chest = GetWorld()->SpawnActor<AChest>();

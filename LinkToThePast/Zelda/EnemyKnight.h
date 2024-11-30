@@ -48,7 +48,7 @@ protected:
 private:
 
 	int KnockBackCnt = 0;
-	float Range = 50.0f;
+	float Range = 80.0f;
 	USoundPlayer WalSoundPlayer;
 
 };
