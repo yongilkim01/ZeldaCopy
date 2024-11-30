@@ -165,27 +165,27 @@ void ALightWorldGameMode::BeginPlayEnvActor()
 		//////////////////////////////////////////////////
 
 		AGrass* Grass16 = GetWorld()->SpawnActor<AGrass>();
-		Grass16->SetActorLocation({ 2040, 1224 });
+		Grass16->SetActorLocation({ 1896, 1224 });
 		Grass16->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 
 		AGrass* Grass17 = GetWorld()->SpawnActor<AGrass>();
-		Grass17->SetActorLocation({ 2040 - 48 , 1224 });
+		Grass17->SetActorLocation({ 1896 - 48 , 1224 });
 		Grass17->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 
 		AGrass* Grass18 = GetWorld()->SpawnActor<AGrass>();
-		Grass18->SetActorLocation({ 2040 - 96, 1224 });
+		Grass18->SetActorLocation({ 1896 - 96, 1224 });
 		Grass18->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 
 		AGrass* Grass19 = GetWorld()->SpawnActor<AGrass>();
-		Grass19->SetActorLocation({ 2040 - 144 , 1224 });
+		Grass19->SetActorLocation({ 1896 - 144 , 1224 });
 		Grass19->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 
 		AGrass* Grass20 = GetWorld()->SpawnActor<AGrass>();
-		Grass20->SetActorLocation({ 2040 - 96 , 1224 + 48});
+		Grass20->SetActorLocation({ 1896 - 96 , 1224 + 48});
 		Grass20->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 
 		AGrass* Grass21 = GetWorld()->SpawnActor<AGrass>();
-		Grass21->SetActorLocation({ 2040 - 144 , 1224 + 48 });
+		Grass21->SetActorLocation({ 1896 - 144 , 1224 + 48 });
 		Grass21->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 
 		//////////////////////////////////////////////////

@@ -6,7 +6,7 @@
 #include "EnemyCharacter.h"
 #include "CastleKnight.h"
 #include "HylianKnights.h"
-
+#include "SoundManager.h"
 #include "Room.h"
 #include "LevelMove.h"
 #include "Fade.h"
@@ -30,9 +30,8 @@ void AHyruleCastleGameMode::BeginPlay()
 {
 	AZeldaGameMode::BeginPlay();
 
-	EffectSoundPlayer.Loop(100);
-	EffectSoundPlayer = UEngineSound::Play("Hyrule Castle.mp3");
-
+	//EffectSoundPlayer = UEngineSound::Play("Hyrule Castle.mp3");
+	USoundManager::GetInstance().PlayBGM("Hyrule Castle.mp3");
 	// ∑Î ∞¥√ºøÕ UIµÈµÈ √ ±‚»≠
 	BeginPlayRoomActor();
 	BeginPlayUI();
