@@ -35,6 +35,11 @@ void AArmosKnight::Fall()
 {
 }
 
+FVector2D AArmosKnight::GetHitLocation()
+{
+	return GetActorLocation() + SpriteRenderer->GetComponentLocation();
+}
+
 void AArmosKnight::AddBossComponentLocation(FVector2D Location)
 {
 	SpriteRenderer->AddComponentLocation(Location);

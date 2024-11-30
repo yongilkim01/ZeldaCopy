@@ -5,7 +5,7 @@
 void USoundManager::PlayBGM(std::string SoundName)
 {
 	///SoundName += ".wav";
-	//BackgroundSoundPlayer.Stop();
+	BackgroundSoundPlayer.Stop();
 	BackgroundSoundPlayer = UEngineSound::Play(SoundName);
 	BackgroundSoundPlayer.Loop();
 }

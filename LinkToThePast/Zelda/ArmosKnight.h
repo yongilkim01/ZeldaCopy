@@ -34,6 +34,7 @@ public:
 	virtual void TakeDamage(int Damage, AActor* Character) override;
 	virtual void Death() override;
 	virtual void Fall() override;
+	virtual FVector2D GetHitLocation() override;
 
 	/** 상태(State) 메소드 */
 	void Move(float DeltaTime);

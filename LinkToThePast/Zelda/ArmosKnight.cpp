@@ -49,7 +49,7 @@ AArmosKnight::AArmosKnight()
 
 	DebugOn();
 	
-	CurrentHP = 10;
+	CurrentHP = 30;
 }
 
 AArmosKnight::~AArmosKnight()

@@ -26,7 +26,10 @@ public:
 	virtual void Fall() {}
 	virtual void Interact(float DeltaTime) {}
 	virtual void StartInteract() {}
-
+	virtual FVector2D GetHitLocation()
+	{
+		return GetActorLocation();
+	}
 	/** 캐릭터 공통 메소드 */
 	void AddCharacterLocation(FVector2D MoveDirection);
 	FVector2D GetDirectionToTargetLocation(FVector2D TargetLocation);
@@ -55,6 +58,10 @@ public:
 	FVector2D GetCurDirection()
 	{
 		return CurDirection;
+	}
+	int GetCurrentHP()
+	{
+		return CurrentHP;
 	}
 	void SetCurrentHP(int HP)
 	{

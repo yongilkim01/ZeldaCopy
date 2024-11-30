@@ -15,6 +15,7 @@ enum class EArrowState
 	THROW,
 	HIT,
 	STUCK,
+	DESTROY
 };
 
 /**
@@ -41,6 +42,7 @@ public:
 	void StartThrow();
 	void StartHit();
 	void StartStuck();
+	void StartDestroy();
 	void Throw(float DeltaTime);
 	void Hit(float DeltaTime);
 	void Stuck(float DeltaTime);

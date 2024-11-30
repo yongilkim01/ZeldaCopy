@@ -131,6 +131,11 @@ void AArrow::StartStuck()
 	}
 }
 
+void AArrow::StartDestroy()
+{
+	Destroy();
+}
+
 void AArrow::Throw(float DeltaTime)
 {
 	if (nullptr == CollisionImage) return;
@@ -168,7 +173,8 @@ void AArrow::Throw(float DeltaTime)
 
 	ABaseCharacter* Character = dynamic_cast<ABaseCharacter*>(Collision->CollisionOnce(ECollisionGroup::EnemyBody));
 	
-	if (nullptr != Character)
+	if (nullptr != Character &&
+		0 < Character->GetCurrentHP())
 	{
 		HitCharacter = Character;
 		PrevHitLocation = HitCharacter->GetActorLocation();
@@ -182,16 +188,35 @@ void AArrow::Hit(float DeltaTime)
 {
 	HitCurrentTime += DeltaTime;
 
+	if (nullptr == HitCharacter)
+	{
+		Destroy();
+		return;
+	}
+
 	if (HitCheckTime < HitCurrentTime)
 	{
 		ChangeState(EArrowState::STUCK);
+		return;
+	}
+
+	if (0 >= HitCharacter->GetCurrentHP())
+	{
+		ChangeState(EArrowState::DESTROY);
+		return;
 	}
 
 	if (nullptr != HitCharacter)
 	{
-		FVector2D ChangeLocation = HitCharacter->GetActorLocation() - PrevHitLocation;
+		int EnemyHP = HitCharacter->GetCurrentHP();
+		if (0 >= HitCharacter->GetCurrentHP())
+		{
+			ChangeState(EArrowState::DESTROY);
+			return;
+		}
+		FVector2D ChangeLocation = HitCharacter->GetHitLocation() - PrevHitLocation;
 		AddActorLocation(ChangeLocation);
-		PrevHitLocation = HitCharacter->GetActorLocation();
+		PrevHitLocation = HitCharacter->GetHitLocation();
 	}
 }
 
@@ -204,11 +229,26 @@ void AArrow::Stuck(float DeltaTime)
 		Destroy();
 	}
 
+	if (nullptr == HitCharacter ||
+		0 >= HitCharacter->GetCurrentHP())
+	{
+		ChangeState(EArrowState::DESTROY);
+		return;
+	}
+
 	if (nullptr != HitCharacter)
 	{
-		FVector2D ChangeLocation = HitCharacter->GetActorLocation() - PrevHitLocation;
+		int EnemyHP = HitCharacter->GetCurrentHP();
+		if (0 >= HitCharacter->GetCurrentHP())
+		{
+			ChangeState(EArrowState::DESTROY);
+			return;
+		}
+
+		FVector2D CheckLocation = HitCharacter->GetHitLocation();
+		FVector2D ChangeLocation = HitCharacter->GetHitLocation() - PrevHitLocation;
 		AddActorLocation(ChangeLocation);
-		PrevHitLocation = HitCharacter->GetActorLocation();
+		PrevHitLocation = HitCharacter->GetHitLocation();
 	}
 }
 
@@ -226,6 +266,9 @@ void AArrow::ChangeState(EArrowState State)
 		break;
 	case EArrowState::STUCK:
 		StartStuck();
+		break;
+	case EArrowState::DESTROY:
+		StartDestroy();
 		break;
 	default:
 		break;

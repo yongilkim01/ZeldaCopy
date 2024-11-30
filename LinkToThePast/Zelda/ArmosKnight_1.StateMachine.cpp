@@ -104,6 +104,7 @@ void AArmosKnight::ChangeState(EBossState BossState)
 	case EBossState::NONE:
 		break;
 	case EBossState::MOVE:
+		SpriteRenderer->ChangeAnimation("Move");
 		break;
 	case EBossState::KNOCKBACK:
 		PrevBossState = CurBossState;
