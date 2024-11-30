@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "TitleManager.h"
 #include "ContentsEnum.h"
+#include "SoundManager.h"
 
 #include <EngineBase/EngineMath.h>
 #include <EngineCore/EngineAPICore.h>
@@ -72,7 +73,8 @@ ATitleManager::ATitleManager()
 		}
 
 		Triforces[0]->SetAnimationEvent("RotateTriforce", 17, [this]() {
-			EffectSoundPlayer = UEngineSound::Play("Title.mp3");
+			//EffectSoundPlayer = UEngineSound::Play("Title.mp3");
+			USoundManager::GetInstance().PlayBGMSound("Title.mp3");
 			});
 
 		TitleRenderer = CreateDefaultSubObject<USpriteRenderer>();
@@ -181,7 +183,8 @@ void ATitleManager::Tick(float DeltaTime)
 
 void ATitleManager::StartLogo()
 {
-	EffectSoundPlayer = UEngineSound::Play("rupee.wav");
+	//EffectSoundPlayer = UEngineSound::Play("rupee.wav");
+	USoundManager::GetInstance().PlayEffectSound("rupee.wav");
 	LogoRenderer->SetActive(true);
 }
 
@@ -207,15 +210,17 @@ void ATitleManager::StartTitleLogo()
 
 void ATitleManager::StartSwordLogo()
 {
-	EffectSoundPlayer = UEngineSound::Play("sword shine 1.wav");
+	//EffectSoundPlayer = UEngineSound::Play("sword shine 1.wav");
+	USoundManager::GetInstance().PlayEffectSound("sword shine 1.wav");
 }
 
 void ATitleManager::StartTitle()
 {
 	if (ETitleState::SWORDLOGO != PrevState)
 	{
-		EffectSoundPlayer.Stop();
-		EffectSoundPlayer = UEngineSound::Play("Title.mp3");
+		//EffectSoundPlayer.Stop();
+		//EffectSoundPlayer = UEngineSound::Play("TitleCut.mp3");
+		USoundManager::GetInstance().PlayBGMSound("TitleCut.mp3");
 	}
 	//EffectSoundPlayer = UEngineSound::Play("Title.mp3");
 	LogoRenderer->SetSprite("NintentdoAgeLogo.png");
@@ -376,7 +381,6 @@ void ATitleManager::ChangeState(ETitleState State)
 
 void ATitleManager::StopSound()
 {
-	EffectSoundPlayer.Stop();
-	BackgroundSoundPlayer.Stop();
+	
 }
 

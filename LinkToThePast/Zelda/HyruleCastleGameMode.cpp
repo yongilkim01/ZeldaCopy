@@ -31,7 +31,7 @@ void AHyruleCastleGameMode::BeginPlay()
 	AZeldaGameMode::BeginPlay();
 
 	//EffectSoundPlayer = UEngineSound::Play("Hyrule Castle.mp3");
-	USoundManager::GetInstance().PlayBGM("Hyrule Castle.mp3");
+	USoundManager::GetInstance().PlayBGMSound("Hyrule Castle.mp3");
 	// ∑Î ∞¥√ºøÕ UIµÈµÈ √ ±‚»≠
 	BeginPlayRoomActor();
 	BeginPlayUI();

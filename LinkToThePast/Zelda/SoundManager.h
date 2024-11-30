@@ -30,11 +30,19 @@ public:
 	USoundManager& operator=(USoundManager&& Other) noexcept = delete;
 
 	/** °Ù, ¼Â ¸Þ¼Òµå */
-	void PlayBGM(std::string SoundName);
+	void PlayBGMSound(std::string SoundName);
+	void PlayEffectSound(std::string SoundName);
+	void PlayEnvSound(std::string SoundName);
+
+	void StopBGMSound();
+	void StopEffectSound();
+	void StopEnvSound();
 protected:
 
 private:
 	USoundManager();
 
 	USoundPlayer BackgroundSoundPlayer;
+	USoundPlayer EffectSoundPlayer;
+	USoundPlayer EnvSoundPlayer;
 };
