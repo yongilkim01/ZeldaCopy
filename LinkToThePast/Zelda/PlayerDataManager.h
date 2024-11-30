@@ -241,13 +241,21 @@ private:
 	int CurrentKey = 3;
 	int MaxKey = 9;
 
-	bool WeaponActive[2]  ={
-		false,	// Lantern
-		false	// Bow
+	//bool WeaponActive[2]  ={
+	//	false,	// Lantern
+	//	false	// Bow
+	//};
+
+	//int CurrentSelectWeapon = -1;
+	//int WeaponCount = 0;
+
+	bool WeaponActive[2] = {
+	true,	// Lantern
+	true	// Bow
 	};
 
-	int CurrentSelectWeapon = -1;
-	int WeaponCount = 0;
+	int CurrentSelectWeapon = 0;
+	int WeaponCount = 2;
 
 	FVector2D LevelStartLocation = FVector2D::ZERO;
 	int LevelStartRoomIndex = -1;

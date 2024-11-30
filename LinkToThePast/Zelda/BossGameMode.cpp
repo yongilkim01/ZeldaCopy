@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "BossGameMode.h"
+#include "Room.h"
 #include "ArmosKngiht_Control.h"
 
 #include <EngineCore/EngineAPICore.h>
@@ -45,4 +46,6 @@ void ABossGameMode::BeginPlayRoomActor()
 	RoomDataes.push_back({ { 0, 0 } ,{ 768, 672 } });
 
 	CreateRoomActor("CastleDungeonBoss", 0);
+
+	Roomes[0]->CreateEnvSprite("CastleDungeonBoss1Door1.png", FVector2D(320, 615), FVector2D(128, 57), ERenderOrder::FIRST_FLOOR_OBJ);
 }

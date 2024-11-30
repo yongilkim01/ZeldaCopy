@@ -259,6 +259,12 @@ void APlayerCharacter::LevelChangeStart()
 		SetCurDirection(FVector2D::DOWN);
 		ChangeState(EPlayerState::Idle);
 	}
+	else if ("BOSS" == LevelName)
+	{
+		SetActorLocation({ 384, 626 });
+		SetCurDirection(FVector2D::UP);
+		ChangeState(EPlayerState::Idle);
+	}
 	
 }
 

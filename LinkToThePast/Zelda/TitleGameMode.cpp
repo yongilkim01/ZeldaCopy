@@ -32,11 +32,4 @@ void ATitleGameMode::Tick(float DeltaTime)
 	{
 		ManagerActor->ChangeState(ETitleState::TITLE);
 	}
-
-	if (true == UEngineInput::GetInst().IsDown(VK_SPACE))
-	{
-		UEngineAPICore::GetCore()->OpenLevel("CastleDungeon");
-		ManagerActor->StopSound();
-	}
-
 }

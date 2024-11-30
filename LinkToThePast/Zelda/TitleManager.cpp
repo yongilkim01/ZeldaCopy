@@ -5,6 +5,7 @@
 #include <EngineBase/EngineMath.h>
 #include <EngineCore/EngineAPICore.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EnginePlatform/EngineInput.h>
 
 ATitleManager::ATitleManager()
 {
@@ -240,6 +241,8 @@ void ATitleManager::StartTitle()
 
 	EnvRenderer->SetAlphafloat(1.0f);
 
+	CurTime = 0.0f;
+
 }
 
 
@@ -328,6 +331,17 @@ void ATitleManager::SwordLogo(float DeltaTime)
 
 void ATitleManager::Title(float DeltaTime)
 {
+	CurTime += DeltaTime;
+
+	if (CurTime > 1.5f)
+	{
+		if (true == UEngineInput::GetInst().IsDown(VK_SPACE) ||
+			true == UEngineInput::GetInst().IsDown(VK_RETURN))
+		{
+			UEngineAPICore::GetCore()->OpenLevel("LinkHouse");
+			StopSound();
+		}
+	}
 }
 
 void ATitleManager::ChangeState(ETitleState State)

@@ -3,6 +3,7 @@
 #include "ContentsEnum.h"
 #include "BaseCharacter.h"
 #include "Room.h"
+#include "PlayerCharacter.h"
 
 #include <EngineBase/EngineMath.h>
 
@@ -39,6 +40,8 @@ void AArrow::BeginPlay()
 {
 	Super::BeginPlay();
 	ChangeState(EArrowState::THROW);
+
+	PlayerCharacter = dynamic_cast<APlayerCharacter*>(GetWorld()->GetPawn());
 
 }
 
@@ -170,6 +173,7 @@ void AArrow::Throw(float DeltaTime)
 		HitCharacter = Character;
 		PrevHitLocation = HitCharacter->GetActorLocation();
 		Collision->SetActive(false);
+		HitCharacter->TakeDamage(10, PlayerCharacter);
 		ChangeState(EArrowState::HIT);
 	}
 }
