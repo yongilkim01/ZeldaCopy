@@ -3,6 +3,7 @@
 #include "PlayerCharacter.h"
 #include "ArmosKnight.h"
 #include "Room.h"
+#include "SoundManager.h"
 
 #include <EngineCore/EngineAPICore.h>
 #include <EngineBase/EngineMath.h>
@@ -27,26 +28,7 @@ void AArmosKngiht_Control::BeginPlay()
 
 	BossForces.reserve(10);
 
-	BossForces.push_back({ 235, 231 });
-	BossForces.push_back({ 380, 231 });	
-	BossForces.push_back({ 525, 231 });
-	BossForces.push_back({ 235, 340 });
-	BossForces.push_back({ 380, 340 });
-	BossForces.push_back({ 525, 340 });
-
-	for (int i = 0; i < 6; i++)
-	{
-		AArmosKnight* ArmosKnight = GetWorld()->SpawnActor<AArmosKnight>();
-		ArmosKnight->SetActorLocation(BossForces[i]);
-		ArmosKnight->SetManager(this);
-		ArmosKnight->SetPlayerCharacter(PlayerCharacter);
-		ArmosKnight->SetManageIndex(i);
-		ArmosKnight->SetCurRoom(GetCurRoom(), false);
-		BossEnemies.push_back(ArmosKnight);
-
-	}
-
-	CurPhase = 1;
+	ChangeState(EControlState::STAY);
 }
 
 void AArmosKngiht_Control::Tick(float DeltaTime)
@@ -60,6 +42,9 @@ void AArmosKngiht_Control::Tick(float DeltaTime)
 
 	switch (CurControlState)
 	{
+	case EControlState::STAY:
+		Stay(DeltaTime);
+		break;
 	case EControlState::SET:
 		Set(DeltaTime);
 		break;
@@ -70,23 +55,81 @@ void AArmosKngiht_Control::Tick(float DeltaTime)
 		break;
 	}
 
-	std::list<AArmosKnight*>::iterator StartIter = BossEnemies.begin();
-	std::list<AArmosKnight*>::iterator EndIter = BossEnemies.end();
-
-	for (; StartIter != EndIter; ++StartIter)
+	if (EControlState::SET == CurControlState ||
+		EControlState::MOVE == CurControlState)
 	{
-		AArmosKnight* CurArmosKnight = *StartIter;
-		int ManageIndex = CurArmosKnight->GetManageIndex();
-		if (CurArmosKnight->GetIsManage())
+		std::list<AArmosKnight*>::iterator StartIter = BossEnemies.begin();
+		std::list<AArmosKnight*>::iterator EndIter = BossEnemies.end();
+
+		for (; StartIter != EndIter; ++StartIter)
 		{
-			CurArmosKnight->SetTargetLocation(BossForces[ManageIndex]);
+			AArmosKnight* CurArmosKnight = *StartIter;
+			int ManageIndex = CurArmosKnight->GetManageIndex();
+			if (CurArmosKnight->GetIsManage())
+			{
+				CurArmosKnight->SetTargetLocation(BossForces[ManageIndex]);
+			}
 		}
+	}
+}
+
+void AArmosKngiht_Control::StartStay()
+{
+	BossForces.push_back({ 235, 231 });
+	BossForces.push_back({ 380, 231 });
+	BossForces.push_back({ 525, 231 });
+	BossForces.push_back({ 235, 340 });
+	BossForces.push_back({ 380, 340 });
+	BossForces.push_back({ 525, 340 });
+
+	for (int i = 0; i < 6; i++)
+	{
+		AArmosKnight* ArmosKnight = GetWorld()->SpawnActor<AArmosKnight>();
+		ArmosKnight->SetActorLocation(BossForces[i]);
+		ArmosKnight->SetManager(this);
+		ArmosKnight->SetPlayerCharacter(PlayerCharacter);
+		ArmosKnight->SetManageIndex(i);
+		ArmosKnight->SetCurRoom(GetCurRoom(), false);
+		ArmosKnight->SetTargetLocation(BossForces[i]);
+		BossEnemies.push_back(ArmosKnight);
+
+	}
+
+	CurPhase = 1;
+}
+
+void AArmosKngiht_Control::Stay(float DeltaTime)
+{
+	CurTime += DeltaTime;
+
+	if (CurTime >= 5.0f)
+	{
+		std::list<AArmosKnight*>::iterator StartIter = BossEnemies.begin();
+		std::list<AArmosKnight*>::iterator EndIter = BossEnemies.end();
+
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			AArmosKnight* CurArmosKnight = *StartIter;
+			CurArmosKnight->ChangeState(EBossState::MOVE);
+		}
+
+		USoundManager::GetInstance().PlayBGMSound("BossBGM1.mp3");
+		TimeEventer.PushEvent(4.0f, [this]()
+			{
+				USoundManager::GetInstance().StopBGMSound();
+				USoundManager::GetInstance().PlayBGMSound("BossBGM2.mp3");
+			});
+		ChangeState(EControlState::SET);
 	}
 }
 
 /**
  *	30    90    150    210    270    330
  */
+
+void AArmosKngiht_Control::StartSet()
+{
+}
 
 void AArmosKngiht_Control::Set(float DeltaTime)
 {
@@ -156,6 +199,10 @@ void AArmosKngiht_Control::Set(float DeltaTime)
 	}
 
 	ChangeState(EControlState::MOVE);
+}
+
+void AArmosKngiht_Control::StartMove()
+{
 }
 
 void AArmosKngiht_Control::Move(float DeltaTime)
@@ -252,6 +299,21 @@ FVector2D AArmosKngiht_Control::RotateToRadian(float Radian, FVector2D Location,
 
 void AArmosKngiht_Control::ChangeState(EControlState ControlState)
 {
+	switch (ControlState)
+	{
+	case EControlState::STAY:
+		StartStay();
+		break;
+	case EControlState::SET:
+		StartSet();
+		break;
+	case EControlState::MOVE:
+		StartMove();
+		break;
+	default:
+		break;
+	}
+
 	this->CurControlState = ControlState;
 }
 

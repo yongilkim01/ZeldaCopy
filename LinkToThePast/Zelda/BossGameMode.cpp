@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "BossGameMode.h"
 #include "Room.h"
+#include "SoundManager.h"
 #include "ArmosKngiht_Control.h"
 
 #include <EngineCore/EngineAPICore.h>
@@ -30,6 +31,8 @@ void ABossGameMode::BeginPlay()
 		Control->SetPlayerCharacter(PlayerCharacter);
 		Control->SetActorLocation(WindowHalfSize);
 	}
+
+	USoundManager::GetInstance().StopBGMSound();
 
 }
 

@@ -1,12 +1,15 @@
 #pragma once
 #include "BossCharacter.h"
+#include <EnginePlatform/EngineSound.h>
 
 class AArmosKngiht_Control;
 class APlayerCharacter;
+class USpriteRenderer;
 
 enum class EBossState
 {
 	NONE,
+	STAY,
 	MOVE,
 	KNOCKBACK,
 	BERSERK_WAIT,
@@ -37,6 +40,7 @@ public:
 	virtual FVector2D GetHitLocation() override;
 
 	/** 상태(State) 메소드 */
+	void Stay(float DeltaTime);
 	void Move(float DeltaTime);
 	void Knockback(float DeltaTime);
 	void BerserkWait(float DeltaTime);
@@ -81,6 +85,7 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	USpriteRenderer* ShadowRenderer = nullptr;
 	AArmosKngiht_Control* Manager = nullptr;
 
 	EBossState CurBossState = EBossState::NONE;
@@ -99,5 +104,7 @@ private:
 	int ManageIndex = 0;
 
 	bool IsManage = true;
+
+	USoundPlayer SoundPlayer;
 };
 

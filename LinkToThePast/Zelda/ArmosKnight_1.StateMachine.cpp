@@ -4,6 +4,10 @@
 
 #include <EngineCore/SpriteRenderer.h>
 
+void AArmosKnight::Stay(float DeltaTime)
+{
+}
+
 void AArmosKnight::Move(float DeltaTime)
 {
 	// 관리자가 지정해준 위치로 이동
@@ -20,6 +24,8 @@ void AArmosKnight::Move(float DeltaTime)
 
 		if (0.0f <= SpriteRenderer->GetComponentLocation().Y)
 		{
+			SoundPlayer = UEngineSound::Play("ram.wav");
+			SoundPlayer.SetVolume(0.5f);
 			CurJumpPower = FVector2D::UP * 500.0f;
 		}
 	}
@@ -27,7 +33,7 @@ void AArmosKnight::Move(float DeltaTime)
 
 void AArmosKnight::Knockback(float DeltaTime)
 {
-	if (KnockBackCount > 150 || TargetCharacter == nullptr)
+	if (KnockBackCount > 50 || TargetCharacter == nullptr)
 	{
 		//CurBossState = PrevEnemyState;
 		KnockBackCount = 0;
@@ -48,6 +54,7 @@ void AArmosKnight::Knockback(float DeltaTime)
 
 		if (0.0f <= SpriteRenderer->GetComponentLocation().Y)
 		{
+			SoundPlayer = UEngineSound::Play("ram.wav");
 			CurJumpPower = FVector2D::UP * 500.0f;
 		}
 	}
@@ -91,6 +98,7 @@ void AArmosKnight::BerserkAttack(float DeltaTime)
 
 	if (SpriteRenderer->GetComponentLocation().DistanceTo(TargetLocation) < 5.0f)
 	{
+		SoundPlayer = UEngineSound::Play("ram.wav");
 		SetBossComponentLocation(TargetLocation);
 		ChangeState(EBossState::BERSERK_WAIT);
 		AttackCollision->SetActive(false);

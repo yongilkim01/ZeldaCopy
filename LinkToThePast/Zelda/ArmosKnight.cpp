@@ -25,6 +25,13 @@ AArmosKnight::AArmosKnight()
 
 		SpriteRenderer->ChangeAnimation("Move");
 
+		ShadowRenderer = CreateDefaultSubObject<USpriteRenderer>();
+		ShadowRenderer->SetSprite("ArmosKnightShadow.png");
+		ShadowRenderer->SetOrder(ERenderOrder::FIRST_FLOOR_OBJ);
+		ShadowRenderer->SetSpriteScale(3.0f);
+		ShadowRenderer->SetComponentLocation(FVector2D(0.0f, 45.0f));
+
+
 	}
 	{
 		HitCollision = CreateDefaultSubObject<UCollision2D>();
@@ -61,7 +68,7 @@ void AArmosKnight::BeginPlay()
 	ABossCharacter::BeginPlay();
 
 	CurJumpPower = FVector2D::UP * 100.0f;
-	ChangeState(EBossState::MOVE);
+	ChangeState(EBossState::STAY);
 
 }
 
@@ -73,6 +80,9 @@ void AArmosKnight::Tick(float DeltaTime)
 
 	switch (CurBossState)
 	{
+	case EBossState::STAY:
+		Stay(DeltaTime);
+		break;
 	case EBossState::MOVE:
 		Move(DeltaTime);
 		break;
@@ -91,4 +101,6 @@ void AArmosKnight::Tick(float DeltaTime)
 	default:
 		break;
 	}
+
+	ShadowRenderer->SetOrder(SpriteRenderer->GetOrder() - 1);
 }

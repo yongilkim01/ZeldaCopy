@@ -56,6 +56,6 @@ void AArmosKnight::CheckAttackCollision()
 
 	if (nullptr != Result)
 	{
-		Result->TakeDamage(10, this);
+		Result->TakeDamage(1, this);
 	}
 }

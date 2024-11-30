@@ -5,8 +5,10 @@
 
 enum class EControlState
 {
+	NONE,
+	STAY,
 	SET,
-	MOVE
+	MOVE,
 };
 
 class AArmosKnight;
@@ -47,16 +49,22 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	void StartStay();
+	void Stay(float DeltaTime);
 
+	void StartSet();
 	void Set(float DeltaTime);
+
+	void StartMove();
 	void Move(float DeltaTime);
 
-	EControlState CurControlState = EControlState::SET;
+	EControlState CurControlState = EControlState::NONE;
 	APlayerCharacter* PlayerCharacter = nullptr;
 
 	std::list<AArmosKnight*> BossEnemies;
 	std::vector<FVector2D> BossForces;
 
+	float CurTime = 0.0f;
 	float CurrentDegree = 20;
 	float Speed = 200.0f;
 	int PaddingIndex = 0;
