@@ -45,12 +45,12 @@ void ALinkHouseGameMode::BeginPlay()
 	BeginPlayUI();
 
 	Fade = GetWorld()->SpawnActor<AFade>();
-	Fade->SetFadeSize(EFadeSize::BIG);
 	Fade->SetActorLocation(HouseBed->GetActorLocation());
 	Fade->FadeOut();
 
 	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
 	LevelMove1->SetActorLocation({ 384, 670 });
+	LevelMove1->SetIsFadeIn(true);
 	LevelMove1->SetMoveLevelName("LightWorld");
 
 
@@ -105,6 +105,13 @@ void ALinkHouseGameMode::BeginPlayEnvActor()
 		Chest->SetActorLocation({ 600, 500 });
 		Chest->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 		Chest->SetDropItemType(EDropItemType::LANTERN);
+	}
+
+	{
+		AChest* Chest = GetWorld()->SpawnActor<AChest>();
+		Chest->SetActorLocation({ 400, 500 });
+		Chest->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+		Chest->SetDropItemType(EDropItemType::BOW);
 	}
 }
 

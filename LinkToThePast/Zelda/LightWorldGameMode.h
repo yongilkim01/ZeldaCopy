@@ -28,6 +28,8 @@ protected:
 	/** 액터 상속 메소드 */
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	virtual void LevelChangeStart() override;
+	virtual void LevelChangeEnd() override;
 
 	/** 룸 상속 메소드 */
 	virtual void BeginPlayRoomActor() override;

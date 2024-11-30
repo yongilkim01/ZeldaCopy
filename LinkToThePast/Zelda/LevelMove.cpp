@@ -44,18 +44,15 @@ void ALevelMove::BeginPlay()
 
 	Player = dynamic_cast<APlayerCharacter*>(GetWorld()->GetPawn());
 
-	FadeActor = GetWorld()->SpawnActor<AFade>();
-	FadeActor->SetActorLocation(Player->GetActorLocation());
-	FadeActor->SetFadeSize(EFadeSize::BIG);
-	FadeActor->SetFadeOn(false);
-	//FadeActor->FadeOut();
+	FadeIn = GetWorld()->SpawnActor<AFade>();
+	FadeIn->SetActorLocation(Player->GetActorLocation());
 }
 
 void ALevelMove::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FadeActor->SetActorLocation(Player->GetActorLocation());
+	FadeIn->SetActorLocation(Player->GetActorLocation());
 
 	AActor* Result = Collision->CollisionOnce(ECollisionGroup::PLAYERMOVEABLE);
 
@@ -66,9 +63,19 @@ void ALevelMove::Tick(float DeltaTime)
 			Player->ChangeState(EPlayerState::Fall);
 			Player->SetActorLocation(GetActorLocation());
 
-			TimeEventer.PushEvent(1.5f, [this]()
+
+
+			//TimeEventer.PushEvent(0.5f, [this]()
+			//	{
+			//		if (true == IsFadeIn())
+			//		{
+			//			//FadeIn->FadeIn();
+			//		}
+			//	}
+			//);			
+			TimeEventer.PushEvent(3.0f, [this]()
 				{
-					//FadeActor->FadeIn();
+					FadeIn->ResetFade();
 					UEngineAPICore::GetCore()->ResetLevel<ACastleUnderWaterGameMode, APlayerCharacter>("UnderWater");
 					UEngineAPICore::GetCore()->OpenLevel(MoveLevel);
 				}
@@ -77,7 +84,11 @@ void ALevelMove::Tick(float DeltaTime)
 		else
 		{
 			UEngineDebug::CoreOutPutString("플레이어 안에 들어옴");
-			//FadeActor->FadeIn();
+			if (true == IsFadeIn())
+			{
+				FadeIn->FadeIn();
+			}
+
 			TimeEventer.PushEvent(1.0f, [this]()
 				{
 					UEngineAPICore::GetCore()->OpenLevel(MoveLevel);

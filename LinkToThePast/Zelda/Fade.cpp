@@ -20,13 +20,11 @@ AFade::AFade()
 		
 		ZoomRenderer = CreateDefaultSubObject<USpriteRenderer>();
 		ZoomRenderer->SetOrder(ERenderOrder::FADE);
-		ZoomRenderer->SetSprite("FadeOut.png", 0);
+		ZoomRenderer->SetSprite("BigFadeOut.png", 0);
 		FVector2D ZoomScale = ZoomRenderer->SetSpriteScale(1.0f);
 		ZoomRenderer->SetComponentLocation(FVector2D::ZERO);
-		ZoomRenderer->CreateAnimation("FadeOut", "FadeOut.png", 0, 7, 0.08f, false);
-		ZoomRenderer->CreateAnimation("FadeIn", "FadeIn.png", 0, 7, 0.08f, false);
-		ZoomRenderer->CreateAnimation("BigFadeOut", "BigFadeOut.png", 0, 7, 0.08f, false);
-		ZoomRenderer->CreateAnimation("BigFadeIn", "BigFadeIn.png", 0, 7, 0.08f, false);
+		ZoomRenderer->CreateAnimation("FadeOut", "BigFadeOut.png", 0, 7, 0.08f, false);
+		ZoomRenderer->CreateAnimation("FadeIn", "BigFadeIn.png", 0, 7, 0.08f, false);
 		ZoomRenderer->SetAlphafloat(0.0f);
 
 		ZoomRenderer->SetAnimationEvent("FadeOut", 7, [this]()
@@ -38,18 +36,7 @@ AFade::AFade()
 		ZoomRenderer->SetAnimationEvent("FadeIn", 7, [this]()
 			{
 				AlphaRenderer->SetAlphafloat(1.0f);
-			}
-		);
-
-		ZoomRenderer->SetAnimationEvent("BigFadeOut", 7, [this]()
-			{
-				ZoomRenderer->SetAlphafloat(0.0f);
-			}
-		);
-
-		ZoomRenderer->SetAnimationEvent("BigFadeIn", 7, [this]()
-			{
-				AlphaRenderer->SetAlphafloat(1.0f);
+				//TimeEvent
 			}
 		);
 	}
@@ -87,54 +74,34 @@ void AFade::FadeChange()
 
 }
 
+void AFade::ResetFade()
+{
+	AlphaRenderer->SetAlphafloat(0.0f);
+	ZoomRenderer->SetAlphafloat(0.0f);
+}
+
 // 0 => 1
 void AFade::FadeIn()
 {
-	if (false == IsFading)
+	if (true == IsFadeInOn())
 	{
-		IsFading = true;
-		ZoomRenderer->SetAlphafloat(1.0f);
 
-		switch (FadeSize)
+		if (false == IsFading)
 		{
-		case EFadeSize::NORMAL:
-			ZoomRenderer->SetSprite("FadeIn.png", 0);
-			ZoomRenderer->SetSpriteScale(1.0f);
+			IsFading = true;
+			ZoomRenderer->SetAlphafloat(1.0f);
 			ZoomRenderer->ChangeAnimation("FadeIn");
-			break;
-		case EFadeSize::BIG:
-			ZoomRenderer->SetSprite("BigFadeIn.png", 0);
-			ZoomRenderer->SetSpriteScale(1.0f);
-			ZoomRenderer->ChangeAnimation("BigFadeIn");
-			break;
-		default:
-			break;
 		}
-
 	}
 }
 
 // 1 => 0
 void AFade::FadeOut()
 {
-	if (true == IsFadeOn())
+	if (true == IsFadeOutOn())
 	{
 		ZoomRenderer->SetAlphafloat(1.0f);
+		ZoomRenderer->ChangeAnimation("FadeOut");
 
-		switch (FadeSize)
-		{
-		case EFadeSize::NORMAL:
-			ZoomRenderer->SetSprite("FadeOut.png", 0);
-			ZoomRenderer->SetSpriteScale(1.0f);
-			ZoomRenderer->ChangeAnimation("FadeOut");
-			break;
-		case EFadeSize::BIG:
-			ZoomRenderer->SetSprite("BigFadeOut.png", 0);
-			ZoomRenderer->SetSpriteScale(1.0f);
-			ZoomRenderer->ChangeAnimation("BigFadeOut");
-			break;
-		default:
-			break;
-		}
 	}
 }

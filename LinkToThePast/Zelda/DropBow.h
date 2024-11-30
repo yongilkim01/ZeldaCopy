@@ -2,6 +2,8 @@
 #include "DropItem.h"
 #include <EnginePlatform/EngineSound.h>
 
+class AUIBox;
+
 /**
  *	Ό³Έν
  */
@@ -36,5 +38,6 @@ private:
 
 	FVector2D CurDropPower = FVector2D::ZERO;
 	USoundPlayer SoundPlayer;
+	AUIBox* UIBox = nullptr;
 };
 

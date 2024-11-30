@@ -96,7 +96,7 @@ void ALinkFather::MoveLeft(float DeltaTime)
 {
 	CurTime += DeltaTime;
 
-	SetActorLocation(FVector2D::LerpClimp(StartLocation, DestLocation, CurTime / 2.0f));
+	SetActorLocation(FVector2D::LerpClimp(StartLocation, DestLocation, CurTime / 1.0f));
 }
 
 void ALinkFather::StartMoveDown()

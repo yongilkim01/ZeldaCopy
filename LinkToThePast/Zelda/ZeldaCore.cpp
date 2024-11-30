@@ -162,7 +162,7 @@ void UZeldaCore::BeginPlay()
 	UEngineAPICore::GetCore()->CreateLevel<ACastleDungeonGameMode, APlayerCharacter>("CastleDungeon");
 	UEngineAPICore::GetCore()->CreateLevel<ABossGameMode, APlayerCharacter>("Boss");
 
-	UEngineAPICore::GetCore()->OpenLevel("LightWorld");
+	UEngineAPICore::GetCore()->OpenLevel("LinkHouse");
 }
 
 void UZeldaCore::Tick()

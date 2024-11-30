@@ -94,9 +94,9 @@ void ADropLanternItem::Pickup(float DeltaTime)
 	CurrentTime += DeltaTime;
 	if (CheckTime <= CurrentTime)
 	{
-		PlayerDataManager::GetInstance().SetWeaponActiveToIndex(1, true);
+		PlayerDataManager::GetInstance().SetWeaponActiveToIndex(0, true);
 		PlayerDataManager::GetInstance().AddWeaponCount(1);
-		PlayerDataManager::GetInstance().SetSelectWeapon(1);
+		PlayerDataManager::GetInstance().SetSelectWeapon(0);
 		GetPlayerCharacter()->GetLantern()->SetActive(true);
 		UEventManager::GetInstance().SetEventPause(false);
 		Destroy();

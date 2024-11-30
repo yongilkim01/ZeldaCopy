@@ -25,19 +25,27 @@ public:
 	/** °Ù, ¼Â ¸Þ¼Òµå */
 	void SetFade(AFade* FadeActor)
 	{
-		this->FadeActor = FadeActor;
+		this->FadeIn = FadeActor;
 	}
 	void SetMoveLevelName(std::string_view LevelName)
 	{
 		MoveLevel = LevelName;
 	}
-	bool GetFade()
+	bool IsFadeOut()
 	{
-		return IsFade;
+		return bFadeOut;
 	}
-	void SetFade(bool Fade)
+	void SetIsFadeOut(bool Fade)
 	{
-		IsFade = Fade;
+		bFadeOut = Fade;
+	}
+	bool IsFadeIn()
+	{
+		return bFadeIn;
+	}
+	void SetIsFadeIn(bool Fade)
+	{
+		bFadeIn = Fade;
 	}
 
 protected:
@@ -46,11 +54,12 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	bool IsFade = true;
+	bool bFadeOut = true;
+	bool bFadeIn = true;
 
 	USpriteRenderer* SpriteRenderer = nullptr;
 	UCollision2D* Collision = nullptr;
-	AFade* FadeActor = nullptr;
+	AFade* FadeIn = nullptr;
 	APlayerCharacter* Player = nullptr;
 	
 	std::string MoveLevel;

@@ -10,6 +10,7 @@
 #include "Grass.h"
 #include "Chest.h"
 #include "SoundManager.h"
+#include "PlayerDataManager.h"
 #include "LevelMove.h"
 
 #include <EnginePlatform/EngineInput.h>
@@ -61,9 +62,11 @@ void ALightWorldGameMode::BeginPlay()
 	LevelMove1->SetActorLocation({ 2712, 504 });
 	LevelMove1->SetMoveLevelName("UnderWater");
 
+	ALevelMove* LevelMove2 = GetWorld()->SpawnActor<ALevelMove>();
+	LevelMove2->SetActorLocation({ 1536, 819 });
+	LevelMove2->SetMoveLevelName("HyruleCastle");
+
 	Fade = GetWorld()->SpawnActor<AFade>();
-	Fade->SetFadeSize(EFadeSize::BIG);
-	Fade->FadeOut();
 
 }
 
@@ -77,6 +80,8 @@ void ALightWorldGameMode::BeginPlayRoomActor()
 	RoomDataes.push_back({ { 1536, 3072 } ,{ 1533, 1536 } });
 
 	CreateRoomActor("LightWorld", 1);
+
+	this->Roomes[0]->CreateEnvSprite("LightWorld1Door1.png", FVector2D(2112, 576), FVector2D(96, 72), ERenderOrder::FIRST_FLOOR_OBJ);
 
 	this->Roomes[1]->SetIsSecondFloor(true);
 	this->Roomes[1]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);
@@ -258,4 +263,23 @@ void ALightWorldGameMode::Tick(float DeltaTime)
 {
 	AZeldaGameMode::Tick(DeltaTime);
 
+}
+
+void ALightWorldGameMode::LevelChangeStart()
+{
+
+	if (FVector2D::ZERO != PlayerDataManager::GetInstance().GetLevelStartLocation())
+	{
+		Fade->SetActorLocation(PlayerDataManager::GetInstance().GetLevelStartLocation());
+
+	}
+	else
+	{
+		Fade->SetActorLocation({ 1536 + 576, 3072 + 847 });
+	}
+	Fade->FadeOut();
+}
+
+void ALightWorldGameMode::LevelChangeEnd()
+{
 }

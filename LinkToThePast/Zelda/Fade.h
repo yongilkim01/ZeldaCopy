@@ -8,12 +8,6 @@ enum class EFadeType
 	ZOOM,
 };
 
-enum class EFadeSize
-{
-	NORMAL,
-	BIG,
-};
-
 class USpriteRenderer;
 
 /**
@@ -37,28 +31,27 @@ public:
 	void FadeOut();
 
 	void FadeChange();
+	void ResetFade();
 
 	USpriteRenderer* GetBackSpriteRenderer()
 	{
 		return AlphaRenderer;
 	}
-
-	/** °Ù, ¼Â ¸Þ¼Òµå */
-	EFadeSize GetFadeSize()
+	bool IsFadeOutOn()
 	{
-		return FadeSize;
+		return bFadeOutOn;
 	}
-	void SetFadeSize(EFadeSize FadeSize)
+	void SetFadeOutOn(bool Value)
 	{
-		this->FadeSize = FadeSize;
+		bFadeOutOn = Value;
 	}
-	bool IsFadeOn()
+	bool IsFadeInOn()
 	{
-		return bFadeOn;
+		return bFadeInOn;
 	}
-	void SetFadeOn(bool Value)
+	void SetFadeInOn(bool Value)
 	{
-		bFadeOn = Value;
+		bFadeInOn = Value;
 	}
 
 protected:
@@ -73,12 +66,11 @@ private:
 	float FadeValue = 0.0f;
 	float FadeDir = 1.0f;
 	bool IsFading = false;
-	bool bFadeOn = true;
+	bool bFadeOutOn = true;
+	bool bFadeInOn = true;
 
 	/** ÄÄÆ÷³ÍÆ® */
 	USpriteRenderer* AlphaRenderer = nullptr;
 	USpriteRenderer* ZoomRenderer = nullptr;
-
-	EFadeSize FadeSize = EFadeSize::NORMAL;
 };
 

@@ -71,6 +71,7 @@ void AHyruleCastleGameMode::BeginPlayRoomActor()
 
 	this->Roomes[1]->CreateEnvSprite("Castle2Door1.png", FVector2D(0, 255), FVector2D(141, 288), ERenderOrder::FIRST_FLOOR_OBJ);
 	this->Roomes[1]->CreateEnvSprite("Castle2Door2.png", FVector2D(1395, 300), FVector2D(140, 219), ERenderOrder::FIRST_FLOOR_OBJ);
+	this->Roomes[1]->CreateEnvSprite("Castle2Door3.png", FVector2D(692, 171), FVector2D(152, 87), ERenderOrder::FIRST_FLOOR_OBJ);
 
 	this->Roomes[2]->SetIsSecondFloor(true);
 	this->Roomes[2]->GetColSpriteRenderer2F()->SetOrder(ERenderOrder::COLMAP);

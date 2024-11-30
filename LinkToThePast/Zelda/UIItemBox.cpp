@@ -45,10 +45,10 @@ void AUIItemBox::Tick(float DeltaTime)
 
 	int WeaponSelectIndex = PlayerDataManager::GetInstance().GetSelectWeapon();
 
-	if (0 != PlayerDataManager::GetInstance().GetWeaponCount())
+	if (-1 != WeaponSelectIndex)
 	{
 		std::string SpriteName = Player->GetWeaponUISpriteByIndex(WeaponSelectIndex);
-		ItemRenderer->SetSprite("UIBow.png");
+		ItemRenderer->SetSprite(SpriteName);
 		ItemRenderer->SetActive(true);
 	}
 }
