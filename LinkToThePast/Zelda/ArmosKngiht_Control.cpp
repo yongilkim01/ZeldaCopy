@@ -51,6 +51,9 @@ void AArmosKngiht_Control::Tick(float DeltaTime)
 	case EControlState::MOVE:
 		Move(DeltaTime);
 		break;
+	case EControlState::END:
+		End(DeltaTime);
+		break;
 	default:
 		break;
 	}
@@ -96,13 +99,15 @@ void AArmosKngiht_Control::StartStay()
 	}
 
 	CurPhase = 1;
+
+	USoundManager::GetInstance().PlayBGMSound("BossBGM1.mp3");
 }
 
 void AArmosKngiht_Control::Stay(float DeltaTime)
 {
 	CurTime += DeltaTime;
 
-	if (CurTime >= 5.0f)
+	if (CurTime >= 4.0f)
 	{
 		std::list<AArmosKnight*>::iterator StartIter = BossEnemies.begin();
 		std::list<AArmosKnight*>::iterator EndIter = BossEnemies.end();
@@ -113,12 +118,8 @@ void AArmosKngiht_Control::Stay(float DeltaTime)
 			CurArmosKnight->ChangeState(EBossState::MOVE);
 		}
 
-		USoundManager::GetInstance().PlayBGMSound("BossBGM1.mp3");
-		TimeEventer.PushEvent(4.0f, [this]()
-			{
-				USoundManager::GetInstance().StopBGMSound();
-				USoundManager::GetInstance().PlayBGMSound("BossBGM2.mp3");
-			});
+		USoundManager::GetInstance().StopBGMSound();
+		USoundManager::GetInstance().PlayBGMSound("BossBGM2.mp3");
 		ChangeState(EControlState::SET);
 	}
 }
@@ -276,6 +277,17 @@ void AArmosKngiht_Control::Move(float DeltaTime)
 
 }
 
+void AArmosKngiht_Control::StartEnd()
+{
+	PlayerCharacter->ChangeState(EPlayerState::SwordGet);
+	USoundManager::GetInstance().StopBGMSound();
+	USoundManager::GetInstance().PlayBGMSound("BossClearFanfare.mp3");
+}
+
+void AArmosKngiht_Control::End(float DeltaTime)
+{
+}
+
 
 FVector2D AArmosKngiht_Control::RotateToDegree(float Degree, FVector2D Location, float H)
 {
@@ -309,6 +321,9 @@ void AArmosKngiht_Control::ChangeState(EControlState ControlState)
 		break;
 	case EControlState::MOVE:
 		StartMove();
+		break;
+	case EControlState::END:
+		StartEnd();
 		break;
 	default:
 		break;
@@ -365,6 +380,12 @@ void AArmosKngiht_Control::DestoryArmosKnight(AArmosKnight* ArmosKnight)
 			CurArmosKnight->ChangeState(EBossState::BERSERK_WAIT);
 			CurArmosKnight->SetCurrentHP(50);
 		}
+	}
+	else if (0 == BossEnemies.size())
+	{
+		TimeEventer.PushEvent(1.0f, [this]() {
+				ChangeState(EControlState::END);
+			});
 	}
 }
 

@@ -71,7 +71,7 @@ void APlayerCharacter::ChangeState(EPlayerState ChangeState)
 
 void APlayerCharacter::StartIdle()
 {
-	if (true == IsEquipShield)
+	if (true == PlayerDataManager::GetInstance().IsEquipWeapon())
 	{
 		if (GetCurDirection() == FVector2D::RIGHT)
 		{
@@ -123,7 +123,7 @@ void APlayerCharacter::StartIdle()
 
 void APlayerCharacter::StartMove()
 {
-	if (true == IsEquipShield)
+	if (true == PlayerDataManager::GetInstance().IsEquipWeapon())
 	{
 		if (GetCurDirection() == FVector2D::RIGHT)
 		{
@@ -394,7 +394,8 @@ void APlayerCharacter::Idle(float DeltaTime)
 		return;
 	}
 
-	if (UEngineInput::GetInst().IsDown(VK_LBUTTON) == true &&
+	if (true == PlayerDataManager::GetInstance().IsEquipWeapon() &&
+		UEngineInput::GetInst().IsDown(VK_LBUTTON) == true &&
 		CurPlayerState != EPlayerState::Attack)
 	{
 		StartAttack();
@@ -443,7 +444,7 @@ void APlayerCharacter::Move(float DeltaTime)
 		MoveDir += FVector2D::UP;
 	}
 
-	if (true == IsEquipShield)
+	if (true == PlayerDataManager::GetInstance().IsEquipWeapon())
 	{
 		if (GetCurDirection() == FVector2D::RIGHT)
 		{
@@ -502,8 +503,9 @@ void APlayerCharacter::Move(float DeltaTime)
 		ChangeState(EPlayerState::Idle);
 	}
 
-	if (UEngineInput::GetInst().IsDown(VK_LBUTTON) == true &&
-		CurPlayerState != EPlayerState::Attack)
+	if (true == PlayerDataManager::GetInstance().IsEquipWeapon() &&
+		true == UEngineInput::GetInst().IsDown(VK_LBUTTON) &&
+		EPlayerState::Attack != CurPlayerState)
 	{
 		StartAttack();
 		CurPlayerState = EPlayerState::Attack;

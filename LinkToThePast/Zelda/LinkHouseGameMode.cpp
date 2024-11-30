@@ -109,12 +109,12 @@ void ALinkHouseGameMode::BeginPlayEnvActor()
 		Chest->SetDropItemType(EDropItemType::LANTERN);
 	}
 
-	{
-		AChest* Chest = GetWorld()->SpawnActor<AChest>();
-		Chest->SetActorLocation({ 400, 500 });
-		Chest->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
-		Chest->SetDropItemType(EDropItemType::BOW);
-	}
+	//{
+	//	AChest* Chest = GetWorld()->SpawnActor<AChest>();
+	//	Chest->SetActorLocation({ 400, 500 });
+	//	Chest->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+	//	Chest->SetDropItemType(EDropItemType::BOW);
+	//}
 }
 
 void ALinkHouseGameMode::Tick(float DeltaTime)
@@ -200,7 +200,7 @@ void ALinkHouseGameMode::StartFadeOut()
 
 void ALinkHouseGameMode::FadeOut(float DeltaTime)
 {
-	FadeAlpha -= 0.001f;
+	FadeAlpha -= 0.006f;
 	FadeBlueRenderer->SetAlphafloat(FadeAlpha);
 
 	if (FadeAlpha < 0.0f)

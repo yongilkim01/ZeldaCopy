@@ -9,6 +9,7 @@ enum class EControlState
 	STAY,
 	SET,
 	MOVE,
+	END,
 };
 
 class AArmosKnight;
@@ -57,6 +58,9 @@ private:
 
 	void StartMove();
 	void Move(float DeltaTime);
+
+	void StartEnd();
+	void End(float DeltaTime);
 
 	EControlState CurControlState = EControlState::NONE;
 	APlayerCharacter* PlayerCharacter = nullptr;

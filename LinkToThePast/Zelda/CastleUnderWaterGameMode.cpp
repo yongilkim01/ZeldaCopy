@@ -141,6 +141,7 @@ void ACastleUnderWaterGameMode::StartGetWeapon()
 	TimeEventer.PushEvent(6.0f, [this]()
 		{
 			SoundPlayer = UEngineSound::Play("item get 1.wav");
+			PlayerDataManager::GetInstance().SetEquipWeapon(true);
 			Player->ChangeState(EPlayerState::SwordGet);
 			LinkFather->ChangeState(ELinkFatherState::DEATH_NONWEAPON);
 			UIBox->ResetText();

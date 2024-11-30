@@ -61,27 +61,36 @@ public:
 	void CreateItem();
 
 	void StartIdle();
+	void Idle(float DeltaTime);
+
 	void StartMove();
+	void Move(float DeltaTime);
+
 	void StartAttack();
+	void Attack(float DeltaTime);
+
 	void StartSkill();
+	void Skill(float DeltaTime);
+
 	void StartKnockBack();
+	void KnockBack(float DeltaTime);
+
 	void StartLift();
-	void StartLiftMove();
+	void Lift(float DeltaTime);
+
 	void StartLiftIdle();
+	void LiftIdle(float DeltaTime);
+
+	void StartLiftMove();
+	void LiftMove(float DeltaTime);
+
 	void StartSleep();
 	void StartWakeUp();
 	void StartFall();
 	void StartTurnFall();
 	void StartSwordGet();
-
-	void Idle(float DeltaTime);
-	void Move(float DeltaTime);
-	void LiftMove(float DeltaTime);
-	void Attack(float DeltaTime);
-	void Skill(float DeltaTime);
-	void KnockBack(float DeltaTime);
-	void Lift(float DeltaTime);
-	void LiftIdle(float DeltaTime);
+	
+	
 	void Sleep(float DeltaTime);
 	void WakeUp(float DeltaTime);
 	void Fall(float DeltaTime);
@@ -153,6 +162,5 @@ private:
 	bool IsAttack = false;
 	float KnockBackTime = 0.0f;
 	float ChildDistance = 25.0f;
-	bool IsEquipShield = true;
 };
 
