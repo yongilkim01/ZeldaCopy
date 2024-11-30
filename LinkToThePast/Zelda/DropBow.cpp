@@ -5,12 +5,14 @@
 #include "PlayerDataManager.h"
 #include "EventManager.h"
 #include "Bow.h"
+#include "UIBox.h"
 
 #include <EngineBase/EngineMath.h>
 
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/Collision2D.h>
 #include <EngineCore/EngineCoreDebug.h>
+#include <EngineCore/EngineAPICore.h>
 
 ADropBowItem::ADropBowItem()
 {
@@ -63,7 +65,15 @@ void ADropBowItem::StartDrop()
 
 void ADropBowItem::StartPickup()
 {
+	UIBox = GetWorld()->SpawnActor<AUIBox>();
+	UIBox->SetActorLocation(UEngineAPICore::GetCore()->GetMainWindow().GetWindowSize().Half() + FVector2D(10.0f, 10.0f));
 
+	std::vector<std::string> StrValues;
+	StrValues.push_back("You got the Bow!");
+	StrValues.push_back("you can shoot arrows until you");
+	StrValues.push_back("run out!");
+
+	UIBox->CreateUIText(StrValues, 1.0f);
 }
 
 void ADropBowItem::Drop(float DeltaTime)
@@ -90,5 +100,7 @@ void ADropBowItem::Pickup(float DeltaTime)
 		GetPlayerCharacter()->GetBow()->SetActive(true);
 		UEventManager::GetInstance().SetEventPause(false);
 		Destroy();
+		UIBox->ResetText();
+
 	}
 }

@@ -33,7 +33,7 @@ public:
 protected:
 
 private:
-	float CheckTime = 1.5f;
+	float CheckTime = 3.5f;
 	float CurrentTime = 0.0f;
 
 	FVector2D CurDropPower = FVector2D::ZERO;
