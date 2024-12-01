@@ -272,6 +272,7 @@ void ALightWorldGameMode::BeginPlayEnemyActor()
 	EnemyCharacter->SetSpeed(100.0f);
 	EnemyCharacter->AddTurningLocation(FVector2D(1654, 1020));
 	EnemyCharacter->AddTurningLocation(FVector2D(1410, 1020));
+	EnemyCharacter->SetDropItemType(EDropItemType::HEART);
 	CheckCharacterInRoom(EnemyCharacter);
 
 	ACastleKnight* EnemyCharacter2 = GetWorld()->SpawnActor<ACastleKnight>();
@@ -279,6 +280,7 @@ void ALightWorldGameMode::BeginPlayEnemyActor()
 	EnemyCharacter2->SetSpeed(100.0f);
 	EnemyCharacter2->AddTurningLocation(FVector2D(1410, 1260));
 	EnemyCharacter2->AddTurningLocation(FVector2D(1654, 1260));
+	EnemyCharacter2->SetDropItemType(EDropItemType::HEART);
 	CheckCharacterInRoom(EnemyCharacter2);
 }
 

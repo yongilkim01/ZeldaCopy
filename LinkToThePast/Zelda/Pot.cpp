@@ -7,6 +7,7 @@
 #include "DropHeartStay.h"
 #include "DropRupee.h"
 #include "DropMagicDrink.h"
+#include "DropArrow.h"
 
 #include <EngineBase/EngineDebug.h>
 
@@ -87,6 +88,11 @@ int APot::Interact(ABaseCharacter* Character)
 	switch (DropItemType)
 	{
 	case EDropItemType::KEY:
+		break;
+	case EDropItemType::ARROW:
+		DropItem = GetWorld()->SpawnActor<ADropArrowItem>();
+		DropItem->SetEventActorRenderOrder(SpriteRenderer->GetOrder() + 1);
+		DropItem->SetActorLocation(GetActorLocation());
 		break;
 	case EDropItemType::MAGICDRINK:
 		DropItem = GetWorld()->SpawnActor<ADropMagicDrinkItem>();

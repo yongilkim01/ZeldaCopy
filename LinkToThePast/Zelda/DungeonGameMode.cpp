@@ -52,6 +52,7 @@ void ACastleDungeonGameMode::BeginPlay()
 		EnemyCharacter->SetSpeed(100.0f);
 		EnemyCharacter->AddTurningLocation(FVector2D(2332, 1974));
 		EnemyCharacter->AddTurningLocation(FVector2D(2332, 1724));
+		EnemyCharacter->SetDropItemType(EDropItemType::HEART);
 
 		CheckCharacterInRoom(EnemyCharacter);
 
@@ -63,6 +64,7 @@ void ACastleDungeonGameMode::BeginPlay()
 		EnemyCharacter->SetSpeed(100.0f);
 		EnemyCharacter->AddTurningLocation(FVector2D(2000, 1974));
 		EnemyCharacter->AddTurningLocation(FVector2D(2000, 1724));
+		EnemyCharacter->SetDropItemType(EDropItemType::HEART);
 
 		CheckCharacterInRoom(EnemyCharacter);
 
@@ -74,6 +76,7 @@ void ACastleDungeonGameMode::BeginPlay()
 		EnemyCharacter->SetSpeed(100.0f);
 		EnemyCharacter->AddTurningLocation(FVector2D(2555, 2305));
 		EnemyCharacter->AddTurningLocation(FVector2D(2555, 2680));
+		EnemyCharacter->SetDropItemType(EDropItemType::HEART);
 
 		CheckCharacterInRoom(EnemyCharacter);
 
@@ -100,6 +103,7 @@ void ACastleDungeonGameMode::BeginPlay()
 		EnemyCharacter->AddTurningLocation(FVector2D(2250, 1270));
 		EnemyCharacter->AddTurningLocation(FVector2D(2050, 1270));
 		EnemyCharacter->AddTurningLocation(FVector2D(2050, 1100));
+		EnemyCharacter->SetDropItemType(EDropItemType::HEART);
 
 		CheckCharacterInRoom(EnemyCharacter);
 
@@ -123,6 +127,8 @@ void ACastleDungeonGameMode::BeginPlay()
 		EnemyCharacter->SetSpeed(100.0f);
 		EnemyCharacter->AddTurningLocation(FVector2D(693, 2100));
 		EnemyCharacter->AddTurningLocation(FVector2D(693, 2300));
+		EnemyCharacter->SetDropItemType(EDropItemType::HEART);
+
 		CheckCharacterInRoom(EnemyCharacter);
 
 		ACastleKnight* EnemyCharacter2 = GetWorld()->SpawnActor<ACastleKnight>();
@@ -130,6 +136,8 @@ void ACastleDungeonGameMode::BeginPlay()
 		EnemyCharacter2->SetSpeed(100.0f);
 		EnemyCharacter2->AddTurningLocation(FVector2D(545, 2250));
 		EnemyCharacter2->AddTurningLocation(FVector2D(545, 2050));
+		EnemyCharacter2->SetDropItemType(EDropItemType::HEART);
+
 		CheckCharacterInRoom(EnemyCharacter2);
 
 	}
@@ -162,14 +170,17 @@ void ACastleDungeonGameMode::BeginPlay()
 		Pot1->SetActorLocation({ 2473, 2369 });
 		Pot1->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
 		Pot1->SetDropItemType(EDropItemType::HEART);
+		Pot1->SetDropItemType(EDropItemType::ARROW);
 
 		APot* Pot2 = GetWorld()->SpawnActor<APot>();
 		Pot2->SetActorLocation({ 2161, 1985 });
 		Pot2->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
+		Pot2->SetDropItemType(EDropItemType::ARROW);
 
 		APot* Pot3 = GetWorld()->SpawnActor<APot>();
 		Pot3->SetActorLocation({ 2161, 1743 });
 		Pot3->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
+		Pot3->SetDropItemType(EDropItemType::ARROW);
 	}
 	{
 		//AChest* Chest1 = GetWorld()->SpawnActor<AChest>();

@@ -153,30 +153,37 @@ void AHyruleCastleGameMode::BeginPlayEnvActor()
 		APot* Pot1 = GetWorld()->SpawnActor<APot>();
 		Pot1->SetActorLocation({ 405, 305 });
 		Pot1->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+		Pot1->SetDropItemType(EDropItemType::MAGICDRINK);
 
 		APot* Pot2 = GetWorld()->SpawnActor<APot>();
 		Pot2->SetActorLocation({ 453, 305 });
 		Pot2->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+		Pot2->SetDropItemType(EDropItemType::MAGICDRINK);
 
 		APot* Pot3 = GetWorld()->SpawnActor<APot>();
 		Pot3->SetActorLocation({ 2445, 185 });
 		Pot3->SetCurRoom(Roomes[2], ERoomFloor::FLOOR_2F);
+		Pot3->SetDropItemType(EDropItemType::MAGICDRINK);
 
 		APot* Pot4 = GetWorld()->SpawnActor<APot>();
 		Pot4->SetActorLocation({ 3117, 1289 });
 		Pot4->SetCurRoom(Roomes[2], ERoomFloor::FLOOR_2F);
+		Pot4->SetDropItemType(EDropItemType::MAGICDRINK);
 	
 		APot* Pot5 = GetWorld()->SpawnActor<APot>();
 		Pot5->SetActorLocation({ 3286, 2585 });
 		Pot5->SetCurRoom(Roomes[3], ERoomFloor::FLOOR_2F);
+		Pot5->SetDropItemType(EDropItemType::MAGICDRINK);
 
 		APot* Pot6 = GetWorld()->SpawnActor<APot>();
 		Pot6->SetActorLocation({ 597, 1745 });
 		Pot6->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_2F);
+		Pot6->SetDropItemType(EDropItemType::MAGICDRINK);
 
 		APot* Pot7 = GetWorld()->SpawnActor<APot>();
 		Pot7->SetActorLocation({ 165, 1745 });
 		Pot7->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_2F);
+		Pot7->SetDropItemType(EDropItemType::MAGICDRINK);
 	}
 }
 
@@ -189,6 +196,7 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter->AddTurningLocation(FVector2D(1547, 2449));
 	EnemyCharacter->AddTurningLocation(FVector2D(1547, 2216));
 	EnemyCharacter->AddTurningLocation(FVector2D(1358, 2216));
+	EnemyCharacter->SetDropItemType(EDropItemType::HEART);
 	CheckCharacterInRoom(EnemyCharacter);
 
 
@@ -202,6 +210,7 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter2->AddTurningLocation(FVector2D(1460, 2241));
 	EnemyCharacter2->AddTurningLocation(FVector2D(1680, 2241));
 	EnemyCharacter2->AddTurningLocation(FVector2D(1680, 2384));
+	EnemyCharacter2->SetDropItemType(EDropItemType::HEART);
 	CheckCharacterInRoom(EnemyCharacter2);
 
 	ACastleKnight* EnemyCharacter3 = GetWorld()->SpawnActor<ACastleKnight>();
@@ -209,6 +218,7 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter3->SetSpeed(100.0f);
 	EnemyCharacter3->AddTurningLocation(FVector2D(1640, 2200));
 	EnemyCharacter3->AddTurningLocation(FVector2D(1480, 2200));
+	EnemyCharacter3->SetDropItemType(EDropItemType::HEART);
 	CheckCharacterInRoom(EnemyCharacter3);
 
 	AHylianKnight* EnemyCharacter4 = GetWorld()->SpawnActor<AHylianKnight>();
@@ -217,6 +227,7 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter4->AddTurningLocation(FVector2D(160, 1880));
 	EnemyCharacter4->AddTurningLocation(FVector2D(160, 2800));
 	EnemyCharacter4->SetCurRoomFloor(ERoomFloor::FLOOR_2F);
+	EnemyCharacter4->SetDropItemType(EDropItemType::HEART);
 	CheckCharacterInRoom(EnemyCharacter4);
 
 	ACastleKnight* EnemyCharacter5 = GetWorld()->SpawnActor<ACastleKnight>();
@@ -224,5 +235,6 @@ void AHyruleCastleGameMode::BeginPlayEnemyActor()
 	EnemyCharacter5->SetSpeed(100.0f);
 	EnemyCharacter5->AddTurningLocation(FVector2D(350, 592));
 	EnemyCharacter5->AddTurningLocation(FVector2D(350, 892));
+	EnemyCharacter5->SetDropItemType(EDropItemType::HEART);
 	CheckCharacterInRoom(EnemyCharacter5);
 }

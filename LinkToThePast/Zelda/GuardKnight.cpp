@@ -20,7 +20,7 @@ AGuardKnight::AGuardKnight()
 	}
 	{
 		EventCollison = CreateDefaultSubObject<UCollision2D>();
-		EventCollison->SetComponentLocation({ 0, 30 });
+		EventCollison->SetComponentLocation({ 0, 0 });
 		EventCollison->SetComponentScale({ 80, 80 });
 		EventCollison->SetCollisionGroup(ECollisionGroup::EventTarget);
 		EventCollison->SetCollisionType(ECollisionType::Rect);
