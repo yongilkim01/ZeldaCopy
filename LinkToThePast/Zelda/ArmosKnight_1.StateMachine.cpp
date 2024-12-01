@@ -29,6 +29,8 @@ void AArmosKnight::Move(float DeltaTime)
 			CurJumpPower = FVector2D::UP * 500.0f;
 		}
 	}
+
+	CheckAttackCollision();
 }
 
 void AArmosKnight::Knockback(float DeltaTime)
@@ -118,6 +120,7 @@ void AArmosKnight::ChangeState(EBossState BossState)
 		PrevBossState = CurBossState;
 		break;
 	case EBossState::BERSERK_WAIT:
+		AttackCollision->SetActive(false);
 		SpriteRenderer->ChangeAnimation("Berserk");
 		SpriteRenderer->SetComponentLocation({ 0.0f, 0.0f });
 		this->IsManage = false;

@@ -281,7 +281,12 @@ void AArmosKngiht_Control::StartEnd()
 {
 	PlayerCharacter->ChangeState(EPlayerState::SwordGet);
 	USoundManager::GetInstance().StopBGMSound();
-	USoundManager::GetInstance().PlayBGMSound("BossClearFanfare.mp3");
+	USoundManager::GetInstance().PlayEffectSound("BossClearFanfare.mp3");
+
+	TimeEventer.PushEvent(11.0f, [this]()
+		{
+			PlayerCharacter->ChangeState(EPlayerState::Idle);
+		});
 }
 
 void AArmosKngiht_Control::End(float DeltaTime)

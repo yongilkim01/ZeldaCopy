@@ -46,6 +46,7 @@ AArmosKnight::AArmosKnight()
 		AttackCollision->SetComponentScale({ 80, 50 });
 		AttackCollision->SetCollisionGroup(ECollisionGroup::EnemyAttack);
 		AttackCollision->SetCollisionType(ECollisionType::Rect);
+		AttackCollision->SetActive(true);
 
 		BodyCollision = CreateDefaultSubObject<UCollision2D>();
 		BodyCollision->SetComponentLocation({ 0, 10 });
