@@ -1,5 +1,6 @@
 #pragma once
 #include "EventActor.h"
+#include <EnginePlatform/EngineSound.h>
 
 class APlayerCharacter;
 
@@ -60,7 +61,10 @@ private:
 	APlayerCharacter* Owner = nullptr;
 	EDropItemType DropItemType = EDropItemType::NONE;
 
+	USoundPlayer SoundPlayer;
+
 	float ThrowSpeed = 1000.0f;
+	bool IsDestorying = false;
 
 };
 

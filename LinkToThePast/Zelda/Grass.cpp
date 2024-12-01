@@ -191,7 +191,12 @@ void AGrass::Throw()
 
 void AGrass::DestoryEventActor()
 {
-	SpriteRenderer->ChangeAnimation("Break");
+	if (false == IsDestorying)
+	{
+		IsDestorying = true;
+		SoundPlayer = UEngineSound::Play("grass destroyed.wav");
+		SpriteRenderer->ChangeAnimation("Break");
+	}
 }
 
 void AGrass::Throw(float DeltaTime)

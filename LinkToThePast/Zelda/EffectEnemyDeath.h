@@ -1,5 +1,6 @@
 #pragma once
 #include "Effect.h"
+#include <EnginePlatform/EngineSound.h>
 
 /**
  *	Ό³Έν
@@ -25,6 +26,6 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-
+	USoundPlayer SoundPlayer;
 };
 

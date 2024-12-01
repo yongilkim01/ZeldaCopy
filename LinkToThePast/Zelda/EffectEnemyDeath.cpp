@@ -42,6 +42,7 @@ void AEffectEnemyDeath::EndEffect()
 {
 	//this->Destroy();
 	this->GetOwnerActor()->Destroy();
+	SoundPlayer = UEngineSound::Play("enemy dies.wav");
 	//this->GetOwnerActor()->GetCurRoom
 }
 

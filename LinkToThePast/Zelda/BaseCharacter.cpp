@@ -68,6 +68,7 @@ void ABaseCharacter::AddCharacterLocation(FVector2D MoveDirection)
 				this->CurRoomFloor = ERoomFloor::FLOOR_2F;
 				this->CollisionImage = CurRoom->GetColWinImage2F();
 				MoveDirection *= 0.75f;
+				//FootSoundPlayer = UEngineSound::Play("stairs up 1.wav");
 			}
 			else if (CurRoom->GetIsSecondFloor() &&
 				(CenterColor == UColor::ROOM_DOWNSTAIRS ||

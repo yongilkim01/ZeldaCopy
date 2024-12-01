@@ -11,7 +11,7 @@
 
 void AArmosKnight::TakeDamage(int Damage, AActor* Character)
 {
-	if (CurBossState == EBossState::KNOCKBACK) return;
+	if (CurBossState == EBossState::KNOCKBACK || CurrentHP <= 0) return;
 
 	CurrentHP -= Damage;
 
@@ -28,6 +28,7 @@ void AArmosKnight::TakeDamage(int Damage, AActor* Character)
 
 void AArmosKnight::Death()
 {
+	SoundPlayer = UEngineSound::Play("enemy dies.wav");
 	Manager->DestoryArmosKnight(this);
 }
 

@@ -3,6 +3,7 @@
 
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EnginePlatform/EngineSound.h>
 
 class ARoom;
 class UEngineWinImage;
@@ -110,6 +111,7 @@ private:
 	ARoom* CurRoom = nullptr;
 	ERoomFloor CurRoomFloor = ERoomFloor::FLOOR_1F;
 	UEngineWinImage* CollisionImage = nullptr;
+	USoundPlayer FootSoundPlayer;
 
 	float DebugMsgLocY = 20.0f;
 
