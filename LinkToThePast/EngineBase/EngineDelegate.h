@@ -2,8 +2,8 @@
 #include <functional>
 
 /**
-* 함수 포인터 리스트들을 관리하는 클래스
-*/
+ * 함수 포인터 리스트들을 관리하는 클래스
+ */
 class EngineDelegate
 {
 public:
@@ -13,7 +13,10 @@ public:
 	~EngineDelegate();
 
 	/** 연산자 */
-	void operator+=(std::function<void()> _Function) { Functions.push_back(_Function);}
+	void operator+=(std::function<void()> Function) 
+	{ 
+		Functions.push_back(Function);
+	}
 	void operator()() 
 	{
 		std::list<std::function<void()>>::iterator StartIter = Functions.begin();
@@ -27,9 +30,15 @@ public:
 	}
 
 	/** 리스트 삭제 */
-	void Clear() { Functions.clear(); }
+	void Clear() 
+	{ 
+		Functions.clear(); 
+	}
 	/** 함수들의 리스트가 비어져 있는지 여부를 반환 */
-	bool IsBind() { return Functions.empty() == false; }
+	bool IsBind() 
+	{ 
+		return Functions.empty() == false; 
+	}
 protected:
 
 private:
