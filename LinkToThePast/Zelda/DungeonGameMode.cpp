@@ -117,19 +117,35 @@ void ACastleDungeonGameMode::BeginPlay()
 
 	}
 
-	//{
-	//	ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
-	//	EnemyCharacter->SetActorLocation({ 240, 1100 });
-	//	EnemyCharacter->SetSpeed(150.0f);
-	//	EnemyCharacter->AddTurningLocation(FVector2D(240, 1100));
-	//	EnemyCharacter->AddTurningLocation(FVector2D(540, 1100));
-	//	EnemyCharacter->AddTurningLocation(FVector2D(540, 1170));
-	//	EnemyCharacter->AddTurningLocation(FVector2D(240, 1170));
-	//	EnemyCharacter->SetDropItemType(EDropItemType::HEART);
+	{
+		ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
+		EnemyCharacter->SetActorLocation({ 693, 2100 });
+		EnemyCharacter->SetSpeed(100.0f);
+		EnemyCharacter->AddTurningLocation(FVector2D(693, 2100));
+		EnemyCharacter->AddTurningLocation(FVector2D(693, 2300));
+		CheckCharacterInRoom(EnemyCharacter);
 
-	//	CheckCharacterInRoom(EnemyCharacter);
+		ACastleKnight* EnemyCharacter2 = GetWorld()->SpawnActor<ACastleKnight>();
+		EnemyCharacter2->SetActorLocation({ 545, 2250 });
+		EnemyCharacter2->SetSpeed(100.0f);
+		EnemyCharacter2->AddTurningLocation(FVector2D(545, 2250));
+		EnemyCharacter2->AddTurningLocation(FVector2D(545, 2050));
+		CheckCharacterInRoom(EnemyCharacter2);
 
-	//}
+	}
+
+	{
+		ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
+		EnemyCharacter->SetActorLocation({ 240, 1100 });
+		EnemyCharacter->SetSpeed(150.0f);
+		EnemyCharacter->AddTurningLocation(FVector2D(240, 1100));
+		EnemyCharacter->AddTurningLocation(FVector2D(540, 1100));
+		EnemyCharacter->AddTurningLocation(FVector2D(540, 1170));
+		EnemyCharacter->AddTurningLocation(FVector2D(240, 1170));
+		EnemyCharacter->SetDropItemType(EDropItemType::HEART);
+
+		CheckCharacterInRoom(EnemyCharacter);
+	}
 
 	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
 	LevelMove1->SetActorLocation({ 2305, 115 });
@@ -156,9 +172,9 @@ void ACastleDungeonGameMode::BeginPlay()
 		Pot3->SetCurRoom(Roomes[5], ERoomFloor::FLOOR_1F);
 	}
 	{
-		AChest* Chest1 = GetWorld()->SpawnActor<AChest>();
-		Chest1->SetActorLocation({ 2280, 400 });
-		Chest1->SetCurRoom(Roomes[3], ERoomFloor::FLOOR_2F);
+		//AChest* Chest1 = GetWorld()->SpawnActor<AChest>();
+		//Chest1->SetActorLocation({ 2280, 400 });
+		//Chest1->SetCurRoom(Roomes[3], ERoomFloor::FLOOR_2F);
 
 		AChest* Chest2 = GetWorld()->SpawnActor<AChest>();
 		Chest2->SetActorLocation({ 1152, 1120 });

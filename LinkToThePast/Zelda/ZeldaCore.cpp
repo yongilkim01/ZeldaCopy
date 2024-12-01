@@ -109,6 +109,8 @@ void UZeldaCore::BeginPlay()
 	UImageManager::GetInst().CuttingSprite("CastleKnightMoveUp.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("CastleKnightMoveDown.png", { 64, 64 });
 
+	UImageManager::GetInst().CuttingSprite("GuardKnight.png", { 64, 64 });
+
 	UImageManager::GetInst().CuttingSprite("ArmosKnightHit.png", { 64, 64 });
 	UImageManager::GetInst().CuttingSprite("ArmosKnightDeath.png", { 64, 64 });
 

@@ -244,12 +244,12 @@ void ALinkHouseGameMode::StartNPCTalk()
 	StrValues.push_back("Do not leave the house.");
 
 	UIBox->SetIsShowFrame(true);
-	UIBox->CreateUIText(StrValues, 1.0f);
+	UIBox->CreateUIText(StrValues, 0.6f);
 
 	LinkFather->ChangeState(ELinkFatherState::SIT_LEFT);
 	Player->ChangeState(EPlayerState::WakeUp);
 
-	TimeEventer.PushEvent(3.0f, [this]() 
+	TimeEventer.PushEvent(2.0f, [this]() 
 		{
 			ChangeState(ELinkHouseState::NPC_MOVE_LEFT);
 		});

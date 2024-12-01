@@ -34,6 +34,7 @@ protected:
 	/** 룸 상속 메소드 */
 	virtual void BeginPlayRoomActor() override;
 	virtual void BeginPlayEnvActor() override;
+	virtual void BeginPlayEnemyActor() override;
 
 private:
 	APlayerCharacter* Player = nullptr;

@@ -11,6 +11,8 @@
 #include "Chest.h"
 #include "SoundManager.h"
 #include "PlayerDataManager.h"
+#include "GuardKnight.h"
+#include "CastleKnight.h"
 #include "LevelMove.h"
 
 #include <EnginePlatform/EngineInput.h>
@@ -257,6 +259,27 @@ void ALightWorldGameMode::BeginPlayEnvActor()
 	//	Chest->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
 	//	Chest->SetDropItemType(EDropItemType::LANTERN);
 	//}
+}
+
+void ALightWorldGameMode::BeginPlayEnemyActor()
+{
+	AGuardKnight* GuardKnight = GetWorld()->SpawnActor<AGuardKnight>();
+	GuardKnight->SetActorLocation(FVector2D(1536, 2016));
+
+
+	ACastleKnight* EnemyCharacter = GetWorld()->SpawnActor<ACastleKnight>();
+	EnemyCharacter->SetActorLocation({ 1654, 1020 });
+	EnemyCharacter->SetSpeed(100.0f);
+	EnemyCharacter->AddTurningLocation(FVector2D(1654, 1020));
+	EnemyCharacter->AddTurningLocation(FVector2D(1410, 1020));
+	CheckCharacterInRoom(EnemyCharacter);
+
+	ACastleKnight* EnemyCharacter2 = GetWorld()->SpawnActor<ACastleKnight>();
+	EnemyCharacter2->SetActorLocation({ 1410, 1260 });
+	EnemyCharacter2->SetSpeed(100.0f);
+	EnemyCharacter2->AddTurningLocation(FVector2D(1410, 1260));
+	EnemyCharacter2->AddTurningLocation(FVector2D(1654, 1260));
+	CheckCharacterInRoom(EnemyCharacter2);
 }
 
 void ALightWorldGameMode::Tick(float DeltaTime)

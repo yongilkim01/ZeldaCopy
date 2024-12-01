@@ -202,6 +202,9 @@
     <ClInclude Include="DropMagicDrink.h">
       <Filter>2_Data\5_Item\Drop</Filter>
     </ClInclude>
+    <ClInclude Include="GuardKnight.h">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayerCharacter.cpp">
@@ -431,6 +434,9 @@
     </ClCompile>
     <ClCompile Include="DropMagicDrink.cpp">
       <Filter>2_Data\5_Item\Drop</Filter>
+    </ClCompile>
+    <ClCompile Include="GuardKnight.cpp">
+      <Filter>2_Data\1_Enemy\Basic\HyruleCastle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

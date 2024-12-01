@@ -404,8 +404,9 @@ void APlayerCharacter::Idle(float DeltaTime)
 		StartAttack();
 		CurPlayerState = EPlayerState::Attack;
 	}
-	else if (UEngineInput::GetInst().IsDown(VK_RBUTTON) == true &&
-		CurPlayerState != EPlayerState::Skill)
+	else if (0 != PlayerDataManager::GetInstance().GetWeaponCount() &&
+			 UEngineInput::GetInst().IsDown(VK_RBUTTON) == true &&
+			 CurPlayerState != EPlayerState::Skill)
 	{
 		ChangeState(EPlayerState::Skill);
 	}
@@ -513,8 +514,9 @@ void APlayerCharacter::Move(float DeltaTime)
 		StartAttack();
 		CurPlayerState = EPlayerState::Attack;
 	}
-	else if (UEngineInput::GetInst().IsDown(VK_RBUTTON) == true &&
-		CurPlayerState != EPlayerState::Skill)
+	else if (0 != PlayerDataManager::GetInstance().GetWeaponCount() &&
+			 UEngineInput::GetInst().IsDown(VK_RBUTTON) == true &&
+			 CurPlayerState != EPlayerState::Skill)
 	{
 		ChangeState(EPlayerState::Skill);
 	}
@@ -617,11 +619,10 @@ void APlayerCharacter::Attack(float DeltaTime)
 
 void APlayerCharacter::Skill(float DeltaTime)
 {
-	if (0 != PlayerDataManager::GetInstance().GetWeaponCount() &&
-		false == IsAttack)
+	WeaponItemes[PlayerDataManager::GetInstance().GetSelectWeapon()]->Action(DeltaTime);
+	if (1 != PlayerDataManager::GetInstance().GetSelectWeapon())
 	{
-		WeaponItemes[PlayerDataManager::GetInstance().GetSelectWeapon()]->Action(DeltaTime);
-		IsAttack = true;
+		ChangeState(EPlayerState::Idle);
 	}
 }
 

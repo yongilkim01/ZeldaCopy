@@ -28,7 +28,7 @@ public:
 	/** Castle Knight ¸Þ¼Òµå */
 	void ChangeMoveAnimation(FVector2D Direction);
 	void ChangeHitAnimation(FVector2D Direction);
-	void EndFallAnimation();
+	void EndFallAnimation(); 
 	void PrintDebugInfo();
 
 protected:
