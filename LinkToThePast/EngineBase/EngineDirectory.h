@@ -1,12 +1,10 @@
 #pragma once
-/** Engine Header */
 #include "EnginePath.h"
 
-/** Std Header */
 #include <vector>
 
 /**
- * 디렉토리 파일 순회 기능을 하는 클래스
+ * 디렉토리 파일 순회 클래스
  */
 class UEngineDirectory : public UEnginePath
 {
@@ -16,12 +14,6 @@ public:
 	UEngineDirectory(std::string_view _Path);
 	UEngineDirectory(std::filesystem::path _Path);
 	~UEngineDirectory();
-
-	/** 객체 값 복사 방지 */
-	//UEngineDirectory(const UEngineDirectory& _Other) = delete;
-	//UEngineDirectory(UEngineDirectory&& _Other) noexcept = delete;
-	//UEngineDirectory& operator=(const UEngineDirectory& _Other) = delete;
-	//UEngineDirectory& operator=(UEngineDirectory&& _Other) noexcept = delete;
 
 	/** 
 	 * 디렉토리 내 모든 파일들을 가져와서 UEngineFile 타입으로 값을 저장 후 반환하는 메소드

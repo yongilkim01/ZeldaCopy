@@ -83,7 +83,6 @@ void UEnginePath::Append(std::string_view AppendName)
 
 bool UEnginePath::MoveParentToDirectory(std::string_view FilePath)
 {
-	// Path = L"D:\\Project\\API\\App\\AAA.png"
 	UEnginePath DummyPath = UEnginePath(Path);
 
 	if (false == DummyPath.IsDirectory())

@@ -1,9 +1,8 @@
 #pragma once
-/** Std Header file */
 #include <filesystem>
 
 /**
- * 파일 경로를 래핑한 클래스
+ * 파일 경로 래핑 클래스
  */
 class UEnginePath
 {
@@ -14,18 +13,6 @@ public:
 	UEnginePath(std::filesystem::path FilePath);
 	~UEnginePath();
 
-	/** 객체 값 복사 방지 */
-	//UEnginePath(const UEnginePath& _Other) = delete;
-	//UEnginePath(UEnginePath&& _Other) noexcept = delete;
-	//UEnginePath& operator=(const UEnginePath& _Other) = delete;
-	//UEnginePath& operator=(UEnginePath&& _Other) noexcept = delete;
-
-	// "C:\\AAAA\\BBBB\\";
-	// "C:\\AAAA\\BBBB\\Resources";
-	// "C:\\AAAA\\"
-	// "C:\\AAAA\\Resources"
-	// "C:\\"
-	// "C:\\Resources"
 	/** 디렉토리 상위 디렉토리로 이동하는 메소드 */
 	void MoveParent();
 	/** 특정 디렉토리가 나올 때 까지 UEnginePath::MoveParent를 호출하는 메소드 */

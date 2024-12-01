@@ -1,10 +1,8 @@
 #pragma once
-/** Std Header */
 #include <Windows.h>
 #include <iostream>
 #include <io.h>
 
-/** Engine Header */
 #include "EnginePath.h"
 
 class UEngineSerializer;
@@ -26,6 +24,7 @@ public:
 	void Write(UEngineSerializer& Ser);
 	void Read(void* Ptr, size_t Size);
 	void Read(UEngineSerializer& Ser);
+
 	/** 파일 열고 닫기 메소드 */
 	void FileOpen(const char* Mode);
 	void Close();
