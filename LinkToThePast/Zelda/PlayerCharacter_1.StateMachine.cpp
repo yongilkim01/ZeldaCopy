@@ -312,6 +312,7 @@ void APlayerCharacter::StartWakeUp()
 
 void APlayerCharacter::StartFall()
 {
+	EffectSoundPlayer = UEngineSound::Play("fall.wav");
 	SpriteRenderer->ChangeAnimation("Fall");
 }
 

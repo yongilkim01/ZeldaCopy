@@ -53,6 +53,11 @@ public:
 		DropItemType = ItemType;
 	}
 
+	/** °Ù, ¼Â ¸Þ¼Òµå */
+	void SetIsEvent(bool Value)
+	{
+		bEvent = Value;
+	}
 protected:
 
 private:
@@ -65,6 +70,7 @@ private:
 
 	float ThrowSpeed = 1000.0f;
 	bool IsDestorying = false;
+	bool bEvent = false;
 
 };
 

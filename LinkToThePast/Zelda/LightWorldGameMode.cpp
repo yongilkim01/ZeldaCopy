@@ -101,6 +101,7 @@ void ALightWorldGameMode::BeginPlayEnvActor()
 		AGrass* Grass1 = GetWorld()->SpawnActor<AGrass>();
 		Grass1->SetActorLocation({ 2712, 504 });
 		Grass1->SetCurRoom(Roomes[0], ERoomFloor::FLOOR_1F);
+		Grass1->SetIsEvent(true);
 
 		/////////////////////////////////////////////////
 

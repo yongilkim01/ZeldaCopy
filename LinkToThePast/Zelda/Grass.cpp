@@ -79,6 +79,10 @@ void AGrass::Tick(float DeltaTime)
 
 int AGrass::Interact(ABaseCharacter* Character)
 {
+	if (true == bEvent)
+	{
+		SoundPlayer = UEngineSound::Play("secret.wav");
+	}
 	ImmuneCollision->SetActive(false);
 	ADropItem* DropItem = nullptr;
 	switch (DropItemType)
