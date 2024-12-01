@@ -1,5 +1,6 @@
 #pragma once
 #include "WeaponItem.h"
+#include <EnginePlatform/EngineSound.h>
 
 /**
  *	Ό³Έν
@@ -27,6 +28,7 @@ public:
 protected:
 
 private:
+	USoundPlayer SoundPlayer;
 
 };
 

@@ -2,6 +2,7 @@
 #include "Lantern.h"
 #include "ContentsEnum.h"
 #include "PlayerCharacter.h"
+#include "PlayerDataManager.h"
 
 #include "EffectFire.h"
 
@@ -48,9 +49,17 @@ void ALantern::Tick(float DeltaTime)
 
 void ALantern::Action(float Tick)
 {
-	AEffectFire* FireEffect = GetWorld()->SpawnActor<AEffectFire>();
-	FVector2D Direction = OwnerPlayer->GetCurDirection();
-	float DistanceToOwner = OwnerPlayer->GetChildDistance();
-	FireEffect->SetActorLocation(GetActorLocation() + (Direction * DistanceToOwner));
+	if (5 <= PlayerDataManager::GetInstance().GetMagicGauge())
+	{
+		AEffectFire* FireEffect = GetWorld()->SpawnActor<AEffectFire>();
+		FVector2D Direction = OwnerPlayer->GetCurDirection();
+		float DistanceToOwner = OwnerPlayer->GetChildDistance();
+		FireEffect->SetActorLocation(GetActorLocation() + (Direction * DistanceToOwner));
+		PlayerDataManager::GetInstance().AddMagicGaguge(-5);
+	}
+	else if (0 == PlayerDataManager::GetInstance().GetMagicGauge())
+	{
+		SoundPlayer = UEngineSound::Play("magic meter 1.wav");
+	}
 }
 

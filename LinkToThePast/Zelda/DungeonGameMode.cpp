@@ -155,10 +155,10 @@ void ACastleDungeonGameMode::BeginPlay()
 		CheckCharacterInRoom(EnemyCharacter);
 	}
 
-	ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
-	LevelMove1->SetActorLocation({ 2305, 115 });
-	//LevelMove1->SetFade(FadeActor);
-	LevelMove1->SetMoveLevelName("HyruleCastle");
+	//ALevelMove* LevelMove1 = GetWorld()->SpawnActor<ALevelMove>();
+	//LevelMove1->SetActorLocation({ 2305, 115 });
+	////LevelMove1->SetFade(FadeActor);
+	//LevelMove1->SetMoveLevelName("HyruleCastle");
 
 	ALevelMove* LevelMove2 = GetWorld()->SpawnActor<ALevelMove>();
 	LevelMove2->SetActorLocation({ 500, 114 });
