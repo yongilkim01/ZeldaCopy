@@ -11,8 +11,8 @@ class UEngineDirectory : public UEnginePath
 public:
 	/** 持失切, 社瑚切 */
 	UEngineDirectory();
-	UEngineDirectory(std::string_view _Path);
-	UEngineDirectory(std::filesystem::path _Path);
+	UEngineDirectory(std::string_view InitPath);
+	UEngineDirectory(std::filesystem::path InitPath);
 	~UEngineDirectory();
 
 	/** 

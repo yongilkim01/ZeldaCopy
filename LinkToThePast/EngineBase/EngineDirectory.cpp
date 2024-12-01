@@ -8,13 +8,13 @@ UEngineDirectory::UEngineDirectory()
 
 }
 
-UEngineDirectory::UEngineDirectory(std::string_view Path)
-	: UEnginePath(Path)
+UEngineDirectory::UEngineDirectory(std::string_view InitPath)
+	: UEnginePath(InitPath)
 {
 }
 
-UEngineDirectory::UEngineDirectory(std::filesystem::path _Path)
-	: UEnginePath(_Path)
+UEngineDirectory::UEngineDirectory(std::filesystem::path InitPath)
+	: UEnginePath(InitPath)
 {
 }
 
