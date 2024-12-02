@@ -41,7 +41,7 @@ AGrass::AGrass()
 		ImmuneCollision->SetComponentLocation({ 0, 0 });
 		ImmuneCollision->SetComponentScale({ 40, 40 });
 		ImmuneCollision->SetCollisionGroup(ECollisionGroup::NOTMOVEABLE);
-		ImmuneCollision->SetActive(true);
+		ImmuneCollision->SetActive(false);
 	}
 
 	//DebugOn();
