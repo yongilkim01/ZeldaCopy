@@ -12,16 +12,24 @@ public:
 	virtual ~UObject();
 
 	/** 객체 값 복사 방지 */
-	UObject(const UObject& _Other) = delete;
-	UObject(UObject&& _Other) noexcept = delete;
-	UObject& operator=(const UObject& _Other) = delete;
-	UObject& operator=(UObject&& _Other) noexcept = delete;
+	UObject(const UObject& Other) = delete;
+	UObject(UObject&& Other) noexcept = delete;
+	UObject& operator=(const UObject& Other) = delete;
+	UObject& operator=(UObject&& Other) noexcept = delete;
 
-	virtual void SetName(std::string_view _Name) { Name = _Name.data(); }
-	std::string GetName() const { return Name; }
-	std::string_view GetNameView() const { return Name.c_str(); }
+	virtual void SetName(std::string_view NewName) 
+	{ 
+		Name = NewName.data(); 
+	}
+	std::string GetName() const
+	{ 
+		return Name;
+	}
+	std::string_view GetNameView() const 
+	{ 
+		return Name.c_str(); 
+	}
 
-	// bool IsActive()
 	virtual bool IsActive()
 	{
 		return IsActiveValue && false == IsDestroyValue;
@@ -30,25 +38,25 @@ public:
 	{
 		return IsDestroyValue;
 	}
-	// 바로 죽겠죠?
-	// _Time 시간후에 죽어라.
-	void Destroy(float _Time = 0.0f)
+
+	void Destroy(float Time = 0.0f)
 	{
-		DeathTime = _Time;
-		if (0.0f < _Time)
+		DeathTime = Time;
+		if (0.0f < Time)
 		{
 			IsDeathTimeCheck = true;
 			return;
 		}
 		IsDestroyValue = true;
 	}
-	virtual void ReleaseCheck(float _DeltaTime)
+
+	virtual void ReleaseCheck(float DeltaTime)
 	{
 		if (false == IsDeathTimeCheck)
 		{
 			return;
 		}
-		CurDeathTime += _DeltaTime;
+		CurDeathTime += DeltaTime;
 		if (DeathTime <= CurDeathTime)
 		{
 			IsDestroyValue = true;
@@ -70,8 +78,6 @@ public:
 		}
 	}
 
-	// 모든 기능 정지.
-	// 얼음 외부에서 다른 객체가 풀어줘야 한다.
 	void SetActive(bool IsActive)
 	{
 		IsActiveValue = IsActive;
