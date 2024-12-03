@@ -38,19 +38,19 @@ public:
 	~UEngineAPICore();
 
 	/** 연산자 삭제 */
-	UEngineAPICore(const UEngineAPICore& _Other) = delete;
-	UEngineAPICore(UEngineAPICore&& _Other) noexcept = delete;
-	UEngineAPICore& operator=(const UEngineAPICore& _Other) = delete;
-	UEngineAPICore& operator=(UEngineAPICore&& _Other) noexcept = delete;
+	UEngineAPICore(const UEngineAPICore& Other) = delete;
+	UEngineAPICore(UEngineAPICore&& Other) noexcept = delete;
+	UEngineAPICore& operator=(const UEngineAPICore& Other) = delete;
+	UEngineAPICore& operator=(UEngineAPICore&& Other) noexcept = delete;
 
 	/** 엔진 시작 정적 메소드 */
-	static int EngineStart(HINSTANCE _Inst, UContentsCore* _UserCore);
+	static int EngineStart(HINSTANCE Inst, UContentsCore* ContentsCore);
 	/** 레벨 관련 메소드 */
-	void OpenLevel(std::string_view _LevelName);
+	void OpenLevel(std::string_view LevelName);
 	template<typename GameModeType, typename MainPawnType>
-	ULevel* CreateLevel(std::string_view _LevelName)
+	ULevel* CreateLevel(std::string_view LevelName)
 	{
-		std::string UpperName = UEngineString::ToUpper(_LevelName);
+		std::string UpperName = UEngineString::ToUpper(LevelName);
 		if (false != Levels.contains(UpperName))
 		{
 			MSGASSERT("존재하는 이름의 레벨을 또 만들수 없습니다" + UpperName);
@@ -69,29 +69,26 @@ public:
 	}
 
 	template<typename GameModeType, typename MainPawnType>
-	void ResetLevel(std::string_view _LevelName)
+	void ResetLevel(std::string_view LevelName)
 	{
-		// DestroyLevelName = _LevelName;
-		std::string UpperName = UEngineString::ToUpper(_LevelName);
-		// 지금 당장 이녀석을 지우면 안된다.
+		std::string UpperName = UEngineString::ToUpper(LevelName);
+
 		if (CurLevel->GetName() != UpperName)
 		{
-			DestroyLevel(_LevelName);
+			DestroyLevel(LevelName);
 			CreateLevel<GameModeType, MainPawnType>(UpperName);
 			return;
 		}
 
-		// CurLevel은 삭제되어야 한다.
-		// 나의 포인터는 살아있다. CurLevel
 		std::map<std::string, class ULevel*>::iterator FindIter = Levels.find(UpperName);
 		Levels.erase(FindIter);
 		NextLevel = CreateLevel<GameModeType, MainPawnType>(UpperName);
 		IsCurLevelReset = true;
 	}
 
-	void DestroyLevel(std::string_view _LevelName)
+	void DestroyLevel(std::string_view LevelName)
 	{
-		std::string UpperName = UEngineString::ToUpper(_LevelName);
+		std::string UpperName = UEngineString::ToUpper(LevelName);
 		if (false == Levels.contains(UpperName))
 		{
 			// MSGASSERT("존재하지 않는 레벨을 리셋할수 없습니다." + UpperName);
