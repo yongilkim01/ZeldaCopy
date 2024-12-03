@@ -3,15 +3,17 @@
 #include <map>
 #include "EngineDebug.h"
 
-// 설명 :
+/**
+ *	설명
+ */
 class UFSMStateManager
 {
 public:
-	// constrcuter destructer
+	/** 생성자, 소멸자 */
 	UFSMStateManager() {	}
 	~UFSMStateManager() {	}
 
-	// delete Function
+	/** 객체 값 복사방지 */
 	UFSMStateManager(const UFSMStateManager& _Other) = delete;
 	UFSMStateManager(UFSMStateManager&& _Other) noexcept = delete;
 	UFSMStateManager& operator=(const UFSMStateManager& _Other) = delete;
@@ -26,37 +28,37 @@ public:
 	};
 
 	template<typename EnumType>
-	void CreateState(EnumType _Key, std::function<void(float)> _UpdateFunction, std::function<void()> _Start = nullptr)
+	void CreateState(EnumType Key, std::function<void(float)> UpdateFunction, std::function<void()> Start = nullptr)
 	{
-		CreateState(static_cast<int>(_Key), _UpdateFunction, _Start);
+		CreateState(static_cast<int>(Key), UpdateFunction, Start);
 	}
 
-	void CreateState(int _Key, std::function<void(float)> _UpdateFunction, std::function<void()> _Start = nullptr)
+	void CreateState(int Key, std::function<void(float)> UpdateFunction, std::function<void()> Start = nullptr)
 	{
-		if (true == States.contains(_Key))
+		if (true == States.contains(Key))
 		{
 			MSGASSERT("이미 존재하는 스테이트를 또 만들려고 했습니다.");
 			return;
 		}
 
-		States[_Key].UpdateFunction = _UpdateFunction;
-		States[_Key].StartFunction = _Start;
+		States[Key].UpdateFunction = UpdateFunction;
+		States[Key].StartFunction = Start;
 	}
 
-	void Update(float _DeltaTime)
+	void Update(float DeltaTime)
 	{
 		if (nullptr == CurState)
 		{
 			return;
 		}
 
-		CurState->UpdateFunction(_DeltaTime);
+		CurState->UpdateFunction(DeltaTime);
 	}
 
 	template<typename EnumType>
-	void ChangeState(EnumType _Key)
+	void ChangeState(EnumType Key)
 	{
-		ChangeState(static_cast<int>(_Key));
+		ChangeState(static_cast<int>(Key));
 	}
 
 	void Stop()
@@ -64,15 +66,15 @@ public:
 		CurState = nullptr;
 	}
 
-	void ChangeState(int _Key)
+	void ChangeState(int Key)
 	{
-		if (false == States.contains(_Key))
+		if (false == States.contains(Key))
 		{
 			MSGASSERT("만든적이 없는 스테이트로 체인지 하려고 했습니다.");
 			return;
 		}
 
-		CurState = &States[_Key];
+		CurState = &States[Key];
 		if (nullptr != CurState->StartFunction)
 		{
 			CurState->StartFunction();
@@ -80,9 +82,6 @@ public:
 	}
 
 protected:
-	// ChangeState("Idle")
-	// ChangeState(EPlayerState::Idle)
-	// Idle 스테이트로 이동해줘
 
 private:
 	FSMState* CurState = nullptr;
