@@ -1,19 +1,12 @@
 #include "PreCompile.h"
 #include "EngineInput.h"
 
-// UEngineInput UEngineInput::Inst = UEngineInput();
-// UEngineInput* UEngineInput::Inst = nullptr;
-
-// Input 내부에 Key 내부의 keyCheck 함수
-void UEngineInput::UEngineKey::KeyCheck(float _DeltaTime)
+void UEngineInput::UEngineKey::KeyCheck(float DeltaTime)
 {
-	// if (true == GetAsyncKeyState('B'))
 	if (0 != GetAsyncKeyState(Key))
 	{
-		// 게임엔진에서 시간재는법
-		// 특정 float을 만들어 놓고 그 float 계속 델타타임을 더해주면
-		PressTime += _DeltaTime;
-		// 이전전까지 안눌려있어다면
+		PressTime += DeltaTime;
+		
 		if (true == IsFree)
 		{
 			IsDown = true;
@@ -28,13 +21,11 @@ void UEngineInput::UEngineKey::KeyCheck(float _DeltaTime)
 			IsFree = false;
 			IsUp = false;
 		}
-
-		// B키가 눌렸다면
 	}
 	else
 	{
 		PressTime = 0.0f;
-		// B키가 안눌렸다면
+
 		if (true == IsPress)
 		{
 			IsDown = false;
@@ -200,20 +191,19 @@ UEngineInput::UEngineInput()
 
 }
 
-void UEngineInput::EventCheck(float _DeltaTime)
+void UEngineInput::EventCheck(float DeltaTime)
 {
 	std::map<int, UEngineKey>::iterator StartIter = Keys.begin();
 	std::map<int, UEngineKey>::iterator EndIter = Keys.end();
 
 	for (; StartIter != EndIter; ++StartIter)
 	{
-		// 명시적이기 잖고 디버깅이 힘들어서 별로 좋아하지 않게 되었다.
 		UEngineKey& CurKey = StartIter->second;
 		CurKey.EventCheck();
 	}
 }
 
-void UEngineInput::KeyCheck(float _DeltaTime)
+void UEngineInput::KeyCheck(float DeltaTime)
 {
 	std::map<int, UEngineKey>::iterator StartIter = Keys.begin();
 	std::map<int, UEngineKey>::iterator EndIter = Keys.end();
@@ -222,7 +212,7 @@ void UEngineInput::KeyCheck(float _DeltaTime)
 	{
 		// 명시적이기 잖고 디버깅이 힘들어서 별로 좋아하지 않게 되었다.
 		UEngineKey& CurKey = StartIter->second;
-		CurKey.KeyCheck(_DeltaTime);
+		CurKey.KeyCheck(DeltaTime);
 	}
 }
 
@@ -230,27 +220,27 @@ UEngineInput::~UEngineInput()
 {
 }
 
-void UEngineInput::BindAction(int _KeyIndex, KeyEvent _EventType, std::function<void() > _Function)
+void UEngineInput::BindAction(int KeyIndex, KeyEvent EventType, std::function<void() > Function)
 {
-	if (false == Keys.contains(_KeyIndex))
+	if (false == Keys.contains(KeyIndex))
 	{
 		MSGASSERT("아직도 등록되지 않은 키가 존재합니다.");
 		return;
 	}
 
-	switch (_EventType)
+	switch (EventType)
 	{
 	case KeyEvent::Down:
-		Keys[_KeyIndex].DownEvents.push_back(_Function);
+		Keys[KeyIndex].DownEvents.push_back(Function);
 		break;
 	case KeyEvent::Press:
-		Keys[_KeyIndex].PressEvents.push_back(_Function);
+		Keys[KeyIndex].PressEvents.push_back(Function);
 		break;
 	case KeyEvent::Free:
-		Keys[_KeyIndex].FreeEvents.push_back(_Function);
+		Keys[KeyIndex].FreeEvents.push_back(Function);
 		break;
 	case KeyEvent::Up:
-		Keys[_KeyIndex].UpEvents.push_back(_Function);
+		Keys[KeyIndex].UpEvents.push_back(Function);
 		break;
 	default:
 		break;

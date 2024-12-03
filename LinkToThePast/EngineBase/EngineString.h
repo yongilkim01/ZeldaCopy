@@ -10,15 +10,15 @@ public:
 	~UEngineString();
 
 	/** 객체 값 복사 방지 */
-	UEngineString(const UEngineString& _Other) = delete;
-	UEngineString(UEngineString&& _Other) noexcept = delete;
-	UEngineString& operator=(const UEngineString& _Other) = delete;
-	UEngineString& operator=(UEngineString&& _Other) noexcept = delete;
+	UEngineString(const UEngineString& Other) = delete;
+	UEngineString(UEngineString&& Other) noexcept = delete;
+	UEngineString& operator=(const UEngineString& Other) = delete;
+	UEngineString& operator=(UEngineString&& Other) noexcept = delete;
 
 	/** 대문자 변환 메소드 */
 	static std::string ToUpper(std::string_view);
 	/** 유니코드 변환 메소드 */
-	static std::wstring AnsiToUnicode(std::string_view _Name);
+	static std::wstring AnsiToUnicode(std::string_view Name);
 protected:
 
 private:

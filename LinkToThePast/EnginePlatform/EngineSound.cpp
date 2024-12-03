@@ -67,7 +67,6 @@ void UEngineSound::Load(std::string_view Path)
 
 void UEngineSound::Load(std::string_view Name, std::string_view Path)
 {
-	// 이녀석은 UTF-8로 경로를 바꿔줘야 할수 있다.
 	std::string UpperString = UEngineString::ToUpper(Name);
 
 	UEngineSound* NewSound = new UEngineSound();
@@ -82,7 +81,6 @@ void UEngineSound::Load(std::string_view Name, std::string_view Path)
 	;
 
 	UEngineSound::Sounds.insert({ UpperString, NewSound });
-	// Load(FileName, Path);
 }
 
 USoundPlayer UEngineSound::Play(std::string_view Name)

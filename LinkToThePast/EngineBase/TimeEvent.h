@@ -22,10 +22,10 @@ public:
 	~UTimeEvent();
 
 	/** 객체 값 복사 방지 */
-	UTimeEvent(const UTimeEvent& _Other) = delete;
-	UTimeEvent(UTimeEvent&& _Other) noexcept = delete;
-	UTimeEvent& operator=(const UTimeEvent& _Other) = delete;
-	UTimeEvent& operator=(UTimeEvent&& _Other) noexcept = delete;
+	UTimeEvent(const UTimeEvent& Other) = delete;
+	UTimeEvent(UTimeEvent&& Other) noexcept = delete;
+	UTimeEvent& operator=(const UTimeEvent& Other) = delete;
+	UTimeEvent& operator=(UTimeEvent&& Other) noexcept = delete;
 
 	void PushEvent(float Time, std::function<void()> Function, bool IsUpdate = false, bool IsLoop = false)
 	{

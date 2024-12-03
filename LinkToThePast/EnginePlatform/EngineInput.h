@@ -24,11 +24,11 @@ public:
 	/** 생성자, 소멸자 */
 	~UEngineInput();
 
-	// delete Function
-	UEngineInput(const UEngineInput& _Other) = delete;
-	UEngineInput(UEngineInput&& _Other) noexcept = delete;
-	UEngineInput& operator=(const UEngineInput& _Other) = delete;
-	UEngineInput& operator=(UEngineInput&& _Other) noexcept = delete;
+	/** 객체 값 복사 방지 */
+	UEngineInput(const UEngineInput& Other) = delete;
+	UEngineInput(UEngineInput&& Other) noexcept = delete;
+	UEngineInput& operator=(const UEngineInput& Other) = delete;
+	UEngineInput& operator=(UEngineInput&& Other) noexcept = delete;
 
 	static UEngineInput& GetInst()
 	{
@@ -65,66 +65,66 @@ private:
 
 		}
 
-		UEngineKey(int _Key)
-			: Key(_Key)
+		UEngineKey(int KeyValue)
+			: Key(KeyValue)
 		{
 
 		}
 
 		void EventCheck();
-		void KeyCheck(float _DeltaTime);
+		void KeyCheck(float DeltaTime);
 	};
 
 public:
-	void KeyCheck(float _DeltaTime);
-	void EventCheck(float _DeltaTime);
+	void KeyCheck(float DeltaTime);
+	void EventCheck(float DeltaTime);
 
-	bool IsDown(int _KeyIndex)
+	bool IsDown(int KeyIndex)
 	{
-		if (Keys.contains(_KeyIndex) == false)
+		if (Keys.contains(KeyIndex) == false)
 		{
 			MSGASSERT("등록되지 않은 키가 존재합니다.");
 			return false;
 		}
 
-		return Keys[_KeyIndex].IsDown;
+		return Keys[KeyIndex].IsDown;
 	}
 
-	bool IsPress(int _KeyIndex)
+	bool IsPress(int KeyIndex)
 	{
-		if (false == Keys.contains(_KeyIndex))
+		if (false == Keys.contains(KeyIndex))
 		{
 			MSGASSERT("아직도 등록되지 않은 키가 존재합니다.");
 			return false;
 		}
 
-		return Keys[_KeyIndex].IsPress;
+		return Keys[KeyIndex].IsPress;
 	}
 
-	float IsPreeTime(int _KeyIndex)
+	float IsPreeTime(int KeyIndex)
 	{
-		if (false == Keys.contains(_KeyIndex))
+		if (false == Keys.contains(KeyIndex))
 		{
 			MSGASSERT("아직도 등록되지 않은 키가 존재합니다.");
 			return false;
 		}
 
-		return Keys[_KeyIndex].PressTime;
+		return Keys[KeyIndex].PressTime;
 	}
 
 
-	bool IsFree(int _KeyIndex)
+	bool IsFree(int KeyIndex)
 	{
-		if (false == Keys.contains(_KeyIndex))
+		if (false == Keys.contains(KeyIndex))
 		{
 			MSGASSERT("아직도 등록되지 않은 키가 존재합니다.");
 			return false;
 		}
 
-		return Keys[_KeyIndex].IsFree;
+		return Keys[KeyIndex].IsFree;
 	}
 
-	void BindAction(int _KeyIndex, KeyEvent _EventType, std::function<void()> _Function);
+	void BindAction(int KeyIndex, KeyEvent EventType, std::function<void()> Function);
 
 protected:
 

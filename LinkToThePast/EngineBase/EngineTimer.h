@@ -12,14 +12,20 @@ public:
 	~UEngineTimer();
 
 	/** 객체 값 복사 방지 */
-	UEngineTimer(const UEngineTimer& _Other) = delete;
-	UEngineTimer(UEngineTimer&& _Other) noexcept = delete;
-	UEngineTimer& operator=(const UEngineTimer& _Other) = delete;
-	UEngineTimer& operator=(UEngineTimer&& _Other) noexcept = delete;
+	UEngineTimer(const UEngineTimer& Other) = delete;
+	UEngineTimer(UEngineTimer&& Other) noexcept = delete;
+	UEngineTimer& operator=(const UEngineTimer& Other) = delete;
+	UEngineTimer& operator=(UEngineTimer&& Other) noexcept = delete;
 
 	void TimeCheck();
-	float GetDeltaTime() { return fDeltaTime; }
-	double GetDoubleDeltaTime() { return DeltaTime; }
+	float GetDeltaTime() 
+	{ 
+		return fDeltaTime; 
+	}
+	double GetDoubleDeltaTime()
+	{ 
+		return DeltaTime;
+	}
 	void TimeStart();
 	float End();
 	double DEnd();
