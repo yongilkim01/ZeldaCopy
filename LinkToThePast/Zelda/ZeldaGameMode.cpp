@@ -247,7 +247,7 @@ void AZeldaGameMode::MoveRoom()
 		case ERoomDirection::RIGHT_SMALL:
 			CameraMovePosition = GetWorld()->GetCameraLocation() + FVector2D(CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraLocation(CameraMovePosition);
-			//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(0.3f, 0.0f));
+
 			if (CameraMovePosition.iX() > CameraEndLocation.iX())
 			{
 				EndStart();
@@ -259,7 +259,7 @@ void AZeldaGameMode::MoveRoom()
 		case ERoomDirection::LEFT_SMALL:
 			CameraMovePosition = GetWorld()->GetCameraLocation() + FVector2D(-CameraMoveSpeed, 0.0f);
 			GetWorld()->SetCameraLocation(CameraMovePosition);
-			//PlayerCharacter->SetActorLocation(PlayerCharacter->GetActorLocation() + FVector2D(-0.3f, 0.0f));
+
 			if (CameraMovePosition.iX() < CameraEndLocation.iX())
 			{
 				EndStart();
@@ -269,6 +269,7 @@ void AZeldaGameMode::MoveRoom()
 		case ERoomDirection::UP_2F:
 		case ERoomDirection::UP_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraLocation() + FVector2D(0.0f, -CameraMoveSpeed);
+
 			GetWorld()->SetCameraLocation(CameraMovePosition);
 			if (CameraMovePosition.iY() < CameraEndLocation.iY())
 			{
@@ -279,11 +280,48 @@ void AZeldaGameMode::MoveRoom()
 		case ERoomDirection::DOWN_2F:
 		case ERoomDirection::DOWN_DIRECT:
 			CameraMovePosition = GetWorld()->GetCameraLocation() + FVector2D(0.0f, CameraMoveSpeed);
+
 			GetWorld()->SetCameraLocation(CameraMovePosition);
 			if (CameraMovePosition.iY() > CameraEndLocation.iY())
 			{
 				EndStart();
 			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	AZeldaGameMode::IsMapMoving = false;
+
+	if (CurRoomDir != ERoomDirection::NONE)
+	{
+		AZeldaGameMode::IsMapMoving = true;
+		FVector2D CameraMovePosition = FVector2D::ZERO;
+
+		switch (CurRoomDir)
+		{
+		case ERoomDirection::RIGHT:
+		case ERoomDirection::RIGHT_2F:
+		case ERoomDirection::RIGHT_DIRECT:
+		case ERoomDirection::RIGHT_SMALL:
+			StartMoveRoomEvent(FVector2D(CameraMoveSpeed, 0.0f));
+			break;
+		case ERoomDirection::LEFT:
+		case ERoomDirection::LEFT_2F:
+		case ERoomDirection::LEFT_DIRECT:
+		case ERoomDirection::LEFT_SMALL:
+			StartMoveRoomEvent(FVector2D(-CameraMoveSpeed, 0.0f));
+			break;
+		case ERoomDirection::UP:
+		case ERoomDirection::UP_2F:
+		case ERoomDirection::UP_DIRECT:
+			StartMoveRoomEvent(FVector2D(0.0f, -CameraMoveSpeed));
+			break;
+		case ERoomDirection::DOWN:
+		case ERoomDirection::DOWN_2F:
+		case ERoomDirection::DOWN_DIRECT:
+			StartMoveRoomEvent(FVector2D(0.0f, CameraMoveSpeed));
 			break;
 		default:
 			break;
@@ -473,6 +511,19 @@ void AZeldaGameMode::CheckCollisionRoom()
 			return;
 
 		}
+	}
+}
+
+void AZeldaGameMode::StartMoveRoomEvent(FVector2D Direction)
+{
+	FVector2D CameraMovePosition = FVector2D::ZERO;
+
+	CameraMovePosition = GetWorld()->GetCameraLocation() + Direction;
+	GetWorld()->SetCameraLocation(CameraMovePosition);
+
+	if (CameraMovePosition.iX() > CameraEndLocation.iX())
+	{
+		EndStart();
 	}
 }
 

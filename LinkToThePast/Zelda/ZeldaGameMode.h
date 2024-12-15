@@ -93,6 +93,8 @@ public:
 	void CheckCharacterInRoom(ABaseCharacter* Character);
 	void CheckCollisionRoom();
 
+	void StartMoveRoomEvent(FVector2D Direction);
+
 protected:
 	class APlayerCharacter* PlayerCharacter = nullptr;
 

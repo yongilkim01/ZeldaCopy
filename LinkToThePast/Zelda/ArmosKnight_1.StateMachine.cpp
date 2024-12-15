@@ -10,7 +10,7 @@ void AArmosKnight::Stay(float DeltaTime)
 
 void AArmosKnight::Move(float DeltaTime)
 {
-	// 관리자가 지정해준 위치로 이동
+	// 보스 컨트롤이 지정해준 위치로 이동
 	{
 		FVector2D MoveDir = TargetLocation - GetActorLocation();
 		MoveDir.Normalize();
